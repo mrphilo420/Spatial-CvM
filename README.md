@@ -66,6 +66,8 @@ Spatial-CvM/
 └── README.md                  # This file
 ```
 
+---
+
 ## Building the Project
 
 **Prerequisites:**
