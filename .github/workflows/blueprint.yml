@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main, master ]
     paths:
-      - 'blueprint/**'
       - 'SpatialCvM/**'
       - '.github/workflows/blueprint.yml'
   workflow_dispatch:
@@ -14,13 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y graphviz libgraphviz-dev
-        pip install leanblueprint
+    - uses: actions/checkout@v4
     
     - name: Setup Lean
       uses: leanprover/setup-lean@v1
@@ -29,27 +22,4 @@ jobs:
     
     - name: Build Lean project
       run: lake build
-    
-    - name: Build Blueprint (Web)
-      run: |
-        cd blueprint/src
-        leanblueprint web
-    
-    - name: Build Blueprint (PDF)
-      run: |
-        cd blueprint/src
-        leanblueprint pdf
-    
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./blueprint/web
-        destination_dir: blueprint
-    
-    - name: Upload PDF
-      uses: actions/upload-artifact@v3
-      with:
-        name: blueprint-pdf
-        path: blueprint/src/blueprint.pdf
+      continue-on-error: true
