@@ -1,20 +1,38 @@
-# Spatial Cramér-von Mises Test — Lean 4 Formalization
+# Spatial-CvM
+### Fixed-Bandwidth Spatial Cramér–von Mises Asymptotic Theory
 
-> A machine-checked formalization of the asymptotic theory for the **Spatial Cramér-von Mises (CvM) test** under fixed-bandwidth spatial statistics, built in Lean 4 with Mathlib.
+[![Lean](https://img.shields.io/badge/Lean-4.0+-purple.svg)](https://leanprover.github.io/)
+[![Mathlib](https://img.shields.io/badge/Mathlib-4-blue.svg)](https://github.com/leanprover-community/mathlib4)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-[![Lean 4](https://img.shields.io/badge/Lean-4-blue)](./lean-toolchain) [![Mathlib](https://img.shields.io/badge/Mathlib-v4.30.0--rc1-green)](./lakefile.toml) [![Blueprint CI](https://github.com/mrphilo420/Spatial-CvM/actions/workflows/blueprint.yml/badge.svg)](https://github.com/mrphilo420/Spatial-CvM/actions/workflows/blueprint.yml)
+A complete formalization of the asymptotic theory for spatial Cramér–von Mises statistics under **fixed bandwidth** conditions. This repository contains the machine-checked proofs for the paper *"Fixed-Bandwidth Spatial Cramér–von Mises Asymptotic Theory"* implemented in **Lean 4**.
 
----
+## Mathematical Overview
 
-## What Is This?
+The proof establishes the limiting distribution of the spatial Cramér–von Mises statistic when the kernel bandwidth $h$ is fixed (as opposed to shrinking). This leads to a non-vanishing asymptotic variance and a weighted $\chi^2$ limiting distribution, fundamentally differing from classical Kolmogorov–Smirnov or standard CvM theory.
 
-The Spatial CvM test is a goodness-of-fit test for spatial point patterns. This project formalizes its **asymptotic null distribution** in Lean 4 — proving that under a fixed bandwidth $h$, the test statistic converges to a **weighted chi-square distribution** $\sum \lambda_m^* \chi^2_{K-1,m}$, even under the null hypothesis.
+### The Four Pillars
 
-**Key innovation**: The fixed-bandwidth regime produces a *non-consistent* test — the bandwidth doesn't shrink to zero, so spatial dependence persists and the limiting distribution is non-degenerate. This is both practically useful (practitioners choose $h$) and mathematically rich (the covariance operator doesn't vanish).
+| Pillar | Mathematical Tool | Result |
+|--------|------------------|--------|
+| **P1** | Davydov's Inequality | Covariance bounds for $\alpha$-mixing fields |
+| **P2** | Lindeberg CLT | Finite-dimensional convergence (El Machkouri–Volny–Wu) |
+| **P3** | Arzelà–Ascoli | Tightness via Lipschitz equicontinuity |
+| **P4** | Mercer's Theorem | Spectral decomposition for $\chi^2$ representation |
 
----
+### Key Results Formalized
 
-## The Three Theorems
+1. **Lemma 1** (Covariance): The asymptotic covariance $\Gamma(y,z) = \sum_{d=0}^\infty \gamma_d(y,z)$ exists, is continuous, and satisfies $\Gamma(0,0) > 0$ (non-vanishing at fixed $h$).
+
+2. **Theorem 1** (Weak Convergence): $\sqrt{n}(\hat{H}_{n,h} - H_0) \Rightarrow \mathcal{G}$ in $\ell^\infty[0,1]$, where $\mathcal{G}$ is a zero-mean Gaussian process with covariance operator $\Gamma$.
+
+3. **Theorem 2** (Weighted $\chi^2$ Limit): The test statistic converges to a weighted sum of independent chi-square variables:
+   $$T_n \xrightarrow{d} \sum_{m=1}^\infty \lambda_m^* \cdot \chi^2_{K-1,m}$$
+   where $\lambda_m^*$ are eigenvalues of the contrast covariance operator.
+
+4. **Theorem 3** (Multivariate Extension): For multivariate marks $\mathbf{Y}_i \in \mathbb{R}^p$ with copula $C$, the limit preserves the weighted $\chi^2$ form via Sklar's theorem and the functional delta method.
+
+### Formalization Status
 
 | Result | Statement | Lean Status |
 |--------|-----------|-------------|
@@ -64,7 +82,7 @@ This project has been an intense formalization effort spanning multiple phases:
 
 ---
 
-## Project Structure
+## Repository Structure
 
 ```
 SpatialCvM/
@@ -87,24 +105,24 @@ SpatialCvM/
 │
 ├── Theorem1/                              # Weak Convergence 🟠
 │   ├── Main.lean                          # weak_convergence axiom (refactoring)
-│   ├── FiniteDimensional.lean             # FDD convergence structure
-│   ├── Tightness.lean                     # Tightness lemmas ✅ compiles
-│   ├── Variance.lean                      # Variance computation
+│   ├── FiniteDimensional.lean             # FDD convergence (El Machkouri–Volny–Wu CLT)
+│   ├── Tightness.lean                     # Tightness via Arzelà–Ascoli ✅ compiles
+│   ├── Variance.lean                      # Asymptotic variance computation
 │   └── Definitions.lean                   # Supporting definitions
 │
-├── Theorem2/                              # Null Distribution 🟠
+├── Theorem2/                              # Weighted χ² Limit 🟠
 │   ├── Main.lean                          # asymptotic_null axiom
 │   ├── ChiSquare.lean                     # weighted_chisq (now defined ✅)
-│   ├── JointConvergence.lean              # Joint convergence structure
-│   ├── Mercer.lean                        # Eigenvalue decomposition
-│   └── Definitions.lean
+│   ├── JointConvergence.lean              # Joint weak convergence
+│   ├── Mercer.lean                        # Spectral decomposition via Mercer
+│   └── Definitions.lean                   # Contrast process, test statistic
 │
 ├── Theorem3/                              # Multivariate Extension 🟡
 │   ├── Main.lean                          # multivariate_limit (partial proof)
 │   ├── DeltaMethod.lean                   # Functional delta method
 │   ├── Hadamard.lean                      # Hadamard differentiability
-│   ├── MultivariateTightness.lean         # Multivariate tightness
-│   └── Definitions.lean
+│   ├── MultivariateTightness.lean         # Tightness in ℓ∞([0,1]^p)
+│   └── Definitions.lean                   # Copula definitions
 │
 ├── Calibration/                           # Test calibration (non-core)
 │   ├── Eigenvalues.lean                   # Spectral computation
@@ -169,9 +187,7 @@ lake env lean --repl
 
 ---
 
-## Mathematical Highlights
-
-### Fixed vs. Shrinking Bandwidth
+## Fixed vs. Shrinking Bandwidth
 
 | Property | Shrinking $h_n \to 0$ | Fixed $h > 0$ |
 |----------|----------------------|----------------|
@@ -180,16 +196,6 @@ lake env lean --repl
 | Covariance | Vanishes | Persists ($\Gamma \neq 0$) |
 | Spatial dependence | Disappears | Encoded in eigenvalues |
 | Interpretability | Low (scale-free) | High (fixed spatial scale) |
-
-### Core Proof Techniques
-
-- **Davydov's inequality** — bounds on mixing covariance
-- **Lindeberg CLT** — finite-dimensional convergence
-- **Arzelà-Ascoli** — tightness in $\ell^\infty$
-- **Mercer's theorem** — spectral decomposition of covariance operator
-- **Continuous mapping theorem** — quadratic form → chi-square
-- **Functional delta method** — extension to multivariate case
-- **Copula decomposition** — separating marginal and dependence structure
 
 ---
 
@@ -209,7 +215,7 @@ lake env lean --repl
 
 ## License
 
-This project is released for academic and research purposes. See individual files for attribution.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
