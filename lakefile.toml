@@ -1,7 +1,7 @@
-name = "Spatial CvM"
+name = "SpatialCvM"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["«Spatial CvM»"]
+defaultTargets = ["SpatialCvM"]
 
 [leanOptions]
 pp.unicode.fun = true # pretty-prints `fun a ↦ b`
@@ -15,4 +15,9 @@ scope = "leanprover-community"
 rev = "v4.30.0-rc1"
 
 [[lean_lib]]
-name = "«Spatial CvM»"
+name = "SpatialCvM"
+
+[[lean_exe]]
+name = "spatialcvm"
+srcDir = "."
+root = "Main"
