@@ -114,10 +114,10 @@ with effective degrees of freedom $\nu = 2(\sum \lambda_m^*)^2 / \sum (\lambda_m
 If you use this formalization in your research, please cite:
 
 ```bibtex
-@software{spatialcvm2024,
+@software{spatialcvm2026,
   title={Spatial-CvM: Fixed-Bandwidth Spatial Cramér--von Mises Asymptotic Theory in Lean 4},
   author={Marco Mandap},
-  year={2024},
+  year={2026},
   url={https://github.com/mrphilo420/Spatial-CvM}
 }
 ```
