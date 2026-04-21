@@ -32,6 +32,42 @@
 
 ## Weak Convergence: Mathematical Requirements
 
+### Portmanteau Theorem (Equivalent Definitions)
+
+From Wikipedia/standard references, weak convergence Pₙ ⇒ P is equivalent to ANY of:
+
+1. **Expectation definition** (Primary):
+   ```
+   Eₙ[f] → E[f]  for all f ∈ C_B(S) (bounded continuous functions)
+   ```
+
+2. **Lipschitz test functions**:
+   ```
+   Eₙ[f] → E[f]  for all bounded Lipschitz f
+   ```
+
+3. **Closed set limsup**:
+   ```
+   limsup Pₙ(C) ≤ P(C)  for all closed C ⊆ S
+   ```
+
+4. **Open set liminf**:
+   ```
+   liminf Pₙ(U) ≥ P(U)  for all open U ⊆ S
+   ```
+
+5. **Continuity sets**:
+   ```
+   Pₙ(A) → P(A)  for all continuity sets A of P
+   ```
+
+**Key insight**: Definition 1 (bounded continuous functions) is the most useful for implementation because:
+- It connects directly to `Tendsto` in Mathlib
+- `C_B(S)` is well-defined in Mathlib as `BoundedContinuousFunction`
+- Avoids measure-theoretic complications
+
+---
+
 ### 1. The Space ℓ∞([0,1])
 
 **Definition**: Space of bounded functions on [0,1] with sup norm
@@ -235,6 +271,75 @@ theorem_CLT_implies_Gaussian {Xₙ} (h_clt : Tendsto √n(F̂ₙ - F) ...):
 5. **Pollard, D. (1990)**. *Empirical Processes: Theory and Applications*.
    - NSF-CBMS Regional Conference Series
    - Alternative approach to empirical process theory
+
+---
+
+## Separability and the Lévy-Prokhorov Metric
+
+### Crucial Fact: ℓ∞([0,1]) is **NOT Separable**
+
+**Definition**: A topological space is **separable** if it has a countable dense subset.
+
+**Why ℓ∞([0,1]) is not separable**:
+- Consider the family of characteristic functions 1_{[0,a]} for a ∈ [0,1]
+- These are all in ℓ∞ (as they are bounded by 1)
+- ‖1_{[0,a]} - 1_{[0,b]}‖_∞ = 1 for a ≠ b
+- Uncountably many functions at distance ≥ 1 from each other
+- No countable dense set can exist
+
+**Implications**:
+- The space 𝒫(S) of probability measures is not metrizable by Lévy-Prokhorov
+- Standard Prokhorov theorem does NOT directly apply
+- Need **Dudley's extended theorem** or **Hoffmann-Jørgensen theory**
+
+---
+
+### Lévy-Prokhorov Metric
+
+**Definition**: For probability measures μ, ν on metric space (S, d):
+```
+π(μ, ν) = inf{ε > 0 | ∀ measurable A, μ(A) ≤ ν(A^ε) + ε}
+```
+where A^ε = {x ∈ S | dist(x, A) < ε} is the ε-neighborhood.
+
+**Properties**:
+- Metrizes weak convergence on **separable** metric spaces
+- 𝒫(S) is separable, complete, compact iff S is
+- For **non-separable** spaces: need alternative approach
+
+**In Mathlib**: Not currently implemented (would require ~2-3 months)
+
+---
+
+## Comparison: Vague vs Weak Convergence
+
+From Wikipedia, these differ in test functions:
+
+| Convergence | Test Functions | When Equivalent |
+|-------------|----------------|---------------|
+| **Vague** | C_c(X) (compact support) | Not for probability measures |
+| **Weak** | C_B(X) (bounded continuous) | Probability context |
+
+**For probability measures**: Vague + Tight ⟺ Weak
+
+**Why this matters**:
+- Empirical processes need weak convergence (bounded continuous test functions)
+- Vague convergence is insufficient for 𝒫([]0,1])
+- Tightness bridges the gap (hence critical)
+
+---
+
+## Weak Convergence as Weak-* Convergence
+
+**Functional Analysis Connection** (from Wikipedia):
+- Weak convergence of measures = **Weak-* convergence** of linear functionals
+- Via Riesz-Representation: M(X) ≅ C_0(X)*
+- For **compact** X: C_0(X) = C_B(X)
+
+**Implication for ℓ∞**:
+- ℓ∞([0,1]) is the dual of ℓ¹ (technically)
+- But empirical process theory uses different approach
+- The weak-* topology is not sufficient for probability applications
 
 ---
 
