@@ -105,9 +105,12 @@ with effective degrees of freedom $\nu = \frac{2\left(\sum \lambda_m\right)^2}{\
 
 ## References
 
-* Davydov, Y. A. (1993). On the strong mixing property for linear sequences. *Theory of Probability & Its Applications*.
-* El Machkouri, M., Volný, D., & Wu, W. B. (2013). A central limit theorem for stationary random fields. *Stochastic Processes and their Applications*.
-* Segers, J. (2012). Asymptotics of empirical copula processes under non-restrictive smoothness assumptions. *Bernoulli*.
+* El Machkouri, M., Volný, D., & Wu, W. B. (2013). A central limit theorem for stationary random fields. *Stochastic Processes and their Applications*, 123(1), 1-14. DOI: 10.1016/j.spa.2012.08.006
+* Davydov, Y. A. (1970). The invariance principle for stationary processes. *Theory of Probability & Its Applications*, 15(3), 487-498. DOI: 10.1137/1115050
+* Rio, E. (1993). Covariance inequalities for strongly mixing processes. *Annales de l'Institut Henri Poincaré (B)*, 29(4), 587-597.
+* Bickel, P. J., & Wichura, M. J. (1971). Convergence criteria for multiparameter stochastic processes and some applications. *The Annals of Mathematical Statistics*, 42(5), 1656-1670. DOI: 10.1214/aoms/1177693164
+* van der Vaart, A. W., & Wellner, J. A. (1996). *Weak Convergence and Empirical Processes*. Springer. DOI: 10.1007/978-1-4757-2545-2
+* Segers, J. (2012). Asymptotics of empirical copula processes under non-restrictive smoothness assumptions. *Bernoulli*, 18(3), 764-776.
 
 ## Citation
 
