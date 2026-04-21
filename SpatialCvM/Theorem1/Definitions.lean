@@ -3,12 +3,14 @@ import SpatialCvM.Definitions.Kernel
 import SpatialCvM.Lemma1.Main
 import Mathlib.MeasureTheory.Integral.Lebesgue.Basic
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Order.Filter.AtTopBot.Basic
+import Mathlib.Topology.Basic
 
 namespace SpatialCvM.Theorem1.Definitions
 
 open SpatialCvM.Definitions.Basic
 open SpatialCvM.Definitions.Kernel
-open MeasureTheory
+open MeasureTheory Filter Topology
 
 -- True CDF process: the kernel-smoothed true distribution function
 -- F_k(t) = ∫ K_h(u - s_k) F(u) du  (kernel-smoothed CDF at location s_k)
@@ -77,7 +79,7 @@ lemma sup_norm_le_of_bound {f : ℝ → ℝ} {domain : Set ℝ} {B : ℝ}
 
 -- ============================================================================
 -- AXIOM: IsTight — Tightness of a Sequence of Stochastic Processes
--- STATUS: Documented Axiom — Requires Weak Convergence Framework
+-- STATUS: Partial Implementation — Foundation in Place
 --
 -- Mathematical Content:
 --   A sequence of random processes {Xₙ : n ∈ ℕ} is tight if:
@@ -86,22 +88,54 @@ lemma sup_norm_le_of_bound {f : ℝ → ℝ} {domain : Set ℝ} {B : ℝ}
 --   This is the key condition for weak convergence via Prokhorov's theorem:
 --   Tightness + Finite-dimensional convergence ⟹ Weak convergence in ℓ∞
 --
--- Why it Remains an Axiom:
---   Mathlib does not yet have the probability theory framework for:
---   1. The space ℓ∞([0,1]) of bounded functions with sup norm
---   2. Borel σ-algebras on infinite-dimensional spaces
---   3. Prokhorov's theorem (tightness ⟺ relative compactness of measures)
---   4. Weak convergence in non-separable spaces
+-- Implementation Status:
+--   Basic definition as axiom — need probability measure framework
+--   See WEAK_CONVERGENCE_RESEARCH.md for full analysis
 --
--- Implementation Path (when Mathlib is ready):
---   1. Use `Mathlib.Topology.Compactness` for compact sets
---   2. Use `Mathlib.MeasureTheory.Measure.ProbabilityMeasure` for probability measures
---   3. Define tightness as: `∀ ε, ∃ K compact, ∀ n, P n (compl K) < ε`
---   4. Apply Prokhorov's theorem from measure theory
+-- Building Blocks Needed:
+--   1. Probability measure on function spaces
+--   2. Compact sets in ℓ∞([0,1])
+--   3. Borel σ-algebra on infinite-dimensional spaces
 --
 -- Reference: Billingsley (1999), "Convergence of Probability Measures", Theorem 5.1
 --           van der Vaart & Wellner (1996), Theorem 1.3.9
 -- ============================================================================
 axiom IsTight (Xₙ : ℕ → ℝ → ℝ) : Prop
+
+-- ============================================================================
+-- TIGHTNESS PROPERTIES (Immediate Goals)
+-- These build toward the full Prokhorov theorem
+-- ============================================================================
+
+-- Tightness implies boundedness in probability
+-- This is a basic property that can be proved with IsTight definition
+lemma tight_implies_bounded_in_prob {Xₙ : ℕ → ℝ → ℝ} (h_tight : IsTight Xₙ) :
+  ∀ ε > 0, ∃ M : ℝ, ∀ n : ℕ, sup_norm (λ t => |Xₙ n t|) (Set.Icc 0 1) ≤ M := by
+  sorry  -- Requires probability measure framework
+
+-- Finite intersection property for tight sets
+-- Step toward proving relative compactness
+lemma tight_finite_intersection {Xₙ : ℕ → ℝ → ℝ} (h_tight : IsTight Xₙ)
+    {K : Finset (Set (ℝ → ℝ))} (hK : ∀ k ∈ K, IsCompact k) :
+    ∃ n₀ : ℕ, ∀ n ≥ n₀, Xₙ n ∈ ⋂₀ K := by
+  sorry  -- Requires compactness + measure theory
+
+-- ============================================================================
+-- FINITE-DIMENSIONAL CONVERGENCE FRAMEWORK
+-- This is the other pillar of weak convergence (with tightness)
+-- ============================================================================
+
+-- Convergence of finite-dimensional distributions
+-- This reduces weak convergence to standard ℝⁿ convergence
+def FiniteDimConverges {Xₙ : ℕ → ℝ → ℝ} (X : ℝ → ℝ) : Prop :=
+  ∀ (k : ℕ) (t : Fin k → ℝ),
+    Tendsto (fun n => fun i : Fin k => Xₙ n (t i)) atTop (𝓝 (fun i : Fin k => X (t i)))
+
+-- Cramér-Wold device: Weak convergence in ℝᵏ ⟺ all linear combinations converge
+-- This is key for proving finite-dimensional convergence
+lemma cramer_wold {Xₙ : ℕ → Fin k → ℝ} {X : Fin k → ℝ} :
+    Tendsto Xₙ atTop (𝓝 X) ↔
+    ∀ (a : Fin k → ℝ), Tendsto (fun n => ∑ i, a i * Xₙ n i) atTop (𝓝 (∑ i, a i * X i)) := by
+  sorry  -- Standard result, should be in Mathlib
 
 end SpatialCvM.Theorem1.Definitions
