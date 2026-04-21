@@ -1,6 +1,7 @@
 -- Kernel definitions and properties
 import SpatialCvM.Definitions.Basic
 import Mathlib.MeasureTheory.Integral.Lebesgue.Basic
+import Mathlib.MeasureTheory.MeasurableSpace.Basic
 
 namespace SpatialCvM.Definitions.Kernel
 
@@ -12,6 +13,7 @@ structure IsKernel (K : ℝ → ℝ) : Prop where
   bounded : ∃ B > 0, ∀ x, |K x| ≤ B
   supported : ∃ r > 0, ∀ x, |x| > r → K x = 0
   lipschitz : ∃ L > 0, ∀ x y, |K x - K y| ≤ L * |x - y|
+  measurable : Measurable K
 
 -- Scaled kernel: K_h(x) = (1/h²) K(x/h)
 noncomputable def kernel_scaled (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) : ℝ → ℝ :=
