@@ -38,7 +38,7 @@ open Topology Filter Metric
 -- Uniform continuity of f on compact rectangle
 private lemma uniform_continuous_on_rectangle {f : ℝ × ℝ → ℝ}
     (x_min x_max y_min y_max : ℝ)
-    (h_compact : x_min < x_max ∧ y_min < y_max)
+    (_h_compact : x_min < x_max ∧ y_min < y_max)
     (h_cont : ContinuousOn f (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max)) :
     UniformContinuousOn f (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max) := by
   have h_compact_unif : IsCompact (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max) := by
