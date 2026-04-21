@@ -53,33 +53,27 @@ axiom empirical_process (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) (n : ℕ) (t : 
 noncomputable def sup_norm (f : ℝ → ℝ) (domain : Set ℝ) : ℝ :=
   sSup ((fun x => |f x|) '' domain)
 
--- ============================================================================
--- AXIOM: Supremum Norm Bound Property
--- STATUS: Documented Axiom — Can be Proven with Nonempty Domain
---
--- Mathematical Content:
---   If a function f is bounded by B on a nonempty domain, then sup_norm f domain ≤ B.
---
--- Why it Remains an Axiom:
---   Mathlib's `sSup` on the image of a function requires the domain to be nonempty
---   for the supremum to be well-defined. The proof would:
---   1. Show that B is an upper bound of the set {|f(x)| : x ∈ domain}
---   2. Conclude sup_norm f domain ≤ B since sSup is the least upper bound
---
--- Implementation Path:
---   This could be proven using:
---   1. `Real.sSup_le` which states sSup S ≤ B if B is an upper bound
---   2. Show that the image set `(|f| '' domain)` is bounded above by B
---   3. Use `hbound` to prove every element is ≤ B
---   4. Apply `sSup_le` to conclude sup_norm ≤ B
---
--- Note: The `h_nonempty` assumption is required for `sSup` to be well-behaved
---       on empty sets (where sSup ∅ = 0 in Mathlib but this may panic in some contexts)
--- ============================================================================
-axiom sup_norm_le_of_bound {f : ℝ → ℝ} {domain : Set ℝ} {B : ℝ}
+-- Proof of the supremum norm bound property  
+-- Uses csSup_le: sSup S ≤ B if S is nonempty and ∀ b ∈ S, b ≤ B  
+lemma sup_norm_le_of_bound {f : ℝ → ℝ} {domain : Set ℝ} {B : ℝ}
     (h_nonempty : domain.Nonempty)
     (hbound : ∀ x ∈ domain, |f x| ≤ B) :
-    sup_norm f domain ≤ B
+    sup_norm f domain ≤ B := by
+  unfold sup_norm
+  -- Let S be the image set
+  let S := (fun x => |f x|) '' domain
+  -- Show S is nonempty  
+  have h_S_nonempty : S.Nonempty := by
+    rcases h_nonempty with ⟨x, hx⟩
+    use |f x|
+    exact ⟨x, hx, rfl⟩
+  -- Apply csSup_le: sSup S ≤ B if every element of S is ≤ B
+  -- csSup_le : ∀ ⦃s : Set α⦄ ⦃a : α⦄ (h₁ : s.Nonempty) (h₂ : ∀ b ∈ s, b ≤ a), sSup s ≤ a
+  apply csSup_le h_S_nonempty
+  -- Prove ∀ b ∈ S, b ≤ B
+  intro b hb
+  rcases hb with ⟨x, hx, rfl⟩
+  exact hbound x hx
 
 -- ============================================================================
 -- AXIOM: IsTight — Tightness of a Sequence of Stochastic Processes

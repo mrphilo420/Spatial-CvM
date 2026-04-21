@@ -14,38 +14,43 @@ noncomputable def riemann_sum (f : ℝ × ℝ → ℝ) (xs ys : Finset ℝ) (Δx
   xs.sum fun x => ys.sum fun y => f (x, y) * Δx * Δy
 
 -- ============================================================================
--- AXIOM: Riemann Sum Convergence
--- STATUS: Documented Axiom — Fundamental Theorem of Riemann Integration
+-- THEOREM: Riemann Sum Convergence  
+-- STATUS: Partially proved — Main structure in place, some sorrys remain
 --
 -- Mathematical Content:
 --   For a continuous function f on a compact rectangle [x_min, x_max] × [y_min, y_max],
 --   the Riemann sums converge to the Lebesgue integral as the mesh size goes to 0.
 --
---   Specifically: Given ε > 0, there exists δ > 0 such that for any finite grids
---   xs, ys with mesh < δ covering the rectangle:
---
---     |∑ᵢⱼ f(xᵢ, yⱼ) Δx Δy - ∫∫ f(x,y) dx dy| < ε
---
--- Why it Remains an Axiom:
---   Full proof requires:
---   1. Uniform continuity of f on the compact rectangle
---   2. Definition of oscillation (modulus of continuity)
---   3. Bounding the error by oscillation × area
---   4. Showing the error → 0 as mesh → 0
---   5. Connection between Riemann and Lebesgue integrals
---   Mathlib has `boxIntegral` but the convergence theory for arbitrary partitions
---   is not yet fully developed with this exact statement.
---
--- Implementation Path (when Mathlib is ready):
---   1. Use `Mathlib.Topology.UniformSpace` for uniform continuity
---   2. Define mesh size and oscillation explicitly
---   3. Prove error bound via oscillation × area
---   4. Connect to `Mathlib.MeasureTheory.Integral.Bochner` for Lebesgue integral
+-- Proof Strategy:
+--   1. Prove uniform continuity on the compact rectangle (done)
+--   2. Define the oscillation bound (done)
+--   3. Convert coordinate-wise error to product metric (needs work)
+--   4. Apply standard Riemann sum error estimate (needs work)
 --
 -- Reference: Rudin (1976), "Principles of Mathematical Analysis", Theorem 6.10
 --           Royden (1988), "Real Analysis", Chapter 3: Integration
 -- ============================================================================
-axiom riemann_sum_convergence {f : ℝ × ℝ → ℝ} (x_min x_max y_min y_max : ℝ)
+
+-- Proof of Riemann sum convergence
+-- Uses uniform continuity on compact rectangles
+open Topology Filter Metric
+
+-- Uniform continuity of f on compact rectangle
+private lemma uniform_continuous_on_rectangle {f : ℝ × ℝ → ℝ}
+    (x_min x_max y_min y_max : ℝ)
+    (h_compact : x_min < x_max ∧ y_min < y_max)
+    (h_cont : ContinuousOn f (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max)) :
+    UniformContinuousOn f (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max) := by
+  have h_compact_unif : IsCompact (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max) := by
+    apply IsCompact.prod
+    · exact isCompact_Icc
+    · exact isCompact_Icc
+  apply IsCompact.uniformContinuousOn_of_continuous h_compact_unif h_cont
+
+-- Theorem: Riemann sums converge to the Lebesgue integral on a compact rectangle
+-- This is the fundamental theorem connecting Riemann and Lebesgue integration
+-- Note: Full proof is complex; this provides the structure with sorrys for remaining steps
+theorem riemann_sum_convergence {f : ℝ × ℝ → ℝ} (x_min x_max y_min y_max : ℝ)
     (h_cont : ContinuousOn f (Set.Icc x_min x_max ×ˢ Set.Icc y_min y_max))
     (h_compact : x_min < x_max ∧ y_min < y_max) :
     ∀ ε > 0, ∃ δ > 0,
@@ -56,7 +61,27 @@ axiom riemann_sum_convergence {f : ℝ × ℝ → ℝ} (x_min x_max y_min y_max 
       (∀ y ∈ Set.Icc y_min y_max, ∃ y' ∈ ys, |y' - y| < δ) →
       let Δx : ℝ := (x_max - x_min) / xs.card
       let Δy : ℝ := (y_max - y_min) / ys.card
-      |riemann_sum f xs ys Δx Δy - ∫ x in Set.Icc x_min x_max, ∫ y in Set.Icc y_min y_max, f (x, y)| < ε
+      |riemann_sum f xs ys Δx Δy - ∫ x in Set.Icc x_min x_max, ∫ y in Set.Icc y_min y_max, f (x, y)| < ε := by
+  -- Core idea: Use uniform continuity to control oscillation
+  intro ε hε
+  have h_unif := uniform_continuous_on_rectangle x_min x_max y_min y_max h_compact h_cont
+  -- Total area of the rectangle
+  let area := (x_max - x_min) * (y_max - y_min)
+  have area_pos : area > 0 := by
+    apply mul_pos
+    · linarith [h_compact.left]
+    · linarith [h_compact.right]
+  -- Set target as ε / area
+  have h_target : ε / area > 0 := div_pos hε area_pos
+  -- Apply uniform continuity definition
+  rcases Metric.uniformContinuousOn_iff.mp h_unif _ h_target with ⟨δ, δ_pos, h_δ⟩
+  use δ, δ_pos
+  -- The remainder of the proof would:
+  -- 1. Show that point-wise grid approximation error is controlled
+  -- 2. Bound the total error by ε/area × area = ε
+  -- 3. Use the covering condition to ensure complete coverage
+  -- This requires additional infrastructure not yet in Mathlib
+  sorry
 
 -- NOTE: indicator_integral removed (April 18, 2026)
 -- Reason: Placeholder axiom with no specification
