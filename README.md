@@ -1,5 +1,5 @@
 # Spatial-CvM
-### Fixed-Bandwidth Spatial Cramér–von Mises Asymptotic Theory
+### Fixed-Bandwidth Spatial Cramér–von Mises Asymptotic Theory — A Formalization Roadmap
 
 [![Lean](https://img.shields.io/badge/Lean-4.0+-purple.svg)](https://leanprover.github.io/)
 [![Mathlib](https://img.shields.io/badge/Mathlib-4-blue.svg)](https://github.com/leanprover-community/mathlib4)
@@ -124,6 +124,20 @@ If you use this formalization in your research, please cite:
   url={https://github.com/mrphilo420/Spatial-CvM}
 }
 ```
+
+## Honest Assessment ⚠️
+
+**This formalization is a roadmap, not a complete proof.**
+
+For an honest evaluation of what has actually been proved versus what remains axiomatic, see [HONEST_ASSESSMENT.md](HONEST_ASSESSMENT.md).
+
+### TL;DR:
+- **Proved** (5 trivial results): Commutativity of multiplication, algebraic substitution, non-negativity of real powers, Hölder ⟹ uniform continuity, positive L² norm of non-zero function
+- **Axiomatized** (11+ hard results): Weak convergence in ℓ∞, Mercer's theorem, Davydov's inequality, CLT for α-mixing arrays, Functional delta method, etc.
+
+**Why?** The hard results require deep mathematical infrastructure that doesn't yet exist in Mathlib (spectral theory of compact operators, Prokhorov's theorem in non-separable spaces, etc.). Estimating 2-4 years of expert work to complete.
+
+**Verdict**: The document "dresses up extremely elementary observations in the language and notation of sophisticated spatial statistics theory, but none of the hard results are proved."
 
 ## License
 
