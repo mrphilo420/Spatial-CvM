@@ -101,7 +101,7 @@ In classical kernel smoothing, $h \to 0$ as $n \to \infty$, causing the asymptot
 ### Satterthwaite Calibration
 For practical hypothesis testing, we approximate the weighted sum by a scaled $\chi^2_{K-1}$:
 $$\sum_m \lambda_m^* \chi^2_{K-1,m} \approx a \cdot \chi^2_{K-1}(\nu)$$
-with effective degrees of freedom $\nu = 2(\sum \lambda_m^*)^2 / \sum (\lambda_m^*)^2$.
+with effective degrees of freedom $\nu = \frac{2\left(\sum \lambda_m\right)^2}{\sum \left(\lambda_m\right)^2}$.
 
 ## References
 
