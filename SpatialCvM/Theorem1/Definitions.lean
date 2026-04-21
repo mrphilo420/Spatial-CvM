@@ -138,4 +138,30 @@ lemma cramer_wold {Xₙ : ℕ → Fin k → ℝ} {X : Fin k → ℝ} :
     ∀ (a : Fin k → ℝ), Tendsto (fun n => ∑ i, a i * Xₙ n i) atTop (𝓝 (∑ i, a i * X i)) := by
   sorry  -- Standard result, should be in Mathlib
 
+-- ============================================================================
+-- WEAK CONVERGENCE DEFINITION (Portmanteau Theorem Version)
+-- Based on Wikipedia/standard references: P_n ⇒ P iff E_n[f] → E[f] for all f ∈ C_B(S)
+-- This is the most practical definition for formalization
+-- ============================================================================
+
+-- Weak convergence for probability measures on spaces of functions
+-- Uses the expectation/bounded continuous function definition
+def WeakConvergesTo {Xₙ : ℕ → ℝ → ℝ} (X : ℝ → ℝ) (domain : Set ℝ) : Prop :=
+  ∀ (f : (ℝ → ℝ) → ℝ),
+    Continuous f →
+    (∃ M : ℝ, ∀ g : ℝ → ℝ, |f g| ≤ M) →  -- f is bounded
+    Tendsto (fun n => f (Xₙ n)) atTop (𝓝 (f X))
+
+-- Alternative: Weak convergence via convergence of distributions on ℝᵏ
+def WeakConvergesFiniteDim {Xₙ : ℕ → ℝ → ℝ} (X : ℝ → ℝ) : Prop :=
+  FiniteDimConverges Xₙ X ∧ IsTight Xₙ
+
+-- Prokhorov's theorem for the empirical process context
+-- In general, P_n ⇒ P iff (tight + finite-dimensional convergence)
+-- But ℓ∞ is non-separable, so this requires Dudley's extension
+theorem prokhorov_dudley {Xₙ : ℕ → ℝ → ℝ} {X : ℝ → ℝ} (h_tight : IsTight Xₙ)
+    (h_fd : FiniteDimConverges Xₙ X) :
+    WeakConvergesTo X := by
+  sorry  -- Requires extensive infrastructure
+
 end SpatialCvM.Theorem1.Definitions
