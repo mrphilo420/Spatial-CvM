@@ -135,14 +135,36 @@ lemma clt_triangular_array {m : ℕ} (X : ℕ → Fin m → ℝ) (α : ℝ → �
       (∑ i ∈ Finset.range n, (X n ⟨i % m, by omega⟩)^2) ≤ σ^2) :
     Tendsto (fun n : ℕ => (1 / Real.sqrt n) * (∑ i ∈ Finset.range n, X n ⟨i % m, by omega⟩))
       Filter.atTop (nhds (0 : ℝ)) := by
-  -- The convergence follows from the El Machkouri-Volnyi-Wu CLT
-  -- The key steps are:
-  -- 1. The Lindeberg condition ensures no single term dominates
-  -- 2. The α-mixing condition controls dependence
-  -- 3. The variance bound ensures the limit is well-defined
-
-  -- This is the core result that justifies the FDD convergence
-  sorry  -- Proof requires detailed work with characteristic functions
+  -- ============================================================================
+  -- PROOF SKETCH: Central Limit Theorem for Triangular Arrays
+  --
+  -- This lemma establishes the core convergence result for the empirical process.
+  -- The proof would proceed via characteristic function arguments:
+  --
+  -- 1. Define the characteristic function φₙ(t) = 𝔼[exp(itSₙ/√n)]
+  --    where Sₙ = Σᵢ Xₙᵢ is the partial sum
+  --
+  -- 2. Show that under the Lindeberg condition, φₙ(t) → exp(-σ²t²/2)
+  --    which is the characteristic function of N(0, σ²)
+  --
+  -- 3. The α-mixing condition controls the dependence structure:
+  --    - Use Davydov's inequality to bound covariances
+  --    - Show the variance of the sum grows at rate O(n)
+  --    - Apply the blocking technique for dependent arrays
+  --
+  -- 4. The bounded variance condition ensures the limit exists
+  --
+  -- Implementation Path (when Mathlib is ready):
+  --   1. Use `Mathlib.Probability.CharacteristicFunction` for φₙ
+  --   2. Prove the Lindeberg condition implies convergence of characteristic functions
+  --   3. Apply Lévy's continuity theorem for weak convergence
+  --   4. Use `Mathlib.Probability.Distributions.Gaussian` for the limit
+  --
+  -- Reference: El Machkouri, D. Volný, W.B. Wu (2013),
+  --           "A central limit theorem for stationary random fields",
+  --           Stochastic Processes and their Applications 123(1), 1-14.
+  -- ============================================================================
+  sorry
 
 -- ============================================================
 -- Section 5: Finite-Dimensional Convergence of Empirical Process
@@ -191,12 +213,41 @@ lemma finite_dimensional_convergence (K : ℝ → ℝ) (h : ℝ) (hh : h > 0)
   constructor
   · rfl  -- Mean is zero
 
-  · -- Convergence: apply CLT for triangular arrays under mixing
+    -- Convergence: apply CLT for triangular arrays under mixing
     -- Each component empirical_process_point is a sum of
     -- kernel-weighted centered indicators
     -- The Lindeberg condition holds by lindeberg_indicators lemma
-    -- since indicators are bounded by 1
-    sorry  -- Detailed proof requires characteristic function arguments
+
+    -- ============================================================================
+    -- PROOF SKETCH: Finite-Dimensional Convergence
+    --
+    -- This establishes convergence of the empirical process at finitely many
+    -- points to a multivariate Gaussian with covariance Gamma_operator.
+    --
+    -- Proof steps:
+    -- 1. Verify the Lindeberg condition holds for kernel-weighted indicators
+    --    (using the boundedness of indicators and kernel scaling)
+    --
+    -- 2. Apply the El Machkouri-Volnyi-Wu CLT for each component:
+    --    - The triangular array CLT (clt_triangular_array above)
+    --    - Davydov's inequality controls α-mixing dependence
+    --
+    -- 3. Verify the covariance structure:
+    --    - Cov(Ẑₙ(sᵢ), Ẑₙ(sⱼ)) = Γ(sᵢ, sⱼ)
+    --    - This follows from the definition of Gamma_operator
+    --
+    -- 4. Conclude joint convergence via Cramér-Wold device
+    --
+    -- Implementation Path (when Mathlib is ready):
+    --   1. Use `Mathlib.Probability.CharacteristicFunction` for joint φₙ
+    --   2. Prove convergence of finite-dimensional distributions
+    --   3. Use `Mathlib.LinearAlgebra.Matrix.NonsingularInverse` for covariance
+    --   4. Apply `Mathlib.Probability.Distributions.MultivariateGaussian`
+    --
+    -- Reference: Bickel & Wichura (1971), "Convergence criteria for multiparameter
+    --           stochastic processes and some applications". Ann. Math. Statist. 42(5).
+    -- ============================================================================
+    sorry
 
 /--
 The covariance matrix is symmetric, as required for a valid covariance matrix.
@@ -246,9 +297,40 @@ lemma clt_mixing_arrays {Y : ℕ → ℝ} (K : ℝ → ℝ) (h : ℝ) (hh : h > 
 
   have h_bounded : ∀ k, |kernel_scaled K h hh (Y k - t) *
       (if Y k ≤ t then 1 else 0 - F t)| ≤ (some_bound K h hh hK F) := by
-    sorry  -- Compute explicit bound from kernel and CDF properties
+    -- ============================================================================
+    -- PROOF SKETCH: Boundedness of Kernel-Weighted Indicators
+    --
+    -- Each term in the sum has the form:
+    --   K_h(Yₖ - t) · [1(Yₖ ≤ t) - F(t)]
+    --
+    -- Bounding this term:
+    -- 1. Kernel bound: |K_h(x)| ≤ B/h² where B = sup|K| (from IsKernel.bounded)
+    -- 2. Indicator bound: |1(Y ≤ t) - F(t)| ≤ 1 (since 0 ≤ F(t) ≤ 1 for CDF)
+    --
+    -- Therefore: |term| ≤ (B/h²) · 1 = B/h²
+    --
+    -- Implementation Path:
+    --   1. Extract B from hK.bounded
+    --   2. Use properties of indicator and CDF bounds
+    --   3. Apply mul_le_mul for the product bound
+    --
+    -- The explicit bound is: some_bound = BoundOfKernel K hK / h²
+    -- ============================================================================
+    sorry
 
-  -- Apply the general triangular array CLT
+  -- ============================================================================
+  -- PROOF SKETCH: Apply the Triangular Array CLT
+  --
+  -- With the boundedness established above and the centered condition:
+  -- 1. The Lindeberg condition holds automatically (bounded random variables)
+  -- 2. The variance condition follows from mixing and kernel properties
+  -- 3. Apply clt_triangular_array to conclude convergence to 0
+  --
+  -- Implementation Path:
+  --   1. Verify all conditions of clt_triangular_array
+  --   2. Apply the lemma to the specific empirical process structure
+  --   3. Conclude convergence of the normalized sum
+  -- ============================================================================
   sorry
 
 -- ============================================================
