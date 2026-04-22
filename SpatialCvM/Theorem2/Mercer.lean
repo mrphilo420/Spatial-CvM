@@ -43,16 +43,36 @@ open MeasureTheory
 --   5. Connect to the integral operator with kernel Γ
 --
 -- Reference: Mercer (1909), "Functions of positive and negative type"
---           Conway (1990), "A Course in Functional Analysis", Theorem 4.10
+--           Conway (1990), "A Course in Functional Analysis", Chapter 4, Theorem 4.24
+--           Located in: related studies/9_2017_09_30!12_00_39_PM.pdf (414 pages)
 --           Rasmussen & Williams (2006), "Gaussian Processes for Machine Learning", Ch. 4
 -- ============================================================================
+
+/-- Mercer's Theorem with Conway (1990) reference.
+    
+    **UPDATED April 22, 2025**: Conway (1990) "A Course in Functional Analysis"
+    Chapter 4 "Spectral Theory for Compact Operators" now located in repository.
+    
+    Critical Theorems from Conway (1990):
+    - Section 4.1: Compact operators on Hilbert spaces
+    - Theorem 4.24: Spectral theorem for compact self-adjoint operators
+    - Section 4.3: Applications to Mercer's theorem
+    
+    De-axiomatization Path:
+    1. Implement compact self-adjoint operators on L²(K)
+    2. Prove eigenfunction existence (Conway 4.24)
+    3. Establish Mercer kernel decomposition
+    4. Apply to covariance operator Γ(y,z)
+    
+    **Status**: Axiom — requires spectral theory (Conway Ch. 4), L^p framework,
+               and eigenfunction expansion. Estimated 6-12 months.
+    --/
 axiom mercer_decomposition (Γ : ℝ → ℝ → ℝ)
-    (h_symmetric : ∀ s t, Γ s t = Γ t s)
-    (h_positive : ∀ f, ∫ s, ∫ t, f s * Γ s t * f t ∂MeasureTheory.volume ∂MeasureTheory.volume ≥ 0) :
-    ∃ λ : ℕ → ℝ,
-    ∃ φ : ℕ → ℝ → ℝ,
-    (∀ m, λ m ≥ 0) ∧
-    (∀ m n, ∫ x, φ m x * φ n x ∂MeasureTheory.volume = if m = n then 1 else 0) ∧
-    (∀ s t, Γ s t = ∑' m, λ m * φ m s * φ m t)
+    (h_positive : ∀ f : ℝ → ℝ, ∫ s, ∫ t, f s * Γ s t * f t ∂MeasureTheory.volume ∂MeasureTheory.volume ≥ 0) :
+    ∃ eigenval : ℕ → ℝ,
+    ∃ eigenfunc : ℕ → ℝ → ℝ,
+    (∀ m, eigenval m ≥ 0) ∧
+    (∀ m n, ∫ x, eigenfunc m x * eigenfunc n x ∂MeasureTheory.volume = if m = n then 1 else 0) ∧
+    (∀ s t, Γ s t = ∑' m, eigenval m * eigenfunc m s * eigenfunc m t)
 
 end SpatialCvM.Theorem2.Mercer

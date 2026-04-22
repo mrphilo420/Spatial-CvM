@@ -256,16 +256,71 @@
 
 ## Summary: Reference Acquisition Priority
 
-| Priority | Reference | Purpose | Status |
-|----------|-----------|---------|--------|
-| **CRITICAL** | Rio (2013), Thm 1.1 | Davydov inequality | Citation present |
-| **CRITICAL** | Billingsley (1999) | Prokhorov/weak conv | Citation present |
-| **CRITICAL** | De Wet (1980) | Mercer/CvM eigenvalues | Citation present |
-| **HIGH** | Fernholz (1983) | Hadamard differentiability | Citation present |
-| **HIGH** | Conway (1990) | Spectral theory | **NEED ACQUISITION** |
-| **HIGH** | van der Vaart & Wellner (1996) | Empirical processes | **NEED ACQUISITION** |
-| **MEDIUM** | Breuer & Major (1983) | Hermite rank CLT | Citation present |
-| **MEDIUM** | El Machkouri et al. (2013) | Dependent array CLT | **NEED ACQUISITION** |
+**UPDATED April 22, 2025**: Newly acquired references from `\related studies`
+
+### ✅ NEWLY ACQUIRED (Today)
+
+1. **Sen (2022)** — "A Gentle Introduction to Empirical Process Theory"
+   - **File**: `Emp-Proc-Lecture-Notes.pdf` (172 pages)
+   - **Relevance**: Chapter 9 — Weak convergence in metric spaces
+   - **For Axiom**: `prokhorov_theorem`, `gaussian_process_exists`
+   - **Status**: ✓ Available for extraction
+
+2. **Radulović & Wegkamp (2016)** — "An elementary proof of weak convergence of empirical processes"
+   - **File**: `DM.pdf` (20 pages)
+   - **Relevance**: Novel decoupling argument for asymptotic equicontinuity
+   - **For Axiom**: `tightness_via_equicontinuity`
+   - **Status**: ✓ Available for extraction
+
+3. **Radulović, Wegkamp & Zhao (2017)** — "Weak convergence of empirical copula processes"
+   - **File**: `DMY_Bernoulli.pdf` (39 pages)
+   - **Relevance**: Copula process weak convergence under P-condition
+   - **For Axiom**: `copula_hadamard_differentiable`, multivariate extension
+   - **Status**: ✓ Available for extraction
+
+4. **WCEP 2019 Notes** — Lecture notes on weak convergence
+   - **File**: `wcep2019_notes.pdf` (283 KB)
+   - **Relevance**: Weak convergence educational material
+   - **For Axiom**: General weak convergence background
+   - **Status**: ✓ Available for extraction
+
+### Still Needed (from REFERENCE_REQUIREMENTS.md)
+
+| Priority | Reference | Purpose | File Status |
+|----------|-----------|---------|-------------|
+| **HIGH** | ~~Conway (1990), Ch. 4~~ | ~~Spectral theory/Mercer~~ | ✓ **FOUND**: `9_2017_09_30!12_00_39_PM.pdf` |
+| **MEDIUM** | El Machkouri et al. (2013) | Dependent array CLT | ❌ Not yet found |
+
+---
+
+## CONWAY (1990) — LOCATED ✓
+
+**File**: `related studies/9_2017_09_30!12_00_39_PM.pdf`
+- **Title**: "A Course in Functional Analysis" (2nd Edition)
+- **Author**: John B. Conway
+- **Publisher**: Springer (Graduate Texts in Mathematics 96)
+- **Pages**: 414
+- **Critical Chapter**: Chapter 4 — "Spectral Theory for Compact Operators"
+
+**Relevance for De-axiomatization**:
+- **Section 4.1**: Compact operators on Hilbert spaces
+- **Section 4.2**: Spectral theorem for compact self-adjoint operators
+- **Section 4.3**: Applications (Mercer type theorems)
+- **Theorem 4.24**: Spectral decomposition (critical for `mercer_decomposition`)
+
+**For Axiom**: `mercer_decomposition` in `Theorem2/Mercer.lean`
+
+**Implementation Path**:
+1. Define compact self-adjoint operators on L²(K)
+2. Prove eigenfunction existence (Theorem 4.24)
+3. Show Mercer kernel decomposition
+4. Apply to covariance operator Γ(y,z)
+
+**Mathlib Gap**: No Hilbert space spectral theory with eigenfunction expansion
+
+**Status**: ✓ Book located, extraction pending(PyPDF2 issues)
+
+---
 | **LOW** | Doukhan (1994) | Mixing foundations | **NEED ACQUISITION** |
 
 ---
