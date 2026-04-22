@@ -20,6 +20,10 @@ import SpatialCvM.Definitions.Kernel
 import SpatialCvM.Definitions.RandomField
 import SpatialCvM.Definitions.Lattice
 import SpatialCvM.Definitions.Copula
+import SpatialCvM.Lemma1.Mixing
+import SpatialCvM.Lemma1.Summability
+import SpatialCvM.Proofs.LagRegroupProof
+import SpatialCvM.Theorem2.DiscreteCvM
 import SpatialCvM.Utils.Asymptotics
 import SpatialCvM.Utils.MeasureTheory
 import SpatialCvM.Calibration.Satterthwaite
@@ -31,6 +35,10 @@ open SpatialCvM.Definitions.Kernel
 open SpatialCvM.Definitions.RandomField
 open SpatialCvM.Definitions.Lattice
 open SpatialCvM.Definitions.Copula
+open SpatialCvM.Lemma1.Mixing
+open SpatialCvM.Lemma1.Summability
+open SpatialCvM.Proofs.LagRegroup
+open SpatialCvM.Theorem2.DiscreteCvM
 open SpatialCvM.Utils.Asymptotics
 open SpatialCvM.Utils.MeasureTheory
 open SpatialCvM.Calibration.Satterthwaite
@@ -64,22 +72,38 @@ open SpatialCvM.Calibration.Satterthwaite
 --
 -- EXPANDED PROOF (3 steps):
 --
--- Step 1 — Davydov's Inequality (Pillar P1):
---   For α-mixing processes, Davydov (1993) gives:
---     |Cov(f(Y_A), g(Y_B))| ≤ C · α(d) · ‖f‖_∞ · ‖g‖_∞
---   where A, B are index sets at distance d apart.
---   Applied to lag-d covariances of the kernel-weighted process:
---     |γ_d(y, z)| ≤ C · α(d) · φ(y) · φ(z)
---   where φ is a bounded variance envelope from kernel boundedness.
---   [Lean: davydov_inequality in Lemma1.Mixing]
+-- Step 1 — Davydov-Rio Inequality (Pillar P1):
+--   For α-mixing processes, Rio (2013, Theorem 1.1) gives the sharp bound:
+--     |Cov(𝟙{X₀ ≤ x} - F(x), 𝟙{X_d ≤ y} - F(y))| ≤ 4 · α(d)^{δ/(2+δ)}
+--   where δ > 0 is arbitrary. This follows from Davydov (1968) optimized in L^{2+δ}.
 --
--- Step 2 — Summability:
---   Summing over all lags:
---     |Γ(y, z)| = |Σ_d γ_d(y, z)|
---               ≤ C · φ(y) · φ(z) · Σ_d α(d)
---               < ∞
---   by the strong mixing assumption Σ_d α(d) < ∞.
---   [Lean: alpha_summable_decay in Lemma1.Mixing]
+--   Key insight from StackExchange/MSE: σ(f(X)) ⊆ σ(X) for measurable f, so
+--   the centered indicator ξ(x) = 𝟙{X ≤ x} - F(x) inherits σ(X)-measurability
+--   and Davydov applies directly without complex σ-algebra arguments.
+--   [Lean: sigma_algebra_inclusion, indicator_measurable in Lemma1.Mixing]
+--
+--   For the kernel-weighted process, extending by linearity:
+--     |γ_d(y, z)| ≤ 4 · α(d)^{δ/(2+δ)}
+--   The exponent δ/(2+δ) > 0 ensures summability under geometric α(d).
+--   [Lean: davydov_indicator_covariance, covariance_lag_bound in Lemma1.Mixing/Summability]
+--
+-- Step 2 — Summability via Lag Regroup Identity:
+--   Using the Lag Regroup Identity (Lemma1/Proofs/LagRegroupProof.lean):
+--     Σ_{i,j} a_i a_j γ(j-i) = Σ_m γ(m) · coeff_at_lag(a, m)
+--   where coeff_at_lag(a, m) = Σ_{i: valid} a_i a_{i+m} has ≤ n-|m| ≤ n terms.
+--
+--   With the Rio/Davydov bound |γ(m)| ≤ 4·α(|m|)^{δ/(2+δ)}:
+--     |Σ_{i,j} a_i a_j γ(j-i)| ≤ 4 · Σ_m α(|m|)^{δ/(2+δ)} · coeff_at_lag(a, m)
+--                              ≤ 4 · n · Σ_m (C·ρ^{|m|})^{δ/(2+δ)}
+--                              = 4n · C^{δ/(2+δ)} · 2/(1-ρ^{δ/(2+δ)})
+--                              = O(n)
+--
+--   When normalized by n, the variance is O(1), giving the required summability.
+--   [Lean: lag_regroup_identity in Proofs.LagRegroupProof,
+--          covariance_summable in Lemma1.Summability]
+--
+--   For geometric α(d) = O(ρ^d), the series Σ_m α(|m|)^{δ/(2+δ)} is a geometric
+--   series with ratio ρ' = ρ^{δ/(2+δ)} ∈ (0,1), hence summable.
 --
 -- Step 3 — Non-vanishing Variance:
 --   At (0,0), the variance decomposes as:
@@ -294,12 +318,19 @@ axiom multivariate_limit (K_pop p : ℕ) (hK : K_pop ≥ 2) (hp : p ≥ 2)
 -- SUMMARY OF PROOF DEPENDENCIES
 -- ============================================================================
 --
---   ┌──────────────────────────────────────────────────────────────┐
---   │  Lemma 1: Γ(0,0) > 0                                       │
---   │  ├─ Davydov's inequality: |Cov| ≤ C·α(d)                    │
---   │  ├─ Summability: Σα(d) < ∞ ⟹ Γ < ∞                        │
---   │  └─ Non-vanishing: ∫K_h² > 0 at fixed h                     │
---   │                                                              │
+--   ┌─────────────────────────────────────────────────────────────────────────┐
+--   │  Lemma 1: Γ(0,0) > 0 (Asymptotic Covariance Structure)                  │
+--   │  ├─ Davydov-Rio inequality: |γ_d| ≤ 4·α(d)^{δ/(2+δ)}                   │
+--   │  │      (Rio 2013, Thm 1.1; Davydov 1968 optimized in L^{2+δ})         │
+--   │  ├─ σ-algebra inclusion: σ(f(X)) ⊆ σ(X) for measurable f               │
+--   │  │      [Lean: sigma_algebra_inclusion, indicator_measurable]          │
+--   │  ├─ Lag Regroup Identity: O(n²) → O(n) variance decomposition          │
+--   │  │      [Lean: lag_regroup_identity in Proofs.LagRegroupProof]         │
+--   │  ├─ Geometric summability: Σ_d (ρ^{δ/(2+δ)})^d < ∞                      │
+--   │  │      [Lean: covariance_summable in Lemma1.Summability]               │
+--   │  └─ Non-vanishing: ∫ K_h² > 0 at fixed h                               │
+--   │      [Lean: kernel_squared_integral_pos, Gamma_diagonal_positive]      │
+--   │                                                                         │
 --   │  Theorem 1: √n(Ĥ-H₀) →ᵈ 𝒢  in ℓ^∞                         │
 --   │  ├─ FDD: Lindeberg CLT + El Machkouri–Volný–Wu             │
 --   │  ├─ Tightness: Boundedness + Lipschitz equicontinuity       │
@@ -315,5 +346,28 @@ axiom multivariate_limit (K_pop p : ℕ) (hK : K_pop ≥ 2) (hp : p ≥ 2)
 --   │  ├─ Delta: √n(Ĥ-H₀) = DΦ_p[√n(Û-C)] + o_P(1)             │
 --   │  └─ Weak conv.: α-mixing preserved under copula             │
 --   └──────────────────────────────────────────────────────────────┘
+
+--   KEY REFERENCES:
+--
+--   [Rio 2013] E. Rio, "Inequalities and limit theorems for weakly dependent
+--              sequences", Habilitation thesis, Université de Toulouse.
+--              Theorem 1.1: Davydov bound with exponent δ/(2+δ) in L^{2+δ}
+--
+--   [Davydov 1968] Y.A. Davydov, "Convergence of distributions generated by
+--                  stationary stochastic processes", Theory of Probability
+--                  and Its Applications, 13(4), 691-696.
+--
+--   [Rio/Summability] The Lag Regroup Identity + Davydov-Rio bound gives
+--                     sufficient decay for covariance series convergence.
+--                     See: Lemma1/Summability.lean for full formalization.
+--
+--   [StackExchange/MSE] σ-algebra inclusion: σ(f(X)) ⊆ σ(X) for Borel
+--                       measurable f enables Davydov application to indicators
+--
+--   COMPLETION STATUS:
+--   • PROVED: Abel summation (Theorem2/DiscreteCvM.lean)
+--   • FRAMEWORK: Lag Regroup Identity (Proofs/LagRegroupProof.lean)
+--   • AXIOMATIZED: Davydov-Rio inequality (Lemma1/Mixing.lean)
+--   • ESTIMATED: 8-16 months for full de-axiomatization with Mathlib L^p
 
 end SpatialCvM.ExpandedProof
