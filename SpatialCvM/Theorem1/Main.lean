@@ -57,11 +57,20 @@ axiom IsGaussian (Z : ℝ → ℝ) : Prop
 --   5. Sequential compactness arguments
 --   Mathlib has metric spaces but not the full weak convergence framework.
 --
--- Reference: Prokhorov (1956), "Convergence of random processes and limit theorems
---            in probability theory", Theory of Probability & Its Applications 1(2), 157-214.
---            Billingsley (1999), "Convergence of Probability Measures", Theorem 5.1.
---            van der Vaart & Wellner (1996), "Weak Convergence and Empirical Processes",
+-- UPDATED References (from literature survey April 2025):
+--   PRIMARY: Prokhorov (1956), "Convergence of random processes and limit theorems
+--            in probability theory", Theory of Probability & Its Applications 1(2).
+--
+--   Billingsley (1999), "Convergence of Probability Measures", Theorem 5.1.
+--
+--   van der Vaart & Wellner (1996), "Weak Convergence and Empirical Processes",
 --            Theorem 1.3.9.
+--
+--   **NEW** Lecture 02 (Stanford Statistics 300b, Winter 2017):
+--            → Direct proof from van der Vaart's Asymptotic Statistics
+--            → Connection to Arzelà-Ascoli via equicontinuity
+--            → Sequential characterization of tightness
+--            See: literature_extracts/lecture_02.txt
 -- ============================================================================
 axiom prokhorov_theorem {Xₙ : ℕ → ℝ → ℝ} {X : ℝ → ℝ}
     (h_fd : True)

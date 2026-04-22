@@ -74,8 +74,25 @@ open SpatialCvM.Lemma1.Mixing
 --   - Connect bounded+equicontinuous sets to relatively compact sets
 --   - Show empirical process sample paths lie in such sets with high probability
 --
--- Reference: van der Vaart & Wellner (1996), "Weak Convergence and Empirical Processes",
+-- UPDATED References (from literature survey April 2025):
+--   PRIMARY: van der Vaart & Wellner (1996), "Weak Convergence and Empirical Processes",
 --            Theorem 1.3.9 and Theorem 1.5.4
+--
+--   **NEW** Stanford Statistics 300b Notes (Duchi, 2017):
+--            → "The Arzelà-Ascoli Theorem"
+--            → Uniform convergence via diagonalization
+--            → Direct connection to empirical process tightness
+--            See: literature_extracts/arzela_ascoli_stanford.txt
+--
+--   **NEW** aa-pic.pdf Notes (Arzelà-Ascoli and C(K)):
+--            → Complete metric space properties
+--            → Sequential compactness characterization
+--            See: literature_extracts/aa_pic.txt
+--
+--   **NEW** Standard Text (10-1.pdf):
+--            → Convergence on compact metric spaces
+--            → Baire Category connections
+--            See: literature_extracts/ten_one.txt
 --
 -- Mathlib Reference: 
 --   - `Mathlib.Topology.Compactness.ArzelaAscoli` (deterministic version)
