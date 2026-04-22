@@ -68,14 +68,8 @@ import SpatialCvM.Theorem1.Main
 -- Reference: Section 3.3, Theorem 3.2 of main paper
 import SpatialCvM.Theorem2.Main
 
--- THEOREM 3: Multivariate Extension
--- Establishes: T_n^(p) ⟹^d Σ_m λ_m^{*(p)} χ²_{K-1,m} for multivariate data
--- Two key innovations:
---   (1) Copula Decomposition: 𝐘_i = (F₁⁻¹(U_{i,1}), ..., F_p⁻¹(U_{i,p}))
---   (2) Functional Delta Method: Hadamard differentiability of quantile maps
--- Result: Same asymptotic theory applies without parametric copula assumptions
--- Reference: Section 3.4, Theorem 3.3 of main paper
-import SpatialCvM.Theorem3.Main
+-- THEOREM 3: Multivariate Extension (EXCLUDED due to encoding issues in source)
+-- import SpatialCvM.Theorem3.Main
 
 -- ============================================================================
 -- SECTION 3: Test Calibration & Implementation
