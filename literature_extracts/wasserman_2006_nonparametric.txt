@@ -1,0 +1,916 @@
+======================================================================
+SOURCE: Wasserman, L. (2006). All of Nonparametric Statistics
+        Springer, ISBN: 978-0-387-25145-5
+======================================================================
+
+
+--- Page 1 ---
+
+--- Page 2 ---
+Springer Texts in Statistics
+Advisors:
+George Casella
+Stephen Fienberg
+Ingram Olkin
+
+--- Page 3 ---
+Springer Texts in Statistics
+Alfred: Elements of Statistics for the Life and Social Sciences
+Berger: An Introduction to Probability and Stochastic Processes
+Bilodeau and Brenner: Theory of Multivariate Statistics
+Blom: Probability and Statistics: Theory and Applications
+Brockwell and Davis: Introduction to Times Series and Forecasting, Second
+Edition
+Chow and Teicher: Probability Theory: Independence, Interchangeability,
+Martingales, Third Edition
+Christensen: Advanced Linear Modeling: Multivariate, Time Series, and
+Spatial Data—Nonparametric Regression and Response Surface
+Maximization, Second Edition
+Christensen: Log-Linear Models and Logistic Regression, Second Edition
+Christensen: Plane Answers to Complex Questions: The Theory of Linear
+Models, Third Edition
+Creighton: A First Course in Probability Models and Statistical Inference
+Davis: Statistical Methods for the Analysis of Repeated Measurements
+Dean and Voss: Design and Analysis of Experiments
+du Toit, Steyn, and Stumpf: Graphical Exploratory Data Analysis
+Durrett: Essentials of Stochastic Processes
+Edwards: Introduction to Graphical Modelling, Second Edition
+Finkelstein and Levin: Statistics for Lawyers
+Flury: A First Course in Multivariate Statistics
+Jobson: Applied Multivariate Data Analysis, Volume I: Regression and
+Experimental Design
+Jobson: Applied Multivariate Data Analysis, Volume II: Categorical and
+Multivariate Methods
+Kalbfleisch: Probability and Statistical Inference, Volume I: Probability,
+Second Edition
+Kalbfleisch: Probability and Statistical Inference, Volume II: Statistical
+Inference, Second Edition
+Karr: Probability
+Keyfitz: Applied Mathematical Demography, Second Edition
+Kiefer: Introduction to Statistical Inference
+Kokoska and Nevison: Statistical Tables and Formulae
+Kulkarni: Modeling, Analysis, Design, and Control of Stochastic Systems
+Lange: Applied Probability
+Lehmann: Elements of Large-Sample Theory
+Lehmann: Testing Statistical Hypotheses, Second Edition
+Lehmann and Casella: Theory of Point Estimation, Second Edition
+Lindman: Analysis of Variance in Experimental Design
+Lindsey: Applying Generalized Linear Models
+(continued after index)
+
+--- Page 4 ---
+Larry Wasserman
+All of Nonparametric
+Statistics
+With 52 Illustrations
+
+--- Page 5 ---
+Larry Wasserman
+Department of Statistics
+Carnegie Mellon University
+Pittsburgh, PA 15213-3890
+USA
+larry@stat.cmu.edu
+Editorial Board
+George Casella
+Stephen Fienberg
+Ingram Olkin
+Department of Statistics
+Department of Statistics
+Department of Statistics
+University of Florida
+Carnegie Mellon University
+Stanford University
+Gainesville, FL 32611-8545
+Pittsburgh, PA 15213-3890
+Stanford, CA 94305
+USA
+USA
+USA
+Library of Congress Control Number: 2005925603
+ISBN-10: 0-387-25145-6
+ISBN-13: 978-0387-25145-5
+Printed on acid-free paper.
+© 2006 Springer Science+Business Media, Inc.
+All rights reserved. This work may not be translated or copied in whole or in part without the writ-
+ten permission of the publisher (Springer Science+Business Media, Inc., 233 Spring Street, New
+York, NY 10013, USA), except for brief excerpts in connection with reviews or scholarly analysis.
+Use in connection with any form of information storage and retrieval, electronic adaptation, com-
+puter software, or by similar or dissimilar methodology now known or hereafter developed is for-
+bidden.
+The use in this publication of trade names, trademarks, service marks, and similar terms, even if they
+are not identified as such, is not to be taken as an expression of opinion as to whether or not they
+are subject to proprietary rights.
+Printed in the United States of America.
+(MVY)
+9 8 7 6 5 4 3 2 1
+springeronline.com
+
+--- Page 6 ---
+To Isa
+
+--- Page 7 ---
+Preface
+There are many books on various aspects of nonparametric inference such
+as density estimation, nonparametric regression, bootstrapping, and wavelets
+methods. But it is hard to ﬁnd all these topics covered in one place. The goal
+of this text is to provide readers with a single book where they can ﬁnd a
+brief account of many of the modern topics in nonparametric inference.
+The book is aimed at master’s-level or Ph.D.-level statistics and computer
+science students. It is also suitable for researchers in statistics, machine learn-
+ing and data mining who want to get up to speed quickly on modern non-
+parametric methods. My goal is to quickly acquaint the reader with the basic
+concepts in many areas rather than tackling any one topic in great detail. In
+the interest of covering a wide range of topics, while keeping the book short,
+I have opted to omit most proofs. Bibliographic remarks point the reader to
+references that contain further details. Of course, I have had to choose topics
+to include and to omit, the title notwithstanding. For the most part, I decided
+to omit topics that are too big to cover in one chapter. For example, I do not
+cover classiﬁcation or nonparametric Bayesian inference.
+The book developed from my lecture notes for a half-semester (20 hours)
+course populated mainly by master’s-level students. For Ph.D.-level students,
+the instructor may want to cover some of the material in more depth and
+require the students to ﬁll in proofs of some of the theorems. Throughout, I
+have attempted to follow one basic principle: never give an estimator without
+giving a conﬁdence set.
+
+--- Page 8 ---
+viii
+Preface
+The book has a mixture of methods and theory. The material is meant
+to complement more method-oriented texts such as Hastie et al. (2001) and
+Ruppert et al. (2003).
+After the Introduction in Chapter 1, Chapters 2 and 3 cover topics related to
+the empirical cdf such as the nonparametric delta method and the bootstrap.
+Chapters 4 to 6 cover basic smoothing methods. Chapters 7 to 9 have a higher
+theoretical content and are more demanding. The theory in Chapter 7 lays the
+foundation for the orthogonal function methods in Chapters 8 and 9. Chapter
+10 surveys some of the omitted topics.
+I assume that the reader has had a course in mathematical statistics such
+as Casella and Berger (2002) or Wasserman (2004). In particular, I assume
+that the following concepts are familiar to the reader: distribution functions,
+convergence in probability, convergence in distribution, almost sure conver-
+gence, likelihood functions, maximum likelihood, conﬁdence intervals, the
+delta method, bias, mean squared error, and Bayes estimators. These back-
+ground concepts are reviewed brieﬂy in Chapter 1.
+Data sets and code can be found at:
+www.stat.cmu.edu/∼larry/all-of-nonpar
+I need to make some disclaimers. First, the topics in this book fall under
+the rubric of “modern nonparametrics.” The omission of traditional methods
+such as rank tests and so on is not intended to belittle their importance. Sec-
+ond, I make heavy use of large-sample methods. This is partly because I think
+that statistics is, largely, most successful and useful in large-sample situations,
+and partly because it is often easier to construct large-sample, nonparamet-
+ric methods. The reader should be aware that large-sample methods can, of
+course, go awry when used without appropriate caution.
+I would like to thank the following people for providing feedback and sugges-
+tions: Larry Brown, Ed George, John Laﬀerty, Feng Liang, Catherine Loader,
+Jiayang Sun, and Rob Tibshirani. Special thanks to some readers who pro-
+vided very detailed comments: Taeryon Choi, Nils Hjort, Woncheol Jang,
+Chris Jones, Javier Rojo, David Scott, and one anonymous reader. Thanks
+also go to my colleague Chris Genovese for lots of advice and for writing the
+LATEX macros for the layout of the book. I am indebted to John Kimmel,
+who has been supportive and helpful and did not rebel against the crazy title.
+Finally, thanks to my wife Isabella Verdinelli for suggestions that improved
+the book and for her love and support.
+Larry Wasserman
+Pittsburgh, Pennsylvania
+July 2005
+
+--- Page 9 ---
+Contents
+1
+Introduction
+1
+1.1
+What Is Nonparametric Inference? . . . . . . . . . . . . . . . .
+1
+1.2
+Notation and Background . . . . . . . . . . . . . . . . . . . . .
+2
+1.3
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+1.4
+Useful Inequalities
+. . . . . . . . . . . . . . . . . . . . . . . . .
+8
+1.5
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+10
+1.6
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+2
+Estimating the cdf and
+Statistical Functionals
+13
+2.1
+The cdf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+2.2
+Estimating Statistical Functionals
+. . . . . . . . . . . . . . . .
+15
+2.3
+Inﬂuence Functions . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+2.4
+Empirical Probability Distributions . . . . . . . . . . . . . . . .
+21
+2.5
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+23
+2.6
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23
+2.7
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+3
+The Bootstrap and the Jackknife
+27
+3.1
+The Jackknife . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+3.2
+The Bootstrap
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+30
+3.3
+Parametric Bootstrap
+. . . . . . . . . . . . . . . . . . . . . . .
+31
+3.4
+Bootstrap Conﬁdence Intervals . . . . . . . . . . . . . . . . . .
+32
+3.5
+Some Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35
+
+--- Page 10 ---
+x
+Contents
+3.6
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+37
+3.7
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37
+3.8
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+39
+4
+Smoothing: General Concepts
+43
+4.1
+The Bias–Variance Tradeoﬀ. . . . . . . . . . . . . . . . . . . .
+50
+4.2
+Kernels
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+55
+4.3
+Which Loss Function? . . . . . . . . . . . . . . . . . . . . . . .
+57
+4.4
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . .
+57
+4.5
+The Curse of Dimensionality
+. . . . . . . . . . . . . . . . . . .
+58
+4.6
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+59
+4.7
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+59
+5
+Nonparametric Regression
+61
+5.1
+Review of Linear and Logistic Regression
+. . . . . . . . . . . .
+63
+5.2
+Linear Smoothers . . . . . . . . . . . . . . . . . . . . . . . . . .
+66
+5.3
+Choosing the Smoothing Parameter
+. . . . . . . . . . . . . . .
+68
+5.4
+Local Regression . . . . . . . . . . . . . . . . . . . . . . . . . .
+71
+5.5
+Penalized Regression, Regularization and Splines . . . . . . . .
+81
+5.6
+Variance Estimation . . . . . . . . . . . . . . . . . . . . . . . .
+85
+5.7
+Conﬁdence Bands . . . . . . . . . . . . . . . . . . . . . . . . . .
+89
+5.8
+Average Coverage . . . . . . . . . . . . . . . . . . . . . . . . . .
+94
+5.9
+Summary of Linear Smoothing
+. . . . . . . . . . . . . . . . . .
+95
+5.10 Local Likelihood and Exponential Families . . . . . . . . . . . .
+96
+5.11 Scale-Space Smoothing . . . . . . . . . . . . . . . . . . . . . . .
+99
+5.12 Multiple Regression
+. . . . . . . . . . . . . . . . . . . . . . . . 100
+5.13 Other Issues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111
+5.14 Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 119
+5.15 Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119
+5.16 Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 120
+6
+Density Estimation
+125
+6.1
+Cross-Validation
+. . . . . . . . . . . . . . . . . . . . . . . . . . 126
+6.2
+Histograms
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 127
+6.3
+Kernel Density Estimation . . . . . . . . . . . . . . . . . . . . . 131
+6.4
+Local Polynomials
+. . . . . . . . . . . . . . . . . . . . . . . . . 137
+6.5
+Multivariate Problems . . . . . . . . . . . . . . . . . . . . . . . 138
+6.6
+Converting Density Estimation Into Regression . . . . . . . . . 139
+6.7
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 140
+6.8
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+6.9
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142
+7
+Normal Means and Minimax Theory
+145
+7.1
+The Normal Means Model . . . . . . . . . . . . . . . . . . . . . 145
+7.2
+Function Spaces . . . . . . . . . . . . . . . . . . . . . . . . . . . 147
+
+--- Page 11 ---
+Contents
+xi
+7.3
+Connection to Regression and Density Estimation
+. . . . . . . 149
+7.4
+Stein’s Unbiased Risk Estimator (sure) . . . . . . . . . . . . . 150
+7.5
+Minimax Risk and Pinsker’s Theorem
+. . . . . . . . . . . . . . 153
+7.6
+Linear Shrinkage and the James–Stein Estimator . . . . . . . . 155
+7.7
+Adaptive Estimation Over Sobolev Spaces . . . . . . . . . . . . 158
+7.8
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . . 159
+7.9
+Optimality of Conﬁdence Sets . . . . . . . . . . . . . . . . . . . 166
+7.10 Random Radius Bands? . . . . . . . . . . . . . . . . . . . . . . 170
+7.11 Penalization, Oracles and Sparsity
+. . . . . . . . . . . . . . . . 171
+7.12 Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 172
+7.13 Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 173
+7.14 Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 180
+8
+Nonparametric Inference Using Orthogonal Functions
+183
+8.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 183
+8.2
+Nonparametric Regression . . . . . . . . . . . . . . . . . . . . . 183
+8.3
+Irregular Designs . . . . . . . . . . . . . . . . . . . . . . . . . . 190
+8.4
+Density Estimation . . . . . . . . . . . . . . . . . . . . . . . . . 192
+8.5
+Comparison of Methods . . . . . . . . . . . . . . . . . . . . . . 193
+8.6
+Tensor Product Models
+. . . . . . . . . . . . . . . . . . . . . . 193
+8.7
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 194
+8.8
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 194
+9
+Wavelets and Other Adaptive Methods
+197
+9.1
+Haar Wavelets
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 199
+9.2
+Constructing Wavelets . . . . . . . . . . . . . . . . . . . . . . . 203
+9.3
+Wavelet Regression . . . . . . . . . . . . . . . . . . . . . . . . . 206
+9.4
+Wavelet Thresholding
+. . . . . . . . . . . . . . . . . . . . . . . 208
+9.5
+Besov Spaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . 211
+9.6
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . . 214
+9.7
+Boundary Corrections and Unequally Spaced Data . . . . . . . 215
+9.8
+Overcomplete Dictionaries . . . . . . . . . . . . . . . . . . . . . 215
+9.9
+Other Adaptive Methods
+. . . . . . . . . . . . . . . . . . . . . 216
+9.10 Do Adaptive Methods Work? . . . . . . . . . . . . . . . . . . . 220
+9.11 Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 221
+9.12 Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 221
+9.13 Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 223
+10 Other Topics
+227
+10.1 Measurement Error . . . . . . . . . . . . . . . . . . . . . . . . . 227
+10.2 Inverse Problems . . . . . . . . . . . . . . . . . . . . . . . . . . 233
+10.3 Nonparametric Bayes . . . . . . . . . . . . . . . . . . . . . . . . 235
+10.4 Semiparametric Inference
+. . . . . . . . . . . . . . . . . . . . . 235
+10.5 Correlated Errors . . . . . . . . . . . . . . . . . . . . . . . . . . 236
+10.6 Classiﬁcation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 236
+
+--- Page 12 ---
+xii
+Contents
+10.7 Sieves
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 237
+10.8 Shape-Restricted Inference . . . . . . . . . . . . . . . . . . . . . 237
+10.9 Testing
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 238
+10.10Computational Issues
+. . . . . . . . . . . . . . . . . . . . . . . 240
+10.11Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 240
+Bibliography
+243
+List of Symbols
+259
+Table of Distributions
+261
+Index
+263
+
+--- Page 13 ---
+1
+Introduction
+In this chapter we brieﬂy describe the types of problems with which we will
+be concerned. Then we deﬁne some notation and review some basic concepts
+from probability theory and statistical inference.
+1.1
+What Is Nonparametric Inference?
+The basic idea of nonparametric inference is to use data to infer an unknown
+quantity while making as few assumptions as possible. Usually, this means
+using statistical models that are inﬁnite-dimensional. Indeed, a better name
+for nonparametric inference might be inﬁnite-dimensional inference. But it is
+diﬃcult to give a precise deﬁnition of nonparametric inference, and if I did
+venture to give one, no doubt I would be barraged with dissenting opinions.
+For the purposes of this book, we will use the phrase nonparametric in-
+ference to refer to a set of modern statistical methods that aim to keep the
+number of underlying assumptions as weak as possible. Speciﬁcally, we will
+consider the following problems:
+1. (Estimating the distribution function). Given an iid sample X1, . . . , Xn ∼
+F, estimate the cdf F(x) = P(X ≤x). (Chapter 2.)
+
+--- Page 14 ---
+2
+1. Introduction
+2. (Estimating functionals). Given an iid sample X1, . . . , Xn ∼F, estimate
+a functional T (F) such as the mean T (F) =
+
+x dF(x). (Chapters 2
+and 3.)
+3. (Density estimation). Given an iid sample X1, . . . , Xn ∼F, estimate the
+density f(x) = F ′(x). (Chapters 4, 6 and 8.)
+4. (Nonparametric regression or curve estimation). Given (X1, Y1), . . . , (Xn, Yn)
+estimate the regression function r(x) = E(Y |X = x). (Chapters 4, 5, 8
+and 9.)
+5. (Normal means). Given Yi ∼N(θi, σ2), i = 1, . . . , n, estimate θ =
+(θ1, . . . , θn). This apparently simple problem turns out to be very com-
+plex and provides a unifying basis for much of nonparametric inference.
+(Chapter 7.)
+In addition, we will discuss some unifying theoretical principles in Chapter
+7. We consider a few miscellaneous problems in Chapter 10, such as measure-
+ment error, inverse problems and testing.
+Typically, we will assume that distribution F (or density f or regression
+function r) lies in some large set F called a statistical model. For example,
+when estimating a density f, we might assume that
+f ∈F =
+
+g :
+
+(g′′(x))2dx ≤c2
+
+which is the set of densities that are not “too wiggly.”
+1.2
+Notation and Background
+Here is a summary of some useful notation and background. See also
+Table 1.1.
+Let a(x) be a function of x and let F be a cumulative distribution function.
+If F is absolutely continuous, let f denote its density. If F is discrete, let f
+denote instead its probability mass function. The mean of a is
+E(a(X)) =
+
+a(x)dF(x) ≡
+ 
+a(x)f(x)dx
+continuous case
+
+j a(xj)f(xj)
+discrete case.
+Let V(X) = E(X −E(X))2 denote the variance of a random variable. If
+X1, . . . , Xn are n observations, then
+
+a(x)d Fn(x) = n−1 
+i a(Xi) where Fn
+is the empirical distribution that puts mass 1/n at each observation Xi.
+
+--- Page 15 ---
+1.2 Notation and Background
+3
+Symbol
+Deﬁnition
+xn = o(an)
+limn→∞xn/an = 0
+xn = O(an)
+|xn/an| is bounded for all large n
+an ∼bn
+an/bn →1 as n →∞
+an ≍bn
+an/bn and bn/an are bounded for all large n
+Xn ⇝X
+convergence in distribution
+Xn
+P
+−→X
+convergence in probability
+Xn
+a.s.
+−→X
+almost sure convergence
+θn
+estimator of parameter θ
+bias
+E(θn) −θ
+se
+
+V(θn)
+(standard error)
+se
+estimated standard error
+mse
+E(θn −θ)2 (mean squared error)
+Φ
+cdf of a standard Normal random variable
+zα
+Φ−1(1 −α)
+TABLE 1.1. Some useful notation.
+Brief Review of Probability. The sample space Ωis the set of possible
+outcomes of an experiment. Subsets of Ωare called events. A class of events
+A is called a σ-ﬁeld if (i) ∅∈A, (ii) A ∈A implies that Ac ∈A and (iii)
+A1, A2, . . . , ∈A implies that 	∞
+i=1 Ai ∈A. A probability measure is a
+function P deﬁned on a σ-ﬁeld A such that P(A) ≥0 for all A ∈A, P(Ω) = 1
+and if A1, A2, . . . ∈A are disjoint then
+P
+
+ ∞
+
+i=1
+Ai
+
+=
+∞
+
+i=1
+P(Ai).
+The triple (Ω, A, P) is called a probability space. A random variable is a
+map X : Ω→R such that, for every real x, {ω ∈Ω: X(ω) ≤x} ∈A.
+A sequence of random variables Xn converges in distribution (or con-
+verges weakly) to a random variable X, written Xn ⇝X, if
+P(Xn ≤x) →P(X ≤x)
+(1.1)
+as n →∞, at all points x at which the cdf
+F(x) = P(X ≤x)
+(1.2)
+is continuous. A sequence of random variables Xn converges in probability
+to a random variable X, written Xn
+P
+−→X, if,
+for every ϵ > 0,
+P(|Xn −X| > ϵ) →0
+as n →∞.
+(1.3)
+
+--- Page 16 ---
+4
+1. Introduction
+A sequence of random variables Xn converges almost surely to a random
+variable X, written Xn
+a.s.
+−→X, if
+P( lim
+n→∞|Xn −X| = 0) = 1.
+(1.4)
+The following implications hold:
+Xn
+a.s.
+−→X
+implies that
+Xn
+P
+−→X
+implies that
+Xn ⇝X.
+(1.5)
+Let g be a continuous function. Then, according to the continuous map-
+ping theorem,
+Xn ⇝X
+implies that
+g(Xn) ⇝g(X)
+Xn
+P
+−→X
+implies that
+g(Xn)
+P
+−→g(X)
+Xn
+a.s.
+−→X
+implies that
+g(Xn)
+a.s.
+−→g(X)
+According to Slutsky’s theorem, if Xn ⇝X and Yn ⇝c for some constant
+c, then Xn + Yn ⇝X + c and XnYn ⇝cX.
+Let X1, . . ., Xn ∼F be iid. The weak law of large numbers says that if
+E|g(X1)| < ∞, then n−1 n
+i=1 g(Xi)
+P
+−→E(g(X1)). The strong law of large
+numbers says that if E|g(X1)| < ∞, then n−1 n
+i=1 g(Xi)
+a.s.
+−→E(g(X1)).
+The random variable Z has a standard Normal distribution if it has density
+φ(z) = (2π)−1/2e−z2/2 and we write Z ∼N(0, 1). The cdf is denoted by
+Φ(z). The α upper quantile is denoted by zα. Thus, if Z ∼N(0, 1), then
+P(Z > zα) = α.
+If E(g2(X1)) < ∞, the central limit theorem says that
+√n(Y n −µ) ⇝N(0, σ2)
+(1.6)
+where Yi = g(Xi), µ = E(Y1), Y n = n−1 n
+i=1 Yi and σ2 = V(Y1). In general,
+if
+(Xn −µ)
+σn
+⇝N(0, 1)
+then we will write
+Xn ≈N(µ, σ2
+n).
+(1.7)
+According to the delta method, if g is diﬀerentiable at µ and g′(µ) ̸= 0
+then
+√n(Xn −µ) ⇝N(0, σ2)
+=⇒
+√n(g(Xn)−g(µ)) ⇝N(0, (g′(µ))2σ2). (1.8)
+A similar result holds in the vector case. Suppose that Xn is a sequence of
+random vectors such that √n(Xn −µ) ⇝N(0, Σ), a multivariate, mean 0
+
+--- Page 17 ---
+1.3 Conﬁdence Sets
+5
+normal with covariance matrix Σ. Let g be diﬀerentiable with gradient ∇g
+such that ∇µ ̸= 0 where ∇µ is ∇g evaluated at µ. Then
+√n(g(Xn) −g(µ)) ⇝N
+
+0, ∇T
+µΣ∇µ
+
+.
+(1.9)
+Statistical Concepts. Let F = {f(x; θ) :
+θ ∈Θ} be a parametric model
+satisfying appropriate regularity conditions. The likelihood function based
+on iid observations X1, . . . , Xn is
+Ln(θ) =
+n
+
+i=1
+f(Xi; θ)
+and the log-likelihood function is ℓn(θ) = log Ln(θ). The maximum likeli-
+hood estimator, or mle θn, is the value of θ that maximizes the likelihood. The
+score function is s(X; θ) = ∂log f(x; θ)/∂θ. Under appropriate regularity
+conditions, the score function satisﬁes Eθ(s(X; θ)) =
+
+s(x; θ)f(x; θ)dx = 0.
+Also,
+√n(θn −θ) ⇝N(0, τ2(θ))
+where τ2(θ) = 1/I(θ) and
+I(θ) = Vθ(s(x; θ)) = Eθ(s2(x; θ)) = −Eθ
+
+∂2 log f(x; θ)
+∂θ2
+
+is the Fisher information. Also,
+(θn −θ)
+se
+⇝N(0, 1)
+where se2 = 1/(nI(θn)). The Fisher information In from n observations sat-
+isﬁes In(θ) = nI(θ); hence we may also write se2 = 1/(In(θn)).
+The bias of an estimator θn is E(θ)−θ and the the mean squared error mse
+is mse = E(θ −θ)2. The bias–variance decomposition for the mse of an
+estimator θn is
+mse = bias2(θn) + V(θn).
+(1.10)
+1.3
+Conﬁdence Sets
+Much of nonparametric inference is devoted to ﬁnding an estimator θn of
+some quantity of interest θ. Here, for example, θ could be a mean, a density
+or a regression function. But we also want to provide conﬁdence sets for these
+quantities. There are diﬀerent types of conﬁdence sets, as we now explain.
+
+--- Page 18 ---
+6
+1. Introduction
+Let F be a class of distribution functions F and let θ be some quantity of
+interest. Thus, θ might be F itself, or F ′ or the mean of F, and so on. Let
+Cn be a set of possible values of θ which depends on the data X1, . . . , Xn. To
+emphasize that probability statements depend on the underlying F we will
+sometimes write PF .
+1.11 Deﬁnition. Cn is a ﬁnite sample 1 −α conﬁdence set if
+inf
+F ∈F
+PF (θ ∈Cn) ≥1 −α
+for all n.
+(1.12)
+Cn is a uniform asymptotic 1 −α conﬁdence set if
+lim inf
+n→∞inf
+F ∈F
+PF (θ ∈Cn) ≥1 −α.
+(1.13)
+Cn is a pointwise asymptotic 1 −α conﬁdence set if,
+for every F ∈F,
+lim inf
+n→∞PF (θ ∈Cn) ≥1 −α.
+(1.14)
+If || · || denotes some norm and fn is an estimate of f, then a conﬁdence
+ball for f is a conﬁdence set of the form
+Cn =
+
+f ∈F : ||f −fn|| ≤sn
+
+(1.15)
+where sn may depend on the data. Suppose that f is deﬁned on a set X. A
+pair of functions (ℓ, u) is a 1 −α conﬁdence band or conﬁdence envelope
+if
+inf
+f∈F
+P
+
+ℓ(x) ≤f(x) ≤u(x) for all x ∈X
+
+≥1 −α.
+(1.16)
+Conﬁdence balls and bands can be ﬁnite sample, pointwise asymptotic and
+uniform asymptotic as above. When estimating a real-valued quantity instead
+of a function, Cn is just an interval and we call Cn a conﬁdence interval.
+Ideally, we would like to ﬁnd ﬁnite sample conﬁdence sets. When this is
+not possible, we try to construct uniform asymptotic conﬁdence sets. The
+last resort is a pointwise asymptotic conﬁdence interval. If Cn is a uniform
+asymptotic conﬁdence set, then the following is true: for any δ > 0 there exists
+an n(δ) such that the coverage of Cn is at least 1 −α −δ for all n > n(δ).
+With a pointwise asymptotic conﬁdence set, there may not exist a ﬁnite n(δ).
+In this case, the sample size at which the conﬁdence set has coverage close to
+1 −α will depend on f (which we don’t know).
+
+--- Page 19 ---
+1.3 Conﬁdence Sets
+7
+1.17 Example. Let X1, . . . , Xn ∼Bernoulli(p). A pointwise asymptotic 1 −α
+conﬁdence interval for p is
+pn ± zα/2
+
+pn(1 −pn)
+n
+(1.18)
+where pn = n−1 n
+i=1 Xi. It follows from Hoeﬀding’s inequality (1.24) that a
+ﬁnite sample conﬁdence interval is
+pn ±
+
+1
+2n log
+
+ 2
+α
+
+.
+■
+(1.19)
+1.20 Example (Parametric models). Let
+F = {f(x; θ) : θ ∈Θ}
+be a parametric model with scalar parameter θ and let θn be the maximum
+likelihood estimator, the value of θ that maximizes the likelihood function
+Ln(θ) =
+n
+
+i=1
+f(Xi; θ).
+Recall that under suitable regularity assumptions,
+θn ≈N(θ, se2)
+where
+se = (In(θn))−1/2
+is the estimated standard error of θn and In(θ) is the Fisher information.
+Then
+θn ± zα/2 se
+is a pointwise asymptotic conﬁdence interval. If τ = g(θ) we can get an
+asymptotic conﬁdence interval for τ using the delta method. The mle for
+τ is τn = g(θn). The estimated standard error for τ is se(τn) = se(θn)|g′(θn)|.
+The conﬁdence interval for τ is
+τn ± zα/2 se(τn) = τn ± zα/2 se(θn)|g′(θn)|.
+Again, this is typically a pointwise asymptotic conﬁdence interval. ■
+
+--- Page 20 ---
+8
+1. Introduction
+1.4
+Useful Inequalities
+At various times in this book we will need to use certain inequalities. For
+reference purposes, a number of these inequalities are recorded here.
+Markov’s Inequality. Let X be a non-negative random variable and suppose
+that E(X) exists. For any t > 0,
+P(X > t) ≤E(X)
+t
+.
+(1.21)
+Chebyshev’s Inequality. Let µ = E(X) and σ2 = V(X). Then,
+P(|X −µ| ≥t) ≤σ2
+t2 .
+(1.22)
+Hoeﬀding’s Inequality. Let Y1, . . . , Yn be independent observations such that
+E(Yi) = 0 and ai ≤Yi ≤bi. Let ϵ > 0. Then, for any t > 0,
+P
+ n
+
+i=1
+Yi ≥ϵ
+
+≤e−tϵ
+n
+
+i=1
+et2(bi−ai)2/8.
+(1.23)
+Hoeﬀding’s Inequality for Bernoulli Random Variables. Let X1, . . ., Xn ∼Bernoulli(p).
+Then, for any ϵ > 0,
+P
+
+|Xn −p| > ϵ
+
+≤2e−2nϵ2
+(1.24)
+where Xn = n−1 n
+i=1 Xi.
+Mill’s Inequality. If Z ∼N(0, 1) then, for any t > 0,
+P(|Z| > t) ≤2φ(t)
+t
+(1.25)
+where φ is the standard Normal density. In fact, for any t > 0,
+
+1
+t −1
+t3
+
+φ(t) < P(Z > t) < 1
+t φ(t)
+(1.26)
+and
+P(Z > t) < 1
+2e−t2/2.
+(1.27)

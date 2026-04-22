@@ -1,0 +1,2081 @@
+======================================================================
+SOURCE: goodness_of_fit_dependent.pdf
+======================================================================
+
+
+--- Page 1 ---
+arXiv:1106.3016v2  [q-fin.ST]  3 Aug 2011
+Goodness-of-ﬁt tests with dependent observations
+R´emy Chicheportiche1,2 and Jean-Philippe Bouchaud1
+1 Capital Fund Management, 6–8 boulevard Haussmann, 75 009 Paris, France
+2 Chair of Quantitative Finance, Laboratory of Applied Mathematics and Systems,
+Ecole Centrale Paris, 92 290 Chˆatenay-Malabry, France
+E-mail: remy.chicheportiche@ecp.fr, jean-philippe.bouchaud@cfm.fr
+Abstract.
+We revisit the Kolmogorov-Smirnov and Cram´er-von Mises goodness-of-
+ﬁt (GoF) tests and propose a generalisation to identically distributed, but dependent
+univariate random variables. We show that the dependence leads to a reduction of
+the “eﬀective” number of independent observations. The generalised GoF tests are
+not distribution-free but rather depend on all the lagged bivariate copulas.
+These
+objects, that we call “self-copulas”, encode all the non-linear temporal dependences.
+We introduce a speciﬁc, log-normal model for these self-copulas, for which a number
+of analytical results are derived. An application to ﬁnancial time series is provided.
+As is well known, the dependence is to be long-ranged in this case, a ﬁnding that we
+conﬁrm using self-copulas. As a consequence, the acceptance rates for GoF tests are
+substantially higher than if the returns were iid random variables.
+Keywords: Extreme value statistics, Stochastic processes, Financial time series
+PACS numbers: 89.65.Gh, 02.50, 05.45.Tp
+AMS classiﬁcation scheme numbers: 91B84, 62P20, 62M10, 60F05
+
+--- Page 2 ---
+Goodness-of-ﬁt tests with dependent observations
+2
+1. Introduction
+Goodness-of-Fit (GoF) tests are designed to assess quantitatively whether a sample of
+N observations can statistically be seen as a collection of N independent realizations
+of a given probability law, or whether two such samples are drawn from the same
+hypothetical distribution. Two well-known and broadly used tests in this class are the
+Kolmogorov-Smirnov (KS) and Cram´er-von Mises (CM) tests, that both quantify how
+close an empirical cumulative distribution function (cdf) FN is from a target theoretical
+cdf F (or from another empirical cdf) — see Ref. [1] for a nice review and many
+references.
+The major strength of these tests lies in the fact that the asymptotic
+distributions of their test statistics is completely independent of the null-hypothesis
+cdf.
+It however so happens that in certain ﬁelds (physics, ﬁnance, geology, etc.) the
+random variable under scrutiny has some memory. Whereas the unconditional law of
+the variable may well be unique and independent of time, the conditional probability
+distribution of an observation following a previous observation exhibits speciﬁc patterns,
+and in particular long-memory, even when the linear correlation is short-ranged or
+trivial. Examples of such phenomena can be encountered in ﬂuid mechanics (the velocity
+of a turbulent ﬂuid) and ﬁnance (stock returns have small auto-correlations but exhibit
+strong volatility clustering, a form of heteroscedasticity). The long-memory nature of
+the underlying processes makes it inappropriate to use standard GoF tests in these cases.
+Still, the determination of the unconditional distribution of returns is a classic problem
+in quantitative ﬁnance, with obvious applications to risk control, portfolio optimization
+or derivative pricing. Correspondingly, the distribution of stock returns (in particular
+the behaviour of its tails) has been the subject of numerous empirical and theoretical
+papers (see e.g. [2, 3] and for reviews [4, 5] and references therein). Clearly, precise
+statements are only possible if meaningful GoF tests are available.
+As a tool to study the — possibly highly non-linear — correlations between returns,
+“copulas” have long been used in actuarial sciences and ﬁnance to describe and model
+cross-dependences of assets, often in a risk management perspective [6, 7, 5]. Although
+the widespread use of simple analytical copulas to model multivariate dependences is
+more and more criticized [8, 9], copulas remain useful as a tool to investigate empirical
+properties of multivariate data [9].
+More recently, copulas have also been studied in the context of auto-dependent
+univariate time series, where they ﬁnd yet another application range: just as Pearson’s
+ρ coeﬃcient is commonly used to measure both linear cross-dependences and temporal
+correlations, copulas are well-designed to assess non-linear dependences both across
+assets or in time [10, 11, 12] — we will speak of “self-copulas” in the latter case.
+Interestingly, when trying to extend GoF tests to dependent variables, self-copulas
+appear naturally. In our empirical study of ﬁnancial self-copulas, we rely on a non-
+parametric estimation rather than imposing, for example, a Markovian structure of the
+underlying process, as in e.g. [13, 11].
+
+--- Page 3 ---
+Goodness-of-ﬁt tests with dependent observations
+3
+The organisation of the paper is in three parts. In Section 2 we study theoretically
+how to account for general dependence in GoF tests: we ﬁrst describe the statistical
+properties of the empirical cdf of a non-iid vector of observations of ﬁnite size, as well as
+measures of its diﬀerence with an hypothesized cdf. We then study the limit properties
+of this diﬀerence and the asymptotic distributions of two norms.
+In Section 3 we
+go through a detailed example when the dependences are weak and described by a
+pseudo-elliptical copula. Section 4 is dedicated to an application of the theory to the
+case of ﬁnancial data: after deﬁning our data set, we perform an empirical study of
+dependences in series of stock returns, and interpret the results in terms of the “self-
+copula”; implication of the dependences on GoF tests are illustrated for this special case
+using Monte-Carlo simulations. The concluding section summarizes the main ideas of
+the paper, and technical calculations of sections 2 and 3 are collected in the appendix.
+2. Goodness-of-ﬁt tests for a sample of dependent draws
+2.1. Empirical cumulative distribution and its ﬂuctuations
+Let X be a latent random vector with N identically distributed but dependent variables,
+with marginal cdf F. One realization of X consists of a time series {x1, . . . , xn, . . . , xN}
+that exhibits some sort of persistence.
+For a given number x in the support of F,
+let Y (x) be the random vector the components of which are the Bernoulli variables
+Yn(x) = 1{Xn≤x}. The expectation value and the covariance of Yn(x) are given by:
+E[Yn(x)] = F(x),
+(1)
+Cov(Yn(x), Ym(x′)) = Fnm(x, x′) = Cnm(F(x), F(x′)),
+(2)
+where by deﬁnition Cnm is the “copula” of the random pair (Xn, Xm). The centered
+mean of Y (x) is:
+Y (x) = 1
+N
+N
+X
+n=1
+Yn(x) −F(x) = ⟨Yn(x)⟩n −F(x)
+(3)
+which
+measures
+the
+diﬀerence
+between
+the
+empirically
+determined
+cumulative
+distribution function at point x and its true value.
+It is therefore the quantity on
+which any statistics for Goodness-of-Fit testing is built. Denoting u = F(x), v = F(x′),
+the covariance function of Y is easily shown to be:
+Cov(Y (u), Y (v)) = 1
+N ( min(u, v) −uv) [1 + ΨN(u, v)]
+(4)
+where
+ΨN(u, v) = 1
+N
+N
+X
+n,m̸=n
+Cnm(u, v) −uv
+min(u, v) −uv
+(5)
+measures the departure from the independent case, corresponding to Cnm(u, v) = uv (in
+which case ΨN(u, v) ≡0). Note that decorrelated but dependent variables may lead to
+a non zero value of ΨN, since the whole pairwise copula enters the formula and not only
+
+--- Page 4 ---
+Goodness-of-ﬁt tests with dependent observations
+4
+the linear correlation coeﬃcients. When the denominator is zero, the fraction should be
+understood in a limit sense; we recall in particular that [9]
+∆nm(u, u) ≡Cnm(u, u) −u2
+u(1 −u)
+= τ
+UU
+nm(u) + τ
+LL
+nm(1 −u) −1
+(6)
+tends to the upper/lower tail dependence coeﬃcients τ UU
+nm(1) and τ LL
+nm(1) when u tends
+to 1 resp. 0. Intuitively, the presence of ΨN(u, v) in the covariance of Y above leads
+to a reduction of the number of eﬀectively independent variables, but a more precise
+statement requires some further assumptions that we detail below.
+In the following, we will restrict to the case of strong-stationary random vectors,
+for which the copula Cnm only depends on the lag t = m −n, i.e. Ct ≡Cn,n+t. The
+average of ∆nm over n, m can be turned into an average over t:
+ΨN(u, v) =
+N−1
+X
+t=1
+(1 −t
+N )(∆t(u, v) + ∆−t(u, v))
+(7)
+with ∆t(u, v) = ∆n,n+t(u, v). Note that in general ∆t(u, v) ̸= ∆−t(u, v), but clearly
+∆t(u, v) = ∆−t(v, u), which implies that ΨN(u, v) is symmetric in u ↔v.
+We will assume in the following that the dependence encoded by ∆t(u, v) has a
+limited range in time, or at least that it decreases suﬃciently fast for the above sum to
+converge when N →∞. If the characteristic time scale for this dependence is T, we
+assume in eﬀect that T ≪N. In the example worked out in Section 3 below, one ﬁnds:
+∆t(u, v) = f
+ t
+T
+ A(u, v)
+I(u, v) ,
+I(u, v) ≡min(u, v) −uv
+where f(·) is a certain function. If f(r) decays faster than r−1, one ﬁnds (in the limit
+T ≫1):
+Ψ∞(u, v) = lim
+N→∞ΨN(u, v) = T A(u, v) + A(v, u)
+I(u, v)
+Z ∞
+0
+drf(r),
+with corrections at least of the order of T/N when N ≫T.
+2.2. Limit properties
+We now deﬁne the process ˜y(u) as the limit of
+√
+N Y (u) when N →∞. For a given u,
+it represents the asymptotics of the diﬀerence between the empirically determined cdf
+of the underlying X’s and the theoretical one, at the u-th quantile. According to the
+Central Limit Theorem under weak dependences, it is Gaussian as long as the strong
+mixing coeﬃcients,
+αSM(t) = sup
+τ sup
+A,B {|P(A ∩B) −P(A)P(B)| : A ∈σ({Zn(u)}n≤τ), B ∈σ({Zn(v)}n≥τ+t)}
+
+--- Page 5 ---
+Goodness-of-ﬁt tests with dependent observations
+5
+associated to the sequence {Zn(u)} = {Yn(u) −u}, vanish at least as fast as O(t−5)‡.
+We will assume this condition to hold in the following. For example, this condition is
+met if the function f(r) deﬁned above decays exponentially, or if f(r ≥1) = 0.
+The covariance of the process ˜y(u) is given by:
+H(u, v) = lim
+N→∞N Cov(Y (u), Y (v)) = (min(u, v) −uv) [1 + Ψ∞(u, v)] (8)
+and characterizes a Gaussian bridge since V[˜y(0)] = V[˜y(1)] = 0, or equivalently
+P[˜y(0) = y] = P[˜y(1) = y] = δ(y). Indeed, I(u, v) = min(u, v) −uv is the covariance
+function of the Brownian bridge, and Ψ∞(u, v) is a non-constant scaling term.
+By Mercer’s theorem, the covariance H(u, v) can be decomposed on its eigenvectors
+and ˜y(u) can correspondingly be written as an inﬁnite sum of Gaussian variables:
+˜y(u) =
+∞
+X
+j=1
+Uj(u)
+q
+λj zj
+(9)
+where zj are independent centered, unit-variance Gaussian variables, and the functions
+Uj and the numbers λj are solutions to the eigenvalue problem:
+Z 1
+0 H(u, v)Ui(v) dv = λi Ui(u)
+with
+Z 1
+0 Ui(u)Uj(u) du = δij.
+(10)
+In order to measure a limit distance between distributions, a norm over the space
+of continuous bridges needs to be chosen. Typical such norms are the norm-2 (sum of
+squares, as the bridge is always integrable), and the norm-sup (as the bridge always
+reaches an extremal value). Other norms, such as the Anderson-Darling test, can also
+be considered, see Ref. [1].
+In practice, for every given problem, the covariance function in Equation (8) has
+a speciﬁc shape, since Ψ∞(u, v) is copula-dependent. Therefore, contrarily to the case
+of independent random variables, the GoF tests will not be characterized by universal
+(problem independent) distributions.
+2.3. Law of the norm-2 (Cram´er-von-Mises)
+The norm-2 of the limit process is the integral of ˜y2 over the whole domain:
+CM =
+Z 1
+0 ˜y(u)2 du.
+(11a)
+In the representation (9), it has a simple expression:
+CM =
+∞
+X
+j=1
+λjz2
+j .
+(11b)
+‡ This condition means that the occurence of any two realizations of the underlying variable can
+be seen as independent for suﬃciently long time between the realizations. Since the copula induces a
+measure of probability on the Borel sets, it amounts in essence to checking that |Ct(u, v)−uv| converges
+quickly towards 0. See Refs. [14, 15, 10] for deﬁnitions of α−, β−, ρ−mixing coeﬃcients and suﬃcient
+conditions on copulas for geometric mixing (fast exponential decay) in the context of copula-based
+stationary Markov chains.
+
+--- Page 6 ---
+Goodness-of-ﬁt tests with dependent observations
+6
+and its law is thus the law of an inﬁnite sum of squared independent gaussian variables
+weighted by the eigenvalues of the covariance function. Diagonalizing H is thus suﬃcient
+to ﬁnd the distribution of CM, in the form of the Fourier transform of the characteristic
+function
+φ(t) = E
+h
+eit CMi
+=
+Y
+j
+(1 −2itλj)−1
+2 .
+(12)
+The hard task consists in ﬁnding the inﬁnite spectrum of H (or some approximations,
+if necessary).
+Ordering the eigenvalues by decreasing amplitude, Equation (11b) makes explicit
+the decomposition of CM over contributions of decreasing importance so that, at a
+wanted level of precision, only the most relevant terms can be retained. In particular,
+if the top eigenvalue dominates all the others, we get the chi-square law with a single
+degree of freedom:
+P[CM ≤k] = erf
+s
+k
+λ0
+.
+(13)
+Even if the spectrum cannot easily be determined but H(u, v) is known, all the
+moments of the distribution can be computed exactly. For example:
+E[CM] = TrH =
+Z 1
+0 H(u, u) du,
+(14a)
+V[CM] ≡2 TrH2 = 2
+Z Z 1
+0 H(u, v)2 du dv.
+(14b)
+2.4. Law of the supremum (Kolmogorov-Smirnov)
+The supremum of the diﬀerence between the empirical cdf of the sample and the target
+cdf under the null-hypothesis has been used originally by Kolmogorov and Smirnov as
+the measure of distance. The variable
+KS = sup
+u∈[0,1]
+|˜y(u)|
+(15)
+describes the limit behaviour of the GoF statistics. In the case where 1 + Ψ∞(u, v) can
+be factorized as
+q
+ψ(u)
+q
+ψ(v), the procedure for obtaining the limiting distribution was
+worked out in [16], and leads to a problem of a diﬀusive particle in an expanding cage,
+for which some results are known. There is however no general method to obtain the
+distribution of KS for an arbitrary covariance function H.
+Nevertheless, if H has a dominant mode, the relation (9) becomes approximately:
+˜y(u) = U0(u)√λ0z0 ≡κ0(u0)z0, and
+KS =
+q
+λ0|z0| sup
+u∈[0,1]
+|U0(u)| ≡κ0(u∗
+0)|z0|.
+(16)
+The cumulative distribution function is then simply
+P[KS ≤k] = erf
+ 
+k
+√
+2κ0(u∗
+0)
+!
+,
+k ≥0.
+(17)
+
+--- Page 7 ---
+Goodness-of-ﬁt tests with dependent observations
+7
+This approximation is however not expected to work for small values of k, since in this
+case z0 must be small, and the subsequent modes are not negligible compared to the
+ﬁrst one. A perturbative correction — working also for large k only — can be found
+when the second eigenvalue is small, or more precisely when ˜y(u) = κ0(u)z0 + κ(u)z1
+with ǫ = κ/κ0 ≪1. The ﬁrst thing to do is ﬁnd the new supremum
+u∗= arg sup(˜y(u)2) = u∗
+0 + κ′(u∗
+0)
+|κ′′
+0(u∗
+0)|
+z1
+z0
+.
+(18)
+Notice that it is dependent upon z0, z1 so that KS is no longer exactly the absolute value
+of a Gaussian. However it can be shown (after lenghty but straightforward calculation)
+that, to second order in ǫ, ˜y(u∗) remains Gaussian, albeit with a new width
+κ∗≈
+q
+κ2
+0 + κ2 > κ0,
+(19)
+where all the functions are evaluated at u∗
+0. In fact, this approximation works also with
+more than two modes, provided
+κ(u)2 ≡
+X
+j̸=0
+λjUj(u)2 ≪κ0(u)2 = λ0U0(u)2,
+(20)
+in which case:
+κ∗≈
+sX
+j
+λjUj(u∗
+0).
+(21)
+3. An explicit example: The log-normal volatility model
+In order to illustrate the above general formalism, we focus on the speciﬁc example of
+the product random variable X = σξ, with iid Gaussian residuals ξ and log-normal
+stochastic standard-deviations σ = eω (again we denote generically by F the cdf of X).
+Such models are common in ﬁnance to describe stock returns, as will be discussed in
+the next section. For the time being, let us consider the case where the ω’s are of zero
+mean, and covariance given by:
+Cov(ωnωn+t) = Σ2f
+ t
+T
+
+,
+(t > 0).
+(22)
+The pairwise copulas in the covariance of Y can be explicitely written in the limit
+of weak correlations, Σ2 →0. One ﬁnds:
+Ct(u, v) −uv = Σ2f
+ t
+T
+
+˜A(u) ˜A(v) + O(Σ4)
+(23)
+with
+˜A(u)
+=
+∞
+Z
+−∞
+ϕ(ω)ϕ′(F −1(u)
+eω
+)dω
+(24)
+where here and in the following ϕ(·) denotes the univariate Gaussian pdf, and Φ(·) the
+Gaussian cdf. The spectrum of A(u, v) = ˜A(u) ˜A(v) consists in a single non-degenerate
+eigenvalue λA = TrA =
+R 1
+0 ˜A(u)2 du, and an inﬁnitely degenerate null eigenspace.
+Assuming short-ranged memory, such that f∞= P∞
+r=1 f(r) < +∞, the covariance
+kernel reads:
+H(u, v) = I(u, v) + 2TΣ2f∞A(u, v).
+
+--- Page 8 ---
+Goodness-of-ﬁt tests with dependent observations
+8
+Depending on the value of the parameters, the ﬁrst term or the second term may be
+dominant. Note that one can be in the case of weak correlations (Σ2 →0) but long range
+memory T ≫1, such that the product TΣ2 can be large (this is the case of ﬁnancial
+time series, see below). If TΣ2 is small, one can use perturbation theory around the
+Brownian bridge limit (note that TrI ≈10TrA, see Appendix), whereas if TΣ2 is large,
+it is rather the Brownian term I(u, v) that can be treated as a perturbation. Elements
+of the algebra necessary to set up these perturbation theories are given in the Appendix.
+It is interesting to generalize the above model to account for weak dependence
+between the residuals ξ and between the residual and the volatility, without spoiling the
+log-normal structure of the model. We therefore write:
+X0 = ξ0eω0;
+Xt = ξteαtω0+βtξ0+√
+1−α2
+t −β2
+t ωt
+with
+E[ξ0ξt] = rt
+where all the variables are N (0, 1), so that in particular
+ρt = Corr(X0, Xt) = rt(1 + β2
+t )eαt−1
+Corr(X2
+0, X2
+t ) = (1 + 2r2
+t (1 + 10β2
+t + 8β4
+t ) + 4β2
+t ) e4αt −1
+3e4 −1
+Corr(X0, X2
+t ) = 2βt
+(1 + 2r2
+t (1 + 2β2
+t )) e2αt−1
+2
+√
+e4 −1
+The univariate marginal distributions of X0 and Xt are identical and their cdf is given
+by the integral
+F(x) =
+Z ∞
+−∞ϕ(ω)Φ( x
+eω )dω.
+(25)
+Expanding the bivariate cdf (or the copula) in the small dependence parameters αt, βt, ρt
+around (0, 0, 0), we get
+Ct(u, v) −uv ≈αtA(u, v) −βtB(u, v) + ρtR(u, v)
+(26)
+≈αt ˜A(u) ˜A(v) −βt ˜R(u) ˜A(v) + ρt ˜R(u) ˜R(v)
+where ˜A(u) was deﬁned above in Equation (24), and
+˜R(u) =
+Z ∞
+−∞ϕ(ω)ϕ(F −1(u)
+eω
+)dω = ˜R(1 −u).
+(27)
+The contributions of A(u, v), B(u, v) and R(u, v) on the diagonal are illustrated in
+Figure 1. Notice that the term B(u, v) (coming from cross-correlations between ξ0 and
+ωt, i.e. the so-called leverage eﬀect, see below) breaks the symmetry Ct(u, v) ̸= Ct(v, u).
+We now turn to a numerical illustration of our theory, in the simple case where
+only volatility correlations are present (i.e. βt = ρt = 0 in Equation (26) above). We
+furthermore assume a Markovian dynamics for the log-volatilities:
+Xn = ξneωn−V[ω],
+with
+ωn+1 = gωn + Σηn,
+(28)
+where g < 1 and ηn are iid Gaussian variables of zero mean and unit variance. In this
+case,
+αt = Cov(ωnωn+t) =
+Σ2
+1 −g2 gt.
+(29)
+
+--- Page 9 ---
+Goodness-of-ﬁt tests with dependent observations
+9
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.00
+0.05
+0.10
+0.15
+R(u, u)
+u
+1
+2 π
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.000
+0.005
+0.010
+0.015
+0.020
+A(u, u)
+u
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.04
+−0.02
+0.00
+0.02
+0.04
+B(u, u)
+u
+Figure 1. Copula diagonal of the log-normal volatility model: linear corrections to
+independence. Left:
+correction R(u, u) due to correlation of the residuals (vertical
+axis in multiples of ρ) Middle: correction A(u, u) due to correlation of the log-vols
+(vertical axis in multiples of α) Right:
+correction B(u, u) due to leverage eﬀect
+(vertical axis in multiples of −β)
+In the limit where Σ2 ≪1, the weak dependence expansion holds and one ﬁnds explicitly:
+H(u, v) = I(u, v) + 2
+gΣ2
+(1 −g)2(1 + g) A(u, v).
+(30)
+In order to ﬁnd the limit distribution of the test statistics, we procede by Monte-Carlo
+simulations. The range [0, 1]2 of the copula is discretized on a regular lattice of size
+(M × M). The limit process is described as a vector with M components and built
+from Equation (9) as ˜y = UΛ
+1
+2z where the diagonal elements of Λ are the eigenvalues
+of H (in decreasing order), and the columns of U are the corresponding eigenvectors.
+Clearly, Cov(˜y, ˜y) = UΛU† = H.
+For each Monte-Carlo trial, M independent random values are drawn from a
+standard Gaussian distribution and collected in z. Then y is computed using the above
+representation. This allows one to determine the two relevant statistics:
+KS =
+max
+u=1...M |˜yu|
+CM = 1
+M
+M
+X
+u=1
+˜y2
+u = 1
+M ˜y†˜y = 1
+M z†Λz.
+The empirical cumulative distribution functions of the statistics for a large number of
+trials are shown in Figure 2 together with the usual Kolmogorov-Smirnov and Cram´er-
+von-Mises limit distributions corresponding to the case of independent variables.
+In order to check the accuracy of the obtained limit distribution, we generate 350
+series of N = 2500 dates according to Equation (28). For each such series, we perform
+two GoF tests, namely KS and CM, and calculate the corresponding p-values.
+By
+construction, the p-values of a test should be uniformly distributed if the underlying
+distribution of the simulated data is indeed the same as the hypothesized distribution.
+In our case, when using the usual KS and CM distributions for independent data, the
+p-values are much too small and their histogram is statistically not compatible with the
+
+--- Page 10 ---
+Goodness-of-ﬁt tests with dependent observations
+10
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Kolmogorov−Smirnov
+KS
+ecdf(KS)
+0.0
+0.5
+1.0
+1.5
+2.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Cramer−von Mises
+CM
+ecdf(CM)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.00
+1.04
+1.08
+1.12
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.0
+1.1
+1.2
+1.3
+1.4
+Figure 2.
+Markovian model – Left:
+Cumulative distribution function of the
+supremum of ˜y(u).
+Right: Cumulative distribution of the norm-2 of ˜y(u).
+The
+cases of independent drawings (thin red) and dependent drawings (bold black) are
+compared. The dependent observations are drawn according to the weak-dependence
+kernel (30) with parameters g = 0.88, Σ2 = 0.05. Insets: The eﬀective reduction
+ratio
+q
+N
+Neﬀ(u) = ecdf
+−1(u)
+cdf
+−1
+L (u) where L = KS,CM. The dashed vertical line is located at
+the 95-th centile and thus indicates the reduction ratio corresponding to the p-value
+p = 0.05 (as the test is unilateral).
+Kolmogorov−Smirnov
+p−values
+Density
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+Cramer−von Mises
+p−values
+Density
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+Figure 3. Histogram of the p-values in the GoF test on simulated data, according to
+Equation (28). Uniform distribution of the p-values of a test indicates that the correct
+law of the statistics is used.
+uniform distribution. Instead, when using the appropriate limit distribution found by
+Monte-Carlo and corresponding to the correlation kernel (30), the calculated p-values are
+uniformly distributed, as can be visually seen on Figure 3, and as revealed statistically
+by a KS test (on the KS test!), comparing the 350 p-values to H0 : p ∼U[0, 1].
+
+--- Page 11 ---
+Goodness-of-ﬁt tests with dependent observations
+11
+If, instead of the AR(1) (Markovian) prescription (28), the dynamics of the ωn is given
+by a Fractional Gaussian Noise (i.e. the increments of a fractional Brownian motion)
+[17] with Hurst index 2−ν
+2
+> 1
+2, the log-volatility has a long ranged autocovariance
+αt = Cov(ωn, ωn+t) = Σ2
+2
+
+(t + 1)2−ν −2t2−ν + |t −1|2−ν
+,
+t ≥0
+(31)
+that decays as a power law ∝(2−3ν +ν2)t−ν as t →∞, corresponding to long-memory,
+therefore violating the hypothesis under which the above theory is correct. Still, we
+want to illustrate that the above methodology leads to a meaningful improvement of
+the test, even in the case of long-ranged dependences. The corresponding covariance
+kernel of the Xs,
+H(u, v) = I(u, v) + 2Σ2A(u, v)
+N
+X
+t=1
+
+1 −t
+N
+
+αt,
+(32)
+is used in a Monte-Carlo simulation like in the previous case in order to ﬁnd the
+appropriate distribution of the test statistics KS and CM (shown in Figure 4, see
+caption for the choice of parameters).
+We again apply the GoF tests to simulated
+series, and compute the p-values according to the theory above. As stated above, our
+theory is designed for short-ranged dependences whereas the FGN process is long-ranged.
+The p-values are therefore not expected to be uniformly distributed. Nevertheless, the
+distribution of the p-values is signiﬁcantly corrected toward the uniform distribution,
+see Figure 4:
+with the naive CM distribution (middle), the obtained p-values are
+localized around zero, suggesting that the test is strongly negative. If instead we use
+our prediction for short-range dependences (right), we ﬁnd a clear improvement, as the
+p-values are more widely spread on [0, 1] (but still not uniformly).
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Cramer−von Mises
+CM
+ecdf(CM)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+2
+4
+6
+8
+p−values
+Density
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0
+2
+4
+6
+8
+10
+12
+p−values
+Density
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.5
+1.0
+1.5
+Figure 4. Fractional Brownian Motion – Left: Cumulative distribution function of
+the norm-2 of ˜y(u), see Fig. 2 for full caption.
+Middle-Right: Histogram of the
+p-values in the CM test on simulated data, using the iid CM distribution (middle)
+and the prediction obtained assuming short range correlations (right). The dependent
+observations are drawn according to (31) with parameters ν = 2
+5, Σ2 = 1, N = 1500.
+
+--- Page 12 ---
+Goodness-of-ﬁt tests with dependent observations
+12
+4. Application to ﬁnancial time series
+4.1. Stylized facts of daily stock returns
+One of the contexts where long-ranged persistence is present is time series of ﬁnancial
+asset returns. At the same time, the empirical determination of the distribution of these
+returns is of utmost importance, in particular for risk control and derivative pricing. As
+we will see, the volatility correlations are so long-ranged that the number of eﬀectively
+independent observations is strongly reduced, in such a way that the GoF tests are not
+very tight, even with time series containing thousands of raw observations.
+It is well-known that stock returns exhibit dependences of diﬀerent kinds:
+• at relatively high frequencies (up to a few days), returns show weak, but signiﬁcant
+negative linear auto-correlations (see e.g. [18]);
+• the absolute returns show persistence over very long periods, an eﬀect called
+multiscale volatility clustering and for which several interesting models have been
+proposed in the last ten years [19, 20, 21, 22, 23, 24];
+• past negative returns favor increased future volatility , an eﬀect that goes under
+the name of “leverage correlations” in the literature [25, 26, 27, 28, 29, 30].
+Our aim here is neither to investigate the origin of these eﬀects and their possible
+explanations in terms of behavioral economics, nor to propose a new family of models
+to describe them. We rather want to propose a new way to characterize and measure
+the full structure of the temporal dependences of returns based on copulas, and extract
+from this knowledge the quantities needed to apply GoF tests to ﬁnancial times series.
+Throughout this section, the empirical results are based on a data set consisting
+of the daily returns of the stock price of listed large cap US companies. More precisely
+we keep only the 376 names present in the S&P-500 index constantly over the ﬁve
+years period 2000–2004, corresponding to N = 1256 days. The individual series are
+standardized, but this does not change the determination of copulas, that are invariant
+under increasing and continuous transformations of the marginals.
+4.2. Empirical self-copulas
+For each (u, v) on a lattice, we determine the lag dependent “self-copula” Ct(u, v) by
+assuming stationarity, i.e. that the pairwise copula Cnm(u, v) only depends on the time
+lag t = m−n. We also assume that all stocks are characterized by the same self-copula,
+and therefore an average over all the stock names in the universe is done in order to
+remove noise. Both these assumptions are questionable and we give at the end of this
+section an insight on how non-stationarities as well as systematic eﬀects of market cap,
+liquidity, tick size, etc, can be accounted for.
+The self-copulas are estimated non-parametrically with a bias correction§, then
+ﬁtted to the parametric family of log-normal copulas introduced in the previous section.
+§ Details on the copula estimator and the bias issue are given in appendix.
+
+--- Page 13 ---
+Goodness-of-ﬁt tests with dependent observations
+13
+−0.010
+−0.005
+0.000
+0.005
+0.010
+t = 1
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.010
+−0.005
+0.000
+0.005
+0.010
+u
+t = 8
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+u
+t = 32
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+u
+t = 256
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+u
+Figure 5. Diagonal (top) and anti-diagonal (bottom) of the self-copula for diﬀerent
+lags; the product copula has been subtracted. A ﬁt with Equation (26) is shown in thin
+red. Note that the y scale is small, conﬁrming that the weak dependence expansion is
+justiﬁed. The dependence is still signiﬁcant even for t ∼500 days!
+We assume (and check a posteriori) that the weak dependence expansion holds, leaving
+us with three functions of time, αt, βt and ρt, to be determined. We ﬁt for each t the
+copula diagonal Ct(u, u) to Equation (26) above, determine αt, βt and ρt, and test for
+consistency on the anti-diagonal Ct(u, 1 −u). Alternatively, we could determine these
+coeﬃcients to best ﬁt Ct(u, v) in the whole (u, v) plane, but the ﬁnal results are not
+very diﬀerent. The results are shown in Figure 5 for lags t = 1, 8, 32, 256 days. Fits of
+similar quality are obtained up to t = 512.
+Before discussing the time dependence of the ﬁtted coeﬃcients αt, βt and ρt, let us
+describe how the diﬀerent eﬀects show up in the plots of the diagonal and anti-diagonal
+copulas. The contribution of the linear auto-correlation can be directly observed at the
+central point Ct( 1
+2, 1
+2) of the copula. It is indeed known [9] that for any pseudo-elliptical
+model (including the present log-normal framework) one has:
+Ct( 1
+2, 1
+2) = 1
+4 + 1
+2π arcsin ρt.
+Note that this relation holds beyond the weak dependence regime. If β
+(B)
+t
+= Ct( 1
+2, 1
+2)−1
+4
+— this is in fact Blomqvist’s beta coeﬃcient [31] — the auto-correlation is measured by
+ρt = sin(2πβ
+(B)
+t ).
+The volatility clustering eﬀect can be visualized in terms of the diagonals of the self-
+copula; indeed, the excess (unconditional) probability of large events following previous
+large events of the same sign is (Ct(u, u) −u2) with u < 1
+2 for negative returns, and
+u > 1
+2 for positive ones. On the anti-diagonal, the excess (unconditional) probability
+of large positive events following large negative ones is, for small u < 1
+2, the upper-left
+volume (Ct(u, 1) −u · 1) −(Ct(u, 1−u) −u(1−u)) = u(1−u) −Ct(u, 1−u) and similarly
+the excess probability of large negative events following large positive ones is the same
+expression for large u > 1
+2 (lower-right volume). As illustrated on Figure 5, these four
+
+--- Page 14 ---
+Goodness-of-ﬁt tests with dependent observations
+14
+1
+2
+5
+10
+20
+50
+100
+200
+500
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+0.30
+0.35
+t
+αt
+Figure 6. Auto-correlation of the volatilities, for lags ranging from 1 to 768 days.
+Each point represents the value of αt extracted from a ﬁt of the empirical copula
+diagonal at a given lag to the relation (26). We also show the ﬁt to a multifractal
+model, αt = −Σ2 log t
+T , with Σ2 = 0.046 and T = 1467 days.
+quadrants exceed the independent case prediction, suggesting a genuine clustering of
+the amplitudes, measured by αt. Finally, an asymmetry is clearly present: the eﬀect
+of large negative events on future amplitudes is stronger than the eﬀect of previous
+positive events. This is an evidence for the leverage eﬀect: negative returns cause a
+large volatility, which in turn makes future events (positive or negative) to be likely
+larger. This eﬀect is captured by the coeﬃcient βt.
+The evolution of the coeﬃcients αt, βt and ρt for diﬀerent lags reveals the following
+properties: i) the linear auto-correlation ρt is short-ranged (a few days), and negative;
+ii) the leverage parameter βt is short-ranged and, as is well known, negative, revealing
+the asymmetry discussed above; iii) the correlation of volatility is long-ranged and of
+relatively large positive amplitude (see Figure 6), in line with the known long range
+volatility clustering. More quantitatively, we ﬁnd that the parameter αt for lags ranging
+from 1 to 768 days is consistent with an eﬀective relation well ﬁtted by the “multifractal”
+[32, 20, 33, 21] prediction for the volatility autocorrelations: αt = −Σ2 log t
+T , with an
+amplitude Σ2 = 0.046 and a horizon T = 1467 days consistent, in order of magnitude,
+with previous determinations.
+The remarkable point, already noticed in previous empirical works on multifractals
+[32, 34], is that the horizon T, beyond which the volatility correlations vanish, is found
+to be extremely long. In fact, the extrapolated horizon T is larger than the number
+of points of our sample N! This long correlation time has two consequences: ﬁrst, the
+parameter 2TΣ2f∞that appears in the kernel H(u, v) is large, ≈135.
+This means
+that the dependence part TΣ2f∞A(u, v) is dominant over the independent Brownian
+bridge part I(u, v). This is illustrated in Figure 7, where we show the ﬁrst eigenvector
+of H(u, v), which we compare to the non-zero eigenmode of A(u, v), and to the ﬁrst
+
+--- Page 15 ---
+Goodness-of-ﬁt tests with dependent observations
+15
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−1.0
+−0.5
+0.0
+0.5
+1.0
+1.5
+u
+1st EV
+Figure 7.
+Bold black: The ﬁrst eigenvector of the empirical kernel H(u, v) =
+I(u, v) [1 + ΨN(u, v)]. Plain red: The function ˜A(u) (normalized), corresponding to
+the pure eﬀect of volatility clustering in a log-normal model, in the limit where the
+Brownian bridge contribution I(u, v) becomes negligible. Dashed blue: The largest
+eigenmode |1⟩=
+√
+2 sin(πu) of the independent kernel I(u, v).
+eigenvector of I(u, v). Second, the hypothesis of a stationary process, which requires
+that N ≪T, is not met here, so we expect important preasymptotic corrections to the
+above theoretical results.
+4.3. Monte-Carlo estimation of the limit distributions
+Since H(u, v) is copula-dependent, and considering the poor analytical progress made
+about the limit distributions of KS and CM in cases other than independence, the
+asymptotic laws will be computed numerically by Monte-Carlo simulations (like in the
+example of Section 3) with the empirically determined H(u, v).
+The empirical cumulative distribution functions of the statistics for a large number
+of trials are shown in Figure 8 together with the usual Kolmogorov-Smirnov and Cram´er-
+von-Mises limit distributions corresponding to the case of independent variables. One
+sees that the statistics adapted to account for dependences are stretched to the right,
+meaning that they accept higher values of KS or CM (i.e. measures of the diﬀerence
+between the true and the empirical distributions). In other words, the outcome of a test
+based on the usual KS or CM distributions is much more likely to be negative, as it will
+consider “high” values (like 2–3) as extremely improbable, whereas a test that accounts
+for the strong dependence in the time series would still acccept the null-hypothesis for
+such values.
+As an illustration, we apply the test of Cram´er-von Mises to our dataset, comparing
+the empirical univariate distributions of stock returns to a simple model of log-normal
+
+--- Page 16 ---
+Goodness-of-ﬁt tests with dependent observations
+16
+0
+1
+2
+3
+4
+5
+6
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Kolmogorov−Smirnov
+KS
+ecdf(KS)
+0
+2
+4
+6
+8
+10
+12
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Cramer−von Mises
+CM
+ecdf(CM)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.0
+1.5
+2.0
+2.5
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+2
+4
+6
+8
+10
+Figure 8. Left: Cumulative distribution function of the supremum of ˜y(u). Right:
+Cumulative distribution of the norm-2 of ˜y(u). The cases of independent drawings (thin
+red) and dependent drawings (bold black) are compared. The dependent observations
+are drawn according to the empirical average self-copula of US stock returns in 2000-
+2004. Insets: The eﬀective reduction ratio
+q
+N
+Neﬀ(u) = ecdf
+−1(u)
+cdf
+−1
+L (u) where L = KS,CM.
+stochastic volatility
+X = esω−s2ξ
+where
+ξ, ω
+iid∼N (0, 1).
+(33)
+The volatility of volatility parameter s can be calibrated from the time series {xt}t as
+s2 = log
+ 2
+π
+⟨x2
+t⟩t
+⟨xt⟩2
+t
+!
+.
+(34)
+We want to test the hypothesis that the log-normal model with a unique value of s for
+all stocks is compatible with the data. In practice, for each stock i, si is chosen as the
+average of (34) over all other stocks in order to avoid endogeneity issues and biases in
+the calculations of the p-values of the test. si is found to be ≈0.5 and indeed almost
+identical for all stocks. Then the GoF statistic CM is computed for each stock i and
+the corresponding p-value is calculated.
+Figure 9 shows the distribution of the p-values, as obtained by using the usual
+asymptotic Cram´er-von Mises distribution for independent samples (left) and the
+modiﬁed version allowing for dependence (right). We clearly observe that the standard
+Cram´er-von Mises test strongly rejects the hypothesis of a common log-normal model, as
+the corresponding p-values are concentrated around zero, which leads to an excessively
+high rejection rate. The use of the generalized Cram´er-von Mises test for dependent
+variables greatly improves the situation, with in fact now too many high values of p.
+Therefore, the hypothesis of a common log-normal model for all stocks cannot be rejected
+when the long-memory of volatility is taken into account. The overabundant large values
+of p may be due to the fact that all stocks are in fact exposed to a common volatility
+factor (the “market mode”), which makes the estimation of s somewhat endogeneous
+
+--- Page 17 ---
+Goodness-of-ﬁt tests with dependent observations
+17
+p−values
+Density
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0
+1
+2
+3
+4
+p−values
+Density
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.5
+1.0
+1.5
+2.0
+Figure 9. Histogram of the p-values in a Cram´er-von Mises-like test, see the text for
+the test design. Left:
+when using the standard Cram´er-von Mises law, the obtained
+p-values are far from uniformly distributed and strongly localized under the threshold
+p = 0.05 (dashed vertical line) occasioning numerous spurious rejections.
+Right:
+when using the modiﬁed law taking dependences into account, the test rejects the
+hypothesis of an identical distribution for all stocks much less often.
+and generates an important bias. Another reason is that the hypothesis that the size
+of the sample N is much larger than the correlation time T does not hold for our
+sample, and corrections to our theoretical results are expected in that case.∥It would
+be actually quite interesting to extend the above formalism to the long-memory case,
+where T ≫N ≫1.
+4.4. Beyond stationarity and universality
+The assumption that ﬁnancial time series are stationary is far from granted. In fact,
+several observations suggest that ﬁnancial markets operate at the frontier between
+stationarity and non-stationarity.
+The multifractal model, for example, assumes
+that correlations are decaying marginally slowly (as a logarithm), which technically
+corresponds to the boundary between stationary models (when decay is faster) and
+non-stationary models. Furthermore, as stated above, the horizon T that appears in the
+model is empirically found to be very long (on the order of several years) and therefore
+very diﬃcult to measure precisely. Other models, like the “multi-scale” GARCH [22, 35],
+point in the same direction: when these models are calibrated on ﬁnancial data, the
+parameters are always found to be very close to the limit of stability of the model (see
+[35] for a discussion of this point).
+Furthermore, what is relevant in the present context is strong stationarity, i.e. the
+stationarity of the full self-copula. Hence, testing for stationarity amounts to comparing
+copulas, which amounts to a GoF for two-dimensional variables . . . for which general
+statistical tools are missing, even in the absence of strong dependence! So in a sense
+∥Note that in practice, we have estimated ΨN(u, v) by summing the empirically determined copulas
+up to tmax = 512, which clearly underestimates the contribution of large lags.
+
+--- Page 18 ---
+Goodness-of-ﬁt tests with dependent observations
+18
+this problem is like a snake chasing its own tail. A simple (and weak) argument is
+to perform the above study in diﬀerent periods. When ﬁtting the multifractal model
+to the self-copulas, we ﬁnd the following values for (Σ2, ln T): (0.032, 6.39) in 1995-
+1999, (0.046, 7.29) in 2000-2004, (0.066, 8.12) in 2000-2009 and (0.078, 7.86) in 2005-
+2009. These numbers vary quite a bit, but this is exactly what is expected with the
+multifractal model itself when the size of the time series N is not much larger than the
+horizon T! (see [36, 37] for a detailed discussion of the ﬁnite N properties of the model).
+As of the universality of the self-copula across the stocks, it is indeed a reasonable
+assumption that allows one to average over the stock ensemble.
+We compared the
+averaged self-copula on two subsets of stocks obtained by randomly dividing the
+ensemble, and found the resulting copulas to be hardly distinguishable. This can be
+understood if we consider that all stocks are, to a ﬁrst approximation, driven by a
+common force — the “market” — and subject to idiosyncratic ﬂuctuations. We know
+that this picture is oversimpliﬁed, and that systematic eﬀects of sector, market cap,
+etc. are expected and could in fact be treated separately inside the framework that we
+propose. Such issues are related to the cross-sectional non-linear dependence structure
+of stocks, and are far beyond the objectives of this article.
+5. Conclusion
+The objectives of this paper were twofold: on the theoretical side, we introduced a
+framework for the study of statistical tests of Goodness-of-Fit with dependent samples;
+on the empirical side, we presented new measurements as well as phenomenological
+models for non-linear dependences in time series of daily stock returns.
+Both parts
+heavily rely on the notion of bivariate self-copulas.
+In summary, GoF testing on persistent series cannot be universal as is the case for
+iid variables, but requires a careful estimation of the self-copula at all lags. Correct
+asymptotic laws for the Kolmogorov-Smirnov and Cram´er-von Mises statistics can be
+found as long as dependences are short ranged, i.e.
+T ≪N.
+From the empirical
+estimation of the self-copula of US stock returns, long-ranged volatility clustering with
+multifractal properties is observed as the dominant contribution to self-dependence, in
+line with previous studies.
+However, subdominant modes are present as well and a
+precise understanding of those involves an in-depth study of the spectral properties of
+the correlation kernel H.
+One of the remarkable consequences of the long-memory nature of the volatility
+is that the number of eﬀectively independent observations is signiﬁcantly reduced, as
+both the Kolmogorov-Smirnov and Cram´er-von Mises tests accept much larger values of
+the deviations (see Figure 8). As a consequence, it is much more diﬃcult to reject the
+adequation between any reasonable statistical model and empirical data. We suspect
+that many GoF tests used in the literature to test models of ﬁnancial returns are
+fundamentally ﬂawed because of the long-ranged volatility correlations.
+In intuitive
+terms, the long-memory nature of the volatility can be thought of as a sequence of
+
+--- Page 19 ---
+Goodness-of-ﬁt tests with dependent observations
+19
+volatility regime shifts, each with a diﬀerent lifetime, and with a broad distribution of
+these lifetimes. It is clear that in order to fully sample the unconditional distribution of
+returns, all the regimes must be encountered several times. In the presence of volatility
+persistence, therefore, the GoF tests are much less stringent, because there is always a
+possibility that one of these regimes was not, or only partially, sampled. The multifractal
+model is an explicit case where this scenario occurs.
+We conclude with two remarks of methodological interest.
+1) The method presented for dealing with self-dependences while using statistical
+tests of Goodness-of-Fit is computationally intensive in the sense that it requires to
+estimate empirically the self-copula for all lags over the entire unit square. In the non-
+parametric setup, discretization of the space must be chosen so as to provide a good
+approximation of the continuous distance measures while at the same time not cause
+too heavy computations. Considering that fact, it is often more appropriate to use the
+Cram´er-von Mises-like test rather than the Kolmogorov-Smirnov-like, as numerical error
+on the evaluation of the integral will typically be much smaller than on the evaluation
+of the supremum on a grid, more so when the grid size is only about
+1
+M ≈
+1
+100.
+2) The case with long-ranged dependence T ≫N ≫1 cannot be treated in the
+framework presented here.
+First because the Central Limit Theorem does not hold
+in that case, and ﬁnding the limit law of the statistics may require more advanced
+mathematics. But even pre-asymptotically, summing the lags over the available data
+up to t ≈N means that a lot of noise is included in the determination of ΨN(u, v)
+(see Eqation 5).
+This, in turn, is likely to cause the empirically determined kernel
+H(u, v) not to be positive deﬁnite.
+One way of addressing this issue is to follow a
+semi-parametric procedure: the copula Ct is still estimated non-parametrically, but the
+kernel H sums the lagged copulas Ct only up to a scale where the linear correlations
+and leverage correlations vanish, and only one long-ranged dependence mode remains.
+This last contribution can be ﬁtted by an analytical form, that can then be summed up
+to its own scale, or even to inﬁnity.
+In terms of ﬁnancial developments, we believe that an empirical exploration of the
+self-copulas for series of diverse asset returns and at diverse frequencies is of primordial
+importance in order to grasp the complexity of the non-linear time-dependences. In
+particular, expanding the concept of the self-copula to pairs of assets is likely to
+reveal subtle dependence patterns. From a practitioner’s point of view, a multivariate
+generalization of the self-copula could lead to important progresses on such issues as
+causality, lead-lag eﬀects and the accuracy of multivariate prediction.
+Acknowledgments
+We thank Fr´ed´eric Abergel for helpful comments and Vincent Vargas for fruitful
+discussions.
+
+--- Page 20 ---
+Goodness-of-ﬁt tests with dependent observations
+20
+Appendix A. Pseudo-elliptical copula: expansion around independence
+We compute here the spectrum and eigenvectors of the kernel H(u, v) in the case of
+pseudo-elliptical copula with weak dependences, starting from the expansion (26).
+The situation is better understood in terms of operators acting in the Hilbert space
+of continuous functions on [0, 1] vanishing in the border. Using Dirac’s braket notations,
+A = | ˜A⟩⟨˜A|, B = | ˜R⟩⟨˜A|, R = | ˜R⟩⟨˜R|. The sine functions |j⟩=
+√
+2 sin(jπu) build a
+basis of this Hilbert space, and interestingly they are the eigenvectors of the independent
+kernel I(u, v) (I stands for ‘I ndependence’ and is the covariance matrix of the Brownian
+motion: I = M −P where M denotes the bivariate upper Fr´echet-Hoeﬀding copula and
+P the bivariate product copula).
+It is then easy to ﬁnd the spectra: rank-one operators have at most one non-
+null eigenvalue. Using the parities of ˜A(u) and ˜R(u) with respect to 1
+2 and imposing
+orthonormality of the eigenvectors, we can sketch the following table of the non zero
+eigenvalues and eigenvectors of the diﬀerent operators:
+λI
+j = (jπ)−2
+UI
+j (u) = |j⟩
+λR = ⟨˜R| ˜R⟩= TrR
+|UR
+0 ⟩= | ˜R⟩/
+√
+TrR
+λA = ⟨˜A| ˜A⟩= TrA
+|UA
+0 ⟩= | ˜A⟩/
+√
+TrA
+For the pseudo-elliptical copula with weak dependence, H has the following general
+form:
+H = I + ˜ρR + ˜αA −
+˜β
+2 (B + B†).
+(A.1)
+The operator B + B† has two non zero eigenvalues ±
+√
+λRλA, with eigenvectors
+(|UR
+0 ⟩±|UA
+0 ⟩)/
+√
+2. In order to approximately diagonalize H, it is useful to notice that in
+the present context A and R are close to commuting with I. More precisely, it turns out
+that |UA
+0 ⟩is very close to |2⟩, and |UR
+0 ⟩even closer to |1⟩. Indeed, a2 = ⟨UA
+0 |2⟩≈0.9934
+and r1 = ⟨UR
+0 |1⟩≈0.9998. Using the symmetry of A and R, we can therefore write:
+|UA
+0 ⟩= a2|2⟩+ ǫa|2⊥⟩
+with
+⟨2|2⊥⟩= ⟨2j−1|2⊥⟩= 0, ∀j ≥1
+|UR
+0 ⟩= r1|1⟩+ ǫr|1⊥⟩
+with
+⟨1|1⊥⟩= ⟨2j|1⊥⟩= 0, ∀j ≥1
+where ǫa =
+q
+1 −a2
+2 ≪1 and ǫr =
+q
+1 −r2
+1 ≪1. The components of |2⊥⟩on the even
+eigenvectors of I are determined as:
+⟨2⊥|2j⟩= ⟨UA
+0 |2j⟩
+ǫa
+j ≥2,
+Table A1. Traces of the operators appearing in the covariance functions (multiples
+of 10−2). Traces of the powers of the rank-one A, R equal powers of their traces. The
+trace of B + B† is zero.
+I
+A
+R
+16.667
+1.176
+7.806
+I2
+IA
+IR
+111.139
+2.948
+79.067
+
+--- Page 21 ---
+Goodness-of-ﬁt tests with dependent observations
+21
+and similarly:
+⟨1⊥|2j−1⟩= ⟨UR
+0 |2j−1⟩
+ǫr
+j ≥2.
+Using the deﬁnition of the coeﬃcients αt, βt and ρt given in section 3, we introduce
+the following notations:
+˜α = 2 TrA lim
+N→∞
+N−1
+X
+t=1
+
+1 −t
+N
+
+αt
+˜ρ = 2 TrR lim
+N→∞
+N−1
+X
+t=1
+
+1 −t
+N
+
+ρt
+˜β = 2
+√
+TrA TrR lim
+N→∞
+N−1
+X
+t=1
+
+1 −t
+N
+
+βt
+so that H writes:
+H = I
++ ˜α|UA
+0 ⟩⟨UA
+0 | + ˜ρ|UR
+0 ⟩⟨UR
+0 | −˜β
+←→
+|UR
+0 ⟩⟨UA
+0 |
+= H0 + ǫa
+
+˜αa2
+←→
+|2⟩⟨2⊥| −˜βr1a⊥
+←→
+|1⟩⟨2⊥|
+
++ ǫr
+
+˜ρr1
+←→
+|1⊥⟩⟨1| −˜βa2
+←→
+|1⊥⟩⟨2|
+
++
+
+˜αǫ2
+a|2⊥⟩⟨2⊥| + ˜ρǫ2
+r|1⊥⟩⟨1⊥| −˜βǫaǫr
+←→
+|2⊥⟩⟨1⊥|
+
+where
+←→
+|ψ1⟩⟨ψ2|= 1
+2(|ψ1⟩⟨ψ2| + |ψ2⟩⟨ψ1|) and H0 is the unperturbed operator (0-th order
+in both ǫs)
+H0 =
+X
+j≥3
+λI
+j|j⟩⟨j| + (λI
+2 + ˜αa2
+2)|2⟩⟨2| + (λI
+1 + ˜ρr2
+1)|1⟩⟨1| −˜βr1a2
+←→
+|2⟩⟨1|
+the spectrum of which is easy to determine as:
+λH0
+1 =λ−
+˜ρ, ˜β→0
+−→λI
+1
+|UH0
+1 ⟩=−
+|−⟩
+q
+⟨−|−⟩
+˜ρ, ˜β→0
+−→|1⟩
+λH0
+2 =λ+
+˜ρ, ˜β→0
+−→λI
+2 + ˜αa2
+2
+|UH0
+2 ⟩=
+|+⟩
+q
+⟨+|+⟩
+˜ρ, ˜β→0
+−→|2⟩
+λH0
+j =λI
+j
+|UH0
+j ⟩=|j⟩
+(j ≥3)
+where
+λ± = λI
+1 + ˜ρr2
+1 + λI
+2 + ˜αa2
+2 ±
+q
+(λI
+1 + ˜ρr2
+1 −λI
+2 −˜αa2
+2)2 + 4(˜βr1a2)2
+2
+and |±⟩the corresponding eigenvectors, which are linear combination of |1⟩and |2⟩
+only. Therefore, ⟨1⊥|±⟩= ⟨2⊥|±⟩= 0. This implies that there is no corrections to the
+eigenvalues of H0 to ﬁrst order in the ǫs.
+At the next order, instead, some corrections appear. We call:
+Vi,j = (˜ρr1⟨1|UH0
+i
+⟩−
+˜βa2
+2 ⟨2|UH0
+i
+⟩)⟨j|1⊥⟩ǫr
++ (˜αa2⟨2|UH0
+i
+⟩−
+˜βr1
+2 ⟨1|UH0
+i
+⟩)⟨j|2⊥⟩ǫa
+
+--- Page 22 ---
+Goodness-of-ﬁt tests with dependent observations
+22
+the matrix elements of the ﬁrst order perturbation of H, whence
+λH
+1 = λH0
+1
++
+X
+j≥3
+V 2
+1,j
+λH0
+1
+−λH0
+j
+λH
+2 = λH0
+2
++
+X
+j≥3
+V 2
+2,j
+λH0
+2
+−λH0
+j
+λH
+j = λH0
+j
++
+X
+i=1,2
+V 2
+i,j
+λH0
+j
+−λH0
+i
++ (˜αǫ2
+a⟨j|2⊥⟩2 + ˜ρǫ2
+r⟨j|1⊥⟩2 −˜βǫaǫr⟨j|1⊥⟩⟨j|2⊥⟩)
+As of the eigenvectors, it is enough to go to ﬁrst order in ǫs to get a non-trivial
+perturbative correction:
+|UH
+1 ⟩= |UH0
+1 ⟩+
+X
+j≥3
+V1,j
+λH0
+1
+−λH0
+j
+|j⟩
+|UH
+2 ⟩= |UH0
+2 ⟩+
+X
+j≥3
+V2,j
+λH0
+2
+−λH0
+j
+|j⟩
+|UH
+j ⟩= |j⟩+
+X
+i=1,2
+Vi,j
+λH0
+j
+−λH0
+i
+|UH0
+i
+⟩
+The special case treated numerically in section 3 corresponds to ˜ρ = ˜β = 0, such that
+the above expressions simplify considerably, since in that case V1,j ≡0 and V2,2j−1 = 0,
+while V2,2j = ˜αa2⟨UA
+0 |2j⟩. To ﬁrst order in the ǫs, the spectrum is not perturbed and
+calls λH
+i
+= λH0
+i
+= λI
+i + ˜αa2
+2δi2, so that the characteristic function of the modiﬁed CM
+distribution is, according to Equation (12),
+φ(t) =
+Y
+j
+
+1 −2it/(jπ)2−1
+2 ×
+v
+u
+u
+t 1 −2itλI
+2
+1 −2itλH0
+2
+.
+Its pdf is thus the convolution of the Fourier transform of φI(t) (characteristic function
+associated to the usual CM distribution [16]) and the Fourier transform of the correction
+φc(t) =
+q
+1 −2itλI
+2/
+q
+1 −2itλH0
+2 . Noting that (1−2iσ2t)−1
+2 is the characteristic function
+of the chi-2 distribution, it can be shown that for k > 0, and with µ ≡λH0
+2
+for the sake
+of readability:
+1
+√
+2πFT (φc) = δ(k) −
+Z µ
+λI
+2
+dλ ∂
+∂k
+
+χ2(k; µ) ∗χ2(k; λ)
+
+= δ(k) −
+Z µ
+λI
+2
+dλ e−λ+µ
+4λµ k
+8(λµ)
+3
+2
+ 
+(µ −λ)I1(µ −λ
+4λµ k) −(µ + λ)I0(µ −λ
+4λµ k)
+!
+≈δ(k) + e−k
+2λ ˜αa2
+2
+4λ2 I0( ˜αa2
+2
+4λ2 k)
+where χ2(k; σ2) = (2πσ2k ek/σ2)−1
+2 is the pdf of the chi-2 distribution, In are the
+modiﬁed Bessel functions of the ﬁrst kind, and ∗denotes the convolution operation.
+The approximation on the last line holds as long as ˜α ≪λI
+2 = (2π)−2 and in this regime
+
+--- Page 23 ---
+Goodness-of-ﬁt tests with dependent observations
+23
+we obtain ﬁnally
+P[CM = k] =
+√
+2πFT(φ)(k) = (FT(φI) ∗FT(φc))(k)
+= PI(k) + 4˜αa2
+2π4
+Z k
+0 PI(z)e−2π2(k−z)I0(4˜αa2
+2π4(k −z))dz
+= PI(k) + 4˜αa2
+2π4
+Z k
+0 PI(k −z)e−2π2zI0(4˜αa2
+2π4z)dz
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+diagonal
+u
+relative biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+anti−diagonal
+u
+relative biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+diagonal
+u
+absolute biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+anti−diagonal
+u
+absolute biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+diagonal
+u
+relative biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+anti−diagonal
+u
+relative biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+diagonal
+u
+absolute biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+anti−diagonal
+u
+absolute biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+diagonal
+u
+relative biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+anti−diagonal
+u
+relative biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+diagonal
+u
+absolute biais
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+−0.10
+−0.08
+−0.06
+−0.04
+−0.02
+0.00
+anti−diagonal
+u
+absolute biais
+Figure A1.
+Bias of the non-parametric naive estimator of the independence
+copula with unknown marginals, for diﬀerent sample sizes N = 251 (blue), 1256
+(red), 6280 (black).
+Top: Relative bias
+⌊Nu⌋
+Nu
+⌊Nv⌋
+Nv
+−1.
+Bottom: Absolute bias
+uv
+
+⌊Nu⌋
+Nu
+⌊Nv⌋
+Nv −1
+
+/(min(u, v) −uv)
+
+--- Page 24 ---
+Goodness-of-ﬁt tests with dependent observations
+24
+Appendix B. Non-parametric copula estimator
+The copula C(u, v) of a random pair (X, Y ) is
+C(u, v) = P[FX(X) ≤u, FY (Y ) ≤v] = E
+h
+1{X≤F −1
+X (u)}1{Y ≤F −1
+Y
+(v)}
+i
+If the univariate marginals FX, FY are known, the usual empirical counterpart to the
+expectation operator can be used to deﬁne the empirical copula over a sample of N i.d.
+realisations (Xi, Yi) of the random pair:
+C(u, v) = 1
+N
+N
+X
+i=1
+1{Xi≤F −1
+X (u)}1{Yi≤F −1
+Y
+(v)}
+which is clearly unbiased for any N.
+But if the marginals are unknown, they have
+to be themselves estimated, for example by their usual empirical counterpart. Since
+F(x) = P[X ≤x] = E[1{X≤x}], an unbiased ecdf is obtained as F(x) = 1
+N
+PN
+i=1 1{Xi≤x},
+but the expectation value of
+C(u, v) = 1
+N
+N
+X
+i=1
+1{F X(Xi)≤u}1{F Y (Yi)≤v}
+is not C(u, v) anymore (only asymptotically is C(u, v) unbiased), but rather
+E[C(u, v)] =
+Z
+dFXY (x, y)P [B(x) ≤Nu −1, B(y) ≤Nv −1]
+where BX(x) =
+P
+j<N 1{Xj≤x} has a binomial distribution B(p, N −1) with p = F(x) and
+is not independent of BY (y). As an example, the expected value of the independence
+(product) copula C(u, v) = uv is
+E[C(u, v)] = ⌊Nu⌋
+N
+⌊Nv⌋
+N
+≡n(u, v)uv
+resulting in a relative bias n(u, v) −1 = ⌊Nu⌋
+Nu
+⌊Nv⌋
+Nv −1 vanishing only asymptotically.
+As E[C(u, v)] may not be computable in the general case, we deﬁne as
+Nu
+⌊Nu⌋
+Nv
+⌊Nv⌋C(u, v)
+our non-parametrical estimator of the copula with bias correction, even when C is not
+the independence copula. Therefore, our estimator is technically biased at ﬁnite N but
+with a good bias correction, and asymptotically unbiased.
+
+--- Page 25 ---
+Goodness-of-ﬁt tests with dependent observations
+25
+[1] D. A. Darling, “The Kolmogorov-Smirnov, Cramer-von Mises Tests,” The Annals of Mathematical
+Statistics, vol. 28, no. 4, pp. 823–838, 1957.
+[2] V. Plerou, P. Gopikrishnan, L. A. N. Amaral, M. Meyer, and H. E. Stanley, “Scaling of the
+distribution of price ﬂuctuations of individual companies,” Physical Review E, vol. 60, no. 6,
+p. 6519, 1999.
+[3] A. A. Dragulescu and V. M. Yakovenko, “Probability distribution of returns in the heston model
+with stochastic volatility,” Quantitative Finance, vol. 2, no. 6, pp. 443–453, 2002.
+[4] J.-P. Bouchaud and M. Potters, Theory of Financial Risk and Derivative Pricing: from Statistical
+Physics to Risk Management. Cambridge University Press, 2003.
+[5] Y. Malevergne and D. Sornette, Extreme ﬁnancial risks: From dependence to risk management.
+Springer Verlag, 2006.
+[6] P. Embrechts, F. Lindskog, and A. McNeil, “Modelling dependence with copulas and applications
+to risk management,” Handbook of heavy tailed distributions in ﬁnance, vol. 8, pp. 329–384,
+2003.
+[7] P. Embrechts, A. McNeil, and D. Straumann, “Correlation and dependence in risk management:
+properties and pitfalls,” Risk management: value at risk and beyond, pp. 176–223, 2002.
+[8] T. Mikosch, “Copulas: Tales and facts,” Extremes, vol. 9, no. 1, pp. 3–20, 2006.
+[9] R. Chicheportiche and J.-P. Bouchaud, “The joint distribution of stock returns is not elliptical,”
+Arxiv preprint q-ﬁn.ST/1009.1100, 2010.
+[10] B. K. Beare, “Copulas and temporal dependence,” Econometrica, vol. 78, no. 1, pp. 395–410, 2010.
+[11] R. Ibragimov and G. Lentzas, “Copulas and long memory.” Harvard Institute of Economic Research
+discussion paper, 2008.
+[12] A. J. Patton, “Copula-based models for ﬁnancial time series,” Handbook of ﬁnancial time series,
+pp. 767–785, 2009.
+[13] W. F. Darsow, B. Nguyen, and E. T. Olsen, “Copulas and Markov processes,” Illinois Journal of
+Mathematics, vol. 36, no. 4, pp. 600–642, 1992.
+[14] R. C. Bradley, Introduction to strong mixing conditions, vol. 1–3.
+Kendrick Press, Heber City,
+Utah, 2007.
+[15] X. Chen, L. P. Hansen, and M. Carrasco, “Nonlinearity and temporal dependence,” Journal of
+Econometrics, vol. 155, no. 2, pp. 155–169, 2010.
+[16] T. W. Anderson and D. A. Darling, “Asymptotic Theory of Certain “Goodness of Fit” Criteria
+Based on Stochastic Processes,” The Annals of Mathematical Statistics, vol. 23, no. 2, pp. 193–
+212, 1952.
+[17] B. B. Mandelbrot and J. W. Van Ness, “Fractional brownian motions, fractional noises and
+applications,” SIAM review, vol. 10, no. 4, pp. 422–437, 1968.
+[18] D. Avramov, T. Chordia, and A. Goyal, “Liquidity and autocorrelations in individual stock
+returns,” The Journal of Finance, vol. 61, no. 5, pp. 2365–2394, 2006.
+[19] M. Pasquini and M. Serva, “Multiscaling and clustering of volatility,” Physica A: Statistical
+Mechanics and its Applications, vol. 269, no. 1, pp. 140–147, 1999.
+[20] L. E. Calvet and A. Fisher, Multifractal Volatility: Theory, Forecasting, and Pricing. Academic
+Press, 2008.
+[21] J.-F. Muzy, E. Bacry, and J. Delour, “Modelling ﬂuctuations of ﬁnancial time series: from cascade
+process to stochastic volatility model,” The European Physical Journal B, vol. 17, no. 3, pp. 537–
+548, 2000.
+[22] G. Zumbach and P. Lynch, “Heterogeneous volatility cascade in ﬁnancial markets,” Physica A:
+Statistical Mechanics and its Applications, vol. 298, no. 3-4, pp. 521–529, 2001.
+[23] P. Lynch and G. Zumbach, “Market heterogeneities and the causal structure of volatility,”
+Quantitative Finance, vol. 3, no. 4, pp. 320–331, 2003.
+[24] L. Borland, J.-P. Bouchaud, J.-F. Muzy, and G. Zumbach, “The dynamics of ﬁnancial markets —
+Mandelbrot’s multifractal cascades, and beyond,” Wilmott Magazine, pp. 86–96, March 2005.
+[25] J.-P. Bouchaud and M. Potters, “More stylized facts of ﬁnancial markets: leverage eﬀect and
+
+--- Page 26 ---
+Goodness-of-ﬁt tests with dependent observations
+26
+downside correlations,” Physica A: Statistical Mechanics and its Applications, vol. 299, no. 1-2,
+pp. 60–70, 2001.
+[26] J. Perell´o, J. Masoliver, and J.-P. Bouchaud, “Multiple time scales in volatility and leverage
+correlations: a stochastic volatility model,” Applied Mathematical Finance, vol. 11, no. 1, pp. 27–
+50, 2004.
+[27] B. Pochart and J.-P. Bouchaud, “The skewed multifractal random walk with applications to option
+smiles,” Quantitative Finance, vol. 2, no. 4, pp. 303–314, 2002.
+[28] Z. Eisler and J. Kertesz, “Multifractal model of asset returns with leverage eﬀect,” Physica A:
+Statistical Mechanics and its Applications, vol. 343, pp. 603–622, 2004.
+[29] P. T. Ahlgren, M. H. Jensen, I. Simonsen, R. Donangelo, and K. Sneppen, “Frustration driven
+stock market dynamics: Leverage eﬀect and asymmetry,” Physica A: Statistical Mechanics and
+its Applications, vol. 383, no. 1, pp. 1–4, 2007.
+[30] P.-A. Reigneron, R. Allez, and J.-P. Bouchaud, “Principal regression analysis and the index
+leverage eﬀect,” Physica A: Statistical Mechanics and its Applications, 2011.
+[31] N. Blomqvist, “On a measure of dependence between two random variables,” The Annals of
+Mathematical Statistics, vol. 21, no. 4, pp. 593–600, 1950.
+[32] J.-F. Muzy, D. Sornette, J. Delour, and A. Arneodo, “Multifractal returns and hierarchical portfolio
+theory,” Quantitative Finance, vol. 1, no. 1, pp. 131–148, 2001.
+[33] T. Lux, “The Multi-Fractal Model of Asset Returns: Its Estimation via GMM and Its Use for
+Volatility Forecasting,” Journal of Business and Economic Statistics, vol. 26, p. 194, 2008.
+[34] J. Duchon, R. Robert, and V. Vargas, “Forecasting volatility with the multifractal random walk
+model,” Mathematical Finance, 2008.
+[35] L. Borland and J.-P. Bouchaud, “On a multi-timescale statistical feedback model for volatility
+ﬂuctuations,” Arxiv preprint physics.soc-ph/0507073, 2005.
+[36] J.-F. Muzy, E. Bacry, and A. Kozhemyak, “Extreme values and fat tails of multifractal
+ﬂuctuations,” Physical Review E, vol. 73, no. 6, p. 066114, 2006.
+[37] E. Bacry, A. Kozhemyak, and J.-F. Muzy, “Are asset return tail estimations related to volatility
+long-range correlations?,” Physica A: Statistical Mechanics and its Applications, vol. 370, no. 1,
+pp. 119–126, 2006.
+[38] M. S. Weiss, “Modiﬁcation of the Kolmogorov-Smirnov statistic for use with correlated data,”
+Journal of the American Statistical Association, vol. 73, no. 364, pp. 872–875, 1978.

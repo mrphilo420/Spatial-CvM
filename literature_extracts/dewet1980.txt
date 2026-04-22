@@ -1,0 +1,1048 @@
+======================================================================
+SOURCE: dewet1980.pdf
+======================================================================
+
+
+--- Page 1 ---
+JOURNAL 
+OF ivlULTIVARIATE 
+ANALYSIS 
+10, 
+38-50 
+(1980) 
+Cramer-von 
+Mises Tests for Independence* 
+T. DE WET 
+The University 
+of Iowa+ 
+Communicated 
+by T. L. Lai 
+In this 
+paper 
+recent 
+results 
+of Gregory 
+[(1977) 
+Ann. 
+Statist. 
+5 110-1231 
+are 
+used to obtain 
+the asymptotic 
+null 
+distribution 
+of a weighted 
+Cram&-von 
+Mises 
+type 
+test for 
+independence. 
+We 
+use approximate 
+Bahadur 
+slopes 
+to find 
+good 
+weight 
+functions 
+for certain 
+alternatives. 
+Some 
+percentage 
+points 
+of the asymp- 
+totic 
+distribution 
+are given. 
+1. INTRODUCTION 
+Let (4 , Yd, (X2, YA.., (X, , Y,J b e independent and identically distrib- 
+uted random vectors with joint distribution function (df) H(x, y) and marginal 
+dfsF(x) 
+and G(y) respectively (all assumed to be continuous). We wish to test 
+the hypothesis that X and Y are independent, i.e., 
+H,:H=F.G. 
+Let H,, , F, , G, be the empirical 
+dfs of ((Xi , Y,)), {XJ and { Yi} respectively. 
+Since 
+these 
+are 
+consistent 
+estimators 
+of H, F, G, an 
+intuitively 
+appealing 
+test 
+statistic for H,, is given by 
+Tn=n 
+m 
+s 
+s m W&, 
+Y) -F&9 
+G(YY 
+WF:@)) 
+W@:(Y)) 
+x ii&i; 
+dG,( y) 
+with 
+WI and 
+W, nonnegative 
+weight 
+functions 
+on 
+(0, 
+1) and e(x) 
+= nF,(x)/ 
+(n + I), Q(y) 
+= nG,(y)/(n + 1). We reject Ho for large values of T,, . The 
+statistic studied by Blum, Kiefer and Rosenblatt [2] closely corresponds to the 
+case W, = 
+W, = 
+1. 
+Received 
+April 
+6, 1979; 
+revised 
+August 
+16, 1979. 
+AMS 
+1970 
+subject 
+classifications: 
+Primary 
+62E20; 
+Secondary 
+62H99, 
+62G20. 
+Key 
+words 
+and 
+phrases: 
+Tests 
+for 
+independence, 
+weighted, 
+asymptotic distribution, 
+approximate 
+slopes. 
+* Research 
+partially 
+supported 
+by the CSIR. 
++ Now 
+at Rhodes 
+University, 
+Grahamstown, 
+South 
+Africa. 
+38 
+0047-259X/80/010038-13$02.00/0 
+Copyright 
+Q 1980 
+by Academic 
+Press, 
+Inc. 
+All 
+rights 
+of reproduction 
+in any 
+form 
+reserved. 
+
+--- Page 2 ---
+CRAM&-VON 
+MISES TESTS 
+39 
+In terms of ranks, the statistic can be written in the following alternative form. 
+Let Rii be the rank of Xi in Xi , Xs ,..., X, and R,i the rank of Yi in Y, , Ys ,.,., 
+Y,, . It then follows easily that 
+T, = n-l i 
+k,l=l 
+( 
+n-l f I(R,, < k; Rzi < I) - ; . 
+i=l 
+with I( .) denoting the indicator function. In this form T,, can easily be calculated. 
+Using the probability integral transformation it follows that under H, T,, is 
+distribution free so we may take H the uniform u” on (0, 1) x (0, 1) and F and G 
+both uniform on (0, 1). Under H, the test statistic becomes 
+l 
+n SI 
+'(H&J, 
+w) 
+-F,(u) 
+G,(w))~ 
+%(F:(4) 
+~~(G$J>) 
+dF,(u) 
+d'%(w) 
+0 
+0 
+where H, , F, , G,, are now based on {(Vi , Vi)} with Vi , Vi independent, 
+each uniformly distributed on (0, 1). 
+In the next section we show how the results of Gregory [6] can be used to 
+obtain the asymptotic distribution of T,, under Ho. In section 3 we make a 
+number of remarks about the kernel whose eigenvalues characterize the asymp- 
+totic distribution of T, and in section 4 we consider certain alternatives and find 
+weight functions which are optimal in the sense of approximate Bahadur slope. 
+Some percentage points of the asymptotic distribution are given in Section 5. 
+2. THE ASYMPTOTIC 
+NULL 
+DISTRIBUTION 
+OF T, 
+In this section we obtain the asymptotic distribution of T, under Ho . We need 
+the following conditions on W, and W, . 
+(Al) 
+Wi is continuous and differentiable on (0, l), i = 1,2. 
+(A2) 
+There exist constants Ci , Da , i = 1,2 such that 
+W,(u) < C,(u(l - u))-” j log u(1 - u)i-’ 
+i=l,2 
+1 W:(u)\ < D&(1 - u))-” 1 log ~(1 - u)l-’ 
+i = 1,2. 
+Remark. The bounds given in (A2) are primarily motivated by the weight 
+function C(@-~(U))-~ considered below. 
+Let 
+1 
+T,, = n 
+ss 
+* (H+& w) - wF,(u) - UC,(W) + UW)~ W,(u) Wz(w) du dw. 
+0 0 
+
+--- Page 3 ---
+40 
+T. 
+DE 
+WET 
+We show in the next lemma that T, - 
+Tin = os( 1) and in the theorem we show 
+how to apply Gregory’s 
+result to Tin . 
+Throughout 
+this section and the next one we assume H,, to be true. 
+LEMMA. 
+As n -+ co, T, - 
+Tin = 
+o,(l). 
+Proof. 
+Let R, = T, - 
+T,, , then R,L can be written 
+as 
+R,, = n !I ,’ o1 (d& 
+4 - &du, 
+9) WI@) W&9 dF&) 
+dG&). 
+1 
+1 
+R,, = n II 
+&a(~, 4 W&) 
+W&)(dF&) 
+dG&) 
+- du du) 
+0 0 
+with 
+Note that &%(u, v), ngin(u, v), n*(F,(a) 
+- u) and nf(G,(~) 
+- ZJ) all converge 
+in distribution 
+so the lemma is intuitively 
+clear. Because of the heavy weight 
+W, and W, can place near 0 and 1 (by (A,)), 
+R,, is the most difficult term to 
+handle. We will prove that R In = o,(l); 
+the other terms can be handled in a 
+similar fashion. 
+Let 
+V&j> 
+= H,(U(i) 
+9 V(j)) - 
+y/n2 
+with { Ucd and { Vcj)} the order statistics of the U and V samples. Then 
+= --n-l C WiJ) W, 
+(&)( 
+W2Wjd - W2 (A)) 
+i.j 
+- w-l c vnv, i) w2 (A)( Wl(Ud - WI (&-)) 
+i.j 
+- 
+n--l 
+c 
+~n%j) 
+(w,(~o) 
+- 
+Wl 
+(~))(wz(w 
+- 
+w2 
+(A)) 
+= 
+-(Rll~ 
+I,. &2n + 
+%,J 
+(say). 
+We will only consider Rlln; the other two terms can be treated analogously. 
+
+--- Page 4 ---
+CRAhJkR-VON 
+MISES 
+TESTS 
+41 
+Let 0 < (Y < 1; by splitting 
+the summation 
+over i into three parts, viz., 
+1 < i < [nor], [nti] + 1 < i < [rz(l - 
+(Y)], [n(l - 
+a)] + 1 < i < it and like- 
+wise for j, we split RIIn into nine parts of which 
+the most difficult to handle 
+are the ones where 
+1 < i, j 
+< 
+[m] 
+and [n(l - a)] + 1 < i, j < n. We will 
+only consider the first one; the second one follows by symmetry. 
+Let 01, = [na] and 
+Rd4 = w-l jf, V%V,j) Wl (+)(wz(v’,‘) - w, (h)). 
+Applying 
+a Taylor expansion to first order, assumption (A2) and proposition 
+4 
+of Chernoff, Gastwirth 
+and Johns [3], we find that with probability 
+at least 1 - E 
+for 01 small enough 
+with 
+{ujn(e)} th e numbers 
+in Chernoff, 
+Gastwirth 
+and Johns [3]. Now, 
+by 
+straightforward 
+but lengthy calculations it follows that there exist constants A, 
+and A, such that for 1 < i, j < n, 
+EVm2(i, 
+j) 
+< AIn-’ $ 
+(1 - i) 
+$ (1 - f) 
+and 
+EVnd(i, j) < A2r2 (; 
+(1 - i) 
+$ (1 - $),‘. 
+Using this, the properties 
+of {Use} 
+and Schwarz’s 
+inequality, we have with 
+probability 
+at least 1 - F, for 0 < 8 < 1, that 
+< j+-1 
+c 
+i.i<o, 
+n-1 $ (;)” 
+1 log ; 
+1-l n-w 
+(;)1’2 
+(7)” 
+1 log ; 1-l 
+G KI c i-l 
+log - 
+w%L 
+[ 
+f 1-l C 
+j--3i2 
+1 log 
+f 
+1-l 
+&%I 
+< K, 1 log 01 I--I o(log n) (izn81j-3/2 / log i 
+1-l + Lnaz< 
+.%a 
+j-3/2 I log $I-‘) 
+< K3 1 log 01 1-r O(log n)(O((log 
+a)-‘) 
++ O(n-612)) 
+with Kl , K, , K3 constants. Thus with probability at least 1 - 
+E we have 
+
+--- Page 5 ---
+42 
+T. DE WET 
+and a similar result for the other terms in R,,,; so RIrn = o,( 1). The other terms 
+can be treated likewise 
+and the lemma follows. 
+1 
+Now, let s = (sl , ss), t = (tr , ts), z = (zr , za), and 
+with 
+Q(s, t) = 1’ I’ n(s, z> dt, 4 dz, 6 
+0 0 
+We then have the following 
+THEOREM. 
+Under conditions (Al) and (A2) there exist constants {p*) such that 
+T, - A, 2 
+j, 
+YikWk 
+- 
+1) 
+where {Nj,} are i.i.d. N(0, 1) and {yjk) are the kgenvalues of Q. 
+Proof. 
+Using the definitions of H,, , F,, , G, , we can write 
+11 
+2 
+Tin = n 
+N 
+n-l i 
+(I( uj < u; vj < v) - vq uj < 24) - ul( vj < v)) + uv 
+0 0 
+j-l 
+I 
+x 
+W,(u) 
+W,(v) du dv 
+=njol[ 
+[n-lc 
+(I(Uj 
+d 24) - 
+U)(l(Vj 
+f 
+v) - v) 1 
+2 W,(u) W,(v) du dv. 
+j 
+Squaring, changing the order of summation 
+and integration and writing 
+Zi = 
+(Vi, 
+Vi) we have 
+Tin = n-l i 
+Q(Z, , zj). 
+i.j=l 
+Note that by using (A2) Q is s q uare integrable; it is also symmetric 
+in its argu- 
+ments and 
+’ 
+ff 
+’ Q(s, t) ds, ds, = 0. 
+0 0 
+To apply Theorem 2.1 of Gregory [6j we have to show that (see [6, (3.1)]) 
+‘,‘TJ tP(Q(Z, 
+, Z,) > t) = 0. 
+First note that by rearranging terms, we have 
+Q(s, t) 
+= 
+G,(s1 
+7 td 
+G&2 
+9 t2) 
+
+--- Page 6 ---
+CRAMhR-VOW 
+MISRS 
+TESTS 
+43 
+with 
+Cw(s, t) = s’ (I@ < u) - u)(l(t < u) - u) W(u) du. 
+0 
+ByusingQYI)wehave,foru 
+< 01 < 1,i = 1,2, 
+C,(u, 
+u) = L1 (I(u d z) - z)” W,(z) dz 
+= l” z”W~(Z) dz + Ja (1 - z)” Wi(s) ds + J’ (1 - s)” wi(Z) 
+dx 
+u 
+a 
+< ZJ + a1 $ z-~ 1 log z 1-l dz 
+u 
+for constants a, , b. Using l’Hospita1, we have 
+I a z-~ 1 log z j-1 dz - 
+u-1 1 log #I---1 
+as 
+u + 0. 
+2L 
+Thus, for u small enough, we have 
+c&d, 
+u) < 6 + UK-1 [ log u j-1, 
+i=l,2. 
+(1) 
+An analogous result holds for u close to 1. Let 9 denote Lebesgue measure on 
+the unit square. We wish to consider 
+6p((u, w) : C,(u, 
+u) C&(W, w) > t; 0 < u, 0 < 1). 
+Split the unit square into nine parts, viz., 0 < u < IX, 01 < u < 1 - (Y, 
+1 - 01 < u < 1 and likewise 
+for w. We will 
+only consider 
+the case where 
+0 < u, w < or; the case where 1 - d < u, w < 1 follows by symmetry 
+while the 
+other 7 parts can be treated in a similar (albeit easier) way. Take CL so small that 
+(1) holds for u < 01. We then want to consider P(A(t)) 
+where 
+A(t) = ((u, w): (b + au-l 1 log u [-I)(6 + aw-1 I log w j-1) > t; 0 < u, w < a). 
+By splitting A(t) into four sets, viz., 0 < u < t-t I log t I-+, t-t 1 log t 1-t < u < 
+01 and likewise for w, it follows fairly easily that dLP(A(t)) = o(P) 
+as t -+ co, and 
+the same result holds for the other terms. The theorem follows from this and the 
+lemma by applying Gregory’s 
+result. 
+Renr&.r. 
+1. 
+The reason for using double subscripts 
+on (yjx}, {Nik) will be 
+clear from the next section. 
+2. 
+Some known weight functions covered by the theorem are those associated 
+with 
+the classical orthogonal 
+polynomials; 
+see, e.g., De Wet and Venter [4, 
+p. 3851. 
+
+--- Page 7 ---
+44 
+T. 
+DE 
+WET 
+3. 
+Note that the results of Blum, Kiefer and Rosenblatt [2] do not cover 
+the case where CjSkyjk = GO, while our result only requires zj,k$,c 
+< ‘LO. 
+4. 
+In section 5 we show how to invert the characteristic 
+function 
+of the 
+random variable Ci,k3/jk(Nja21c - 
+1) to obtain approximate 
+percentage points for 
+the distribution 
+of T, . 
+5. 
+The constants (pn} are given by 
+l 
+l-h 
+= ss l Q(t, 
+t) I(-?2 
+< Q(t, 
+t) < n) dt, 
+dt, 
+0 0 
+and can be calculated by numerical integration for given WI and W, . 
+3. THE 
+KERNEL 
+Q 
+We now make some remarks concerning the kernel Q. 
+3.1. 
+As noted above, we have 
+with 
+Q(s, 
+t> = G&I 
+3 tl> 
+Gi&, 
+> tz) 
+CT&, t) = s’ (I@ < u) - u)(l(t < u) - u) W(u) du. 
+0 
+The kernel C,(s, 
+t) is exactly the kernel obtained in the modified Cramer-von 
+Mises goodness of fit statistic, see, e.g., Gregory [6, p. 1141. Now, 
+let (&‘, gf’), 
+K = 1,2 ,... be an eigenpair of C,< , i = 1,2 and put 
+and 
+Ale(f) = A%> 
+L&%2), 
+yjk = yyyy 
+. 
+It then follows that (nk , &), j, K = 1,2,... is an eigenpair of Q. Thus, to solve 
+the integral equation to obtain yjk: we need only solve the integral equations for 
+#) 
+and yk (‘r; these have been done for quite a number of weight functions 
+(see 
+De Wet and Venter [4]). 
+3.2. 
+First note that if WI and W, are such that &yjk: 
+< ~0 then p,, -+ 
+&.ky/jk 
+Y which means that 
+
+--- Page 8 ---
+CRAM&R-VON 
+MISES 
+TESTS 
+45 
+For the present consider this to be the case. The so-called stochastic process 
+approach as used by, e.g., Blum et al. 121 then gives 
+11 
+T, A II B(u, v)” du dv 
+0 0 
+where B is a zero mean Gaussian process with covariance kernel 
+K(s, 
+t) 
+= 
+-=Ql, 
+~2) 
+BP, 
+, t2) 
+= 
+(min(5 
+, h) 
+- 
+~lG)(~l(~l) 
+Wl(W(min@2 
+, t2) 
+- 
+s2t2)W2(s2) 
+K(t2W 
+Let {&} 
+and {hik} be the eigenvalues and eigenfunctions of K, then B(u, v)can be 
+represented by 
+B(u, v) = 
+f 
+A$ hi,@, v) Njk. 
+j,k=l 
+Substituting 
+it follows that 
+11 
+ss 
+B(u, V)” dU dv 2 
+i 
+Ajfl& 
+s 
+0 0 
+j,k=l 
+It follows that 
+2 
+%k@k 
+’ 
+; 
+‘$k@k 
+(2) 
+with {yJk} the eigenvalues of Q and {Aik> the eigenvalues of K. We now indicate 
+the relationship 
+that exists between Q and K. Let To be the integral operator 
+corresponding 
+to Q, i.e., 
+(Tog)(s) 
+= j-’ I’ Q(s, 9 g(t) 4 
+& 
+0 0 
+and likewise for T, . 
+Since 
+Q(s, t) = s’ j-’ Q(S,Z) dt, 2) 4 dz, 
+0 0 
+it follows 
+that 
+To = TOT,* 
+(3) 
+with T,* denoting the adjoint of T, . From the definition of K it follows directly 
+that 
+TX = T,*T, 
+(4) 
+
+--- Page 9 ---
+46 
+T. DE WET 
+which shows how Q and K are related (see also De Wet and Venter [5] and 
+Neuhaus 
+[lo]). 
+From 
+this it foIlows 
+immediately 
+that Q and K have the same 
+eigenvalues, as one would suspect from (2). Let g and h be the eigenfunctions 
+of Q and K corresponding to an eigenvalue y. It then follows directly from (3) 
+and (4) that 
+h = C%/ll Tc% IL 
+where j/ * I/ denotes norm. 
+4. OPTIMAL 
+WEIGHT 
+FUNCTIONS 
+The efficiency of the class of test statistics T, depends of course on the choice 
+of WI and W, . In Gregory [7] the approximate Bahadur efficiency of a class of 
+quadratic test statistics, which includes our statistics, is discussed. He obtains 
+sufficient conditions for a test to be optimal in the class of all quadratic tests. 
+We apply these results below to obtain optimal weight functions in two particular 
+cases. 
+Consider a sequence of alternative hypotheses I& , indexed by a parameter 0, 
+under which (X, Y) has probability distribution PO . For simplicity we assume 
+H,, to be K,, , i.e. when 9 = 0; thus PO denotes the probability distribution under 
+Ho - 
+Gregory [7] considers the case of contiguous alternatives i.e. 
+dPo/dPo = 1 + Oh, 
+where {ho} converges to ho as 0 -+ 0. 
+Gregory’s result (3.12) th en says that with respect to limiting approximate 
+Bahadur efficiency an optimal quadratic test is one which has an eigenfunction 
+proportional to h, and corresponding to the largest eigenvalue. 
+We now apply this result to two examples. In the notation of Section 3.1 let 
+&(t) 
+= gil)(tl) gi2’(t2) be the eigenfunction corresponding to the largest eigen- 
+value. 
+1. &variate Normal Alternatives 
+Let PO denote the bivariate normal distribution with means zero, variances one 
+and correlation coefficient 0 (we take the means zero and variances one without 
+loss of generality). 
+Straightforward algebra gives 
+Now let 
+W, , tz) = -tlt2 . 
+w, = w, = $5(@-9-2 
+(5) 
+
+--- Page 10 ---
+CRAMh-VON 
+MISES 
+TESTS 
+47 
+with 4 and 0 the iV(0, 1) density and df. From De Wet and Venter [4] it follows 
+that in this case dll(t) is given by the product of the first Hermitian polynomials 
+evaluated at t, and t, . This is clearly proportional 
+to the above h, and we 
+conclude that (5) is the optimal choice in this case. 
+2. Bivariate Exponential Alternatives 
+Let Pe be Gumbel’s 
+bivariate exponential distribution 
+(see e.g. Johnson and 
+Kotz [S]) with df 
+1 _ e-5 _ e-Y + 
+e-x-Y+erY 
+(We take the scale parameters as one without loss of generality). It follows easily 
+that in this case 
+f&l 
+9 t2) = (1 - t1)(1 - t2) 
+Take 
+W,(u) = W,(u) = -(l 
+- u)-2(log(l - U))” 
+(6) 
+(See De Wet and Venter [4], eq. (35) for the origin of this choice). It follows 
+again from De Wet and Venter [4] that in this case &(t) is given by the product 
+of the first Laguerre polynomials evaluated at t, and t, . Since this is propor- 
+tional to the above h, , we conclude that the choice (6) is optimal in this case. 
+Remarks. 1. Consider the case of bivariate normal alternatives. Let W, 
+be the choice ($(@p-l(~))-~, $(0-‘(v))-“), 
+W, the choice (1, 1) and W, the choice 
+((~(1 - u))-1, v(l - v))-l) (the Anderson-Darling weight functions). Let eii 
+be the limiting relative Bahadur efficiency of the statistic T,, based on Wi 
+compared to the one base on Wi . It then follows easily that 
+e 12 = 0.826 
+e 12 = 0.924. 
+Note also that the approximate slope of r((n - 2)/(1 - r”))f, with Y the sample 
+correlation coefficient, is eZ/(l - P) and for the locally most powerful rank test 
+it is 192 
+(see Abrahamson [I]). The statistic T, based on the optimal choice of W 
+thus has a limiting efficiency of 1 relative to these two statistics. 
+2. The bivariate exponential distribution was also considered by Kowalski 
+and Tarter [9] as an alternative to independence. Let W, be the choice 
+(-(I 
+- u)-2(log(l - u))-l, -( 1 - v)-2(log(l - v))-l) and W, , Ws as in the 
+previous remark. It then follows that 
+e,, = 0.534 
+e 43 = 0.653 
+683/10!1-4 
+
+--- Page 11 ---
+48 
+T. DE WET 
+so the optimal choice gives us quite an improvement over W, and Ws in 
+this case. 
+5. PERCENTAGE POINTS 
+For both the choices (5) and (6) of W we have yjk = (jk)-l (see De Wet and 
+Venter [4]) giving the limiting random variable of T, - 
+p,, as 
+T = 
+f 
+(jk)-l(Nj”k 
+- 
+1). 
+i,k=l 
+The characteristic function of T can be written as 
+with 
+j,$l (1 - 2it/jk)-r/s e-it/j” = r(t) e@(f) 
+r(t) = fi (sinh(2~t/k)/(2zt/k))-r~4 
+k=l 
+and 
+e(r) = i $J f 
+((tan-r 2t/jk) - (2t/jk)). 
+k=l 
+j=l 
+Inversion of this characteristic function has been done numerically and a few 
+percentage points are given in Table I. Other choices of W can be treated 
+similarly. Percentage points for the case where W = (W, , W,) with II’, = 
+W, = 1 can be found in Blum et al. [2]. 
+We also need the values of ,u~ to apply the test. These can be calculated fairly 
+easily for a given W; in Table II we give values of pn for the choices (5) and (6). 
+Remarks. 
+1. By using Gregory’s result, the theorem can also be proved 
+for a sequence of contiguous alternatives; this can then be used to make 
+TABLE 
+I 
+Upper Percentage Points of T 
+Percentage 
+Percentage point 
+99 
+6.90 
+95 
+4.18 
+90 
+2.98 
+
+--- Page 12 ---
+CRAMJ?R-VON MISES TESTS 
+49 
+TABLE 
+II 
+Values 
+of the Constant 
+pfi 
+n 
+Choice(S) 
+Choice( 
+6) 
+5 
+1.327 
+1.229 
+10 
+2.169 
+1.855 
+20 
+2.910 
+2.487 
+30 
+3.350 
+2.773 
+40 
+3.658 
+2.928 
+50 
+3.835 
+3.106 
+70 
+4.069 
+3.202 
+100 
+4.069 
+3.306 
+asymptotic 
+power 
+comparisons. 
+We hope 
+to report 
+at a later 
+stage 
+on this as well 
+as on 
+the 
+estimated 
+small 
+sample 
+distribution 
+of 
+T, . Note 
+also the results 
+of 
+Neuhaus 
+[IO] 
+on the 
+asymptotic 
+power 
+of a fixed 
+test 
+at varying 
+alternatives. 
+2. 
+In this 
+paper 
+we 
+only 
+considered 
+bivariate 
+distributions. 
+We 
+will 
+consider 
+higher 
+dimensions 
+at a later 
+stage. 
+ACKNOWLEDGMENTS 
+The 
+author 
+would 
+like 
+to thank 
+the referee 
+for 
+helpful 
+suggestions 
+which 
+led to the 
+improvement 
+of the paper. 
+REFERENCES 
+[I] 
+ABRAHAMSON, 
+I. (1965). 
+On the Stochastic 
+Comparison 
+of Tests of Hypotheses. 
+Ph.D. 
+dissertation, 
+University 
+of Chicago. 
+[2] 
+BLUM, 
+J. R., 
+KIJSER, 
+J., AND 
+ROSFNBLATT, 
+M. 
+(1961). 
+Distribution 
+free 
+tests 
+of 
+independence 
+based 
+on 
+the 
+sample 
+distribution 
+function. 
+Ann. 
+Math. 
+Statist. 
+32 
+485-498. 
+[3] 
+CHERNOFF, 
+H., 
+GASTWIRTH, 
+J. L., AND JOHNS, 
+M. 
+V. (1967). 
+Asymptotic 
+distribution 
+of linear 
+combinations 
+of functions 
+of order 
+statistics 
+with 
+applications 
+to estimation. 
+Ann. 
+Math. 
+Statist. 
+38, 52-72. 
+[4] 
+DE 
+WET, 
+T., 
+AND 
+VENTER, 
+J. H. 
+(1973). 
+Asymptotic 
+distribution 
+for 
+quadratic 
+forms 
+with 
+applications 
+to tests of fit. Ann. 
+Statist. 
+1 380-387. 
+[5] 
+DE 
+WET, 
+T., 
+AND 
+VENTER, 
+J. H. 
+(1976). 
+Asymptotic 
+distributions 
+of 
+quadratic 
+functionals 
+of partial 
+sums. 
+5’. Afr. 
+Statist. 
+j. 
+10 97-105. 
+[6] 
+GREGORY, 
+G. G. (1977). 
+Large 
+sample 
+theory 
+for 
+U-statistics 
+and 
+tests of fit. 
+Ann. 
+Statist. 
+5 110-123. 
+[7] 
+GREGORY, 
+G. G. 
+(1980). 
+On 
+efficiency 
+and 
+optimality 
+of 
+quadratic 
+tests. 
+Ann. 
+Statist., 
+in press. 
+
+--- Page 13 ---
+50 
+T. DE WET 
+[8] 
+JOHNSON, 
+N. 
+L., 
+AND 
+KOTZ, 
+S. (1972). 
+Continuous 
+Multivariate 
+Distributions. 
+Wiley, 
+New 
+York. 
+[9] 
+KOWALSKI, 
+C. J., AND TARTER, 
+M. 
+E. (1969). 
+Coordinate 
+transformations 
+to nor- 
+mality 
+and the power 
+of normal 
+tests for 
+independence. 
+Biometrika 
+56 139-148. 
+[lo] 
+NEUHAUS, 
+G. 
+(1976). 
+Asymptotic 
+power 
+properties 
+of the 
+Cram&-von 
+Mises 
+test 
+under 
+contiguous 
+alternatives. 
+J. Multivar. 
+Anal. 
+6 9.5-l 10. 
+[l l] 
+TRICOMI, 
+F. G. (1957). 
+Integral 
+Equations. 
+Interscience, 
+New 
+York. 

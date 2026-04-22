@@ -1,0 +1,1059 @@
+======================================================================
+SOURCE: empirical_process_1989.pdf
+======================================================================
+
+
+--- Page 1 ---
+Boston University
+OpenBU
+http://open.bu.edu
+BU Open Access Articles
+BU Open Access Articles
+1989-12-01
+The empirical process of some
+long-range dependent sequences
+with an application to U-statistics
+This work was made openly accessible by BU Faculty. Please share how this access benefits you.
+Your story matters.
+Version
+Citation (published version):
+H DEHLING, MS TAQQU. 1989. "The Empirical Process of some
+Long-Range Dependent Sequences with an Application to U-Statistics
+." The Annals of Statistics, Volume 17, Issue 4, pp. 1767 - 1783 (17).
+https://doi.org/10.1214/aos/1176347394
+https://hdl.handle.net/2144/31171
+Boston University
+
+--- Page 2 ---
+Institute of Mathematical Statistics is collaborating with JSTOR to digitize, preserve, and extend access to
+The Annals of Statistics.
+www.jstor.org
+®
+The Annals 
+of Statistics 
+1989, Vol. 17, No. 4, 1767-1783 
+THE EMPIRICAL PROCESS OF SOME LONG-RANGE 
+DEPENDENT SEQUENCES WITH AN APPLICATION 
+TO U-STATISTICS 
+BY HEROLD DEHLINd 
+AND MURAD S. TAQQU 2 
+Boston University 
+Let ( X1 )'J..
+1 be a stationary, mean-zero Gaussian process with covari-
+ances r(k) = EXk+ 1X 1 satisfying r(O) = 1 and r(k) = k-DL(k) 
+where Dis 
+small and L is slowly varying at infinity. Consider the two-parameter 
+empirical process for G( X1 ), 
+-oo <x< 
++oo,Ostsl}, 
+where G is any measurable function. Noncentral limit theorems are obtained 
+for FN(x, t) and they are used to derive the asymptotic behavior of some 
+suitably normalized von Mises statistics and U-statistics based on the G( X1 )'s. 
+The limiting processes are structurally different from those encountered in 
+the i.i.d. case. 
+1. Introduction. 
+It is well known that if (½,).i= 
+1 are i.i.d. random variables 
+with cumulative distribution function F(x) = P(Y1 ::;; x), then the normalized 
+two-parameter 
+empirical process N- 1/ 2L)~t}{1{11 ::;; 
+x} - F(x)} 
+converges 
+weakly to the Kiefer process [see Muller (1970) or Shorack and Wellner (1986)]. 
+Moreover, von Mises and U-statistics defined in terms of the ½'s converge 
+weakly to Wiener-Ito integrals of the Kiefer process [see Denker, Grillenberger 
+and Keller (1985) and Mandelbaum and Taqqu (1984)]. For a general discussion 
+on empirical processes and symmetric statistics, see Dehling and Taqqu (1987). 
+We want to find out what happens when (½).f=I is a strongly dependent 
+stationary sequence (i.e., when its spectral density diverges at the origin). We 
+focus on the case where ½ is a nonlinear function of Gaussian variables. In that 
+case, normalized sums of ½ may themselves have non-Gaussian limits which are 
+expressed as multiple Wiener-Ito integrals [see Dobrushin and Major (1979) and 
+Taqqu (1979)]. Thus the study of von Mises and U-statistics defined in terms of 
+the strongly dependent {½}.i=I may involve a combination of two sets of 
+multiple integrals, one set resulting from the strong dependence, the other from 
+the degree of degeneracy in the von Mises or U-statistics. It turns out that 
+Received December 1987; revised November 1988. 
+1Research supported by the Deutsche Forschungsgemeinschaft. 
+2Research supported by NSF Grant ECS-86-96090 at Boston University. 
+AMS 1980 subject classifications. Primary 60Fl7, 62G30. 
+Key words and phrases. von Mises statistics, U-statistics, Hermite polynomials, empirical 
+process, long-range dependence. 
+1767 
+
+--- Page 3 ---
+1768 
+H. DEHLING AND M. S. TAQQU 
+strong dependence causes a separation of variables which prevents the interfer-
+ence of these two sets of multiple integrals. This paper deals with weak conver-
+gence. Extensions of the results to a functional law of the iterated logarithm can 
+be found in Dehling and Taqqu (1988a). 
+Let ( X)'J:= 
+1 be a stationary, mean-zero Gaussian process with covariances 
+r(k) = EXk+ 1X 1 satisfying 
+r(O) = 1, 
+r( k) = k - DL ( k), 
+(1.1) 
+0 < D < l, 
+where L is slowly varying at infinity and is positive for all large k. Such an 
+(Xj)'J:=1 exhibits long-range dependence. We want to study the empirical process 
+of }'.i = G(X) where G is any measurable function. We will also obtain results 
+on von Mises and U-statistics for the }'.i's. 
+Let 
+(1.2) 
+be the empirical distribution function of the observations G(X 1), ••• , G(XN) and 
+let F(x) denote the c.d.f. of G(X). Since r(k) 
+• 0 as k • 
+oo, both {XJ and 
+{G(X)} are ergodic sequences. The ergodic theorem ensures that FN(x) • F(x) 
+a.s. for fixed x, and a technique similar to that 
+used for the classical 
+Glivenko-Cantelli 
+theorem yields 
+sup 
+IFN(x) - F(x) I • 
+0 a.s. 
+-oo<x<+oo 
+We first want 
+to examine whether 
+a properly 
+renormalized 
+process 
+d-;_/N(FN - F) converges to a nondegenerate limiting process. For a fixed x, 
+one can use the theory of nonlinear functionals of Gaussian processes to 
+find the right normalization. To do so, we must expand the function ilx( ·) = 
+l{G( ·) :5; x} - F(x) in Hermite polynomials. These are Ho(X) = 1, Hi(X) = X, 
+HiX) 
+= X 2 -
+1, .... We get 
+oo J(x) 
+l{G(X) 
+:5; x} - F(x) = L _q_ 1-Hq(X), 
+q=m 
+q. 
+where X - N(O, 1), the convergence is in L 2 and where 
+(1.3) 
+Jq( x) = El { G ( X) :5; x} Hq{ X). 
+The coefficient m = m(x) is called the Hermite rank of the function ilx( ·) = 
+1 { G( •) :5; x} - F( x ). It is the index of the first nonzero coefficient in the 
+expansion. 
+From now on, suppose that the exponent Din (1.1) satisfies 
+1 
+0 < D < -, 
+m 
+(1.4) 
+so that the sequence l{G(X) 
+:5; x} - F(x) also exhibits long-range dependence. 
+
+--- Page 4 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+1769 
+We have [see Theorem 3.1 of Taqqu (1975)] 
+(1.5) 
+dk-var(J/m(xJ) 
+~ N' mDLm(N), 
+where the symbol ::::: means asymptotically proportional to. [The constant of 
+proportionality 
+is actually 2m!(l - mD)- 1(2 - mD)-
+1.] Using the weak reduc-
+tion principle of Taqqu (1975), we get 
+in L 2• Moreover the results of Taqqu (1975), Dobrushin and Major (1979) and 
+Taqqu (1979) show that 
+{d;/[Nt](F[Nt](x) 
+- F(x)); 0 ~ t ~ 1} 
+(1.6) 
+• 
+{ J:,;) 
+Zm(t); 0 ~ t ~ 1} 
+in the sense of weak convergence in D[O, 1] with the Skorohod topology. The 
+limiting process Zm(t) is given through a representation involving a multiple 
+Wiener-Ito-Dobrushin 
+integral as 
+(1.7) 
+where 
+{ 
+(1 - (mD)/2)(1 
+- mD) 
+} 112 
+K(m,D)= 
+m 
+m!{2f(D)sin([(l 
+- D)/2]7r)} 
+and where B is a Gaussian complex white noise measure satisfying B( b.) = 
+B(-b.) 
+and EB(b. 1)B(b. 2 ) = Jb.1 n b.21 for all Borel sets b.1 and b.2 of R1 [see 
+Taqqu (1979), Theorem 6.3]. The symbol f" means that the domain of integra-
+tion excludes the hyperdiagonals {A;= :\:A 
+j, i =fo j}. The process Zm(t) defined in 
+(1.7) is called an mth order Hermite process. The normalization factor K(m, D) 
+ensures that E(Zm(l)) 2 = 1. 
+Recall that up to now we have assumed x to be fixed. We shall now study the 
+joint convergence in both t and x. 
+DEFINITION. The Hermite rank of the class of functions 
+{ b. x( · ) , - 00 < X < 00} = { 1 { G ( · ) ~ X} - F( X), 
+-
+00 < X < 00 } , 
+is the smallest index m;;;,: 1 so that Jm(x) =fo O for at least one x, i.e., m = 
+infx m(x). 
+
+--- Page 5 ---
+1770 
+H. DEHLING AND M. S. TAQQU 
+Our first theorem states that (1.6) also holds in the sense of weak convergence 
+of two-parameter 
+processes. 
+THEOREM 1.1. Let ( X)'f-
+1 be a stationary, mean-zero Gaussian process 
+with covariance (1.1), let the class of functions l{G(X):;;; x} - F(x), 
+- oo < 
+x < oo, have Hermite rank m and let O < D < 1/m. Then 
+{ d;y1[Nt](F[Ntlx) 
+- F(x)); -oo:;;; x:;;; + oo, 0:;;; t:;;; 1} 
+converges weakly in D([ - oo, + oo] X [0, 1]), equipped with the sup-norm, to 
+(1.8) 
+{ Jm(x) 
+--
+1-Zm(t); -
+00 _:;;; X _:;;; 
+m. 
+where Zm(t) is defined in (1.7). 
+REMARK. D([ - oo, + oo] X [0, 1]) is the natural generalization of D[0, 1], the 
+space of all functions f(t), 0 :;;; t:;;; 1, that are right-continuous 
+and have left 
+limits. D([ - oo, + oo] X [0, 1]) is the space of functions f(x, t), - oo :;;; x:;;; + oo, 
+0 :;;; t :;;; 1, that are upper right-continuous and have a limit in any of the other 
+three quadrants. 
+Here, [ - oo, + oo] involves the two-point 
+compactification 
+of the 
+real line. Since [ - oo, + oo] X [0, 1] is compact, 
+all functions 
+in 
+D([ - oo, + oo] X [0, 1]) are bounded and hence have finite sup-norm. In fact, 
+that space is isomorphic to D([0, 1]2). 
+Since the space D([ - oo, + oo] X [O, 1]), equipped with the sup-norm, is not 
+separable, some difficulties arise with the definition of weak convergence of 
+measures on that space. One defines the a-field !IA on D([ - oo, + oo] X [0, 1]) to 
+be the a-field generated by the open balls and not the open sets and one defines 
+weak convergence of the measures µ n to µ by requiring ff dµ n to converge to 
+ff dµ for all bounded, continuous !!A-measurable functions f. 
+EXAMPLE 1. The function G( x) = x gives rise to a class of functions 
+l{X:;;; x} - <l>(x), -oo < x < oo, where <I> is the N(0,1) c.d.f. This class has 
+Hermite rank m = 1 because if X ~ N(0, 1) and if cf, denotes the N(0, 1) density 
+function, 
+J 1(x) = EH 1(X)(l{X:;;; x} - <l>(x)) = EXl{X:;;; x} = -cJ,(x) 
+is nonzero. Hence, the limit in the r.h.s. of (1.6) is -cf,(x)Zi(t), 
+where Zi(t) is a 
+Gaussian process with mean 0, stationary increments and covariance 
+EZ 1(s)Zi(t) 
+= ½{lsl2H + ltl2H - Is- tfH} 
+with H = 1 - D/2. The process Zi(t) is called fractional Brownian motion. 
+EXAMPLE 2. The function G(x) = x 2 gives rise to a class of functions 
+l{X 2 :;;; x} - {<l>(VX) 
+- <I>(- VX)}, 0:;;; x < + oo, where X ~ N(0, 1). This class 
+has Hermite rank 2, because for x ~ 0, 
+J 1(x) = EX(l{-VX:;;; X:;;; VX} + {<l>(VX)- <1>(-vx)}) 
+= 0 
+
+--- Page 6 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+by symmetry and 
+Jix) 
+= E(X
+2 -
+1)(1{ -rx 
+~ X ~ VX} - { <I>(i/x) - <I>( -{x)}) 
+= f,/x (s 2 -
+l)cJ>(s) ds 
+-,Ix 
+I +,Ix 
+= -scj>(s) -/x _ 
+= - ✓27T-1Xe-x/2. 
+Note that for x ~ 0 both Ji(x) and Jlx) 
+are equal to 0. 
+1771 
+The limiting process is Z2(t). It is called the Rosenblatt process [see Taqqu 
+(1975)]. Z2(t) is non-Gaussian, has stationary increments and the same covari-
+ance as Zi(t) but with H = I - D, 0 < D < ½-
+EXAMPLE 
+3. Are there functions 
+G such that 
+the class of functions 
+l{G(X) 
+~ x} - F(x), - oo < x < oo, has Hermite rank m > 2? The answer is 
+affirmative. In fact, for every k < oo, there are G's such that E(l{G(X) 
+~ x} -
+F(x))Hix) 
+= 0 for j = 0, I, ... , k. 
+To see this, note first that for every k ~ I one can find a set A = A( k) such 
+that 
+;\(A) > 0, ;\(R \A)> 
+0 and fAHix)cj>(x) dx = 0 for j =I, ... , k. (;\ de-
+notes the Lebesgue measure.) This result can be obtained as a corollary of 
+Liapounov's 
+theorem on the convexity of the range of a vector measure [see 
+Rudin 
+(1973), Theorem 5.5] in the following way: Define signed measures 
+µ 0 , µ 1, ••• , µk on R by dµ/dx 
+= Hix)cj>(x) and let µ = (µ 0 , µ 1, ••• , µk)t be the 
+corresponding 
+vector measure. 
+We have µ(0) = (0, 0, ... , Oi and 
+µ(R) = 
+(1, 0, ... , 0)t and, thus, by Liapounov's theorem, for every a in [0, 1], there is a set 
+A with vector measure µ(A) = ( a, 0, ... , ot By choosing an a different from 0 or 
+1, we obtain a nontrivial set A satisfying fAHix)cj>(x) dx = 0 for j = I, ... , k. 
+This set A has the claimed properties. 
+Now let G = IA- The level sets l{s: G(s) ~ x}, - oo < x < oo, are 0, A and 
+R. Since E(l{G(X) 
+~ x} - F(x))HiX) 
+= 0 for j = 0, I, ... , k, the Hermite 
+rank of the class of function l{G(X) 
+~ x} - F(x), oo < x < oo, ism> 
+k. Since 
+;\(A) > 0, the coefficients in the Hermite expansion cannot all be zero, so that 
+m < oo. 
+Note that when G = IA, FN(x) takes only three values, 0, (1/N)L~~fJiA(X;) 
+and 1. The limit result for d;?[Nt](F[Nt] 
+- F) does not require the full force of 
+Theorem 1.1, but can be immediately derived from the results of Dobrushin and 
+Major (1979). 
+Moreover, the preceding argument based on Liapounov's theorem does not 
+provide a construction of G. A more explicit construction is provided in Dehling 
+and Taqqu (1988b ), where a larger class of examples can be found, including 
+continuous functions G. 
+Structure of the paper. 
+The rest of the paper is arranged as follows. Section 
+2 contains applications to von Mises and U-statistics. In Section 3 we show that, 
+
+--- Page 7 ---
+1772 
+H. DEHLING AND M. S. TAQQU 
+as N -
+oo, 
+_
+00s~;
+500 o!~~/N
+1([Nt](F[Ntix) 
+- F(x)}- J:;) 
+15t.,t]X
+1)-
+0 
+in probability 
+(weak uniform reduction principle) and we use this result in 
+Section 4 to establish Theorem 1.1. 
+2. Applications 
+to U-statistics and von Mises statistics. 
+Theorem 1.1 
+can be applied to obtain the limit distribution of degenerate U-statistics and von 
+Mises statistics. 
+Let h: Rk -
+R be a measurable function, invariant under 
+permutation 
+of its arguments, and let ½ = G( X1 ), j = I, 2, ... , be as in Section 
+1. The nonnormalized 
+U-statistic UN(h) and von Mises statistic VN(h) with 
+kernel h are defined by 
+(2.la) 
+(2.lb) 
+UN(h) = 
+L 
+h(½,•···, ½J, 
+15)1,· 
+.. , 1k5N 
+1µ*1, for µ.afov 
+VN(h) = 
+L 
+h(½,•···, ½J· 
+15,J,, ... , 1k5N 
+Recall that F(x) = P(Y 1 ::; x) = P(G(X
+1)::; x). Then h is called degenerate if 
+J 
++oo 
+J 
++oo 
+· · · 
+lh(x
+1, ••• ,xk)ldF(x
+1) • • • dF(xk) < oo 
+-oo 
+-oo 
+(2.2a) 
+and 
+(2.2b) 
+VN(h) can then be written as a stochastic integral of h(x 1, ••• , xk) with integra-
+tor FN(x), 
+VN(h) = NkJ
+00 
+••• J
+00 h(x 1, ••• ,xk)FN(dx
+1) ••• 
+FN(dxk) 
+-oo 
+-oo 
+= NkJ
+00 
+• •· J
+00 h(x 1, ••• ,xk)(FN(dx
+1) - F(dx1)) 
+-oo 
+-oo 
+(2.3) 
+· · · (FN(dxk) - F(dxk)). 
+The last step follows from the degeneracy of h. We would of course like to apply 
+the weak convergence of dN 1[Nt](F[Nt](x) - F(x)), established in Theorem 1.1. 
+Unfortunately, 
+in general, the map Q - f · · · f h(x 1, ••• , xk)Q( dx1) • • • Q( dxk) 
+that maps elements Q of D[ - oo, + oo] into R is not continuous with respect to 
+the sup-norm on D[ - oo, + oo]. Actually this map is not even defined on all of 
+D[ - oo, + oo]. However, as long as h has bounded total variation, continuity 
+holds, as can be seen through integration by parts. 
+COROLLARY 1. Leth have bounded total variation and satisfy rel,ations (2.2). 
+Assume 
+that h(x 1, ••• , xk) and F('x1) • • • F(xk) have no joint discontinuities. 
+
+--- Page 8 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+Then the D[O, 1]-valued random elements 
+( dNky[Nt](h), 0:;;; t:;;; 1) 
+converge weakly to 
+1773 
+((~! ((!_+
+00
+00 
+••• j_+
+00
+00 h(x1,···,xk)dJm(x1) 
+··· dJm(xk))(zm(t))\ 
+(2.4) 
+0:;;; 
+t:;;; 1) · 
+Here Zm(t) is the mth order Hermite process, as defined in (1.7). 
+REMARK 1. Relation (2.2a) is always satisfied because h is bounded. More-
+over, the integral in (2.4) is well-defined because IIJmllTv:;;; f':''c,,IHm(s)l</>(s) 
+ds < 
+oo, where II IITv denotes the total variation nonn and </> 1s the N(O, 1) density 
+function. 
+REMARK 
+2. The integral in (2.4), 
+j +oo • • • f+
+00 h(x1,···, 
+xk) dJm(x1) · · · dJm(xk) 
+-oo 
+-oo 
+can be rewritten as 
+X </>( 
+u 1 ) • • • </>( 
+uk)du 1 · · · duk. 
+To verify this, it suffices to show that for all bounded, measurable functions 
+/(x), the following holds: 
+(2.5) 
+j+
+00 f(x)dJm(x) 
+= j+
+00 f(G(u))Hm(u)<f>(u)du. 
+-oo 
+-oo 
+Assume first that /(x) = l{x:;;; a} for some a ER. Then the l.h.s. of (2.5) equals 
+Jm(a) and the r.h.s. equals fl{G(u):;;; 
+a}Hm(u)<f>(u) du= Jm(a) by definition. 
+For step functions /, the equation (2.5) follows by linearity and for general 
+bounded measurable f, it follows via approximation by step functions. 
+For the proof of Corollary 1 we need an integration by parts formula for 
+higher-dimensional integrals. It can be found in Young (1916). For simplicity of 
+notation, we let k = 2. 
+' 
+Let H, K: R2 • R be right-continuous functions with no common discontinu-
+ities. Then 
+jb,jb
+2H(xi, x2) dK(x 1, x2) 
+a1 
+a2 
+= jb,jb
+2K(x 1, x2) dH(xi, x2) - jb1[K(x 1, x2) dH(x 1, x 2)]~::!: 
+~ ~ 
+~ 
+
+--- Page 9 ---
+1774 
+H. DEHLING AND M. S. TAQQU 
+where the [ ] symbols are defined by 
+[ f(x1, X2)]:~:! = f( b, X2) - f( a, X2), 
+[F( 
+)] x 1 -b" 
+x2-b 2 
+[ [ f( 
+)] x 1 -b
+1 ] x2-b2 
+X1,X2 x1-a,.x
+2 -a 2 = 
+X1,X2 x1 -a
+1 x2 -a
+2 
+PROOF OF COROLLARY 1. Again, for simplicity of notation, we let k = 2. We 
+will apply the integration by parts formula to H(x, y) = h(x, y) and K(x, y) = 
+(FN - F)(x)(FN 
+- F)(y). 
+The set of discontinuities of K lies on a countable 
+union of lines parallel to one of the axes. Since the probability of a pair of 
+observations(~, 
+Yk) falling on a discontinuity point of His 0, the functions H 
+and K have almost surely no joint discontinuities. 
+Since h has bounded TV, we may let a 1, a 2 • 
+- oo and b1, b2 • 
++ oo in the 
+integration by parts formula. Both h(x, y)(Fn(x) - F(x))(FnCy) - F(y)) and 
+h(x, y)Jm(x)Jm(Y) vanish at infinity so that 
+v[Ntlh) 
+= N 2j JR2h(x, y)d(F[Nt] 
+- F)(x)d(F[Nt] 
+- F)(y) 
+= N 2j JR2(F[Nt]-
+F)(x)(F[Nt]-
+F)(y)dh(x, 
+y). 
+Now the map A: D([-
+oo, + oo] x [O, 1]) • D[O, 1] defined by 
+A(Q) = j { 2Q(x, t)Q(y, t) dh(x, y) 
+is continuous with respect to the uniform topologies on both spaces. Hence we 
+can apply Theorem 1 and the continuous mapping theorem to get 
+dl\,2V[Ntlh) 
+= j fRl;/[Nt](F[Nt] 
+- F)(x)dl\/[Nt](F[Nt] 
+- F)(y) 
+dh(x, y) 
+-'>w 
+( ~! r 
+f {/m(x 
+)Jm(Y) dh(x, y) · (Zm( t)) 2 
+= -( l 
+2 j ( h(x, y) dJm(x) dJm(Y) · (Zm(t))2. 
+D 
+m!) 
+JR2 
+Let us now evaluate the limit behavior of the U-statistics UN(h), defined in 
+(2.la). The difference between UN(h) and VN(h) is given by 
+(2.6) 
+VN(h) -
+UN(h) = 
+L 
+h(½,•···, ½J· 
+1 ,;j,, ... , jk -5a N 
+jµ -j, for someµ,* v 
+One may think of this as being the sum over all the hyperdiagonal terms. We will 
+show that VN(h) -
+UN(h) = op(d7,,) so that dNkV[Nt] and dNkU[Nt] have the 
+same limit. This is due to the fact that N = o( #,) and hence the situation here 
+is quite different from that encountered in the study of U-statistics of i.i.d. 
+observations. 
+
+--- Page 10 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+1775 
+COROLLARY 2. Under the same assumptions as in Corollary l the D[0, l]-
+valued random elements 
+converge in distribution to 
+(( ~! f !_+
+00
+00 
+• • • j_+
+00
+00 h(x1, ... , xk) dJm(x1) · · · dJm(xk)(Zm(t))\ 0::; 
+t::; 1) · 
+Here Zm(t) is the mth order Hermite process defined in (1.7). 
+PROOF. It suffices to prove that d·;/ maxn=I, ... , N(Vih) - Uih)) 
+• 0 in 
+probability. The r.h.s. of (2.6) can be decomposed into a finite-sum of (nondegen-
+erate) von Mises statistics of order lower than k, namely, according to which 
+indices coincide. Then one can apply the Hoeffding decomposition to each of 
+these statistics to finally represent VN - UN as a sum of degenerate von Mises 
+statistics, all of order lower than k. To these, Corollary 1 may be applied. Rather 
+than going into the combinatorial details of the general case, let us consider a 
+special, but representative, situation. Take k = 4 and let }1 = }2, i.e., 
+I: h(Xj1, xj 1 , xh, xjJ· 
+jl, j3, j4 
+Define g(x 2,x 3) = f h(x 1,x 1,x 2,x 3) dF(x 1) and h(x 1,x 2,x 3 ) = h(x 1,x 1,x 2,x 3) -
+g(x 2 , x 3). Observe that both g and h are degenerate kernels and both have 
+bounded total variation. We have then 
+d-;/ max 
+L 
+h( xjl, xjl, Xjg, xj.) 
+n=l, 
+... ' N i1, j3, }4::;n 
+and by Corollary 1 both terms on the r.h.s. converge to 0. 
+For general k, the worst situation involves k even and 
+d-;/ L 
+h( xj 1, xj 1 , xj 2 , xj 2 , ••• 
+, xjk12 , xjk1 .). 
+j1,···, A12 
+The dominating term is the lowest order one in the Hoeffding decomposition and 
+in this case it is Eh. However, as N • 
+oo, 
+d-k 
+L 
+Eh ::; d-;/Nkl
+2Eh • o. 
+• 
+N n=T~~,N 
+- · 
+1Sz 1 , ••• , ik; 2 Sn 
+Corollaries 1 and 2 assume that h has bounded total variation. We can relax 
+this assumption in the case k = 2 by requiring that h has locally bounded 
+variation and satisfies some additional condition. The details will be given in a 
+subsequent paper. 
+
+--- Page 11 ---
+1776 
+H. DEHLING AND M. S. TAQQU 
+We derived Corollaries 1 and 2 from Theorem 1 via a continuous mapping 
+theorem. A referee remarked that this method may not be optimal since the 
+integral in (2.4) can be 0, indicating that the normalizing factor d7,, is not 
+necessarily always the correct one. 
+3. The uniform weak reduction principle. 
+In order to study the weak 
+limit behavior of FN(x), properly normalized and centered, we have to look at 
+the Hermite decomposition of 1{}1 :s; x} - F(x), 
+oo Jq(x) 
+(3.1) 
+1{11 :s; x} - F(x) = L -
+1-Hq(Xj). 
+q=m 
+q. 
+Here m is the Hermite rank of the class of functions 1 {½ :s; x} - F( x ), - oo :s; 
+x :s; + oo. Then by Taqqu's (1975) weak reduction principle we know that for any 
+fixed x the limiting distribution of 
+d-;/ L ( 1 { ½ :s; x} - F( x)) 
+j:,;[Nt] 
+is the same as that of 
+a-1 " 
+Jm(x) H (X-) 
+Ni..., 
+I 
+m 
+1· 
+j:,;[Nt] 
+m. 
+It is our goal to extend this to a reduction principle uniformly in both - oo :s; 
+x :s; + oo and O :s; t :s; 1. 
+THEOREM 3.1 (Weak uniform reduction principle). 
+There are absolute con-
+stants, C, K > 0 such that for any O < e :s; 1, 
+(3.2) {:~ -oo!~~ 
++oo 
+dN' t [l{Y; 
+S x) - F(x) - J:;) 
+Hm(X;)] >,) 
+For the proof, we have to introduce some notation: 
+F( x, y) = F( y) - F( x), 
+(3.3) 
+[ 
+Jm(x) 
+] 
+SN(n; x) = d-;/ L 1{½ :s; x} - F(x) - -
+1-Hm(XJ 
+, 
+j:,;n 
+m. 
+SN(n; x, y) = SN(n; y) - SN(n; x), 
+X :s; y. 
+Also recall the definition of Jq(x): 
+(3.4) 
+Jq(x)=El{G(Xj}:s;x}Hq(XJ= 
+f 
+Hq(s)cp(s)ds, 
+{G(s) :s;x} 
+where cj,(s) = (1/ fiii)e-•
+2 / 2 is the standard normal density. Denote for x :s; y, 
+Jq(x, y) = Jq(y) - Jq(x) 
+= f 
+Hq(s)cp(s)ds. 
+{x<G(s):S:y} 
+
+--- Page 12 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+LEMMA 
+3.1. There exist constants y > 0 and C such that for n ::; N, 
+EISN(n; x, y) 12 ::; c(;). N-y(F(y) 
+- F(x)). 
+PROOF. 
+Since Jq(x) = 0 for q = 1, ... , m - 1 and for all x, we have 
+oo Jq(x, y) 
+l{x < ½::; y} - F(x, y) = L 
+I 
+Hq(XJ. 
+q-m 
+q. 
+Observe that by orthogonality of the Hq( X), 
+00 
+J;(x, y) 
+( 
+)2 
+L 
+I 
+= E 1 { X < ½ ::; y} - F( X' y) 
+q-m 
+q. 
+= F(x, y)(l - F(x, y)) 
+(3.5) 
+::; F(x, y). 
+Thus 
+( 
+Jm(x, y) 
+( 
+})
+2 
+E j~n 1 { x < ½ ::; y} - F( x, y) -
+m ! 
+Hm xj 
+oo 
+J2(x y) 
+1 
+" 
+q 
+' 
+· -
+" 
+EH (X-)H (X ) 
+i..., 
+I 
+qi 
+i..., 
+q 
+J 
+q 
+k 
+q-m+ 
+1 
+q · 
+· j, k:5,n 
+::; F(x, y) · L Ir(} - k) l(m+l), 
+j, k::5n 
+1777 
+since EHq(X)Hq(Xk) 
+= q!rq(j - k). We now have to distinguish three cases, 
+namely, 
+(m+l)D<l: 
+(m + l)D > 1: 
+(m + l)D = 1: 
+L Ir(}- k) l(m+l) ""n2-(m+l)D(L(n))m+l, 
+j,k::5n 
+L lr(J-
+k)l(m+l)"" n, 
+j, k::5n 
+L Ir(}-
+k)l(m+l) ""nLo(n), 
+j,k::5n 
+where L 0 is slowly varying. In general, we get 
+L (r(j-
+k))m+l ""nlv(2-(m+l)D)L'(n), 
+j, k::5n 
+where L' is slowly varying. Keeping in mind that d-;/ :::::: 
+NmD- 2(L(N))-m, 
+EISN(n; x, Y)l2::; CF(x, y). nlv(2-(m+l)D)NmD-2L'(n)(L(N))-m 
+( n )1V(2-(m+l)D) 
+= CF(x, y) N 
+NmD-lv(-D)L'(n)(L(N))-m. 
+
+--- Page 13 ---
+1778 
+H. DEHLING AND M. S. TAQQU 
+The conclusion follows because for each ;\ > 0, maxns.NL'(n)(L(N))-m 
+~ 
+C(X)N"" 
+for 
+some 
+constant 
+C(X), since 
+limn-oo L'(n)n-A/
+2 = 0 and 
+limN-
+00(L(N))-mN-A1
+2 = 0 [see Bingham, Goldie and Teugels (1987), Proposi-
+tion 1.3.6(v)]. • 
+LEMMA 
+3.2. 
+There exist constants p > 0 and C such that or n ~ N and 
+0 < e ~ 1, 
+PROOF. 
+Let 
+f 
+IHm(s)I 
+A(x) = F(x) + 
+1 
+<1>(s) 
+ds 
+{G(s)s.x} 
+m. 
+so that F(x, y) and (1/m!)Jm(x, y) are both bounded by A(y) - A(x). The 
+function 
+A is monotone, 
+A( - oo) = 0, A(+ oo) < oo. In what follows it is 
+important to keep in mind that A could have discontinuities. We define refining 
+partitions of R, 
+k = 0,1, ... , K, 
+by x;(k) = inf{x: A(x):?: A(+oo)i2-i}, 
+i = 0, ... ,2k - 1. The integer K will be 
+chosen below (as a suitable function of N and e). 
+If A has discontinuities larger than A(+ 00)2-k, then a number of subdivision 
+points x ;( k) will be the same. But in all cases 
+A(x;(k) 
+- ) -
+A(x;_i(k 
+)) ~A(+ 
+oo) · 2-k. 
+For k = 0 we obtain the trivial partition 
+- oo = xo(0) < x 1(0) = + oo. 
+For each x and for each k = 0, 1, ... , K define iix) by 
+Xik(xi(k) 
+~ X < X;k(x)+i(k). 
+One can then define a chain, linking each point x to - oo, 
+Then 
+- 00 = Xio(xi{0) ~ xi,(xi{l), ~ · · · ~ X;K_,(xi(K - 1) 
+~ xiK(xi(K) 
+~ X < xiK(x)+I(K). 
+SN(n; x) = sN(n; xio(Xi(0), xi,(xi(l)) 
+(3.7) 
++ SN(n; Xi,(xi(l), X;2(xi(2)) + · · · 
++ sN(n; X;K_,(x/K - 1), X;K(xi(K)) 
++ sN(n; X;K(x/K), 
+x ). 
+
+--- Page 14 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+1779 
+Let us first bound the last term in (3.7). Setting A(x, y) = A(y) - A(x), we get 
+1s N( n; xix(xi K ), X) I = ldN1 j7J 
+1 { xix(x)(K) < ½:,;; X} - F( xix(xi(K ), X) 
+- ~! Jm(xix(x/K), X )Hm(XJ] I 
+:s;dN
+1 L [i{xix(xi(K) < ½:,;;x} +F(xix(xi(K),x)] 
+j:5.n 
++I~! Jm(xix(xi(K), X) ldNt~n 
+Hm(XJ I 
+:,;; dN1 L [1{xix(xi(K) < ½ < Xix(x)+1(K)} 
+}:5.n 
++F(xix(xi(K), Xix(x)+1(K) - )] 
++ A(xix(x/K), 
+xix(x)+I(K) - )dNt7n 
+Hm(xJ I 
+:,;; 1sN(n; xix(xi(K), xix(x)+I(K) - ) I 
++ 2ndN1F(xix(x/K), Xix(x)+i(K) - ) 
++ 2A( xix(x)(K ), xix(x)+I(K) - )dN1I j7n 
+Hm( xi) I 
+:,;; I SN( n; Xix(x/ K), Xix(x)+l( K) - ) I 
++ 2A( + oo)ndN12-K + 2A( + 00)2-KdN1I L Hm(xJ j, 
+J:5.n 
+since (1/m!)Jm(x, y):,;; A(y) - A(x). Moreover, since Lk=oe/(k + 3)2 :,;; e/2, we 
+get 
+P{ 
+sup ISN(n; x) I> e} 
+X 
+:,;; P{ m:x 1sN( n; xio(xi(O), X;,(xi(l)) I> e/9} 
++ P{m:xlSN(n;xi,(x/1),x;~<xi(2))1 > e/16} + ··· 
+(3.8) 
+{ 
+} 
++ p m:x 1sN( n; X;K_,(xi(K - 1), xix(x)(K)) I> e/(K + 2)2 
++ P{ m:x 1sN( n; xix(xi(K ), xix(x)+I(K) - ) I > e/(K + 3)2} 
++ p{ 
+2A( + oo )2-K dNt~n 
+Hm( xJ I > ( e/2) - 2A( + oo )ndN
+1 2-K} · 
+
+--- Page 15 ---
+1780 
+H. DEHLING AND M. S. TAQQU 
+Using Chebyshev's inequality and Lemma 3.1 we obtain 
+2k+ I - 1 
+2 L P{sN(n; X;(k + 1), X;+1(k + 1)) > 
+E 2} 
+i=O 
+(k + 3) 
+2k+1_1 
+n 
+(k + 3)4 
+:,;; C i~o ( N )N-y 
+t:2 
+(F(x;+ 1(k + 1)) - F(x;(k + 1))) 
+:,;; 
+c(; )N-Y(k + 3)4e-2 • 
+In the same way we get 
+p{ 
+m:xlsN(n; X;K(x/K), X;K(x)+1(K) -) I> (K: 
+3)2} 
+:s; c(; )N-Y(K + 3)4e-2 • 
+Choose now 
+(3.9) 
+K = [1og2( BA(: 00 ) Nd;y1)] 
++ 1 
+so that 2A( + oo) · N · d--;/2-K:,;; e/4. The last probability in (3.8) can then be 
+bounded by 
+:,;; 
+·c(; 
+r-mD N-mD+>. for any ;\ > 0. 
+Note that C is a universal constant, possibly changing from line to line. Hence 
+we find 
+
+--- Page 16 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+By (1.5), Nd,/ ::::: N-mDl 2L -ml 2(N), so that the definition (3.9) of K yields 
+(K + 3)5 ~ c{llog~l
+5 + !log Ni5} 
+~ ce-
+1 • N 6 for any 8 > 0, where C = C( 8). 
+1781 
+Now choose, for example, 8 = y/2 
+and set 
+p = min(y - 8, mD - ;\) = 
+min( y /2, mD - ;\ ). Then 
+P{ 
+s~p ISN(n; X) I>£} 
+~ cN-p{ (; )£-3 + (; r-mD} 
+· 
+0 
+PROOF OF THEOREM 3.1. It obviously suffices to prove (3.2) with N = 2r for 
+some integer r, since dN/d 2, is uniformly bounded away from O and oo. For 
+abbreviation, define 
+X 
+MN(n 1, n 2 ) = MN(n 2 ) - MN(n 1). 
+Observe that SN(n; x) = cl>(X1, ••• , XN) with cl>: Rn--..• D[ - oo, + oo] measurable 
+and that SN(n 2; x) - SN(n1; x) = cl>(Xn, 
++i, ... , Xn2 ). Stationarity of the under-
+lying sequence ( X) ensures that SN( n; x) has stationary increments in n, i.e., 
+{SN(n 2 ; x) - SN(n 1; x); x ER} =d{SN(n 2 - n 1; x); x ER}. 
+Thus we get 
+X 
+X 
+= MN(n 2 -
+n 1). 
+By Lemma 3.2, we get for k ~ r, 
+P{ MN(2k) > e} ~ cN-p{2k-re-3 + 2<k-r)(2-mD)} 
+and thus 
+2r-k 
+P{ ._ max ,)MN((j-
+1)2\ J2k) / > e} ~ LP{ /MN(2k) / > e} 
+J-1, 
+... ,2 
+1=1 
+~ cN-p{ e-3 + 2<k-r)(l-mD)}. 
+Let now 1 ~ n ~ N = 2r be given. We can express MN( n) as a sum of 
+increments over intervals of decreasing length, according to the dyadic expansion 
+of n. More precisely, if n has dyadic expansion n = I:k=Oak2r-k, ak E {O, 1}, 
+then 
+r 
+MN(n) = L akMN((jk - 1)2r-k, Jk2r-k), 
+k=O 
+
+--- Page 17 ---
+1782 
+H. DEHLING AND M. S. TAQQU 
+where }0 = 1 and fork= 
+1, ... , r, 
+(jk - 1)2r-k = Oo2r + 012r-l + ... +crk-l2r-(k-l). 
+Hence jk E {1, ... , 2k} and therefore 
+r 
+max!MN(n)I 
+~ L 
+max 
+l(MN(j-
+1)2k, j2k)l-
+n,s,N 
+k=O j=l, 
+... ,2r-k 
+Thus, 
+P{max!MN(n)I 
+> e} 
+~ 'i, P{ 
+max 
+IMN((j-
+1)2\ j2k)I > 
+e 
+2 } 
+n,s,N 
+k=O 
+j=l, 
+... ,2r-k 
+(k + 2) 
+{ 
+log2 N 
+log 2 N 
+} 
+~ cN-p 
+k~O (k + 2)6e-3 + k~O 2<k-r)(l-mD) 
+~ cN-K{e-
+3 + 1} 
+for some O < K < p. • 
+4. Proof of Theorem 1.1. From the results of Taqqu (1975, 1979) we know 
+that 
+d·i/ L Hm(XJ 
+• Zm(t) 
+(in distribution) 
+j,s[Nt] 
+in D[O, 1]. Note that we equip D[O, 1] with the sup-norm topology and with the 
+a-field generated by the open balls. Since Zm( ·) E C[O, 1] a.s., we may apply the 
+a.s. representation theorem of Skorohod and Dudley [Pollard (1984), page 71] to 
+find a version zm,N(t) of d·,/r,j,s[Nt]Hm(Xj) and a version Zm(·) of Zm(·) such 
+that 
+This now implies 
+which proves weak convergence in D([ - oo, + oo] X [O, 1 ]) of 
+Jm(x)d·i/ L Hm(X;) 
+j ,s [Nt] 
+to 
+Since we have shown in Theorem 3.1 that 
+lld··;/ L (1{½ ~ X} - F(x)) - Jm(x )d·;/ L Hm(XJ II• 0 
+j,s[Nt] 
+j,s[Nt] 
+
+--- Page 18 ---
+THE EMPIRICAL PROCESS AND U-STATISTICS 
+1783 
+in probability, we get finally 
+d-i/ L (1{½~x}-F(x))
+•
+Jm(x)Zm(t) inD([-oo,+oo]x[0,1]). 
+D 
+j~[Nt] 
+Acknowledgments. 
+This research was done while the first author was 
+visiting Boston University. He thanks the Department of Mathematics for its 
+hospitality. The authors would like to thank M. Keane and R. Vitale for making 
+them aware of Liapounov's theorem and also an Associate Editor for his careful 
+reading and his sense of humor. 
+REFERENCES 
+BILLINGSLEY, P. (1968). Convergence of Probability Measures. Wiley, New York. 
+BINGHAM, N. H., GOLDIE, C. M. and TEUGELS, J. L. (1987). Regular Variation. Cambridge Univ. 
+Press, Cambridge. 
+DEHLING, H. and TAQQU, M. S. (1987). The limit behavior of empirical processes and symmetric 
+statistics. Bull. lnternat. Statist. Inst. 52 (4) 217-234. 
+DEHLING, H. and TAQQU, M. S. (1988a). The functional law of the iterated logarithm for the 
+empirical process of some long-range dependent sequences. Statist. Probab. Lett. 7 81-85. 
+DEHLING, H. and TAQQU, M. S. (1988b). Continuous functions whose level sets are orthogonal to all 
+polynomials of a given degree. Acta Math. Hungar. To appear. 
+DENKER, M., GRILLENBERGER, C. and KELLER, G. (1985). A note on invariance principles for von 
+Mises statistics. Metrika 32 197-214. 
+DOBRUSHIN, R. L. and MAJOR, P. (1979). Non-central limit theorems for non-linear functionals of 
+Gaussian fields. Z. Wahrsch. verw. Gebiete 50 27-52. 
+MANDELBAUM, A. and TAQQU, M. S. (1984). Invariance principle for symmetric statistics. Ann. 
+Statist. 12 483-496. 
+MULLER, D. W. (1970). On Glivenko-Cantelli convergence. Z. Wahrsch. verw. Gebiete 16 195-210. 
+POLLARD, D. (1984). Convergence of Stochastic Processes. Springer, New York. 
+RUDIN, W. (1973). Functional Analysis. McGraw-Hill, New York. 
+SHORACK, G. R. and WELLNER, J. A. (1986). Empirical Processes with Applications to Statistics. 
+Wiley, New York. 
+TAQQU, M. (1975). Weak convergence to fractional Brownian motion and to the Rosenblatt process. 
+Z. Wahrsch. verw. Gebiete 31 287-302. 
+TAQQU, M. (1979). Convergence of integrated processes of arbitrary Hermite rank. Z. Wahrsch. 
+verw. Gebiete 50 53-83. 
+YOUNG, W. H. (1916). On multiple integration by parts and the second theorem of the mean. Proc. 
+London Math. Soc. (2) 16 273-293. 
+DEPARTMENT OF MATHEMATICS 
+UNIVERSITY OF GRONINGEN 
+P.O. Box800 
+9700A V GRONINGEN 
+THE NETHERLANDS 
+DEPARTMENT OF MATHEMATICS 
+111 CUMMINGTON 
+STREET 
+BOSTON UNIVERSITY 
+BOSTON, MASSACHUSETTS 
+02215 

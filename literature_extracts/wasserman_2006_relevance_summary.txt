@@ -1,0 +1,67 @@
+
+================================================================================
+WASSERMAN (2006) RELEVANCE TO SpatialCvM FORMALIZATION
+================================================================================
+
+BOOK: All of Nonparametric Statistics
+AUTHOR: Larry Wasserman
+PUBLISHER: Springer (2006)
+FILE: wasserman_2006_nonparametric.pdf
+
+KEY CHAPTERS FOR OUR PROJECT:
+
+1. CHAPTER 2: Estimating the CDF and Statistical Functionals
+   - Empirical distribution function (EDF)
+   - Glivenko-Cantelli theorem
+   - Donsker's theorem (weak convergence of empirical process)
+   - Statistical functionals and plug-in estimators
+   - Bootstrap methods
+   - Relevance to: Theorem1 (weak convergence), Theorem2 (null distribution)
+
+2. CHAPTER 8: Nonparametric Hypothesis Testing  
+   - Likely covers goodness-of-fit tests
+   - Test statistic construction
+   - Null distribution theory
+   - Relevance to: Theorem2 (CvM null distribution), Calibration
+
+3. CHAPTER 7: Normal Means and Minimax Theory
+   - Minimax framework for testing
+   - Normal means problem
+   - Relevance to: Optimality considerations
+
+REFERRED TEXTS IN BIBLIOGRAPHY:
+- Fernholz, L. T. (1983). "Von Mises' Calculus for Statistical Functionals"
+  → DIRECTLY relevant to our Theorem3/Hadamard.lean (Hadamard differentiability)
+  
+- Freedman, D. (1999). "Wald lecture: On the Bernstein-von Mises theorem"
+  → Bayesian asymptotics (connects to our weak convergence framework)
+
+RELEVANCE TO OUR AXIOMS:
+
+1. weak_convergence (Theorem1/Main.lean):
+   - Wasserman covers Donsker's theorem (empirical process → Brownian bridge)
+   - Our axiomatization follows the same mathematical structure
+   - Can cite Wasserman Chapter 2 for background
+
+2. continuous_mapping_theorem (Theorem2/Main.lean):
+   - Standard result covered in Wasserman
+   - Used for deriving CvM distribution from weak convergence
+
+3. delta_method (implied in Theorem2, explicit in Theorem3):
+   - Statistical functionals are Hadamard differentiable
+   - Fernholz (1983) reference in Wasserman's bibliography is THE key text
+
+4. gaussian_process_exists (Theorem1/Main.lean):
+   - Gaussian processes as limits of empirical processes
+   - Covered in Wasserman's treatment of Donsker's theorem
+
+ACTION ITEMS:
+- Add Wasserman (2006) as background reference in README
+- Extract specific theorems on CDF estimation for additional documentation
+- Cross-reference Fernholz (1983) for Hadamard differentiability
+- Consider citing Chapter 2 in Theorem1 documentation
+
+STATUS: ✓ Downloaded and extracted key chapters
+        ✓ Identified direct relevance to our formalization
+        ✓ Ready for integration into documentation
+================================================================================

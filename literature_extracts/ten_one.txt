@@ -1,0 +1,165 @@
+======================================================================
+SOURCE: 10-1.pdf
+PAGES: 6
+======================================================================
+
+--- Page 1 ---
+10.1. The Arzel`a-Ascoli Theorem
+1
+Chapter 10. Metric Spaces:
+Three Fundamental Theorems
+Note. In this chapter we consider the Arzel`a-Ascoli Theorem (which concerns con-
+vergence of a sequence of functions on a compact metric space), the Baire Category
+Theorem (which concerns countable unions and intersections of open dense sets
+and closed hollow sets, respectively, in a complete metric space), and the Banach
+Contraction Principle (sometimes called the “Contraction Mapping Theorem”; it
+concerns ﬁxed points of contractions on a complete metric space).
+Section 10.1. The Arzel`a-Ascoli Theorem
+Note. We state and prove the Arzel`a-Ascoli Theorem, which gives a condition
+a uniformly bounded sequence of continuous real-valued functions on a compact
+metric space X to have a uniformly convergent subsequence. We apply this to
+ﬁnding conditions for a subset of a metric space to be compact.
+Note. We know that for compact X and continuous real-valued function f on X
+(i.e., f ∈C(X)) that, by the Extreme Value Theorem (Theorem 9.22), f attains
+a maximum value. We deﬁne the norm ∥f∥max = maxx∈X |f(x)|; this in fact is a
+norm, as can be shown similar to the special case that it is a norm on C[a, b], as is
+shown in Problem 7.1). The maximum norm induces a metric on C(X) given by:
+ρmax(g, h) = ∥g −h∥max for all g, h ∈C(X).
+
+
+--- Page 2 ---
+10.1. The Arzel`a-Ascoli Theorem
+2
+Deﬁnition.
+The metric on C(X), where X is a compact metric space, is the
+uniform metric on C(X). A sequence of C(X) that is Cauchy with respect to the
+uniform metric is a uniformly Cauchy sequence.
+Note.
+The name “uniform metric” is used for ρmax since a sequence in C(X)
+converges with respect to ρmax if and only if the sequence converges uniformly
+on X. The proof that C(X) is complete is the same as the proof that C[a, b] is
+complete (which was given in Section 9.4. Complete Metric Spaces ; see Proposition
+9.10). So we state the following without proof.
+Proposition 10.1. If X is a compact metric space, then C(X) is complete.
+Note. The next deﬁnition plays a large role in the Arzel`a-Ascoli Theorem.
+Deﬁnition. A collection F of real-valued functions on a metric space X is equicon-
+tinuous at the point x ∈X provided for each ε > 0, there is a δ > 0 such that for
+every f ∈F and x′ ∈X we have
+if ρ(x′, x) < δ, then |f(x′) −f(x)| < ε.
+The collection F is equicontinuous on X provided it is equicontinuous at every
+point in X.
+
+
+--- Page 3 ---
+10.1. The Arzel`a-Ascoli Theorem
+3
+Note. In a collection of functions equicontinuous on X, each function is continuous
+on X.
+However, a collection of functions can be each continuous on X, while
+the collection is not equicontinuous on X. For example, consider the continuous
+functions fn(x) = xn on X = [0, 1], for each n ∈N. Then the collection F =
+{fn}∞
+n=1 is not equicontinuous at x = 1 (though it is at each other element of
+[0, 1]). So equicontinuity and continuity are diﬀerent concepts (for a collection of
+functions).
+Example. Let F be a collection of continuous real-valued functions on [a, b] that
+are diﬀerentiable on (a, b) and there is M ≥0 for which all f ∈F satisfy |f ′(x)| ≤
+M for x ∈(a, b). By the Mean Value Theorem, |f(u) −f(v)| ≤M|u −v| for all
+u, v ∈[a, b]. Then F is equicontinuous on X since we can simply take δ = ε/M
+(when M > 0) in the ε/δ deﬁnition of continuity. This example motivates the
+following deﬁnition.
+Deﬁnition.
+A sequence {fn} of real-valued functions on a set X is pointwise
+bounded provided for each x ∈X, the sequence {fn(x)} is bounded and is uniformly
+bounded on X provided there is some M ≥0 for which |fn(x)| ≤M on X for all n.
+Note. The Arzel`a-Ascoli Theorem deals with uniformly convergent subsequence of
+a uniformly bounded, equicontinuous sequence of real-valued functions on a com-
+pact metric space. First we consider a pointwise bounded equicontinuous sequence
+in C(X) in the following.
+
+
+--- Page 4 ---
+10.1. The Arzel`a-Ascoli Theorem
+4
+Lemma 9.2. The Arzel`a-Ascoli Lemma.
+Let X be a separable metric space and {fn} an equicontinuous sequence in C(X)
+that is pointwise bounded. Then a subsequence of {fn} converges pointwise on all
+of X to a real-valued function f on X.
+Deﬁnition. A collection F of real-valued functions on a metric space X is uni-
+formly equicontinuous if for each ε > 0, there is a δ > 0 such that for u, v ∈X and
+for an f ∈F we have
+if ρ(u, v) < δ then |f(u) −f(v)| < ε.
+Note. In Proposition 9.23 of Section 9.5. Compact Metric Spaces we proved that
+a continuous mapping of a compact metric space to another metric space is uni-
+formly continuous. That proof can be modiﬁed to show an equicontinuous family
+of continuous functions on a compact metric space is uniformly equicontinuous.
+This is to be done in Problem 10.3. We now state and prove the main result of
+this section, the Arzel`a-Ascoli Theorem. Notice that it concerns the existence of
+a subsequence of a uniformly bounded equicontinuous sequence of functions on a
+compact metric space and that the subsequence has not only a uniform limit but
+that the limit function is continuous.
+Theorem 10.1.A. The Arzel`a-Ascoli Theorem.
+Let X be a compact metric space and {fn} is a uniformly bounded, equicontin-
+uous sequence of real-valued functions on X. Then {fn} has a subsequence that
+converges uniformly on X to a continuous function f on X.
+
+
+--- Page 5 ---
+10.1. The Arzel`a-Ascoli Theorem
+5
+Note. The Arzel`a-Ascoli Theorem is also covered in the Complex Analysis se-
+quence (MATH 5510, MATH 5520).
+See my online notes for that sequence on
+Section VII.1. The Space of Continuous Functions C(G, Ω). The version of the
+Arzel`a-Ascoli Theorem there is stated as:
+Theorem VII.1.23. The Arzel`a-Ascoli Theorem.
+A set F ⊂C(G, Ω) is normal if and only if the following two conditions are satisﬁed:
+(a) For each z ∈G, we have that {f(z) | f ∈F} has compact closure, in Ω;
+(b) F is equicontinuous at each point of G.
+The set C(G, Ω) denotes the set of all continuous functions from open set G ⊆
+C to metric space (Ω, d). A set F ⊆C(G, Ω) is normal if each sequence in F
+has a subsequence which converges to a function in f in C(G, Ω) (we called this
+“sequentially compact”).
+Note. The Arzel`a-Ascoli Theorem can be generalized from real-valued functions on
+X to continuous functions mapping metric space X to metric space Y . Notice that
+we can deﬁne equicontinuity similar to above, but by replace the absolute value of
+the diﬀerence of function values to the metric distance between the function values
+in Y . With C(X, Y ) denoting the set of continuous function from X to Y , we get
+the following version of the result. This is part of Problem 10.8.
+Theorem. Arzel`a-Ascoli Theorem for C(X, Y ).
+Let X be a compact metric space. Let {fn} be an equicontinuous sequence in
+C(X, Y ) such that for each x ∈X, the closure of the set {fn(x) | n ∈N} is a
+compact subspace of Y . Then {fn} has a subsequence that converges uniformly on
+X to a function in C(X, Y ).
+
+
+--- Page 6 ---
+10.1. The Arzel`a-Ascoli Theorem
+6
+Note. Recall that the Heine-Borel Theorem implies that a subset of Rn is compact
+if and only if it is closed and bounded. In a metric space in general, compactness
+implies closed and bounded (see problem 10.1). However, the converse does not
+hold as we saw in Example 9.5.A. Another example is given by the closed unit ball
+{f ∈C[0, 1] | ∥f∥max ≤1} of C[0, 1]. Of course it is closed and bounded, but it
+is not sequentially compact as seen by considering the sequence fn(x) = xn which
+fails to have a subsequence that converges uniformly to a continuous function on
+[0, 1] (the pointwise limit exists, but equals a function f(x) equal to 0 for x ∈[0, 1)
+and equal to 1 at x = 1). So by the Characterization of Compactness for a Metric
+Space (Theorem 9.16; the contrapositive of (ii) implies (iii)), the closed unit ball
+is not compact. The Arzel`a-Ascoli Theorem may be used to determine when a “in
+some sense closed and bounded” subset of C(X) is compact, as follows.
+Theorem 10.3. Let X be a compact metric space and F a subset of C(X). Then
+F is a compact subspace of C(X) if and only if F is closed, uniformly bounded,
+and equicontinuous.
+Note. The compactness criterion of Theorem 10.3 for C(X) has a counterpart in
+the setting of ℓp. For 1 ≤p < ∞, a closed and bounded subset S of ℓp is compact
+if and only if it is equisummable in the sense that for each ε > 0, there is an index
+N ∈N for which
+∞
+X
+k=N
+|xk|p < ε for all x = {xn} ∈S.
+This is Problem 10.11.
+Revised: 12/14/2022
+
+

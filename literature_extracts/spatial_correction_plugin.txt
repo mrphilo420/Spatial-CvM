@@ -1,0 +1,2634 @@
+======================================================================
+SOURCE: spatial_correction_plugin.pdf
+======================================================================
+
+
+--- Page 1 ---
+A class of goodness-of-ﬁt tests for spatial extremes
+models based on max-stable processes
+Ivan Kojadinovic1
+Hongwei Shang2
+Jun Yan2
+1Laboratoire de math´ematiques et applications, UMR CNRS 5142
+Universit´e de Pau et des Pays de l’Adour
+B.P. 1155, 64013 Pau Cedex, France
+ivan.kojadinovic@univ-pau.fr
+2Department of Statistics
+University of Connecticut, 215 Glenbrook Rd. U-4120
+Storrs, CT 06269, USA
+{hongwei.shang,jun.yan}@uconn.edu
+Abstract
+Parametric max-stable processes are increasingly used to model spatial ex-
+tremes.
+Starting from the fact that the dependence structure of a max-stable
+process is completely characterized by an extreme-value copula, a class of goodness-
+of-ﬁt tests is proposed based on the comparison between a nonparametric and a
+parametric estimator of the corresponding unknown multivariate Pickands depen-
+dence function. Because of the high-dimensional setting under consideration, these
+functional estimators are only compared at a speciﬁc set of points at which they
+coincide, up to a multiplicative constant, with estimators of the extremal coeﬃ-
+cients. The nonparametric estimators of the Pickands dependence function used
+in this work are those recently studied by Gudendorf and Segers. The paramet-
+ric estimators rely on the use of the pairwise pseudo-likelihood which extends the
+concept of pairwise (composite) likelihood to a rank-based context. Approximate
+p-values for the resulting margin-free tests are obtained by means of a one- or
+two-level parametric bootstrap. Conditions for the asymptotic validity of these re-
+sampling procedures are given based on the work of Genest and R´emillard. The
+ﬁnite-sample performance of the tests is investigated in dimension 10 under the
+Smith, Schlather and geometric Gaussian models. An application of the tests to
+rainfall data is ﬁnally presented.
+Key words and phrases: copula; extremal coeﬃcients; pairwise pseudo-likelihood;
+parametric bootstrap; Pickands dependence function; rank-based statistics.
+MSC 2010 subject classiﬁcations: 62G32, 62H11, 62H15.
+1
+arXiv:1202.0514v3  [stat.ME]  4 May 2014
+
+--- Page 2 ---
+1
+Introduction
+The measurement of extremes, especially in the environment, is often spatial in nature
+as variables such as precipitation, temperature, pollutant concentration, or wind speed,
+are recorded over time at a network of sites.
+As rare events that occur at multiple
+locations simultaneously or within a very short time period can cause extensive damage,
+the modeling of spatial dependence in the analysis of extremes appears crucial from a
+risk management perspective. In contrast to univariate extreme-value theory which is
+rather mature and has been applied to a variety of ﬁelds (see e.g. Coles, 2001, for an
+overview), spatial extremes analysis gained sharpened focus only relatively recently (see
+e.g. Blanchet and Davison, 2011; Davison and Gholamrezaee, 2012; Davison, Padoan,
+and Ribatet, 2012; Fuentes, Henry, and Reich, 2013; Padoan, Ribatet, and Sisson, 2010;
+Ribatet, 2013; Schlather, 2002; Schlather and Tawn, 2003; Smith, 1990).
+One natural approach for modeling spatial extremes consists of using max-stable pro-
+cesses as the latter stem from an extension of multivariate extreme-value theory to the
+process setting. Several parametric models were derived from so-called spectral repre-
+sentations of max-stable processes (see e.g. de Haan, 1984; de Haan and Pereira, 2006;
+Schlather, 2002). Among the most frequently encountered models, one ﬁnds the Smith,
+the Schlather and the class of Brown-Resnick models. The recent literature suggests to
+base the inference about the parameters of these models on the pairwise likelihood be-
+cause the full likelihood is typically intractable (see e.g. Davison and Gholamrezaee, 2012;
+Genton, Ma, and Sang, 2011; Padoan et al., 2010, for more details on this matter).
+The quality of the ﬁt of a spatial model based on a parametric max-stable process
+seems to have been essentially investigated by means of graphical tools. Smith (1990)
+proposed to compare nonparametric with parametric estimates of pairwise and higher-
+order extremal coeﬃcients. The latter coeﬃcients describe the spatial dependence among
+the sites as explained for instance in Schlather and Tawn (2003). When restricted to
+pairs of sites, the approach proposed by Smith (1990) consists of standardizing, for each
+pair of sites, the diﬀerence between a nonparametric and a parametric estimate of the
+corresponding pairwise extremal coeﬃcient by the jackknife standard error of the non-
+parametric estimate. The standardized diﬀerences for all pairs of sites can be plotted
+against the corresponding parametric estimates of the pairwise extremal coeﬃcients or
+against the distances between the sites. This provides a visual check similar to a residual
+plot for linear regression. An alternative graphical approach was used in Padoan et al.
+(2010) and Davison and Gholamrezaee (2012) who assessed the ﬁt of models for various
+subsets of sites with a particular quantile-quantile plot. Speciﬁcally, for a given subset of
+sites, the annual maximum over the subset was obtained for each of the observed years,
+forming the sample quantiles of the annual maxima for that subset. These sample quan-
+tiles were then plotted against population quantiles approximated from a large number
+of datasets generated from the ﬁtted model. The described approach is a multivariate
+extension of the graphical diagnostic tool used in the analysis of univariate extremes (see
+e.g. Coles, 2001).
+In the case of a clear departure from the hypothesized model, such graphical ap-
+proaches are known to be useful tools that can help a user better understand the under-
+lying characteristics of the data. Deciding to reject (or not) a model on the basis of the
+available graphs can however turn out to be a very subjective process as, among other
+2
+
+--- Page 3 ---
+things, the perceived departure from the hypothesized model depends on the sample size.
+For that reason, it is frequently advised to use such graphical tools in conjunction with
+formal testing procedures (see e.g. the discussion in D’Agostino, 1986).
+To the best of our knowledge, no formal goodness-of-ﬁt tests have been developed
+for spatial models based on max-stable processes. The purpose of this work is to ﬁll this
+gap. Starting from the well-known fact that the dependence structure of a max-stable pro-
+cess is uniquely characterized by an extreme-value copula (see e.g. Davison et al., 2012;
+Gudendorf and Segers, 2010; Ribatet and Sedki, 2013), it would seem natural to base
+goodness-of-ﬁt tests for the spatial models under consideration on goodness-of-ﬁt tests
+for copulas. The latter tests received a lot of attention in the recent literature (see e.g.
+Genest and R´emillard, 2008; Genest, R´emillard, and Beaudoin, 2009; Kojadinovic, Yan,
+and Holmes, 2011). They were adapted to deal speciﬁcally with bivariate extreme-value
+copulas by Genest, Kojadinovic, Neˇslehov´a, and Yan (2011) who derived test statistics
+from the empirical process comparing a nonparametric estimator with a parametric es-
+timator of the so-called Pickands dependence function uniquely deﬁning the underlying
+extreme-value copula (see e.g. Gudendorf and Segers, 2010). A straightforward extension
+of these bivariate tests to the current large-dimensional setting does not however appear
+computationally feasible.
+The tests proposed in this work exploit the idea initially proposed by Smith (1990)
+consisting of comparing nonparametric estimators of extremal coeﬃcients with paramet-
+ric estimators to assess the ﬁt of a model. Because extremal coeﬃcients can be expressed
+in terms of the Pickands dependence function, the derived tests can also be cast in the
+framework considered by Genest et al. (2011). More speciﬁcally, the tests are based on
+the absolute or squared diﬀerences between nonparametric and parametric rank-based
+estimators of extremal coeﬃcients. The rank-based nature of the estimators implies that
+the tests are margin-free, which is a desirable feature. The nonparametric estimators are
+the two multivariate rank-based estimators of the Pickands dependence function recently
+studied by Gudendorf and Segers (2012). The parametric estimators rely on the esti-
+mation of the parameters of the hypothesized model using the pairwise pseudo-likelihood
+which extends the concept of pairwise (composite) likelihood considered for instance in
+Padoan et al. (2010) and Davison and Gholamrezaee (2012) to the current rank-based
+setting.
+If closed form expressions for the parametric extremal coeﬃcients exist, ap-
+proximate p-values for the tests can be obtained using a classical (one-level) parametric
+bootstrap. If such expressions do not exist for the hypothesized model, the parametric
+estimators are obtained by applying the nonparametric estimators to a large sample gen-
+erated from the ﬁtted model and a two-level parametric bootstrap is used to compute
+approximate p-values. In both cases, the asymptotic distribution of the test statistics
+under the null is obtained and technical conditions under which the previous testing pro-
+cedures are valid in the sense of Theorems 1 and 2 of Genest and R´emillard (2008) are
+derived. Although the ﬁnite-sample performance of the tests is only investigated in the
+case of three frequently encountered models, the derived procedures can in principle be
+used to assess the ﬁt of most other parametric max-stable processes.
+The paper is organized as follows. Section 2 contains a brief and partial overview of
+spatial models based on max-stable processes and recalls the connections existing between
+extremal coeﬃcients and copulas. The third section is devoted to a detailed presentation
+of the proposed testing procedures. Section 4 partially reports the results of a Monte
+3
+
+--- Page 4 ---
+Carlo experiment involving 10 sites and 50, 100 or 200 observations per site. The last
+section presents the application of the tests to the Swiss rainfall data analyzed in Davison
+et al. (2012).
+2
+Spatial models based on max-stable processes
+2.1
+Max-stable processes
+Let X be a contiguous subset of R2 containing o = (0, 0) and representing a spatial
+domain of interest. For convenience, we shall focus on stochastic processes on X that
+have unit Fr´echet margins. A process from this class will be denoted by Z and regarded
+as a random function Z : X →R as we continue. We therefore have that, by deﬁnition,
+for any site x ∈X,
+Pr{Z(x) ≤z} = exp(−1/z),
+z > 0.
+A process Z on X with unit Fr´echet margins is max-stable if it satisﬁes the max-stability
+property, i.e., for any {x1, . . . , xd} ⊂X and any integer k > 0,
+Pr{Z(x1) ≤z1, . . . , Z(xd) ≤zd} = Pr{Z(x1) ≤kz1, . . . , Z(xd) ≤kzd}k,
+z1, . . . , zd > 0.
+The max-stability property implies that the higher-order marginal distributions of Z
+belong to the class of multivariate extreme-value distributions; see for instance Davison
+et al. (2012), Ribatet (2013) and the references therein for a more detailed introduction.
+Families of parametric max-stable processes used in applications were derived from
+so-called spectral representations. A ﬁrst such representation is due to de Haan (1984)
+(see also e.g. Ribatet, 2013, Section 2) and states that, for any stationary max-stable
+process Z on X with continuous sample paths and unit Fr´echet margins, there exists a
+non-negative continuous function f on R4 satisfying two conditions to be given below,
+such that Z has the same distribution as the process on X deﬁned by
+x 7→sup
+j≥1
+Sjf(x, Lj),
+(1)
+where (S1, L1), (S2, L2), . . . are the points of a Poisson process on (0, ∞) × R2 with
+intensity ds/s2 × dℓ. The function f in (1) satisﬁes
+R
+R2 f(x, y)dy = 1 for all x ∈R2 and
+R
+R2 supx∈K f(x, y)dy < ∞for all compact sets K ⊂X.
+A class of rainfall storm models is obtained by deﬁning f in (1) as f(x, y) = g(x −
+y), where g is a bivariate probability density function (p.d.f.) on R2. In this model,
+Sjg(x −Lj) can be interpreted as the impact at location x of a storm of intensity Sj
+centered at location Lj, and supj≥1 Sjg(x −Lj) as the impact of the strongest such
+episode experienced at x. The case when g is taken equal to φ(2)
+Σ , the bivariate normal
+p.d.f. with mean zero and covariance matrix Σ, was considered by Smith (1990) and is
+therefore frequently referred to as the Smith model (see also e.g. Coles, 1993; de Haan
+and Pereira, 2006; Padoan et al., 2010). The process in (1) being stationary, its bivariate
+marginal distributions are fully described by the cumulative distribution function (c.d.f.)
+of (Z(o), Z(x)), where o ∈X is the origin and x is an arbitrary site in X. From Smith
+4
+
+--- Page 5 ---
+(1990) (see also Padoan et al., 2010, Appendix A.3), we have that, for any z1, z2 > 0,
+Pr{Z(o) ≤z1, Z(x) ≤z2} = exp
+
+−1
+z1
+Φ
+a
+2 + 1
+a log z2
+z1
+
+−1
+z2
+Φ
+a
+2 + 1
+a log z1
+z2
+
+,
+(2)
+where Φ is the univariate standard normal c.d.f. and a2 = x⊤Σ−1x.
+A second key spectral representation is due to Schlather (2002). Following Davison
+et al. (2012) and Ribatet (2013, Section 2), let S1, S2, . . . be the points of a Poisson
+process on (0, ∞) of intensity ds/s2.
+Then, for any stationary max-stable process Z
+on X with continuous sample paths and unit Fr´echet margins, there exists a positive
+stochastic process W on R2 with continuous sample paths and E{W(x)} = 1 for all
+x ∈R2 such that Z has the same distribution as the process on X deﬁned by
+x 7→sup
+j≥1
+SjWj(x),
+(3)
+where W1, W2, . . . are independent copies of W.
+Starting from (3), another spatial model frequently encountered in the literature was
+proposed by Schlather (2002) and consists of deﬁning Wj as Wj(x) = max{0,
+√
+2πϵj(x)},
+where ϵ1, ϵ2, . . . are independent copies of a stationary Gaussian process ϵ on R2 with
+unit variance and correlation function ρ. For this model, frequently referred to as the
+Schlather model, we have, for any z1, z2 > 0, that
+Pr{Z(o) ≤z1, Z(x) ≤z2} = exp
+(
+−1
+2
+ 1
+z1
++ 1
+z2
+  
+1 +
+
+1 −2{ρ(x) + 1}z1z2
+(z1 + z2)2
+1/2!)
+.
+(4)
+As is well-known, a drawback of this model is that it cannot model spatial independence
+between sites. Extensions of the Schlather model are discussed for instance in Davison
+and Gholamrezaee (2012) and in Ribatet (2013).
+A third spatial model that shall be considered in this work is the so-called geometric
+Gaussian process. It is obtained by deﬁning Wj in (3) as
+Wj(x) = exp{σϵj(x) −σ2/2},
+(5)
+where σ > 0 and ϵ1, ϵ2, . . . are independent copies of a stationary Gaussian process ϵ on R2
+with unit variance and correlation function ρ. For this model, the c.d.f. of (Z(o), Z(x))
+is given by (2) but with a2 = 2σ2{1 −ρ(x)}. Note that this process is a particular
+Brown-Resnick process (Davis and Resnick, 1984; Kabluchko, Schlather, and de Haan,
+2009). We did not consider the latter class of models in our Monte Carlo experiment as
+random number generation from these processes can be tricky as discussed for instance
+in Ribatet (2013, Section 7) (see also Oesting, Kabluchko, and Schlather, 2012).
+2.2
+Extremal coeﬃcients
+As explained for instance in Schlather and Tawn (2003) or Davison and Gholamrezaee
+(2012), a natural way of measuring dependence among spatial maxima modeled by a max-
+stable process Z on X with unit Fr´echet margins consists of examining the distribution
+of supx∈X Z(x), which can be expressed as
+Pr{sup
+x∈X
+Z(x) ≤z} = exp(−ξX/z),
+z > 0,
+5
+
+--- Page 6 ---
+in terms of the extremal coeﬃcient ξX of the set X (see e.g. Davison and Gholamrezaee,
+2012, for more details). If ξX is close to one, then the distribution of supx∈X Z(x) is
+close, for any x ∈X, to that of the random variable Z(x) (which is unit Fr´echet by
+deﬁnition), thereby indicating almost perfect dependence between the spatial maxima.
+Weaker dependence between the maxima yields larger values of ξX.
+Similarly, with the notation D = {1, . . . , d}, the extremal coeﬃcient of a set of loca-
+tions {xi : i ∈D} ⊂X, d ≥2, is deﬁned through the following equation:
+Pr
+
+max
+j∈D Z(xj) ≤z
+
+= Pr{Z(x1) ≤z, . . . , Z(xd) ≤z} = exp(−ξD/z),
+z > 0. (6)
+It is easy to verify that independence among the maxima measured at x1, . . . , xd yields
+ξD = d, while perfect dependence gives ξD = 1. More generally, ξD ∈[1, d].
+The extremal coeﬃcient ξD can be expressed in terms of the so-called Pickands de-
+pendence function of the random vector (Z(x1), . . . , Z(xd)). Indeed, the random vector
+(Z(x1), . . . , Z(xd)) having continuous margins, its c.d.f. can be uniquely expressed (Sklar,
+1959) as
+C{F(z1), . . . , F(zd)},
+z1, . . . , zd > 0,
+(7)
+where F is the c.d.f. of the unit Fr´echet distribution and C is a copula that is of the
+extreme-value type (see e.g. Gudendorf and Segers, 2010). The copula C is simply the
+c.d.f. of the random vector (F{Z(x1)}, . . . , F{Z(xd)}). Because it is of the extreme-value
+type, C can in turn be expressed as
+C(u) = exp
+( 
+d
+X
+j=1
+log uj
+!
+A
+ 
+log u1
+Pd
+j=1 log uj
+, . . . ,
+log ud
+Pd
+j=1 log uj
+!)
+, u ∈(0, 1]d\{(1, . . . , 1)},
+(8)
+where A : ∆d−1 →[1/d, 1] is the Pickands dependence function and ∆d−1 = {(w1, . . . , wd) ∈
+[0, 1]d−1 : w1 + · · · + wd = 1} is the unit simplex (see e.g. Gudendorf and Segers, 2012,
+for more details).
+Combining expression (8) with (7) and equating it to (6), one obtains that ξD =
+dA(1/d, . . . , 1/d). More generally, it can be veriﬁed that the extremal coeﬃcient of any
+subset of sites {xi : i ∈B} with B ⊂D, |B| ≥2, can be expressed as
+ξB = |B|A(wB),
+(9)
+where wB is the vector of ∆d−1 such that wB,i = 1/|B| if i ∈B and wB,i = 0 otherwise.
+Thus, the set of extremal coeﬃcients ξB, B ⊂D, |B| ≥2, merely corresponds to the
+scaled values of the Pickands dependence function A at the points wB, B ⊂D, |B| ≥2,
+of ∆d−1. As is well-known, it therefore clearly appears that the set of extremal coeﬃcients
+ξB, B ⊂D, |B| ≥2, does not fully characterize the extreme-value copula C. Properties
+of the set of extremal coeﬃcients are studied in Schlather and Tawn (2003).
+3
+Goodness-of-ﬁt tests based on extremal coeﬃcients
+Let the random variables X1, . . . , Xd represent the maxima of a quantity of interest (such
+as temperature or precipitation) at the d locations in {x1, . . . , xd} = {xi : i ∈D} ⊂X
+6
+
+--- Page 7 ---
+over a period T (typically a year), and assume that the unknown c.d.f. of the random
+vector (X1, . . . , Xd) belongs to the class of multivariate extreme-value distributions. It
+follows that, for any j ∈D, the unknown univariate c.d.f. Fj of Xj belongs to the class
+of generalized extreme-value distributions and that Zj = −1/ log{Fj(Xj)} has a unit
+Fr´echet distribution.
+Consider further a parametric class Z = {Zθ : θ ∈O} of max-stable processes
+on X with unit Fr´echet margins, where O is an open subset of Rp for some integer
+p > 0. We then know from the previous section that there exists a parametric family of
+copulas C = {Cθ : θ ∈O} such that, for any θ ∈O, Cθ is the copula of the random
+vector (Zθ(x1), . . . , Zθ(xd)). Because C is a family of extreme-value copulas, C can be
+deﬁned from a parametric family of Pickands dependence functions A = {Aθ : θ ∈O}
+through (8).
+Let C be the unknown extreme-value copula of (X1, . . . , Xd) and let A be the corre-
+sponding unknown Pickands dependence function. Having at hand n independent copies
+(X1,1, . . . , X1,d), . . . , (Xn,1, . . . , Xn,d) of the random vector (X1, . . . , Xd), we wish to test
+H0 : C ∈C (i.e., A ∈A)
+against
+H1 : C ̸∈C (i.e., A ̸∈A).
+(10)
+The rejection of H0 will be interpreted as evidence in the data that the family of max-
+stable processes Z does not constitute an appropriate model.
+As discussed in Genest et al. (2011), a seemingly natural approach to the goodness-
+of-ﬁt problem stated in (10) consists of comparing a nonparametric estimator ˆAn of the
+Pickands dependence function A with a parametric estimator of A under the null, both
+computed from (X1,1, . . . , X1,d), . . . , (Xn,1, . . . , Xn,d). The null hypothesis implies that
+there exists an unknown θ0 ∈O such that A = Aθ0. Given an estimator ˆθn of θ0, a
+natural estimator of A under the null is therefore simply Aˆθn. Such an approach was
+adopted in a bivariate context by Genest et al. (2011) who considered Cram´er–von Mises
+test statistics derived from empirical processes on ∆1 of the form √n( ˆAn −Aˆθn).
+Because spatial problems usually involve a large number of sites d, a direct extension
+of the previous approach does not appear practically feasible as it would involve numerical
+integration over ∆d−1. Instead of comparing ˆAn with Aˆθn over the whole of ∆d−1, one
+possibility, as suggested by (9), consists of considering a ﬁnite number of points in ∆d−1
+such as the points wB, B ⊂D, |B| ≥2 and in deﬁning
+SB,n = √n|B|
+ ˆAn(wB) −Aˆθn(wB)
+ ,
+B ⊂D, |B| ≥2.
+(11)
+For a subset B ⊂D with |B| ≥2, SB,n is nothing else than the scaled absolute diﬀer-
+ence between a nonparametric estimator of the extremal coeﬃcient ξB and a parametric
+estimator of the latter under the null. If the null hypothesis deﬁned in (10) holds, then,
+clearly, so does the hypothesis
+H0,B : ξB ∈{ξB,θ = |B|Aθ(wB) : θ ∈O}.
+The converse is however false in general. It follows that tests based on SB,n will not be
+consistent with respect to the hypotheses given in (10).
+In our simulations whose results will be partially reported in Section 4, we focused
+on test statistics of the following form: P
+B⊂D,|B|=2{SB,n}α, P
+B⊂D,|B|=3{SB,n}α, SD,n,
+7
+
+--- Page 8 ---
+P
+B⊂D,|B|={2,3,d}{SB,n}α and P
+B⊂D,|B|={2,3,d}{SB,n/|B|}α, for α ∈{1, 2}. The ﬁrst four
+are based on the comparison of a nonparametric and a parametric estimator of extremal
+coeﬃcients of various subsets of sites, while the last, through the division by |B|, compares
+the corresponding estimators of the unknown Pickands dependence function.
+3.1
+Nonparametric estimators of the Pickands dependence func-
+tion
+In the realistic situation where the margins F1, . . . , Fd of (X1, . . . , Xd) are unknown,
+two nonparametric estimators of the unknown Pickands dependence function A were
+recently derived by Gudendorf and Segers (2012) as extensions of those proposed by
+Genest and Segers (2009) in the bivariate case. They are the rank-based versions of two
+well-known estimators of A, namely the Pickands estimator (Pickands, 1981) and the
+Cap´era`a–Foug`eres–Genest estimator (Cap´era`a, Foug`eres, and Genest, 1997). The latter
+will be abbreviated as CFG in the sequel.
+Let ˆUi = ( ˆUi,1, . . . , ˆUi,d), i ∈{1, . . . , n}, be pseudo-observations computed from the
+available data by ˆUi,j = Ri,j/(n + 1), where Ri,j is the rank of Xi,j among X1,j, . . . , Xn,j.
+The pseudo-observations can equivalently be rewritten as ˆUi,j = n ˆFj(Xi,j)/(n+1), where
+ˆFj is the empirical c.d.f. computed from X1,j, . . . , Xn,j, and where the scaling factor
+n/(n + 1) is classically introduced to avoid problems at the boundary of [0, 1]d.
+Let
+ˆζi(w) =
+d^
+j=1
+−log ˆUi,j
+wj
+,
+w ∈∆d−1,
+i ∈{1, . . . , n},
+where ∧denotes the minimum. The rank-based version of the Pickands and CFG esti-
+mators are then respectively deﬁned by
+ˆAP
+n(w) = 1
+.1
+n
+n
+X
+i=1
+ˆζi(w),
+and
+ˆACFG
+n
+(w) = exp
+"
+−β −1
+n
+n
+X
+i=1
+log ˆζi(w)
+#
+,
+w ∈∆d−1,
+where β = −
+R ∞
+0 log(x)e−xdx ≈0.577 is the Euler–Mascheroni constant.
+From the above deﬁnitions, it is easy to verify that ˆAP
+n(e1) = · · · = ˆAP
+n(ed) and that
+ˆACFG
+n
+(e1) = · · · = ˆACFG
+n
+(ed), where e1, . . . , ed are the standard basis vectors of Rd. To
+ensure that the endpoint constraints ˆAP
+n(ej) = ˆACFG
+n
+(ej) = 1, j ∈D, are satisﬁed, the
+previous estimators can be corrected as
+1/ ˆAP
+n,c(w) = 1/ ˆAP
+n(w) −1/ ˆAP
+n(e1) + 1,
+w ∈∆d−1,
+and
+log ˆACFG
+n,c (w) = log ˆACFG
+n
+(w) −log ˆACFG
+n
+(e1),
+w ∈∆d−1,
+respectively. These corrections were suggested in Gudendorf and Segers (2012) as natural
+extensions of those proposed in the case of known margins for d = 2 by Deheuvels (1991)
+and Cap´era`a et al. (1997), respectively.
+In the bivariate case, the above corrected versions were found to behave better than
+the uncorrected versions in small samples in Genest and Segers (2009) and Genest et al.
+(2011). As veriﬁed in Gudendorf and Segers (2012), ˆAP
+n and ˆAP
+n,c (resp. ˆACFG
+n
+and ˆACFG
+n,c )
+8
+
+--- Page 9 ---
+become indistinguishable as n tends to inﬁnity. Also, ˆACFG
+n,c
+was found, overall, to outper-
+form ˆAP
+n,c in several bivariate Monte-Carlo experiments (see e.g. Genest and Segers, 2009;
+Kojadinovic and Yan, 2010). The same empirical conclusion was obtained by Gudendorf
+and Segers (2012) in dimension three.
+A second corrected version of the Pickands estimator is obtained when considering,
+in the current rank-based context, the estimator initially proposed by Hall and Tajvidi
+(2000) for d = 2 and known margins . It is given by
+ˆAHT
+n (w) = ˆAP
+n(w)/ ˆAP
+n(e1),
+w ∈∆d−1.
+By analogy with (9), for any B ⊂D, |B| ≥2, these three corrected estimators give
+three estimators of the extremal coeﬃcient ξB as
+ˆξP
+B,n = |B| ˆAP
+n,c(wB),
+ˆξHT
+B,n = |B| ˆAHT
+n (wB),
+and
+ˆξCFG
+B,n = |B| ˆACFG
+n,c (wB).
+(12)
+Note that a multivariate rank-based version of the estimator suggested by Smith
+(1990) can be expressed as |B| ˆAP
+n(wB) with our notation. The estimator ˆξP
+B,n = |B| ˆAP
+n,c(wB)
+considered in this work is therefore merely a corrected version of the latter. Furthermore,
+the estimator ˆξHT
+B,n is nothing else than the so-called naive estimator proposed by Schlather
+and Tawn (2003) with threshold z = 0 when computed from the transformed pseudo-
+observations −1/ log ˆUi,j, i ∈{1, . . . , n}, j ∈B. To see this, it suﬃces to start from the
+log likelihood given in Schlather and Tawn (2003, Section 4.2), set its derivative to zero
+and solve for the extremal coeﬃcient.
+The fact that the estimators of ξB given in (12) are deﬁned from corrected estimators
+of the Pickands dependence function does not ensure that they are restricted to the
+range [1, |B|]. Hence, as suggested in Schlather and Tawn (2003), it might be necessary
+to truncate them to the range [1, |B|] in the case of small samples. In our experiments
+however, we have not observed the need for such a truncation.
+From a practical perspective, note ﬁnally that the estimators ˆAP
+n,c, ˆAHT
+n
+and ˆACFG
+n,c
+were
+implemented and are available in the copula package (Hofert, Kojadinovic, M¨achler, and
+Yan, 2013) of the R statistical environment (R Development Core Team, 2013)
+3.2
+Estimators of the Pickands dependence function under the
+null
+Recall that C denotes the unknown copula of (X1, . . . , Xd) and that the null hypothesis
+states that there exists θ0 ∈O such that C = Cθ0. As proposed by Genest, Ghoudi, and
+Rivest (1995), a natural way of estimating θ0 under the null in the rank-based context
+under consideration would be to maximize the log pseudo-likelihood
+ℓ(θ) =
+n
+X
+i=1
+log cθ
+
+ˆUi,1, . . . , ˆUi,d
+
+,
+θ ∈O,
+where cθ is the p.d.f. associated with Cθ and where the term pseudo in pseudo-likelihood
+refers to the fact that the p.d.f. is evaluated at the pseudo-observations ˆU1, . . . , ˆUn.
+However, because of the extreme-value nature of the copula Cθ, a combinatorial explo-
+sion occurs when one attempts to compute cθ = ∂dCθ/∂u1 . . . ∂ud (see e.g. the discussion
+9
+
+--- Page 10 ---
+in Davison and Gholamrezaee, 2012, end of Section 2.1). It follows that, for most para-
+metric max-stable processes of practical interest in spatial statistics, the maximization
+of the log pseudo-likelihood is practically unfeasible for d > 4 (see Genton et al., 2011,
+for recent results concerning the Smith model). As discussed for instance in Davison and
+Gholamrezaee (2012) or Padoan et al. (2010), an alternative consists of using a compos-
+ite likelihood approach (Lindsay, 1988), which, in the pseudo-likelihood context under
+consideration, yields the pairwise log pseudo-likelihood
+˜ℓ(θ) =
+n
+X
+i=1
+X
+{j,k}⊂D
+log c(j,k)
+θ
+
+ˆUi,j, ˆUi,k
+
+,
+θ ∈O,
+(13)
+where c(j,k)
+θ
+is the p.d.f. of the copula of the bivariate random vector (Zθ(xj), Zθ(xk))
+for a pair of sites {xj, xk}. Note that the eﬃciency of the maximum pairwise pseudo-
+likelihood estimator might be increased by restricting the expression above to pairs of
+sites that are closer than a speciﬁed threshold as empirically illustrated in Padoan et al.
+(2010) in the case of the maximum pairwise likelihood estimator.
+For any θ ∈O, recall that Aθ denotes the Pickands dependence function associated
+with the extreme-value copula Cθ. Furthermore, let ˆθn be the maximizer of (13). An
+estimator of the Pickands dependence function under the null Aθ0 is then given by Aˆθn.
+For a given B ⊂D, |B| ≥2, it follows that an estimator of the extremal coeﬃcient ξB
+under the null is given by
+ξB, ˆθn = |B|Aˆθn(wB).
+(14)
+The previous estimator can however only be computed if a closed form expression for
+Aθ is available. If it is not the case, ξB can be estimated provided one knows how to
+generate a random sample from Cθ. For some ﬁxed real γ > 0 (typically much greater
+than one), let m = ⌊γn⌋and let (V1,1, . . . , V1,d), . . . , (Vm,1, . . . , Vm,d) be a random sample
+of size m from Cˆθn, independent of the available data conditionally on ˆθn. Then, an
+estimator of ξB is
+ˆξB, ˆθn,m = |B| ˆAm(wB),
+(15)
+where ˆAm is one of the three corrected nonparametric estimators of the Pickands depen-
+dence function deﬁned in Section 3.1 computed from the pseudo-observations obtained
+from (V1,1, . . . , V1,d), . . . , (Vm,1, . . . , Vm,d).
+To illustrate the use of the two estimators of ξB under the null discussed above, we
+ﬁrst consider the situation when Z = {Zθ : θ ∈O} corresponds to the Smith model,
+and then, for instance, to the Schlather model. Clearly, the estimator given in (15) has
+the highest applicability across models as it mostly relies on the availability of random
+number generation routines.
+3.2.1
+The case of the Smith model
+For the Smith model, it is known (see e.g. Schlather and Tawn, 2003, page 147) that Cθ
+is a d-dimensional H¨usler–Reiss copula (H¨usler and Reiss, 1989). The dependence in this
+model is controlled by the covariance matrix Σ of the bivariate standard normal p.d.f.
+φ(2)
+Σ which determines the elliptical contour of a typical storm. In other words, θ = Σ.
+10
+
+--- Page 11 ---
+Starting from (2), one recovers that the Pickands dependence function of the random
+vector (Zθ(xj), Zθ(xk)), for a pair of sites {xj, xk}, is given by
+Aθ(w) = w1Φ
+a{j,k}
+2
++
+1
+a{j,k}
+log w1
+w2
+
++ w2Φ
+a{j,k}
+2
++
+1
+a{j,k}
+log w2
+w1
+
+,
+w ∈∆1,
+(16)
+where Φ is the standard normal c.d.f. and a2
+{j,k} = (xj −xk)⊤Σ−1(xj −xk).
+The
+previous expression can be used to obtain the expression of the bivariate H¨usler–Reiss
+copula through (8), and the expression of the bivariate p.d.f. c(j,k)
+θ
+needed in (13). As
+one can see, the dependence is controlled by the distance a{j,k} between sites xj and xk,
+which depends on θ = Σ.
+The c.d.f. of the d-dimensional H¨usler–Reiss copula was recently expressed in a conve-
+nient form by Nikoloulopoulos, Joe, and Li (2009) using as parameter a symmetric d × d
+matrix with oﬀ-diagonal elements δik > 0 and δ−1
+ii
+= 0, such that any (d −1) × (d −1)
+matrix Γj with element (i, k) given by
+δ−2
+ij + δ−2
+kj −δ−2
+ik
+2δ−1
+ij δ−1
+kj
+,
+i, k ∈D \ {j},
+is a correlation matrix. Let Φ(d−1)
+Γj
+be the c.d.f. of the (d−1)-dimensional standard normal
+distribution with correlation matrix Γj. From the work of Nikoloulopoulos et al. (2009),
+we have that the Pickands dependence function of the d-dimensional H¨usler–Reiss copula
+parametrized by the matrix (δij)i,j∈D is
+Aδ(w) =
+d
+X
+j=1
+wjΦ(d−1)
+Γj
+
+δ−1
+ij + δij
+2 log wj
+wi
+: i ∈D \ {j}
+
+,
+w ∈∆d−1.
+Setting all but two wj to zero to obtain a bivariate Pickands dependence function and
+comparing the resulting function with (16), we see that it is necessary to set δij = 2/a{i,j},
+{i, j} ⊂D, for Aδ to be the Pickands dependence function of (Zθ(x1), . . . , Zθ(xd)).
+Writing Aδ = Aθ, it follows that the extremal coeﬃcient of the sites in {xi : i ∈D} for
+this model is
+ξD = dAθ(1/d, . . . , 1/d) =
+d
+X
+j=1
+Φ(d−1)
+Γj
+a{i,j}
+2
+: i ∈D \ {j}
+
+.
+More generally, for any B ⊂D with |B| ≥2,
+ξB = |B|Aθ(wb) =
+X
+j∈B
+Φ(|B|−1)
+Γj,B
+a{i,j}
+2
+: i ∈B \ {j}
+
+,
+(17)
+where Γj,B is the (|B| −1) × (|B| −1) matrix obtained from Γj be removing rows and
+columns whose index is not in B. The previous expression can be computed provided
+one can compute the c.d.f. of the multivariate normal distribution. In R, this can be
+done using the excellent mvtnorm package (Genz, Bretz, Miwa, Mi, Leisch, Scheipl, and
+Hothorn, 2011).
+Hence, once (13) has been maximized, the resulting estimate can be plugged into (17)
+to obtain the estimate of ξB under the null given by (14).
+11
+
+--- Page 12 ---
+3.2.2
+The case of the Schlather model
+For the Schlather model, the dependence is controlled by the correlation function ρ, i.e.,
+ρ = ρθ, and, as for most max-stable processes, the expression of Cθ is available in closed
+form only in dimension two. Starting from (4), one obtains that the Pickands dependence
+function of the random vector (Zθ(xj), Zθ(xk)), for a pair of sites {xj, xk}, is given by
+Aθ(w) = 1
+2
+
+1 + [1 −2{ρ(xj −xk) + 1}w1w2]1/2
+,
+w ∈∆1.
+(18)
+The previous expression can be used to obtain the expression of the p.d.f. c(j,k)
+θ
+needed
+in (13), and the expression of the extremal coeﬃcient of ξ{j,k}, which is simply
+ξ{j,k} = 1 +
+1 −ρ(xj −xk)
+2
+1/2
+.
+(19)
+Because of the unavailability of the expression of the Pickands dependence function in
+dimension three or greater, we do not have a closed form expression for ξB = |B|Aθ(wB)
+under the Schlather model for B ⊂D, |B| ≥3. However, from the work of Schlather
+(2002), we know how to generate a random sample from Cθ, which enables us to use the
+estimator given in (15).
+3.3
+Asymptotic distribution of the test statistics under the null
+For a subset B ⊂D with |B| ≥2, let ˆξB,n denote one of the three nonparametric
+estimators of ξB deﬁned in (12), and recall that ξB, ˆθn and ˆξB, ˆθn,m are the estimators
+under H0 of ξB = ξB,θ0 deﬁned in (14) and (15), respectively. Finally, let ˙ξB,θ be the
+gradient of ξB,θ with respect to θ.
+The following proposition is a consequence of the delta method and the continuous
+mapping theorem.
+Proposition 1. Assume that H0 holds, that √n
+
+ˆξB,n −ξB,θ0, ˆθn −θ0
+
+converges in dis-
+tribution to (ΛB, Θ) and that θ 7→ξB,θ is diﬀerentiable at θ0. Then, the test statistic
+SB,n = |√n(ˆξB,n −ξB, ˆθn)| converges in distribution to |ΛB −˙ξ⊤
+B,θ0Θ|.
+The convergence in distribution of √n(ˆξB,n −ξB,θ0) occurs if Conditions 2.1 and 4.1
+of Segers (2012) are satisﬁed. These smoothness conditions concern the ﬁrst and second-
+order partial derivatives of Cθ0. If they are satisﬁed, the limiting random variable can be
+expressed in terms of the weak limit of the empirical process √n( ˆAn −Aθ0) established in
+Theorem 1 of Gudendorf and Segers (2012) (see also Genest and Segers, 2009, Theorem
+3.2), which in turn depends on the weak limit of the empirical copula process (see e.g.
+Segers, 2012).
+In dimension three or higher, the veriﬁcation of Conditions 2.1 and 4.1 of Segers
+(2012) seems impossible for the Schlather and geometric Gaussian models as a closed form
+expression of Cθ0 is not available in those cases, and appears very tedious for the Smith
+model.
+In dimension two, Segers (2012) showed that the aforementioned smoothness
+conditions are satisﬁed if the function f(t) = Aθ0(t, 1−t), t ∈[0, 1], is twice continuously
+12
+
+--- Page 13 ---
+diﬀerentiable on (0, 1), and if supt∈(0,1){t(1 −t)f ′′(t)} < ∞. The latter conditions on f
+appear to hold for the Smith model, the Schlather and the geometric Gaussian models.
+Regularity conditions under which √n
+
+ˆξB,n −ξB,θ0, ˆθn −θ0
+
+converges in distribu-
+tion still need to be established. A preliminary task would be to obtain regularity con-
+ditions for the asymptotic normality of the maximum pairwise pseudo-likelihood estima-
+tor. Such regularity conditions are investigated in Genest et al. (1995) for the maximum
+pseudo-likelihood estimator and in Padoan et al. (2010) for the maximum pairwise like-
+lihood estimator.
+Let us now state an analogue of Proposition 1 for the test statistic SB,n,m = |√n(ˆξB,n−
+ˆξB, ˆθn,m)|, B ⊂D, |B| ≥2. For any θ ∈O, recall that cθ is the density associated with
+Cθ, and denote by ˙cθ and ˙Cθ the gradients with respect to θ of cθ and Cθ, respectively.
+The following technical conditions are considered:
+(A1) The family of copulas {Cθ : θ ∈O} satisﬁes the regularity conditions stated in
+Deﬁnition 1 of Genest and R´emillard (2008) (see also Genest et al., 2011, Ap-
+pendix B (a)) as well as Conditions 2.1 and 4.1 of Segers (2012).
+(A2) For every θ ∈O, ϑ 7→ξB,ϑ is diﬀerentiable at θ.
+(A3) For every θ ∈O and every w ∈∆d−1, there exists a neighborhood N of θ and
+Lebesgue integrable functions h, g : (0, 1) →R such that
+sup
+ϑ∈N
+
+˙Cϑ(uw)
+u
+ ≤h(u)
+and
+sup
+ϑ∈N
+
+˙Cϑ(uw)
+u log(u)
+ ≤g(u)
+∀u ∈(0, 1),
+where uw = (uw1, . . . , uwd).
+Finally, let (U1,1, . . . , U1,d), . . . , (Un,1, . . . , Un,d) be the unobservable random sample ob-
+tained from the available one by Ui,j = Fj(Xi,j), i ∈{1, . . . , n}, j ∈{1, . . . , d}. The
+following result is then essentially a consequence of Theorem 2 of Genest and R´emillard
+(2008).
+Proposition 2. Assume that (A1)–(A3) and H0 hold, and that
+ 
+√n(ˆξB,n −ξB,θ0), √n(ˆθn −θ0), 1
+√n
+n
+X
+i=1
+˙cθ0(Ui,1, . . . , Ui,d)
+cθ0(Ui,1, . . . , Ui,d)
+!
+⇝(ΛB, Θ, W),
+(20)
+where the arrow ⇝denotes convergence in distribution. Then, the test statistic SB,n,m =
+|√n(ˆξB,n−ˆξB, ˆθn,m)|, with m = ⌊γn⌋, converges in distribution to |ΛB −γ−1/2Λ′
+B −˙ξ⊤
+B,θ0Θ|,
+where Λ′
+B is an independent copy of ΛB.
+From the previous proposition, we see that the limiting distribution of SB,n,m under H0
+contains the additional term γ−1/2Λ′
+B compared with that of SB,n given in Proposition 1.
+The inﬂuence of that term can be made arbitrarily small by taking γ suﬃciently large.
+13
+
+--- Page 14 ---
+3.4
+The goodness-of-ﬁt procedures
+The weak limits established in Propositions 1 and 2 are unwieldy and cannot be used to
+compute asymptotic p-values for the test statistics. For a subset B ⊂D with |B| ≥2,
+approximate p-values for SB,n and SB,n,m can however be obtained using a one-level and
+a two-level parametric bootstrap, respectively. These two procedures are described in the
+forthcoming two subsections. In the rank-based context under consideration, these re-
+sampling techniques were studied by Genest and R´emillard (2008), who derived technical
+conditions for their asymptotic validity. When adapted to the current setting, these con-
+ditions are almost exactly those used in Proposition 2: If (A1)–(A3) hold and if, under
+H0, (20) holds with E(ΘW⊤) = I, where I is the p × p identity matrix, then the one-
+and two-level parametric bootstrap procedures given below are asymptotically valid in
+the sense of Theorems 1 and 2 of Genest and R´emillard (2008). As a consequence, under
+the validity conditions and H0, each test statistic and its bootstrap replicates converge
+jointly in distribution to independent copies of the same limit. As already mentioned,
+related validity conditions can be found in Genest et al. (2011, Appendix B).
+As we continue, N and m are large integers and correspond to the number of bootstrap
+replicates and to the size of the second-level bootstrap sample, respectively.
+3.4.1
+A one-level parametric bootstrap for the test based on SB,n
+1. Compute ˆθn as a maximizer of (13) and ˆξB,n from the available sample.
+2. Compute the test statistic SB,n = |√n(ˆξB,n −ξB, ˆθn)|.
+3. For every k ∈{1, . . . , N}, repeat the following steps:
+(a) Generate a random sample (U (k)
+1,1 , . . . , U (k)
+1,d ), . . . , (U (k)
+n,1, . . . , U (k)
+n,d) from Cˆθn and
+compute the corresponding pseudo-observations.
+(b) Let ˆθ(k)
+n
+and ˆξ(k)
+B,n be the versions of ˆθn and ˆξB,n computed from the pseudo-
+observations obtained in Step (a).
+(c) Form an approximate realization of SB,n under the null as S(k)
+B,n = |√n(ˆξ(k)
+B,n −
+ξB, ˆθ(k)
+n )|.
+4. An approximate p-value for SB,n is given by N −1 PN
+k=1 1(S(k)
+B,n ≥SB,n).
+3.4.2
+A two-level parametric bootstrap for the test based on SB,n,m
+1. Compute ˆθn as a maximizer of (13) and ˆξB,n from the available sample.
+2. Generate a random sample (V1,1, . . . , V1,d), . . . , (Vm,1, . . . , Vm,d) from Cˆθn, and com-
+pute ˆξB, ˆθn,m from the corresponding pseudo-observations using (15).
+3. Compute the test statistic SB,n,m = |√n(ˆξB,n −ˆξB, ˆθn,m)|.
+4. For every k ∈{1, . . . , N}, repeat the following steps:
+14
+
+--- Page 15 ---
+(a) Generate a random sample (U (k)
+1,1 , . . . , U (k)
+1,d ), . . . , (U (k)
+n,1, . . . , U (k)
+n,d) from Cˆθn and
+compute the corresponding pseudo-observations.
+(b) Let ˆθ(k)
+n
+and ˆξ(k)
+B,n be the versions of ˆθn and ˆξB,n computed from the pseudo-
+observations obtained in Step (a).
+(c) Generate a random sample (V (k)
+1,1 , . . . , V (k)
+1,d ), . . . , (V (k)
+m,1, . . . , V (k)
+m,d) from Cˆθ(k)
+n , and
+compute ˆξ(k)
+B, ˆθ(k)
+n ,m from the corresponding pseudo-observations using (15).
+(d) Form an approximate realization of SB,n,m under the null as S(k)
+B,n,m = |√n(ˆξ(k)
+B,n−
+ˆξ(k)
+B, ˆθ(k)
+n ,m)|.
+5. An approximate p-value for SB,n is given by N −1 PN
+k=1 1(S(k)
+B,n,m ≥SB,n).
+4
+Monte Carlo experiment
+As already mentioned in Section 3, test statistics of the following form were considered
+in the simulations:
+E[α]
+n,2 =
+X
+B⊂D
+|B|=2
+{SB,n}α,
+E[α]
+n,3 =
+X
+B⊂D
+|B|=3
+{SB,n}α,
+SD,n,
+E[α]
+n,2,3,d =
+X
+B⊂D
+|B|=2,3,d
+{SB,n}α,
+and
+P [α]
+n,2,3,d =
+X
+B⊂D
+|B|=2,3,d
+{SB,n/|B|}α,
+α ∈{1, 2},
+(21)
+where SB,n is deﬁned in (11). The ﬁrst type of test statistic can be seen as focusing
+on the diﬀerence between a nonparametric and a parametric estimator of the Pickands
+dependence function on the boundary of the unit simplex ∆d−1, while the third one
+considers this diﬀerence in the center of ∆d−1. The diﬀerence between E[α]
+n,2,3,d and P [α]
+n,2,3,d
+is that the former sums diﬀerences of extremal coeﬃcients while the latter sums diﬀerences
+of Pickands dependence functions. By setting α to 2, one obtains Cram´er–von Mises-like
+statistics. Three versions of each test statistic can be computed, depending on which of
+the three nonparametric estimators of the extremal coeﬃcients deﬁned in (12) is used.
+Recall that the latter can be the Pickands estimator, the Hall-Tajvidi estimator or the
+Cap´era`a–Foug`eres–Genest estimator.
+The ﬁnite-sample performance of the tests was investigated in a computationally in-
+tensive Monte Carlo experiment using [0, 10]2 as study region and d = 10 sites. The
+factors of the experiment are the locations of the sites, the data generating model, the
+hypothesized model, the strength of the spatial dependence and the sample size n (typ-
+ically corresponding to the number of years in a real dataset). To avoid increasing an
+already very high computational burden, only isotropic models with one real parame-
+ter θ > 0 were considered. The ﬁrst model, abbreviated by Sm–Iso, was obtained by
+parametrizing the covariance matrix Σ in the Smith model as Σ = θI2, where I2 is the
+2×2 identity matrix. The second model, abbreviated as Sc–Exp, was obtained by choos-
+ing the correlation function ρ parametrizing the Schlather model to be of the exponential
+type with range parameter θ, i.e.,
+ρexp(x) = exp(−∥x∥/θ),
+x ∈R2.
+(22)
+15
+
+--- Page 16 ---
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+0
+2
+4
+6
+8
+10
+0
+2
+4
+6
+8
+10
+x1
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+0
+2
+4
+6
+8
+10
+0
+2
+4
+6
+8
+10
+x1
+x2
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+0
+2
+4
+6
+8
+10
+0
+2
+4
+6
+8
+10
+x1
+x2
+Figure 1: The three diﬀerent sets of d = 10 sites used in the simulations.
+The last model, a particular geometric Gaussian model abbreviated as GG–Exp, was
+obtained by ﬁxing the parameter σ2 in (5) to 8 and by using the exponential correlation
+function given by (22). For each of the three models, three values of θ were considered for
+random number generation. They were chosen so that the bivariate extremal coeﬃcient
+ξ{i,j} of two ﬁctitious sites xi and xj equals 1.5 when the distance between xi and xj
+equals 1, 5, and 10, respectively.
+The latter distance will be denoted by d1.5 as we
+continue. The sample size n was taken in {50, 100, 200}. To investigate the inﬂuence of
+the locations of the d = 10 sites, three diﬀerent sets of sites were generated. These are
+represented in Figure 1. A larger number of site conﬁgurations was not considered for
+computational reasons.
+Samples from the Sm-Iso, Sc-Exp and GG-Exp models were generated using the
+excellent SpatialExtremes R package (Ribatet, Singleton, and R Core team, 2013). Note
+that σ2 was set to 8 in the model GG–Exp because random number generation for the
+geometric Gaussian model in SpatialExtremes is apparently unreliable when σ2 > 10.
+For each set of sites, each of the three models and each value of θ, 1000 samples were
+produced. For each generated sample, the goodness of ﬁt of the models Sm-Iso, Sc–Exp
+and GG-Exp was tested. The bootstrap sample size N was set to 1000 and all tests were
+carried out at the 5% signiﬁcance level. For the tests based on E[α]
+n,2 deﬁned in (21), the
+one-level parametric bootstrap of Section 3.4.1 was used as a closed-form expression of the
+bivariate extremal coeﬃcient is available for all three models considered in the simulations
+(as for most models). To avoid the use of the more costly two-level parametric bootstrap
+of Section 3.4.2 for the tests based on the other statistics given in (21), we “precomputed”
+reasonnably accurate approximations of the mappings θ 7→ξB,θ for all three sets of sites
+displayed in Figure 1, all three models and all B ⊂D, |B| ∈{3, d}. This was done using
+the procedure described in detail in Appendix B and enabled us to save a lot of computing
+time. Note that the use of the two-level parametric bootstrap will be presented in the
+illustration of Section 5, where it will be also compared with the results of the one-level
+parametric bootstrap when assessing the ﬁt of the Smith model.
+The obtained rejection percentages of H0 for the d = 10 sites represented in the left
+(resp. middle, right) plot of Figure 1 are given in Table 1 (resp. 2, 3). The values of θ used
+for data generation are given in the third column of the tables, while the second column
+recalls the corresponding value of d1.5 (the distance between two sites for their extremal
+16
+
+--- Page 17 ---
+coeﬃcient to be equal to 1.5). The tables only report the rejection percentages for the
+tests based on the statistics in (21) when based on the CFG estimator of the unknown
+Pickands dependence function. Indeed, with a very few exceptions, the use of the CFG
+estimator led to substantially more powerful tests. The results for the test statistics with
+α = 2 are not reported as the corresponding tests did not appear more powerful than
+those with α = 1. A ﬁnal general remark is that the results appear to be qualitatively
+identical for the three sets of sites.
+By considering the empirical levels of the tests given in italic in the tables, we see
+that, overall, the tests seem to hold their level reasonably well for θ values corresponding
+to a pairwise extremal coeﬃcient of 1.5 at distance 5 or 10 (i.e., d1.5 ∈{5, 10} in the
+tables). They appear however too liberal when d1.5 = 1, although the agreement with
+the 5% nominal level clearly improves when n increases from 50 to 200.
+From the ﬁrst vertical block of the tables, we see that, when assessing the ﬁt of the
+model Sm–Iso, the tests have overall high power, and that it is the test based on E[1]
+n,2
+(resp. SD,n) that seems the most (resp. least) powerful. When testing the ﬁt of the model
+Sc–Exp, we see, from the second vertical block of the tables, that it is the test based on
+E[1]
+n,2 that is the most powerful when data are generated from the model Sm–Iso. When
+GG–Exp is used as data generating model and d1.5 ∈{1, 5}, the test based on SD,n
+displays overall the highest rejection rates, while when d1.5 = 10, it is either E[1]
+n,2 or E[1]
+n,3.
+Finally, the rejection rates reported in Tables 1-3 suggest that the most powerful tests
+overall for assessing the ﬁt of the model GG–Exp are E[1]
+n,2 (when data are generated from
+Sm–Iso) and SD,n (when data are generated from Sc–Exp).
+Note that, for d1.5 = 1, in most situations, very high rejection rates are observed
+when the model Sc–Exp is involved. This is unsurprising since, as already mentioned,
+the Schlather model cannot model spatial independence. In a somehow related way, we
+see, from the second horizontal block of the tables that the rejection percentages are very
+close (if not equal) to 100% when data are generated from the model Sc–Exp and when
+the ﬁt of one of the two other models is assessed.
+Given the large number of factors inﬂuencing the power of the tests, it is not surprising
+that no test appears uniformly better. From a practical perspective, we suggest to at
+least consider the tests based on E[1]
+n,2 and SD,n since, having in mind the interpretation
+of the statistics given below (21), these tests can be used to identify on which “regions”
+of ∆d−1 the estimated model does not ﬁt.
+5
+Illustration
+As an illustration, the tests were applied to the Swiss rainfall data analyzed by Davi-
+son et al. (2012). The data consist of summer maximum daily precipitation for the years
+1962–2008 at 51 weather stations in the Plateau region of Switzerland. Among the eleven
+models ﬁtted in Davison et al. (2012) to the maxima measured at a subset of 35 stations,
+we restricted our attention to the best Smith, Schlather and geometric Gaussian models
+in terms of composite likelihood information criterion (CLIC) (see Davison et al., 2012,
+Table 5). We considered in particular the Smith model with anisotropic covariance matrix
+Σ = (Σij) (abbreviated as Sm-Ani in the sequel), the Schlather model with exponential
+correlation function given by (22) (abbreviated as Sc–Exp), and two geometric Gaus-
+17
+
+--- Page 18 ---
+Table 1: Percentage of rejection of H0 computed from 1000 samples of size n generated from the models Sm–Iso, Sc–Exp and
+GG–Exp with parameter value θ for the d = 10 sites represented in the left plot of Figure 1.
+Model
+d1.5
+θ
+n
+H0 : Sm–Iso
+H0 : Sc–Exp
+H0 : GG–Exp
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+Sm–Iso
+1
+0.550
+50
+11.2
+12.4
+11.8
+12.2
+12.4 100.0 100.0
+99.9
+100.0
+100.0
+1.9
+0.6
+4.1
+0.8
+1.2
+100
+5.9
+5.6
+5.0
+5.7
+5.7 100.0 100.0 100.0
+100.0
+100.0
+0.8
+7.7
+16.1
+6.9
+8.8
+200
+5.1
+5.8
+4.9
+5.5
+5.2
+5
+13.74
+50
+4.9
+5.5
+4.7
+5.3
+5.2
+5.3
+45.3
+70.4
+52.1
+55.4
+4.6
+80.5
+96.7
+86.8
+89.5
+100
+6.5
+7.3
+5.7
+7.0
+6.6
+7.4
+99.3 100.0
+99.9
+100.0
+1.4 100.0 100.0
+100.0
+100.0
+10
+54.95
+50
+2.1
+2.3
+2.5
+2.3
+2.2
+0.2
+5.8
+30.3
+8.4
+10.2
+1.2
+85.6
+93.6
+89.1
+90.0
+100
+3.4
+2.9
+3.7
+3.0
+3.1
+1.1
+89.1 100.0
+96.7
+97.8
+1.3 100.0 100.0
+100.0
+100.0
+Sc–Exp
+1
+1.443
+50
+100.0 100.0 100.0
+100.0
+100.0
+6.1
+8.2
+6.9
+8.0
+7.8 100.0 100.0
+98.5
+100.0
+100.0
+100 100.0 100.0 100.0
+100.0
+100.0
+5.2
+7.6
+7.9
+7.8
+7.7 100.0 100.0 100.0
+100.0
+100.0
+200
+5.3
+7.0
+6.3
+7.1
+6.9
+5
+7.213
+50
+100.0 100.0 100.0
+100.0
+100.0
+4.7
+3.5
+2.7
+3.3
+3.1
+97.7
+98.1
+83.9
+98.0
+97.2
+100
+99.6 100.0 100.0
+100.0
+100.0
+4.6
+4.6
+4.7
+4.9
+4.6 100.0 100.0
+99.8
+100.0
+100.0
+10
+14.43
+50
+99.7 100.0 100.0
+100.0
+100.0
+5.2
+4.1
+3.4
+3.6
+3.6
+91.5
+92.7
+88.5
+92.9
+92.9
+100
+99.0 100.0 100.0
+100.0
+100.0
+4.1
+2.9
+3.0
+2.5
+2.8
+99.6 100.0 100.0
+100.0
+100.0
+GG–Exp
+1
+8.282
+50
+76.5
+99.2
+99.2
+99.3
+99.3
+93.8
+50.9
+30.2
+51.7
+49.2
+9.7
+7.8
+8.9
+8.1
+8.1
+100
+92.7
+99.9 100.0
+99.9
+99.9 100.0
+88.3
+73.9
+90.2
+87.3
+8.7
+6.7
+5.9
+7.3
+7.1
+200
+5.8
+8.1
+7.7
+8.1
+8.0
+5
+41.41
+50
+69.8 100.0 100.0
+100.0
+100.0
+7.8
+4.3
+1.4
+3.7
+3.1
+5.2
+3.6
+3.8
+3.9
+4.0
+100
+89.1 100.0 100.0
+100.0
+100.0
+15.9
+19.7
+27.1
+20.3
+21.7
+4.9
+4.4
+5.4
+4.4
+4.5
+10
+82.82
+50
+80.4 100.0 100.0
+100.0
+100.0
+3.1
+19.0
+2.9
+15.9
+14.5
+3.8
+3.0
+3.6
+3.3
+3.4
+100
+96.7 100.0 100.0
+100.0
+100.0
+2.3
+75.2
+78.9
+76.4
+77.9
+4.5
+4.8
+5.0
+4.7
+4.4
+18
+
+--- Page 19 ---
+Table 2: Percentage of rejection of H0 computed from 1000 samples of size n generated from the models Sm–Iso, Sc–Exp and
+GG–Exp with parameter value θ for the d = 10 sites represented in the middle plot of Figure 1.
+Model
+d1.5
+θ
+n
+H0 : Sm–Iso
+H0 : Sc–Exp
+H0 : GG–Exp
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+Sm–Iso
+1
+0.550
+50
+11.0
+11.1
+9.0
+11.3
+11.2 100.0 100.0
+99.9
+100.0
+100.0
+3.0
+0.6
+1.8
+0.6
+0.6
+100
+7.0
+5.7
+5.0
+5.5
+5.3 100.0 100.0 100.0
+100.0
+100.0
+1.1
+0.4
+4.6
+0.3
+0.6
+200
+6.7
+5.5
+5.0
+5.8
+5.5
+5
+13.74
+50
+4.8
+6.5
+4.8
+6.5
+6.2
+3.2
+41.4
+80.6
+50.6
+55.7
+15.6
+68.0
+95.6
+81.2
+84.4
+100
+4.6
+5.7
+5.0
+5.9
+5.9
+4.3
+97.1 100.0
+99.3
+99.5
+18.4
+99.4 100.0
+100.0
+100.0
+10
+54.95
+50
+3.2
+3.0
+2.7
+2.9
+2.8
+5.5
+9.0
+48.8
+16.2
+19.6
+6.3
+81.8
+95.3
+88.2
+89.0
+100
+3.2
+3.5
+3.3
+3.3
+3.3
+25.9
+94.4 100.0
+98.8
+99.5
+12.9
+99.9 100.0
+100.0
+100.0
+Sc–Exp
+1
+1.443
+50
+100.0 100.0 100.0
+100.0
+100.0
+4.2
+9.6
+7.0
+9.3
+9.3
+99.9
+99.8
+98.5
+99.9
+99.8
+100 100.0 100.0 100.0
+100.0
+100.0
+3.6
+6.3
+5.7
+6.5
+6.5 100.0 100.0 100.0
+100.0
+100.0
+200
+2.5
+5.6
+6.3
+5.4
+5.3
+5
+7.213
+50
+100.0 100.0 100.0
+100.0
+100.0
+4.9
+4.8
+4.2
+4.6
+4.6
+97.6
+97.2
+83.5
+97.4
+96.3
+100 100.0 100.0 100.0
+100.0
+100.0
+5.9
+4.6
+4.5
+4.6
+4.8 100.0 100.0
+99.4
+100.0
+100.0
+10
+14.43
+50
+99.8 100.0 100.0
+100.0
+100.0
+4.8
+4.3
+3.3
+3.5
+3.3
+94.5
+94.3
+89.2
+94.9
+94.4
+100 100.0 100.0 100.0
+100.0
+100.0
+4.3
+4.7
+4.6
+4.4
+4.0
+99.6
+99.9
+99.9
+99.9
+99.9
+GG–Exp
+1
+8.282
+50
+44.3
+92.0
+91.7
+92.4
+92.5
+84.0
+24.2
+20.9
+27.5
+24.6
+11.1
+9.3
+8.0
+8.8
+8.9
+100
+58.5
+99.6
+99.7
+99.6
+99.6
+99.7
+76.9
+82.4
+80.6
+79.6
+8.1
+11.3
+9.5
+10.9
+10.7
+200
+6.7
+7.3
+7.4
+7.6
+7.5
+5
+41.41
+50
+32.7
+99.6 100.0
+99.6
+99.6
+11.1
+3.0
+3.0
+2.7
+2.5
+5.3
+3.9
+5.2
+4.5
+4.6
+100
+43.2 100.0 100.0
+100.0
+100.0
+19.4
+10.2
+21.5
+12.4
+13.9
+3.8
+4.6
+5.6
+4.5
+4.5
+10
+82.82
+50
+32.2 100.0 100.0
+100.0
+100.0
+2.1
+16.1
+3.6
+13.4
+12.2
+4.1
+3.0
+4.8
+3.5
+3.6
+100
+33.9 100.0 100.0
+100.0
+100.0
+3.1
+58.8
+67.4
+60.5
+63.0
+5.1
+3.9
+4.7
+4.2
+4.6
+19
+
+--- Page 20 ---
+Table 3: Percentage of rejection of H0 computed from 1000 samples of size n generated from the models Sm–Iso, Sc–Exp and
+GG–Exp with parameter value θ for the d = 10 sites represented in the right plot of Figure 1.
+Model
+d1.5
+θ
+n
+H0 : Sm–Iso
+H0 : Sc–Exp
+H0 : GG–Exp
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+SD,n
+E[1]
+n,3
+E[1]
+n,2 E[1]
+n,2,3,d P [1]
+n,2,3,d
+Sm–Iso
+1
+0.550
+50
+17.0
+16.7
+17.4
+17.1
+16.9 100.0 100.0 100.0
+100.0
+100.0
+1.5
+0.4
+4.6
+0.5
+0.5
+100
+7.0
+7.8
+7.9
+7.5
+7.7 100.0 100.0 100.0
+100.0
+100.0
+0.2
+7.2
+18.3
+5.8
+8.1
+200
+5.6
+4.9
+4.8
+5.0
+5.0
+5
+13.74
+50
+4.8
+5.1
+3.9
+4.8
+5.0
+8.7
+55.8
+77.7
+61.7
+64.3
+11.1
+75.6
+95.9
+83.5
+85.2
+100
+5.2
+6.6
+6.1
+6.1
+6.0
+22.4
+99.0
+99.9
+99.8
+99.8
+9.8
+99.8 100.0
+99.9
+99.9
+10
+54.95
+50
+4.8
+2.8
+3.4
+2.9
+3.0
+0.7
+7.8
+38.2
+11.8
+14.6
+3.6
+88.1
+95.7
+91.5
+92.4
+100
+2.8
+3.4
+3.7
+3.3
+3.2
+1.8
+92.5 100.0
+98.0
+99.0
+1.3 100.0 100.0
+100.0
+100.0
+Sc–Exp
+1
+1.443
+50
+100.0 100.0 100.0
+100.0
+100.0
+6.8
+9.7
+8.0
+9.7
+9.9
+99.9 100.0
+99.5
+100.0
+100.0
+100 100.0 100.0 100.0
+100.0
+100.0
+5.8
+7.9
+7.3
+7.9
+7.6 100.0 100.0 100.0
+100.0
+100.0
+200
+4.7
+6.9
+5.3
+6.8
+6.6
+5
+7.213
+50
+100.0 100.0 100.0
+100.0
+100.0
+5.6
+3.7
+4.2
+3.7
+3.9
+97.5
+96.9
+82.6
+97.0
+96.4
+100 100.0 100.0 100.0
+100.0
+100.0
+5.0
+3.4
+3.8
+3.2
+3.3 100.0 100.0
+99.8
+100.0
+100.0
+10
+14.43
+50
+100.0 100.0 100.0
+100.0
+100.0
+5.7
+3.1
+2.8
+2.8
+2.7
+96.1
+93.5
+87.6
+94.4
+94.0
+100 100.0 100.0 100.0
+100.0
+100.0
+3.6
+4.8
+4.6
+4.3
+4.1
+99.9 100.0 100.0
+100.0
+100.0
+GG–Exp
+1
+8.282
+50
+78.8
+98.6
+98.8
+98.4
+98.6
+96.9
+64.9
+37.5
+66.7
+62.6
+9.7
+9.1
+8.2
+9.6
+8.9
+100
+96.3 100.0 100.0
+100.0
+100.0 100.0
+95.8
+85.8
+96.6
+95.2
+12.0
+8.0
+6.0
+8.2
+7.5
+200
+5.7
+6.9
+7.1
+6.6
+7.0
+5
+41.41
+50
+74.4
+99.9 100.0
+99.9
+100.0
+10.3
+2.3
+2.5
+2.2
+2.6
+5.9
+3.6
+4.8
+3.8
+4.0
+100
+90.9 100.0 100.0
+100.0
+100.0
+22.6
+8.7
+16.8
+9.7
+10.2
+5.0
+4.0
+4.2
+3.5
+3.6
+10
+82.82
+50
+81.9 100.0 100.0
+100.0
+100.0
+2.6
+16.1
+2.5
+12.7
+11.6
+3.5
+3.1
+3.8
+3.1
+3.2
+100
+95.5 100.0 100.0
+100.0
+100.0
+2.3
+60.4
+68.1
+61.7
+63.8
+6.1
+3.9
+4.3
+4.2
+4.1
+20
+
+--- Page 21 ---
+Table 4: Summary of the max-stable models ﬁtted to the Swiss rainfall data using the
+SpatialExtremes R package.
+Model
+σ2( se )
+θ( se )
+κ(
+se
+)
+loglik
+CLIC
+GG–WM1
+8.571(2.256)
+700( — )
+0.368( 0.030 )
+−231488
+463286
+GG–WM2
+8.571( — )
+700( — )
+0.368( 0.011 )
+−231488
+463180
+Sc–Exp
+—( — )
+42.004(6.643)
+—(
+—
+)
+−232167
+464563
+Model
+Σ11( se )
+Σ12( se )
+Σ22(
+se
+)
+loglik
+CLIC
+Sm-Ani
+351.680(6.110)
+37.364(4.177)
+312.435(12.856)
+−236437
+472964
+sian models with Whittle–Mat´ern correlation function. The latter correlation function is
+deﬁned by
+ρWM(x) =
+1
+2κ−1Γ(κ)(∥x∥/θ)κKκ(∥x∥/θ),
+x ∈R2,
+where κ > 0 is a smoothing parameter, θ > 0 is the range parameter, Kκ is the modiﬁed
+Bessel function of order κ and Γ is the gamma function. The parameters of the ﬁrst
+geometric Gaussian model, denoted by GG–WM1, are σ2 (see (5)) and κ, while θ is ﬁxed
+to 700 as in Davison et al. (2012, Table 5). The only parameter of the second geometric
+Gaussian model, denoted by GG–WM2, is κ, σ2 and θ being ﬁxed to 8.571 and 700,
+respectively. The latter model was introduced based on the results given in Table 5 be-
+cause the ﬁt of the model GG–WM1 could not be assessed. Indeed, as already mentioned,
+random number generation for the geometric Gaussian model in the SpatialExtremes
+package is apparently only reliable for σ2 < 10, and performing a parametric bootstrap
+for GG–WM1 turned out to produce estimates of σ2 frequently larger than 10. Similarly,
+the goodness of ﬁt of the Brown–Resnick models considered in Davison et al. (2012)
+was not assessed because we had no access to eﬃcient random number generation in the
+2-dimensional case.
+Our model ﬁtting was diﬀerent from Davison et al. (2012) in two aspects: ﬁrst, we
+used all 51 sites, including the 16 sites left out for validation in Davison et al. (2012);
+second, the ﬁtting was based on the maximization of the pairwise log pseudo-likelihood
+given in (13) thereby avoiding the necessary step of estimating marginal parameters in
+trend surfaces and the risk of misspeciﬁcation. This explains why the results of the ﬁtting
+given in Table 5, although similar, do not coincide with those of Davison et al. (2012).
+As a next step, we assessed the goodness of ﬁt of the models GG–WM2, Sc–Exp and
+Sm–Ani. For the ﬁrst two models, the two-level parametric bootstrap of Section 3.4.2
+was used to obtain an approximate p-value with N = 1000 and m = 2500. For the third
+model, both the one- and the two-level parametric bootstraps were used.
+From the plots giving the bivariate extremal coeﬃcients versus site distance under the
+four ﬁtted models (which are very similar to the plots given in Figure 9 of Davison et al.,
+2012), it appears that the distance at which the bivariate extremal coeﬃcients become
+equal to 1.5 is somewhere between 30 to 40km. Since the study region is approximately a
+70km by 80km rectangle, the spatial dependence in the data seems, up to a scale factor,
+similar to the spatial dependence corresponding to the settings with d1.5 = 5 in the
+21
+
+--- Page 22 ---
+Table 5: Approximate p-values and execution times of the goodness-of-ﬁt tests for the
+max-stable models ﬁtted to the Swiss rainfall data. The two lines for the model Sm–Ani
+correspond to the two- and the one-level parametric bootstrap, respectively. The timings
+are in hours and were obtained on a Linux machine with a 3.4GHz CPU.
+Model
+SD,n
+E[1]
+n,3
+E[1]
+n,2
+E[1]
+n,2,3,d
+P [1]
+n,2,3,d
+Time (h)
+GG–WM2
+0.206
+0.114
+0.050
+0.111
+0.112
+7.6
+Sc–Exp
+0.001
+0.804
+0.330
+0.773
+0.784
+4.1
+Sm–Ani (2-level)
+0.563
+0.000
+0.000
+0.000
+0.000
+4.3
+Sm–Ani (1-level)
+0.582
+0.000
+0.000
+0.000
+0.000
+7.9
+simulation study reported in Section 4. We have therefore no reason to believe that the
+goodness-of-ﬁt tests will be too liberal in the setting under consideration.
+Table 5 gives the approximate p-values of the tests based on the statistics in (21) with
+α = 1 and the Pickands dependence function estimated by the CFG estimator. The two
+lines for the model Sm–Ani correspond to the two- and the one-level parametric bootstrap,
+respectively. As expected, the results are similar, but maybe slightly surprisingly, the
+two-level parametric bootstrap is approximately twice faster. This may be explained by
+the cost of the evaluation of the multivariate normal c.d.f. and the form of the closed-
+expression of the extremal coeﬃcients under the Smith model; see (17). As many tests
+are performed, the signiﬁcance level should be adjusted before interpreting the results.
+For simplicity, we arbitrarily propose to reason at the 1% level. From the last two lines
+of Table 5, we see that the model Sm–Ani is rejected by all the tests except the one
+based on SD,n. In other words, under the Sm–Ani model, we have very strong evidence
+that the parametric and nonparametric estimates of the Pickands dependence function
+diﬀer signiﬁcantly on the boundary of ∆d−1, while there is no evidence of disagreement
+in the center of ∆d−1. On the contrary, for the model Sc–Exp, there is some evidence of
+disagrement between the nonparametric and parametric estimates in the center of ∆d−1
+only. Finally, we see that the GG–WM2 model was not rejected by any test.
+Acknowledgments
+The computationally intensive simulations reported in Section 4 were carried out on
+the Beowulf cluster of the Department of Statistics, University of Connecticut.
+This
+cluster was partially ﬁnanced by the NSF grant SCREMS (Scientiﬁc Computing Research
+Environments for the Mathematical Sciences) number 0723557.
+A
+Proof of the proposition 2
+Let (W1,1, . . . , W1,d), . . . , (Wm,1, . . . , Wm,d) be a random sample of size m = ⌊γn⌋from Cθ0
+independent of the available data. Furthermore, let ˇAm be one of the three corrected non-
+parametric estimators of the Pickands dependence function considered in Section 3.1 com-
+puted from the pseudo-observations obtained from (W1,1, . . . , W1,d), . . . , (Wm,1, . . . , Wm,d),
+and let ˇξB,m = |B| ˇAm(wB) be the corresponding estimator of ξB,θ0. Then, from the as-
+22
+
+--- Page 23 ---
+sumptions, we have that
+ 
+√m(ˇξB,m −ξB,θ0),
+1
+√m
+m
+X
+i=1
+˙cθ0(Wi,1, . . . , Wi,d)
+cθ0(Wi,1, . . . , Wi,d)
+!
+converges in distribution to (Λ′
+B, W′), an independent copy of (ΛB, W). It follows that
+ 
+√n(ˇξB,m −ξB,θ0), 1
+√n
+m
+X
+i=1
+˙cθ0(Wi,1, . . . , Wi,d)
+cθ0(Wi,1, . . . , Wi,d)
+!
+(23)
+converges in distribution to (γ−1/2Λ′
+B, γ1/2W′). Hence, by independence, we have that (20)
+and (23) converge jointly in distribution to (ΛB, Θ, W, γ−1/2Λ′
+B, γ1/2W′). Consequently,
+the assumptions of the ﬁrst part of Theorem 2 of Genest and R´emillard (2008) are sat-
+isﬁed and we have that √n(ˆξB,n −ξB,θ0, ˆξB, ˆθn,m −ξB,θ0) converges in distribution to
+(ΛB, γ−1/2Λ′
+B + E(γ−1/2Λ′
+Bγ1/2W′⊤)Θ) = (ΛB, γ−1/2Λ′
+B + E(ΛBW⊤)Θ).
+Now, let us decompose SB,n,m as SB,n,m =
+√n(ˆξB,n −ξB,θ0) −√n(ˆξB, ˆθn,m −ξB,θ0)
+.
+By the continuous mapping theorem, it follows that SB,n,m converges in distribution to
+|ΛB −γ−1/2Λ′
+B −E(ΛBW⊤)Θ|.
+It thus remains to verify that E(ΛBW) = ˙ξB,θ0.
+We shall only consider the case
+ˆξB,n = ˆξP
+B,n, the case ˆξB,n = ˆξCFG
+B,n being similar. Since Conditions 2.1 and 4.1 of Segers
+(2012) are assumed to hold, from Theorem 1 of Gudendorf and Segers (2012), we have
+that
+ΛB = −|B|A2
+θ0(wB)
+Z 1
+0
+C(uwB)du
+u ,
+where C is the weak limit of the empirical copula process (see e.g. Segers, 2012), and
+uwB = (uwB,1, . . . , uwB,d). Then,
+E(ΛBW) = −|B|A2
+θ0(wB)
+Z 1
+0
+E{C(uwB)W}du
+u .
+Now, from Genest and R´emillard (2008, page 1108), we have that E{C(u)W} = ˙Cθ0(u)
+for all u ∈[0, 1]d. It follows that
+E(ΛBW) = −|B|A2
+θ0(wB)
+Z 1
+0
+˙Cθ0(uwB)du
+u = −|B|A2
+θ0(wB) ∂
+∂θ
+Z 1
+0
+Cθ(uwB)du
+u
+ 
+θ=θ0
+where the last equality is a consequence of the continuity of θ 7→˙Cθ, (A3) and Lebesgue’s
+dominated convergence theorem. Finally, from Lemma 1 of Gudendorf and Segers (2012)
+(see also Genest and Segers, 2009, Lemma 3.1), we have that
+R 1
+0 Cθ(uwB)u−1du =
+1/Aθ(wB), from which we obtain that E(ΛBW) = |B| ˙Aθ0(wB) = ˙ξB,θ0. ■
+B
+Reducing the computational cost of the paramet-
+ric bootstrap
+The parametric bootstrap is clearly a computationally intensive statistical procedure.
+Besides the fact that random number generation and ﬁtting of the hypothesized model
+23
+
+--- Page 24 ---
+0.1
+0.5
+5.0
+50.0
+500.0
+1
+2
+5
+10
+θ
+ξD
+Sm−−Iso
+Sc−−Exp
+GG−−Exp
+0.1
+0.5
+5.0
+50.0
+500.0
+1
+2
+5
+10
+θ
+ξD
+Sm−−Iso
+Sc−−Exp
+GG−−Exp
+0.1
+0.5
+5.0
+50.0
+500.0
+1
+2
+5
+10
+θ
+ξD
+Sm−−Iso
+Sc−−Exp
+GG−−Exp
+Figure 2: The left (resp. middle, right) plot represents the graph of the precomputed
+approximation of the mapping θ 7→ξD,θ based on the CFG estimator for each of the
+three models in the case of the set of sites represented in the left (resp. middle, right)
+plot of Figure 1.
+are necessary at each iteration, its high cost may additionally come from the cost of
+the evaluation of the estimate of the quantity of interest under the null. A strategy for
+speeding-up the procedure then consists of precomputing a reasonably accurate approx-
+imation of the function mapping the parameter vector to the quantity of interest under
+the null.
+To ﬁx ideas, let us focus on the algorithm given in Section 3.4.1. From Step 3 (c),
+we see that, for every k ∈{1, . . . , N}, once ˆθ(k)
+n
+is computed by ﬁtting the hypothesized
+model to the data generated in Step 3 (a), ξB, ˆθ(k)
+n
+needs to be evaluated so that S(k)
+B,n
+can be computed. The last step is not necessarily straightforward even if a closed-form
+expression for the map θ 7→ξB,θ is available. A good example of the latter fact is when
+the Smith model is hypothesized as the evaluation of (17) turns out to be very costly. In
+such a situation, the speed of the parametric bootstrap procedure can be increased by
+precomputing a reasonably accurate approximation of the map θ 7→ξB,θ. It is however
+important to note that, in the context of max-stable processes, this last step may only be
+of interest in the framework of a simulation study as the map to be precomputed depends
+on the location of the d sites.
+A similar strategy can actually be used even if a closed-form expression for the map
+θ 7→ξB,θ is unavailable.
+Let us illustrate the proposed approach in the case of the
+simulations that produced Tables 1-3. For each of the three site conﬁgurations represented
+in Figure 1, each set B ⊂D, |B| ∈{3, d} and each of the three models Sm–Ani, Sc–Exp
+and GG–Exp parametrized by θ > 0 as explained in Section 4, a grid of θ values was
+created as θ = arctan(πu/2) for u ∈{0.001, 0.002, . . . , 0.999}. For each θ value on the
+grid, a sample of size m = 2500 was generated under the model and the value of ξB,θ
+was estimated by |B| ˆAm(wB), where ˆAm is one of the three corrected nonparametric
+estimators of the Pickands dependence function deﬁned in Section 3.1. The relationship
+between the θ values and the corresponding ξB,θ values was approximated using penalized
+splines as implemented in the pspline R package (Ramsey and Ripley, 2013) and stored
+for future use. An an example, the precomputed approximations of the mappings θ 7→ξD,θ
+when the CFG estimator is used for ˆAm are represented in Figure 2 for each of the three
+24
+
+--- Page 25 ---
+0.1
+0.5
+5.0
+50.0
+1.0
+1.2
+1.4
+1.6
+1.8
+2.0
+θ
+ξ
+0.1
+0.5
+5.0
+50.0
+500.0
+1.0
+1.2
+1.4
+1.6
+1.8
+2.0
+θ
+ξ
+0.1
+0.5
+5.0
+50.0
+500.0
+1.0
+1.2
+1.4
+1.6
+1.8
+2.0
+θ
+ξ
+Figure 3: The left (resp. middle, right) plot compares the graphs of the mappings based
+on closed-form expressions (solid lines) with those of the corresponding precomputed
+approximations (dashed lines) based on penalized splines for the Sm–Iso (resp. Sc–Exp,
+GG–Exp) model. The top (resp. middle, bottom) pair of curves corresponds to ﬁctitious
+sites at distance 1 (resp. 4, 8).
+sets of sites represented in Figure 1.
+Note that, although the precomputing step has some similarity with the second level of
+the algorithm of the two-level parametric bootstrap given in Section 3.4.2, the simulation
+procedure based on the precomputed approximations is indeed a one-level parametric
+bootstrap as the use of the latter does not bring in any additional variability.
+For |B| = 2, the mappings θ 7→ξB,θ were computed using the closed-form expressions
+available for all three models. The latter were also used to empirically validate the accu-
+racy of the procedure producing the approximations of the precomputed mappings. As an
+illustration, Figure 3 compares the graphs of the mappings based on closed-form expres-
+sions with those of the corresponding precomputed approximations based on penalized
+splines for the three models used in the simulations. As one can see, the approximations
+appear reasonably accurate except when θ is very large.
+References
+J. Blanchet and A.C. Davison. Spatial modelling of extreme snow depth. Annals of
+Applied Statistics, 5:1699–1725, 2011.
+P. Cap´era`a, A.-L. Foug`eres, and C. Genest. A nonparametric estimation procedure for
+bivariate extreme value copulas. Biometrika, 84:567–577, 1997.
+S. Coles. Regional modelling of extreme storms via max-stable processes. Journal of the
+Royal Statistical Society. Series B (Methodological), 55(4):797–816, 1993.
+S. Coles. An introduction to statistical modeling of extreme values. Springer-Verlag Inc,
+2001. ISBN 1-85233-459-2.
+R.B. D’Agostino. Graphical analysis. In R.B. D’Agostino and M.A. Stephens, editors,
+Goodness-of-ﬁt techniques, pages 7–62. Marcel Dekker, 1986.
+25
+
+--- Page 26 ---
+R. Davis and S. Resnick. Tail estimates motivated by extreme value theory. Annals of
+Statistics, 12:1467–1487, 1984.
+A.C. Davison and M.M. Gholamrezaee. Geostatistics of extremes. Proceedings of the
+Royal Society of London series A, 468:581–608, 2012.
+A.C. Davison, S.A. Padoan, and M. Ribatet. Statistical modelling of spatial extremes
+(with discussion). Statistical Science, 27(2):161–186, 2012.
+L. de Haan. A spectral representation for max-stable processes. The Annals of Probability,
+12:1194–1204, 1984.
+L. de Haan and T.T. Pereira. Spatial extremes: Models for the stationary case. The
+Annals of Statistics, 34(1):146–168, 2006.
+P. Deheuvels. On the limiting behavior of the Pickands estimator for bivariate extreme-
+value distributions. Statistics and Probability Letters, 12:429–439, 1991.
+M. Fuentes, J. Henry, and B. Reich. Nonparametric spatial models for extremes: Appli-
+cation to extreme temperature data. Extremes, 16:75–101, 2013.
+C. Genest and B. R´emillard. Validity of the parametric bootstrap for goodness-of-ﬁt
+testing in semiparametric models. Annales de l’Institut Henri Poincar´e: Probabilit´es
+et Statistiques, 44:1096–1127, 2008.
+C. Genest and J. Segers. Rank-based inference for bivariate extreme-value copulas. Annals
+of Statistics, 37:2990–3022, 2009.
+C. Genest, K. Ghoudi, and L.-P. Rivest.
+A semiparametric estimation procedure of
+dependence parameters in multivariate families of distributions. Biometrika, 82:543–
+552, 1995.
+C. Genest, B. R´emillard, and D. Beaudoin. Goodness-of-ﬁt tests for copulas: A review
+and a power study. Insurance: Mathematics and Economics, 44:199–213, 2009.
+C. Genest, I. Kojadinovic, J. Neˇslehov´a, and J. Yan. A goodness-of-ﬁt test for bivariate
+extreme-value copulas. Bernoulli, 17(1):253–275, 2011.
+M.G. Genton, Y. Ma, and H. Sang. On the likelihood function of Gaussian max-stable
+processes. Biometrika, 98:481–488, 2011.
+A. Genz, F. Bretz, T. Miwa, X. Mi, F. Leisch, F. Scheipl, and T. Hothorn. mvtnorm:
+Multivariate normal and t distribution, 2011.
+URL http://CRAN.R-project.org/
+package=mvtnorm. R package version 0.9-9991.
+G. Gudendorf and J. Segers.
+Extreme-value copulas.
+In P. Jaworski, F. Du-
+rante, W. H¨ardle, and W. Rychlik, editors, Copula theory and its applications
+(Warsaw, 2009), Lecture Notes in Statistics, pages 127–146. Springer-Verlag, 2010.
+arXiv:0911.1015v2.
+26
+
+--- Page 27 ---
+G. Gudendorf and J. Segers. Nonparametric estimation of multivariate extreme-value
+copulas. Journal of Statistical Planning and Inference, 143:3073–3085, 2012.
+P. Hall and N. Tajvidi. Distribution and dependence-function estimation for bivariate
+extreme-value distributions. Bernoulli, 6(5):835–844, 2000.
+M. Hofert, I. Kojadinovic, M. M¨achler, and J. Yan. copula: Multivariate dependence
+with copulas, 2013. URL http://CRAN.R-project.org/package=copula. R package
+version 0.999-7.
+J. H¨usler and R-D. Reiss. Maxima of normal random vectors: Between independence
+and complete dependence. Statistics & Probability Letters, 7:283–286, 1989.
+Z. Kabluchko, M. Schlather, and L. de Haan. Stationary max-stable ﬁelds associated to
+negative deﬁnite functions. Annals of Probability, 37:2042–2065, 2009.
+I. Kojadinovic and J. Yan. Nonparametric rank-based tests of bivariate extreme-value
+dependence. Journal of Multivariate Analysis, 101(9):2234–2249, 2010.
+I. Kojadinovic, J. Yan, and M. Holmes. Fast large-sample goodness-of-ﬁt for copulas.
+Statistica Sinica, 21(2):841–871, 2011.
+B.G. Lindsay. Composite likelihood methods. In N. U. Prabhu, editor, Statistical Infer-
+ence from Stochastic Processes, pages 221–239. American Mathematical Society, 1988.
+A.K. Nikoloulopoulos, H. Joe, and H. Li. Extreme value properties of multivariate t
+copulas. Extremes, 12(2):129–148, 2009.
+M. Oesting, Z. Kabluchko, and M. Schlather. Simulation of Brown–Resnick processes.
+Extremes, 15(1):89–107, 2012.
+S. A. Padoan, M. Ribatet, and S. A. Sisson. Likelihood-based inference for max-stable
+processes. Journal of the American Statistical Association (Theory & Methods), 105
+(489):263–277, 2010.
+J. Pickands. Multivariate extreme value distributions. With a discussion. Proceedings of
+the 43rd session of the Internatinal Statistical Institute. Bull. Inst. Internat. Statist.,
+49:859–878, 894–902, 1981.
+R Development Core Team. R: A Language and Environment for Statistical Computing.
+R Foundation for Statistical Computing, Vienna, Austria, 2013. URL http://www.
+R-project.org. ISBN 3-900051-07-0.
+J. Ramsey and B. Ripley.
+pspline: Penalized Smoothing Splines, 2013.
+URL http:
+//CRAN.R-project.org/package=pspline. R package version 1.0-16.
+M. Ribatet.
+Spatial extremes: Max-stable processes at work.
+Journal de la Soci´et´e
+Fran¸caise de Statistique, 154(2):156–177, 2013.
+M. Ribatet and M. Sedki. Extreme value copulas and max-stable processes. Journal de
+la Soci´et´e Fran¸caise de Statistique, 154(1):138–150, 2013.
+27
+
+--- Page 28 ---
+M. Ribatet, R. Singleton, and R Core team. SpatialExtremes: Modelling spatial extremes,
+2013. URL http://CRAN.R-project.org/package=SpatialExtremes. R package ver-
+sion 2.0-0.
+M. Schlather. Models for stationary max-stable random ﬁelds. Extremes, 5(1):33–44,
+2002.
+M. Schlather and J.A. Tawn. A dependence measure for multivariate and spatial extreme
+values: Properties and inference. Biometrika, 90(1):139–156, 2003.
+J. Segers. Asymptotics of empirical copula processes under nonrestrictive smoothness
+assumptions. Bernoulli, 18:764–782, 2012.
+A. Sklar.
+Fonctions de r´epartition `a n dimensions et leurs marges.
+Publications de
+l’Institut de Statistique de l’Universit´e de Paris, 8:229–231, 1959.
+R. L. Smith. Max-stable processes and spatial extremes. Unpublished manuscript, Univer-
+sity of Surrey, 1990. URL http://www.stat.unc.edu/postscript/rs/spatex.pdf.
+28
