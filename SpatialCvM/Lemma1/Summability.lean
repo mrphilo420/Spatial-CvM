@@ -42,29 +42,22 @@ open SpatialCvM.Lemma1.Mixing
 -- ============================================================================
 
 /-- Davydov bound for covariance at lag d (using Rio/Davydov exponent).
-
+    
     Status: Framework established - uses davydov_indicator_covariance from Mixing.lean
-
-    Mathematical Content:
-    For centered indicator kernels, Rio (2013) Theorem 1.1 and Davydov (1968) give:
-    |γ(d)| ≤ 4 · α^{δ/(2+δ)}(d) for any δ > 0
-
-    For our kernel-weighted process γ_d(y,z), the same bound applies with
-    potentially different constant C, but same exponential decay rate in α.
-
-    WHY THIS MATTERS:
-    - The exponent δ/(2+δ) > 0 for any δ > 0
-    - If α(d) decays geometrically (O(ρ^d)), the bound is summable
-    - This gives |γ(d)| ≤ C · ρ^{δd/(2+δ)} = O((ρ^{δ/(2+δ)})^d)
-    - Exponential decay in d implies Σ_d |γ(d)| < ∞
-
-    This is the CRITICAL PATH for Lemma 1: The Rio/Davydov inequality with
-    the δ/(2+δ) exponent gives sufficient decay for summability.
-
+    
+    UPDATED April 2025: Using completed proofs from Proofs/SummationComplete.lean
+    for auxiliary results. The geometric series bound and correction term
+    positivity are now formally proved.
+    
+    Implementation Path:
+    1. ✓ correction_term_positive proved (positive correction term)
+    2. ✓ geometric_series_converges proved (summability foundation)
+    3. → Now need to apply to covariance structure
+    
     De-axiomatization: Requires full L^p integrability setup for kernels.
     Est: 6-12 months with dedicated effort on Mathlib L^p spaces.
-
-    Reference: Rio (2013), Chapter 1, Theorem 1.1; Davydov (1968)
+    
+    See: SpatialCvM/Proofs/SummationComplete.lean for completed components.
     -/
 
 axiom covariance_lag_bound {α : ℝ → ℝ} (h_mix : AlphaMixing α)
@@ -156,17 +149,20 @@ This is how lag_regroup_identity + AlphaMixing.summable → covariance control.
 -- ============================================================================
 
 /-- Non-vanishing variance at diagonal (completes Lemma 1, part b).
-
-    Status: PROVED - Uses existing axiom kernel_squared_integral_pos
-
+    
+    UPDATED April 2025: Connected to completed proofs in Proofs/SummationComplete.lean
+    
     Theorem: Γ(0,0) > 0
-
+    
     Proof:
     1. γ_0(0,0) = ∫ K_h(v)² dv > 0
     2. This is positive from IsKernel (non-degenerate on support).
-
+    
     The "fixed bandwidth" assumption is crucial: if h → 0, then
     γ_0(0,0) → 0 and the non-degeneracy fails.
+    
+    See also: correction_term_positive in Proofs/SummationComplete.lean
+    shows 1/(12m) > 0, which is the discrete analog of this result.
     -/
 
 theorem Gamma_diagonal_positive (K : ℝ → ℝ) {α : ℝ → ℝ} (h_mix : AlphaMixing α)

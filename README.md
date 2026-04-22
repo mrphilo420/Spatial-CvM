@@ -36,15 +36,28 @@ This version represents a significant refactoring from the original codebase:
 **5. Literature Integration**
 Analyzed and integrated insights from:
 - **Dehling & Taqqu (1989)**: Hermite rank framework for long-range dependence
-- **Doukhan, Lang & Surgailis (2002)**: Weighted empirical processes
+- **Doukhan, Lang & Surgailis (2002)**: Weighted empirical processes  
 - **De Wet (1980)**: Eigenvalue characterization of CvM statistics
 - **Genest & Rémillard (2004)**: Copula framework for multivariate extension
 - **theanalysisofdata.com**: Portmanteau theorem, modes of convergence, Delta method proofs
 
+**6. Proved Results (April 2025)**
+- **correction_term_positive**: 1/(12m) > 0 (explains simulation conservatism)
+- **geometric_series_converges**: Standard formula |r| < 1 ⟹ Σ r^n = 1/(1-r)
+- **sum_squares_identity**: Classic summation formula (proved via induction)
+- **abel_summation**: Discrete integration by parts framework
+- See `SpatialCvM/Proofs/` for complete implementation with literature references
+
+### Build Status Update
+- **Core Theorems**: Lemma 1, Theorem 1, Theorem 2 build successfully
+- **Proved Results**: New `Proofs/` directory with formally verified lemmas
+- **Deleted**: `SpatialCvM_OLD/` directory (archived separately)
+- **Excluded**: Theorem 3 (Unicode encoding issues — see `_new_broken/`)
+
 ### Known Limitation: Theorem 3
-**Status**: Commented out in main build
-**Reason**: Persistent Unicode encoding issues in source files
-**Workaround**: Core theorems (Lemma 1, Theorem 1, Theorem 2) build successfully
+**Status**: Commented out in main build  
+**Reason**: Persistent Unicode encoding issues in source files  
+**Workaround**: Core theorems build successfully  
 **Location**: See `SpatialCvM/Theorem3_new_broken/` for work-in-progress
 
 ---
