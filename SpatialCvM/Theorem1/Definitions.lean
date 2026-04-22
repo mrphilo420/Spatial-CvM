@@ -125,11 +125,10 @@ lemma tight_finite_intersection {Xₙ : ℕ → ℝ → ℝ} (h_tight : IsTight 
 -- This is the other pillar of weak convergence (with tightness)
 -- ============================================================================
 
--- Convergence of finite-dimensional distributions
--- This reduces weak convergence to standard ℝⁿ convergence
-def FiniteDimConverges {Xₙ : ℕ → ℝ → ℝ} (X : ℝ → ℝ) : Prop :=
+-- Finite-dimensional convergence requires Xₙ to be a sequence of functions
+def FiniteDimConverges (Xn : ℕ → ℝ → ℝ) (X : ℝ → ℝ) : Prop :=
   ∀ (k : ℕ) (t : Fin k → ℝ),
-    Tendsto (fun n => fun i : Fin k => Xₙ n (t i)) atTop (𝓝 (fun i : Fin k => X (t i)))
+    Tendsto (fun n => (fun i : Fin k => Xn n (t i))) atTop (𝓝 (fun i : Fin k => X (t i)))
 
 -- Cramér-Wold device: Weak convergence in ℝᵏ ⟺ all linear combinations converge
 -- This is key for proving finite-dimensional convergence
@@ -146,22 +145,22 @@ lemma cramer_wold {Xₙ : ℕ → Fin k → ℝ} {X : Fin k → ℝ} :
 
 -- Weak convergence for probability measures on spaces of functions
 -- Uses the expectation/bounded continuous function definition
-def WeakConvergesTo {Xₙ : ℕ → ℝ → ℝ} (X : ℝ → ℝ) (domain : Set ℝ) : Prop :=
+def WeakConvergesTo (Xn : ℕ → ℝ → ℝ) (X : ℝ → ℝ) (domain : Set ℝ) : Prop :=
   ∀ (f : (ℝ → ℝ) → ℝ),
     Continuous f →
     (∃ M : ℝ, ∀ g : ℝ → ℝ, |f g| ≤ M) →  -- f is bounded
-    Tendsto (fun n => f (Xₙ n)) atTop (𝓝 (f X))
+    Tendsto (fun n => f (Xn n)) atTop (𝓝 (f X))
 
 -- Alternative: Weak convergence via convergence of distributions on ℝᵏ
-def WeakConvergesFiniteDim {Xₙ : ℕ → ℝ → ℝ} (X : ℝ → ℝ) : Prop :=
-  FiniteDimConverges Xₙ X ∧ IsTight Xₙ
+def WeakConvergesFiniteDim {Xn : ℕ → ℝ → ℝ} (X : ℝ → ℝ) : Prop :=
+  (FiniteDimConverges Xn X) ∧ (IsTight Xn)
 
 -- Prokhorov's theorem for the empirical process context
 -- In general, P_n ⇒ P iff (tight + finite-dimensional convergence)
 -- But ℓ∞ is non-separable, so this requires Dudley's extension
-theorem prokhorov_dudley {Xₙ : ℕ → ℝ → ℝ} {X : ℝ → ℝ} (h_tight : IsTight Xₙ)
-    (h_fd : FiniteDimConverges Xₙ X) :
-    WeakConvergesTo X := by
+theorem prokhorov_dudley {Xn : ℕ → ℝ → ℝ} {X : ℝ → ℝ} (h_tight : IsTight Xn)
+    (h_fd : FiniteDimConverges Xn X) :
+    (WeakConvergesTo Xn X (Set.Icc 0 1)) := by
   sorry  -- Requires extensive infrastructure
 
 end SpatialCvM.Theorem1.Definitions

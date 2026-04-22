@@ -18,3 +18,5 @@ theorem stationary_substitution (f : ℝ → ℝ) (s₀ : ℝ) (h : ℝ) (hh : h
     field_simp [hh.ne.symm]
     ring
   simp [h_eq]
+
+end SpatialCvM.Lemma1.Stationarity
