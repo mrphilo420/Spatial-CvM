@@ -1,0 +1,133 @@
+-- ============================================================================
+-- DEFINITION 2.1: Lattice Domain and Sampling
+-- Mathematical Content: Lattice domains, expanding domains, sampling designs
+-- ============================================================================
+
+import SpatialCvM.Definitions.Basic
+import Mathlib.Data.Set.Finite
+import Mathlib.Topology.MetricSpace.Basic
+
+namespace SpatialCvM.Definitions.Lattice
+
+open Set Metric Topology
+
+-- ============================================================================
+-- Lattice and Grid Structures
+-- ============================================================================
+
+/-- Standard integer lattice ℤ^d
+
+    The natural discretization of ℝ^d for spatial sampling.
+    -/
+def integerLattice (d : ℕ) : Set (Fin d → ℤ) :=
+  {z | True}  -- All d-tuples of integers
+
+/-- Scaled lattice with spacing Δ
+
+    {Δ · z : z ∈ ℤ^d}
+    -/
+def scaledLattice (d : ℕ) (Δ : ℝ) (hΔ : Δ > 0) : Set (Fin d → ℝ) :=
+  {fun i ↦ Δ * (z i : ℝ) | (z : Fin d → ℤ)}
+
+/-- Lattice domain within a bounded region D
+
+    𝒟ₙ = D ∩ (n^{-1/d} · ℤ^d)
+
+    Sampling intensity increases as n → ∞.
+    -/
+def latticeDomain {d : ℕ} (D : Set (Fin d → ℝ)) (n : ℕ) (hn : n > 0) :
+    Set (Fin d → ℝ) :=
+  let Δ := (1 / n) ^ (1 / d : ℝ)
+  D ∩ scaledLattice d Δ (by positivity)
+
+-- ============================================================================
+-- Expanding Domains
+-- ============================================================================
+
+/-- Sequence of expanding domains Dₙ ⊂ ℝ^d
+
+    Assumption S1: Dₙ ↑ D (expand to fill bounded D)
+    -/
+structure ExpandingDomains (d : ℕ) where
+  /-- The sequence of domains -/
+  domains : ℕ → Set (Fin d → ℝ)
+  /-- Final bounded region D -/
+  limitRegion : Set (Fin d → ℝ)
+  /-- D is bounded -/
+  limitBounded : Bornology.IsBounded limitRegion
+  /-- Monotonic expansion: Dₙ ⊆ D_{n+1} -/
+  monotone : ∀ n, domains n ⊆ domains (n + 1)
+  /-- Union fills D -/
+  unionFillsLimit : ⋃ n, domains n = limitRegion
+
+/-- Jordan measurability (for Riemann integrability on domains)
+
+    A set is Jordan measurable if its characteristic function is Riemann
+    integrable, equivalently if its boundary has measure zero.
+    -/
+def jordanMeasurable {d : ℕ} (D : Set (Fin d → ℝ)) : Prop :=
+  -- Placeholder: needs proper definition via boundary measure
+  True
+
+-- ============================================================================
+-- Sampling Density Conditions
+-- ============================================================================
+
+/-- Sampling density condition (Assumption S2)
+
+    For every ball B ⊂ D of radius rₙ = n^{-1/(2d)},
+    the ball contains at least c_D · n · vol(B) sampling points.
+
+    This ensures uniform coverage of the domain.
+    -/
+structure SamplingDensityCondition (d : ℕ) (sampling : ℕ → Set (Fin d → ℝ)) where
+  /-- Density constant c_D > 0 -/
+  densityConstant : ℝ
+  /-- Density constant is positive -/
+  densityConstantPos : densityConstant > 0
+  /-- Radius scaling rₙ = n^{-1/(2d)} -/
+  radiusScale : ℕ → ℝ := fun n ↦ (1 / n) ^ (1 / (2 * d) : ℝ)
+  /-- Density condition holds -/
+  condition : ∀ n, ∀ B : Set (Fin d → ℝ),
+    (∃ c, B = ball c (radiusScale n)) →
+    let pointCount := {s ∈ sampling n | s ∈ B}.ncard
+    pointCount ≥ densityConstant * n * (MeasureTheory.volume B).toReal
+
+/-- Minimum separation condition (Assumption S3)
+
+    The minimum distance between distinct sampling points is bounded below
+    by δₙ = O(n^{-1/d}). This prevents clustering.
+    -/
+structure MinimumSeparationCondition (d : ℕ) (sampling : ℕ → Set (Fin d → ℝ)) where
+  /-- Separation scaling δₙ -/
+  separationScale : ℕ → ℝ
+  /-- Separation scales as n^{-1/d} -/
+  separationScaling : separationScale =O[Filter.atTop] fun n ↦ (1 / n : ℝ) ^ (1 / d : ℝ)
+  /-- Minimum distance condition -/
+  minDistance : ∀ n, ∀ s₁ s₂ ∈ sampling n, s₁ ≠ s₂ →
+    dist s₁ s₂ ≥ separationScale n
+
+-- ============================================================================
+-- Complete Sampling Assumptions
+-- ============================================================================
+
+/-- Complete sampling design (Assumption 2.2)
+
+    Combines all three sampling conditions:
+    (S1) Expanding domains
+    (S2) Density condition
+    (S3) Minimum separation
+    -/
+structure SamplingDesign (d : ℕ) where
+  /-- Sampling locations at stage n -/
+  sampling : ℕ → Set (Fin d → ℝ)
+  /-- S1: Expanding domains -/
+  expanding : ExpandingDomains d
+  /-- S2: Density condition -/
+  density : SamplingDensityCondition d sampling
+  /-- S3: Minimum separation -/
+  separation : MinimumSeparationCondition d sampling
+  /-- Sample size (cardinality of 𝒟ₙ) -/
+  sampleSize : ℕ → ℕ := fun n ↦ (sampling n).ncard
+
+end SpatialCvM.Definitions.Lattice

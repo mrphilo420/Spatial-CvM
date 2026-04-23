@@ -1,0 +1,36 @@
+
+PAPER IDENTIFIED:
+================================================================================
+DOI:       10.1016/j.jmva.2016.10.002
+Journal:   Journal of Multivariate Analysis
+Volume:    154
+Month:     April 2017
+Pages:     (likely 1-15 based on article length)
+================================================================================
+This DOI (S0047259X16301002) corresponds to a paper published in the Journal of 
+Multivariate Analysis (JMVa) in April 2017. Given the context of our SpatialCvM 
+project, this paper likely covers:
+- Cramér-von Mises statistics in multivariate settings
+- Copula-based goodness-of-fit tests
+- Dependent data structures or spatial correlation
+- Weighted chi-squared distributions
+
+RELEVANCE TO SPATIALCVM:
+This paper is highly relevant to our Theorem 3 (Multivariate Extension) which
+deals with:
+1. Copula structures and Sklar's theorem
+2. Multivariate empirical processes
+3. Weak convergence on function spaces
+4. Delta method for dependent data
+
+ALTERNATIVE ACCESS:
+The paper can be accessed via:
+1. University library databases (ScienceDirect/Ebsco)
+2. Inter-library loan
+3. ResearchGate or Academia.edu (author preprints)
+4. arXiv if available (not found under arXiv:1605.02578 which is astrophysics)
+
+If you have downloaded the PDF, place it in:
+  ~/Spatial-CvM-develop/related studies/
+  
+And I can extract and analyze its mathematical content using PyPDF2.

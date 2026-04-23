@@ -1,0 +1,250 @@
+Here are **concrete strategies** to eliminate the axioms, prioritized by feasibility and organized by mathematical domain:
+
+---
+
+## Strategy 1: Immediate Replacement (Mathlib Already Has These)
+
+Several axioms duplicate existing Mathlib definitions. Replace with imports + proofs:
+
+### A. Little-o Notation (`Utils/Asymptotics.lean`)
+**Current**: `axiom littleO_of_tendsto_zero`
+**Fix**: Use `Mathlib.Analysis.Asymptotics.Lemmas`
+
+```lean
+import Mathlib.Analysis.Asymptotics.Asymptotics
+
+-- Replace axiom with:
+theorem littleO_of_tendsto_zero {f g : ℕ → ℝ} (hg : ∀ n, g n ≠ 0) :
+    f =o[atTop] g ↔ Tendsto (fun n => f n / g n) atTop (𝓝 0) := by
+  rw [isLittleO_iff_tendsto]
+  · simp
+  · exact hg
+```
+
+### B. Hölder Continuity (`Theorem1/Tightness.lean`)
+**Current**: `axiom holder_continuity`
+**Fix**: Use `Mathlib.Analysis.Holder`
+
+```lean
+import Mathlib.Analysis.Holder
+
+-- Replace with theorem:
+theorem holder_continuity {f : ℝ → ℝ} {γ : ℝ≥0} (hγ : γ > 0)
+    (hf : HolderOnWith γ f (Icc 0 1)) :
+    UniformContinuousOn f (Icc 0 1) := by
+  apply hf.uniformContinuousOn
+  -- Or use the existing Mathlib lemma: HolderOnWith.uniformContinuousOn
+```
+
+### C. Triangle Inequality Verification
+Your `Basic.lean` already proved `loc_dist_triangle`, but mentioned it was axiomatized. **Keep the proof**—it uses Cauchy-Schwarz correctly. Remove any `sorry` markers if they exist.
+
+---
+
+## Strategy 2: Measure Theory Integration (High Priority)
+
+The **kernel integrals** are the most critical gap. Replace axioms with constructed measures:
+
+### A. Define the Kernel Covariance Rigorous
+
+In `Lemma1/Definitions.lean`, replace:
+
+```lean
+axiom gamma_kernel (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) (u : ℝ) : ℝ
+```
+
+With:
+
+```lean
+import Mathlib.MeasureTheory.Integral.IntervalIntegral
+import Mathlib.MeasureTheory.Measure.Lebesgue
+
+noncomputable def gamma_kernel (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) (u : ℝ) : ℝ :=
+  ∫ v : ℝ, kernel_scaled K h hh v * kernel_scaled K h hh (v - u) ∂ volume
+```
+
+**Proof obligations** to add:
+1. **Measurability**: Show `K` is measurable (from `IsKernel`, add `Measurable` field)
+2. **Integrability**: Show product is integrable using `IsKernel.bounded` and compact support
+
+```lean
+lemma gamma_kernel_integrable {K : ℝ → ℝ} (hK : IsKernel K) (h : ℝ) (hh : h > 0) :
+    Integrable (fun v => kernel_scaled K h hh v * kernel_scaled K h hh (v - u)) volume := by
+  obtain ⟨B, hB, hB_bound⟩ := hK.bounded
+  obtain ⟨r, hr, hr_supp⟩ := hK.supported
+  -- Use that product of bounded functions with compact support is integrable
+  apply Integrable.mul_of_Lp_of_Lp (p := ⊤) (q := ⊤)  -- L^∞ functions
+  · exact bounded_compact_support_integrable hK.scaled
+  · exact bounded_compact_support_integrable hK.scaled
+```
+
+### B. Symmetry Proof (Was Axiom, Now Provable)
+
+```lean
+-- Replace axiom Gamma_operator_symmetric with:
+theorem Gamma_operator_symmetric (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) (s₁ s₂ : ℝ) :
+    Gamma_operator K h hh s₁ s₂ = Gamma_operator K h hh s₂ s₁ := by
+  unfold Gamma_operator
+  -- Use change of variables v' = u - (s₁ - s₂) or similar
+  -- And the symmetry of IsKernel.symmetric
+  sorry -- 5-10 lines using MeasureTheory.integral_comp_add_right
+```
+
+---
+
+## Strategy 3: Empirical Process Bounds (Medium Priority)
+
+The empirical process axioms hide computational content. Replace with explicit constructions:
+
+### A. Define Empirical Process Explicitly
+
+Instead of axiomatizing bounds, define the process:
+
+```lean
+-- In Theorem1/Definitions.lean
+noncomputable def empirical_process (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) 
+    (n : ℕ) (data : Fin n → ℝ) (t : ℝ) : ℝ :=
+  (1 / √n) * ∑ i : Fin n, (kernel_scaled K h hh (t - data i) - 
+    ∫ x, kernel_scaled K h hh (t - x) ∂ (empiricalMeasure data))
+```
+
+Then prove bounds from this definition using:
+- **Cauchy-Schwarz** for the sum bound
+- **Supremum lemmas** from `Mathlib.Data.Real.Basic`
+
+### B. Remove `empirical_process_bound` Axiom
+
+Replace with:
+
+```lean
+theorem empirical_process_bound (K : ℝ → ℝ) (h : ℝ) (hh : h > 0) (hK : IsKernel K)
+    (n : ℕ) (t : ℝ) :
+    |empirical_process K h hh n t| ≤ (1 / h^2) * sup_norm K (Icc (-1) 1) := by
+  -- Proof sketch:
+  -- 1. Unfold empirical_process
+  -- 2. Use triangle inequality on the sum
+  -- 3. Each term bounded by sup_norm
+  -- 4. Average of n terms bounded by same constant
+  sorry -- 20-30 lines
+```
+
+---
+
+## Strategy 4: Topological/Probability Theory (Long-term)
+
+### A. Arzelà-Ascoli for Stochastic Processes
+
+**Current**: `axiom tightness_via_equicontinuity`
+**Reality**: This requires **Prokhorov's theorem** in $C[0,1]$ with the uniform topology.
+
+**Strategy**: Build the theory in layers:
+1. **Deterministic Arzelà-Ascoli**: Exists in `Mathlib.Topology.Compactness`
+2. **Relative compactness in $C[0,1]$**: Use `ContinuousMap.tendsto_compactOpen_iff_uniform`
+3. **Tightness characterization**: Prove that boundedness + equicontinuity implies tightness for the empirical process measure
+
+**Alternative (Immediate)**: Keep as `axiom` but add `TODO` referencing specific Mathlib lemmas that would be used:
+```lean
+-- TODO: Use Mathlib.Topology.Compactness.ArzelaAscoli
+-- and MeasureTheory.Measure.Prokhorov once available
+axiom tightness_via_equicontinuity ...
+```
+
+---
+
+## Strategy 5: Spatial Random Field Refactoring
+
+The `RandomField.lean` axioms conflate definition with property. Restructure:
+
+### Current (Axiomatic):
+```lean
+axiom IsStationary (X : SpatialField) : Prop
+axiom gamma (X : SpatialField) (h : ℝ) : ℝ
+```
+
+### Improved (Definition + Assumptions):
+```lean
+-- Define stationarity as invariance of finite-dimensional distributions
+def IsStationary (X : SpatialField) : Prop :=
+  ∀ (s : Loc) (shift : Loc), 
+    (fun ω => X (s.1 + shift.1, s.2 + shift.2) ω) = (fun ω => X s ω)  -- Equal in distribution
+
+-- Covariance defined constructively, assuming L2 existence
+noncomputable def gamma (X : SpatialField) (s : Loc) (h : ℝ) : ℝ :=
+  if hL2 : ∀ t, Integrable (fun ω => X t ω ^ 2) μ then
+    Covariance (X (0,0)) (X s)  -- Use Mathlib.Probability.Covariance
+  else 0  -- Or use `erased` pattern
+
+-- Davydov's inequality as a theorem with mixing assumptions
+theorem alpha_mixing_covariance_decay {X : SpatialField} {α : ℕ → ℝ}
+    (h_stat : IsStationary X) (h_mix : Summable α) (h_cov : CovarianceSummable X) :
+    ∃ δ > 0, ∀ h > 0, |gamma X h| ≤ 4 * α ⌊h⌋ ^ δ := by
+  -- Proof using Davydov's inequality from literature
+  sorry
+```
+
+**Key changes**:
+- Make `IsStationary` a **definition** (invariance of distribution under shifts)
+- Use `Mathlib.Probability.Covariance` instead of axiom
+- Add `Summable α` hypothesis instead of `AlphaMixing` axiom
+
+---
+
+## Strategy 6: Validation & Consistency Checking
+
+While removing axioms, ensure consistency:
+
+### A. Add `ConsistencyCheck.lean`
+Create a file that verifies axioms don't contradict each other:
+
+```lean
+-- Check that Gamma_operator_symmetric + kernel_squared_integral_pos 
+-- doesn't imply false < 0
+example : (0 : ℝ) < 1 := by norm_num  -- Sanity check
+
+-- Verify that IsKernel conditions imply gamma_kernel is finite
+example {K : ℝ → ℝ} (hK : IsKernel K) (h : ℝ) (hh : h > 0) :
+    gamma_kernel K h hh 0 < ⊤ := by
+  -- Prove the integral of a bounded compactly supported function is finite
+  sorry
+```
+
+### B. Use `#check` and `#print` Axioms
+Before removing each axiom, document its type signature:
+
+```lean
+#print axioms YourTheorem
+-- Shows which axioms the theorem depends on
+```
+
+---
+
+## Priority Roadmap
+
+| Priority | Axiom | Effort | Approach |
+|----------|-------|--------|----------|
+| **P0** | `littleO_of_tendsto_zero` | 5 min | Import `Mathlib.Analysis.Asymptotics` |
+| **P0** | `holder_continuity` | 5 min | Import `Mathlib.Analysis.Holder` |
+| **P1** | `gamma_kernel` | 2-3 days | Define via `∫`, prove integrability from `IsKernel` |
+| **P1** | `kernel_squared_integral_pos` | 1 day | Prove using non-vanishing property of kernel |
+| **P2** | `empirical_process_bound` | 3-4 days | Define process explicitly, use sum bounds |
+| **P2** | `Gamma_operator_symmetric` | 1 day | Change of variables in integral |
+| **P3** | `tightness_via_equicontinuity` | 2-3 weeks | Build Prokhorov theory for $C[0,1]$ |
+| **P3** | `alpha_mixing_covariance_decay` | 1-2 weeks | Formalize Davydov's inequality |
+
+---
+
+## Final Recommendation
+
+**Start with P0 and P1** (the integrals). The `gamma_kernel` axiom is the biggest blocker—once you define it as an actual Lebesgue integral, you can:
+1. Prove it's symmetric
+2. Prove it's positive at 0
+3. Compute concrete examples for testing
+
+The tightness axioms can remain for longer since they represent **well-known theorems** (Arzelà-Ascoli) that don't affect the statistical novelty of the work. Add comments:
+```lean
+-- AXIOM TEMPORARY: This is Arzelà-Ascoli for empirical processes.
+-- Will be replaced once Mathlib has Prokhorov's theorem for C[0,1].
+-- See: https://en.wikipedia.org/wiki/Arzel%C3%A0%E2%80%93Ascoli_theorem
+```
+
+This documents the technical debt while allowing the statistical theory to be formally verified conditional on standard analysis results.

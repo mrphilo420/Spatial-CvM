@@ -1,0 +1,47 @@
+{
+  "lean4.toolchain": "leanprover/lean4:v4.5.0",
+  "editor.semanticHighlighting.enabled" : true,
+  "editor.semanticTokenColorCustomizations": {
+    "rules": {
+      "leanSorryLike": "#ff0000"
+    }
+  },
+  "lean4.alwaysAskBeforeInstallingLean4Extensions": false,
+  "lean4.autofocusOutput": false,
+  "editor.unicodeHighlight.allowedCharacters": {
+    "→": true,
+    "∃": true,
+    "∀": true,
+    "∧": true,
+    "∨": true,
+    "≠": true,
+    "∈": true,
+    "∉": true,
+    "⊆": true,
+    "⊇": true,
+    "∪": true,
+    "∩": true,
+    "ℕ": true,
+    "ℤ": true,
+    "ℚ": true,
+    "ℝ": true,
+    "∎": true,
+    "∑": true,
+    "∏": true,
+    "∫": true,
+    "∂": true
+  },
+  "editor.wordSeparators": "`~!@#$%^&*()-=[]{}|;:',<>./?",
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "plaintext": true,
+    "lean4": true
+  },
+  "terminal.integrated.env.osx": {
+    "LAKE_CACHE_DIR": "${workspaceFolder}/.lake"
+  },
+  "files.exclude": {
+    ".lake": true
+  }
+}

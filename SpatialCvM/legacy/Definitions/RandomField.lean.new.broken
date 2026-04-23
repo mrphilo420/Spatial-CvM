@@ -1,0 +1,126 @@
+-- ============================================================================
+-- DEFINITION 2.3: Random Field Properties
+-- Mathematical Content: Stationarity, α-mixing, and moment conditions
+-- ============================================================================
+
+import SpatialCvM.Definitions.Basic
+import Mathlib.Probability.Moments
+import Mathlib.MeasureTheory.Integral.Bochner
+
+namespace SpatialCvM.Definitions.RandomField
+
+open MeasureTheory Function ProbabilityTheory
+
+-- ============================================================================
+-- Stationarity Properties
+-- ============================================================================
+
+/-- Weak stationarity: mean and covariance are translation-invariant
+
+    A random field is weakly stationary if:
+    1. E[X(s)] = μ for all s (constant mean)
+    2. Cov(X(s), X(t)) = C(s - t) for all s, t (covariance depends only on displacement)
+    -/
+class WeaklyStationary {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ) : Prop where
+  /-- Constant mean: E[X(s)] = μ for all s -/
+  constantMean : ∃ μ : ℝ, ∀ s, ∫ ω, X s ω ∂ℙ = μ
+  /-- Covariance depends only on displacement -/
+  covarianceStationary : ∃ C : (Fin d → ℝ) → ℝ,
+    ∀ s t, ∫ ω, (X s ω - ∫ ω', X s ω' ∂ℙ) * (X t ω - ∫ ω', X t ω' ∂ℙ) ∂ℙ = C (fun i ↦ s i - t i)
+
+/-- Second-order stationarity: finite second moments and weak stationarity -/
+class SecondOrderStationary {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ) : Prop where
+  /-- Finite second moments -/
+  finiteSecondMoment : ∀ s, ∫ ω, (X s ω) ^ 2 ∂ℙ < ∞
+  /-- Weak stationarity -/
+  weakStationarity : WeaklyStationary X
+
+-- ============================================================================
+-- α-Mixing: Alternative Formulations
+-- ============================================================================
+
+/-- α-mixing via strong mixing coefficient
+
+    The strong mixing coefficient between two σ-algebras:
+    α(𝒜, ℬ) = sup{|P(A∩B) - P(A)P(B)| : A ∈ 𝒜, B ∈ ℬ}
+
+    A process is α-mixing if α(d) → 0 as d → ∞.
+    -/
+def strongMixingCoefficient {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (𝒜 ℬ : MeasurableSpace Ω) : ℝ :=
+  sSup {|ℙ (A ∩ B) - ℙ A * ℙ B| | (A B : Set Ω)
+        (hA : MeasurableSet[𝒜] A) (hB : MeasurableSet[ℬ] B)}
+
+/-- Mixing rate condition for CLT
+
+    For a CLT to hold, we typically need:
+    ∑_{d=1}^∞ α(d)^{δ/(2+δ)} < ∞ for some δ > 0
+    -/
+class MixingCLTCondition {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (δ : ℝ) (hδ : δ > 0) : Prop where
+  summableMixing : ∑' d : ℕ, (mixingAtDistance X (d + 1)) ^ (δ / (2 + δ)) < ∞
+
+-- ============================================================================
+-- Moment Conditions
+-- ============================================================================
+
+/-- p-th moment exists at location s
+
+    E|X(s)|^p < ∞
+    -/
+def hasPMoment {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ)
+    (p : ℝ) (s : Fin d → ℝ) : Prop :=
+  ∫ ω, |X s ω| ^ p ∂ℙ < ∞
+
+/-- Finite p-th moment uniformly in s
+
+    sup_s E|X(s)|^p < ∞
+    -/
+def hasUniformPMoment {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ)
+    (p : ℝ) : Prop :=
+  ∃ M > 0, ∀ s, ∫ ω, |X s ω| ^ p ∂ℙ ≤ M
+
+/-- Moment condition for empirical process CLT (need (2+δ) moments)
+
+    The empirical process theory typically requires:
+    E|X|^{2+δ} < ∞ for some δ > 0
+    -/
+class EmpiricalProcessMomentCondition {d : ℕ} {Ω : Type*} [MeasurableSpace Ω]
+    (X : (Fin d → ℝ) → Ω → ℝ) (δ : ℝ) : Prop where
+  moment : δ > 0 ∧ hasUniformPMoment X (2 + δ)
+
+-- ============================================================================
+-- Covariance Structure
+-- ============================================================================
+
+/-- Spatial covariance function
+
+    For a weakly stationary field:
+    C(h) = Cov(X(s), X(s + h))
+    -/
+def spatialCovariance {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ)
+    (h : Fin d → ℝ) : ℝ :=
+  sorry  -- Requires proper definition with mean subtraction
+
+/-- Variogram: 2γ(h) = Var(X(s + h) - X(s))
+
+    A common measure of spatial dependence in geostatistics.
+    -/
+def variogram {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ)
+    (h : Fin d → ℝ) : ℝ :=
+  sorry
+
+-- ============================================================================
+-- Regular Variation and Long-Range Dependence
+-- ============================================================================
+
+/-- Long-range dependence via slowly varying function
+
+    Covariance decays as |h|^{-α} L(|h|) for α ∈ (0, d) and L slowly varying.
+    This violates the summable mixing condition and requires different theory.
+    -/
+def longRangeDependence {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] (X : (Fin d → ℝ) → Ω → ℝ)
+    (α : ℝ) (hα : 0 < α ∧ α < d) : Prop :=
+  sorry
+
+end SpatialCvM.Definitions.RandomField
