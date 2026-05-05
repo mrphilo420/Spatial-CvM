@@ -1,0 +1,1499 @@
+======================================================================
+SOURCE: AIHPB_2002__38_6_879_0.pdf
+======================================================================
+
+
+--- Page 1 ---
+Ann. I. H. Poincaré – PR 38, 6 (2002) 879–896
+2002 Éditions scientiﬁques et médicales Elsevier SAS. All rights reserved
+S0246-0203(02)01139-1/FLA
+ASYMPTOTICS OF WEIGHTED EMPIRICAL PROCESSES
+OF LINEAR FIELDS WITH LONG-RANGE DEPENDENCE
+Paul DOUKHAN a,∗, Gabriel LANG b, Donatas SURGAILIS c
+a LS-CREST and UPRESA 8088, Université Cergy Pontoise, 95302 Cergy-Pontoise cedex, France
+b Laboratoire GRESE, ENGREF, 75732 Paris cedex 15, France
+c Vilnius Institute of Mathematics and Informatics, 2600 Vilnius, Lithuania
+Received 1 April 2001, revised 2 April 2002
+ABSTRACT. – We discuss the asymptotic behavior of weighted empirical processes of
+stationary linear random ﬁelds in Zd with long-range dependence. It is shown that an
+appropriately standardized empirical process converges weakly in the uniform-topology to a
+degenerated process of the form f Z, where Z is a standard normal random variable and f is
+the marginal probability density of the underlying random ﬁeld.
+2002 Éditions scientiﬁques et médicales Elsevier SAS
+MSC: 60F17; 60G60
+RÉSUMÉ. – Nous étudions le comportement asymptotique du processus empirique pondéré
+pour un champ linéaire stationnaire à longue dépendance sur Zd. Nous montrons que ce
+processus convenablement normalisé converge faiblement pour la topologie uniforme vers un
+processus dégénéré de la forme f Z, où Z est une variable normale standard et f est la densité
+de la marginale du champ considéré.
+2002 Éditions scientiﬁques et médicales Elsevier SAS
+1. Introduction and main results
+Let {Xt,t ∈Zd} be a stationary ergodic random ﬁeld indexed by points of the d-
+dimensional lattice Zd. The random ﬁeld {Xt} is said long-range dependent if its
+covariance function rt = cov(X0,Xt) is not summable: 
+t∈Zd |rt| = ∞, or if its spectral
+density is unbounded. Statistical analysis of long-range dependent random ﬁelds is
+important to many scientiﬁc areas, see Ivanov and Leonenko [11], Leonenko [16]. Limit
+theorems for sums of nonlinear functionals of long-range dependent Gaussian random
+ﬁelds were studied in Dobrushin and Major [5], Ivanov and Leonenko [11], Surgailis
+and Woyczynski [19], Leonenko and Woyczynski [17], Leonenko [16]. Marinucci [18]
+discussed estimation of the long memory parameter for Gaussian random ﬁelds with
+singular spectrum. See also Albeverio, Molchanov and Surgailis [1], Anh, Angulo and
+∗Corresponding author.
+E-mail address: doukhan@ensae.fr (P. Doukhan).
+
+--- Page 2 ---
+880
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+Ruiz-Medina [2] for other areas and problems related to random ﬁelds with long-range
+dependence.
+The present paper studied the asymptotic behavior of the weighted empirical process
+F (γ,ξ)
+N
+(x) = N−d 
+t∈AN
+γN,tI(Xt ⩽x + ξN,t),
+x ∈R,
+(1.1)
+of a long-range dependent random ﬁeld observed on the “cube” AN = [1,N]d ∩Zd and
+where the real coefﬁcients {ξN,t,γN,t;t ∈AN} are non-random and uniformly bounded:
+sup
+N>0
+max
+t∈AN
+|ξN,t| + |γN,t|
+ = O(1).
+(1.2)
+Weighted empirical processes arise in many statistical applications, see Koul [12], Koul
+and Mukherjee [13], and see also in Section 2. More precisely, we assume that {Xt} is a
+linear random ﬁeld:
+Xt =
+
+u∈Zd
+buζt+u,
+t ∈Zd,
+(1.3)
+where {ζu, u ∈Zd} is an i.i.d. ﬁeld with zero mean and variance 1, and {bu,u ∈Zd} are
+non-random weights which decay as |u|−β, β ∈(d/2,d). In the one-dimensional case
+d = 1, this problem was studied by Dehling and Taqqu [3], Ho and Hsing [9], Giraitis,
+Koul and Surgailis [7], Koul and Surgailis [14] and others. Most of these works assume
+that {Xt} is causal:
+Xt =
+
+s⩽t
+bt−sζs,
+t ∈Z.
+(1.4)
+The causality assumption lies at the basis of the martingale difference decomposition
+due to Ho and Hsing [9], which was also used in [10,14,6,8,15] to study asymptotic
+properties of nonlinear functionals of long memory moving averages (1.4). While
+causality is often assumed in time series, it appears rather artiﬁcial in the context
+of random ﬁelds (d > 1). Let us remark that the well-known approach via Hermite
+expansions (see e.g. [5,20,3]) does not apply to the present situation, as the random
+ﬁeld (1.3) is not assumed to be Gaussian.
+Let us formulate the main result of the paper. We shall assume that the weights bu are
+of the form
+bu = B0(u/|u|)|u|−β,
+u ∈Zd,
+(1.5)
+where d/2 < β < d and where B0(x), x ∈Sd−1 := {y ∈Rd: |y| = 1} is a bounded
+piece-wise continuous function. It is easy to verify that, under these assumptions,
+rt = cov(X0,Xt) = (R0(t/|t|) + o(1))|t|d−2β, |t| →∞and E
+X2
+N = (c2
+1 + o(1))Nd−2β,
+N →∞, where 
+XN = N−d 
+t∈AN Xt is the sample mean, and R0(x) and c1 is some
+continuous function on Sd−1 and a ﬁnite constant, respectively. The previous formulation
+(1.5) allows anisotropic behaviors of coefﬁcients {bu, u ∈Zd}. This form can be made
+more general by multiplication by a slowly varying function L(|u|) as in [5].
+Write F(x) = P(X0 ⩽x), G(x) = P(ζ0 ⩽x) for the marginal distribution functions,
+and ⇒D(R) for weak convergence of random elements with values in the Skorohod
+
+--- Page 3 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+881
+space D(R) of cadlag functions on R = [−∞,+∞] with the sup-topology. To
+compare asymptotic behaviours of the weighted empirical process and the sample mean,
+introduce:
+S(γ,ξ)
+N
+(x) =
+
+t∈AN
+γN,t
+I(Xt ⩽x + ξN,t) −F(x + ξN,t) + f (x + ξN,t)Xt
+,
+where f (x) = F ′(x) is the marginal density.
+THEOREM 1.1. – Assume, in addition to (1.2), (1.3), (1.5), that the distribution of ζ0
+satisﬁes the two following conditions: there exists constants C,δ > 0 such that
+Eeiaζ0 ⩽C
+1 + |a|
+−δ,
+a ∈R,
+(1.6)
+and
+E|ζ0|2+δ < ∞.
+(1.7)
+Then for any ε > 0 there exists C(ε) < ∞such that, for any N ⩾1
+P
+	
+sup
+x∈R
+Nβ−3d/2S(γ,ξ)
+N
+(x)
+ > ε
+
+⩽C(ε)N−κ/2,
+κ = min
+
+β −d
+2,βd
+
+.
+(1.8)
+In the special case γN,t ≡1,ξN,t ≡0, F (1,0)
+N
+(x) ≡FN(x) = N−d 
+t∈AN I(Xt ⩽x) is
+the empirical distribution function, and we obtain
+COROLLARY 1.2. – Under the conditions of Theorem 1.1, for any ε > 0,N ⩾1
+P
+	
+sup
+x∈R
+Nβ−d/2 FN(x) −F(x) + f (x)
+XN
+ > ε
+
+⩽C(ε)N−κ/2.
+The above corollary together with asymptotic normality of the sample mean 
+XN yield
+the following
+COROLLARY 1.3. – Under the conditions of Theorem 1.1,
+Nβ−d/2 FN(x) −F(x)
+ ⇒D(R) c1f (x)Z,
+where Z ∼N(0,1) is standard normal variable.
+Theorem 1.1 provides the uniform reduction principle for weighted empirical
+processes of long-range dependent linear ﬁeld (1.3), which is similar to the reduction
+principle of Dehling and Taqqu [3] and its generalizations [9,7,14,15] in the case
+of one-dimensional time. Conditions (1.6) and (1.7) are rather weak restrictions on
+the smoothness of the distribution of ζ and its moments, c.f. [8], Theorem 1.1.
+Those conditions can certainly be relaxed, but this would provide additional technical
+problems.
+The rest of the paper is organized as follows. Section 2 contains some applications of
+the above results to rank statistics and regression estimators. The remaining Sections 3–
+5 are given to the proof of Theorem 1.1, which follows from the well-known chaining
+
+--- Page 4 ---
+882
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+argument of Dehling and Taqqu [3] and Lemma 1.4 below. For any function g(x), x ∈R,
+and any x < y, put g(x,y) = g(y) −g(x).
+LEMMA 1.4. – There exists a ﬁnite measure µ on the real line, such that for any
+N ⩾1 and any x < y
+E
+S(γ,ξ)
+N
+(x,y)
+2 ⩽µ(x,y)N3d−2β−κ.
+Let us explain the main idea of the proof of Lemma 1.4. Its starting point is the
+telescoping identity (1.10) originating to Ho and Hsing [9] (a similar identity is also used
+in [10,14,8,15]). Write S(γ,ξ)
+N
+(x,y) = 
+t∈AN γN,tHt(Xt), where the function Ht(z) ≡
+Ht(z;x,y), z ∈R, is deﬁned, for any x < y, t ∈Z, by
+Ht(z) = I(x + ξN,t < z ⩽y + ξN,t) −F(x + ξN,t,y + ξN,t) + f (x + ξN,t,y + ξN,t)z.
+With each point t ∈Zd, we can associate a decreasing ﬁltration
+Ft,s := σ{ζt+u: u ≻s},
+s ⪰0,
+(1.9)
+corresponding to a complete order relation ≺on Zd. Let s −1 be the index just before s
+in the enumeration of Zd, and let Ft,−1 = σ{ζs: s ∈Zd} be the basic σ-ﬁeld. Then
+Ht(Xt) =
+
+s⪰0
+Ut,s(x,y),
+(1.10)
+where Ut,s(x,y) = Ut,s(y) −Ut,s(x) and
+Ut,s(x) := P(Xt ⩽x + ξN,t | Ft,s−1) −P(Xt ⩽x + ξN,t | Ft,s)
++ f (x + ξN,t)bsζt+s.
+(1.11)
+The series (1.10) converges in L2 by orthogonality; however, for different t, ﬁltra-
+tions (1.9) are not monotone as in the causal case. In particular, for t + s ̸= t′ + s,
+the terms Ut,s(x,y) and Ut′,s′(x,y) are not orthogonal. The problem of the evalu-
+ation of the corresponding cross-covariances arises, in particular, of the covariances
+cov(Ut,0(x,y),Ut′,0(x,y)) involving indicators I(x < Xt ⩽y),I(x < Xt′ ⩽y). This
+is achieved by proving some asymptotic bounds for the bivariate probability density of
+(Xt,Xt′) as |t −t′| →∞(see Section 5 for details).
+2. Some applications
+2.1. Rank statistics
+Denker [4] considers the rank statistic
+TN(h) := N−d 
+t∈AN
+γN,th
+
+Xt,
+RN,t
+Nd + 1
+
+.
+(2.1)
+
+--- Page 5 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+883
+Here, RN,t = 
+s∈AN I(Xs ⩽Xt) is the rank of Xt among Xs,s ∈AN, h:R×[0,1] →R
+is a given kernel, and {γN,t: t ∈AN} are deterministic coefﬁcients (weights). In order to
+write (2.1) as an integral w.r.t. empirical processes, introduce the weighted empirical
+process.
+F (γ )
+N (x) := N−d 
+t∈AN
+γN,tI(Xt ⩽x).
+We shall assume that {γN,t} are uniformly bounded and normalized: N−d 
+t∈AN γN,t =
+1, implying F (γ )(x) = E F (γ )
+N (x) = F(x). Then TN(h) = H(cN FN, F (γ )
+N ), where cN =
+Nd/(Nd + 1) = 1 + O(N−d) and H(u,v) =
+
+R h(x,u(x))dv(x).
+We shall assume that the functional H(u,v) is well-deﬁned on the space of pairs
+(u,v) of cadlag functions on R with bounded variation. Put T (h) := H(F,F (γ )) =
+
+R h(x,F(x))dF(x). By assuming some regularity and differentiability conditions on
+the kernel h, the difference TN(h) −T (h) can be written as
+TN(h) −T (h) =
+
+R
+hy
+x,F(x)
+ FN(x) −F(x)
+ dF (γ )(x)
++
+
+R
+h
+x,F(x)
+ d
+ F (γ )
+N (x) −F (γ )(x)
+
++ o
+∥FN −F∥+
+ F (γ )
+N
+−F (γ ),
+where ∥· ∥is the uniform distance. By applying Corollary 1.2, under suitable conditions
+on h(x,y) and hy(x,y) = ∂h(x,y)/∂y, from the above equation one obtains
+Nβ−d/2 TN(h) −T (h)
+ = Nβ−d/2h1
+XN + h2
+X(γ )
+N
+ + oP (1),
+(2.2)
+where
+
+X(γ )
+N := N−d 
+t∈AN
+γN,tXt,
+h1 =
+
+R
+hy(x,F(x))f 2(x)dx,
+and
+h2 =
+
+R
+h(x,F(x))f (x)dx.
+Therefore, the limit distribution of TN(h) for long-range dependent linear observations
+{Xt} is the same as the limit distribution of the linear combination of weighted
+sample means on the r.h.s. of (2.2). Let 3N be the covariance matrix of the vector
+Nβ−d/2(
+XN, 
+X(γ )
+N ) with values in R2. By linearity of {Xt} and the uniform boundedness
+of {γN,t}, one has the convergence in distribution
+Nβ−d/2
+XN, 
+X(γ )
+N
+ ⇒N(0,3),
+(2.3)
+provided the limit limN→∞3N = 3 exists [7, Theorem 2]. Clearly, (2.2) and (2.3) imply
+the asymptotic normality of the rank statistic:
+Nβ−d/2 TN −T (h)
+ ⇒N
+0, th3h
+,
+th = (h1,h2),
+where we write th for the transposed vector of h.
+
+--- Page 6 ---
+884
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+2.2. Regression estimators
+Consider the linear regression model
+YN,t = tvN,tθ + Xt,
+t ∈AN,
+where θ ∈Rp is an unknown vector parameter and
+tvN,t is the ith row of the
+Nd × p nonsingular design matrix VN. The least squares estimator of θ is deﬁned as
+ˆθls = (tVNVN)−1 
+t∈AN vN,tYN,t. Koul and Mukherjee [13] (see also [7,15]) discussed
+asymptotic behavior of certain classes of robust M- and R-estimators of θ in the case
+d = 1 and long-range dependent “errors” {Xt}. The M-estimator ˆθM is deﬁned, for a
+given nondecreasing function ψ on R, by ˆθM := argmin{|MN(θ)|: θ ∈Rd}, MN(θ) :=
+
+t∈AN vN,tψ(YN,t −tvN,tθ). The Jaeckel’s rank estimator ˆθJ is deﬁned, for a given
+nondecreasing function φ on (0,1), by ˆθJ := argmin{|JN(θ)|: θ ∈Rd}, JN(θ) :=
+
+t∈AN vN,tφ(RN,t(θ)/(Nd + 1)), where RN,t(θ) denotes the rank of YN,t −tvN,tθ
+among YN,s −tvN,sθ,s ∈AN. The classes of M- and R-estimators are very large,
+in particular, the M-estimator corresponding to ψ(x) = sgn(x) is the least absolute
+deviation estimator, or the analog of the median in the location case.
+As shown in Koul and Mukherjee [13], asymptotic properties of estimators ˆθM and
+ˆθJ can be derived from asymptotic linearity of empirical processes MN(θ) and JN(θ),
+whose proof is based on the uniform reduction principle for weighted empirical process
+as in Theorem 1.1. Let θ0 be the true value of the regression parameter, then Nβ−d/2( ˆθN −
+θ0) is a minimizer of |N−dMN(θ0 + Nd/2−βu)| with respect to u ∈Rd, where
+N−dMN
+θ0 + Nd/2−βu
+ =
+
+R
+ψ(x)d F (γ,ξ)
+N
+(x)
+is expressed via the weighted empirical process (1.1) corresponding to γN,t = vN,t and
+ξN,t = Nd/2−βtvN,tu. Using [13] and Theorem 1.1, exactly as in [7], Corollaries 1 and 3,
+one can obtain the representations
+Nβ−d/2( ˆθM −θ0) = Nβ−d/2tVNVN
+−1 
+t∈AN
+vN,tXt + oP(1),
+Nβ−d/2( ˆθJ −θ0) = Nβ−d/2t VN VN
+−1 
+t∈AN
+˜vN,tXt + oP(1),
+where VN is the Nd × p matrix of centered designs, with ith row t ˜vN,t = tvN,t −t ¯vN;
+¯vN = N−d 
+t∈AN vN,t. From the above relations, the asymptotic normality of the esti-
+mators ˆθM and ˆθJ, and their equivalence to the least squares estimator follow easily,
+see [13,7].
+3. Proof of Lemma 1.4
+Let us introduce some notation. Let |s| = max1⩽i⩽d |si|, s = (s1,...,sd) ∈Zd, be the
+sup norm on Zd. Let 0 = s(0),s(1),s(2),... be a complete enumeration of Zd starting
+from the origin and ﬁlling the balls of Zd following an increasing order; that is, if s
+
+--- Page 7 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+885
+precedes t in the enumeration, then |s| ⩽|t|. From now on, consider that points of Zd are
+ordered by this enumeration. The notations ≺and ≻correspond to this order; we write
+s ⪯t (respectively, s ⪰t) if either s ≺t or s = t (respectively, either s ≻t or s = t)
+hold. With each t ∈Zd we associate the decreasing ﬁltration {Ft,s, s ⪰0} (1.9), with
+the property that 
+s⪰0 Ft,s is the trivial σ-ﬁeld. Write Xt,s := 
+0⪯u≺s buζt+u, Yt,s :=
+
+u≻s buζt+u, so that Xt = Xt,s + bsζt+s + Yt,s and Yt,s is Ft,s-measurable. Let Fs(x) :=
+P(Xt,s ⩽x) be the probability distribution function. Write f (x) = F ′(x),fs(x) = F ′
+s(x)
+for the corresponding densities provided they exist. Below, we denote by C a generic
+constant which may change from line to line. Put Bs := EY 2
+t,s = 
+u≻s b2
+u. Lemma 3.1
+below is completely analogous to Giraitis and Surgailis [8], Lemma 2.1.
+LEMMA 3.1. – There exist s1 ≻0 and a constant C < ∞such that for any s ≻s1, the
+distribution functions F(x),Fs(x) are twice continuously differentiable and, moreover,
+for any s ≻s1,x < y,|x −y| ⩽1,
+F ′′(x)
+ +
+F ′′
+s (x)
+ ⩽C
+1 + x2−1,
+(3.1)
+F ′′(x,y)
+ +
+F ′′
+s (x,y)
+ ⩽C|x −y|
+1 + x2−1,
+(3.2)
+F ′′(x) −F ′′
+s (x)
+ ⩽CBs
+1 + x2−1.
+(3.3)
+For t ∈Zd consider the telescoping identity (1.10). By the deﬁnition (1.11),E[Ut,s(x) |
+Ft,s] = 0, s ⪰0. Furthermore,
+Ut,s(x) = Fs(x + ξN,t −bsζt+s −Yt,s) −
+
+R
+Fs(x + ξN,t −bsz −Yt,s)dG(z)
++ f (x + ξN,t)bsζt+s.
+For t + s ̸= t′ + s′, introduce
+Yt,s;t′,s′ := Yt,s −bt′+s′−tζt′+s′I(t′ + s′ −t ≻s) =
+
+u≻s: t+u̸=t′+s′
+buζt+u,
+(3.4)
+and
+Ut,s;t′,s′(x) := P(Xt,s;t′,s′ ⩽x + ξN,t | Ft,s−1) −P(Xt,s;t′,s′ ⩽x + ξN,t | Ft,s)
++ f (x + ξN,t)bsζt+s,
+(3.5)
+where
+Xt,s;t′,s′ :=
+Xt −bt′+s′−tζt′+s′,
+if t′ + s′ −t ≻s,
+Xt,
+otherwise.
+Then
+Ut,s;t′,s′(x) = Fs(x + ξN,t −bsζt+s −Yt,s,t′,s′)
+−
+
+R
+Fs(x + ξN,t −bsu −Yt,s,t′,s′)dG(u) + f (x + ξN,t)bsζt+s. (3.6)
+LEMMA 3.2. – For any t,s,t′,s′, t + s ̸= t′ + s′, Ut,s;t′,s′(x) is Ft′+s′,0 (= σ{ζu: u ̸=
+t′ + s′})-measurable and
+E
+Ut,s;t′,s′(x) | Ft+s,0
+ = 0,
+E
+Ut,s(x) | Ft+s,0
+ = 0.
+(3.7)
+
+--- Page 8 ---
+886
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+Moreover, for any x,y ∈R, Ut,s;t′,s′(x) is orthogonal to both Ut′,s′(y) and Ut′,s′;t,s(y).
+Proof. – Ft′+s′,0-measurability of Ut,s;t′,s′(x) follows from (3.5) and the fact that ζt+s
+and Yt,s;t′,s′ are Ft′+s′,0-measurable. The ﬁrst relation in (3.7) follows from (3.6) and
+from E[ζt+s | Ft+s,0] = 0, E[Fs(x + ξN,t −bsζt+s −Yt,s;t′,s′) | Ft+s,0] =
+ Fs(x + ξN,t −
+bsz −Yt,s;t′,s′)dG(u), and the second one follows similarly. The above facts imply
+E[Ut,s;t′,s′(x)Ut′,s′(y)] = E[Ut,s;t′,s′(x)E[Ut′,s′(y) | Ft′+s′,0]] = 0 and, similarly,
+E
+Ut,s;t′,s′(x)Ut′,s′;t,s(y)
+ = E
+Ut,s;t′,s′(x)E[Ut′,s′;t,s(y) | Ft′+s′,0]
+ = 0.
+✷
+Proof of Lemma 1.4. – By (1.10),
+E
+S(γ,ξ)
+N
+(x,y)
+2 =
+
+t,t′∈AN
+γN,tγN,t′
+
+s,s′⪰0
+cov
+Ut,s(x,y),Ut′,s′(x,y)
+,
+(3.8)
+where Ut,s(x,y) = Ut,s(y) −Ut,s(x). In the rest of the proof, we shall drop x,y to
+simplify the notation. According to Lemma 3.2,
+cov(Ut,s,Ut′,s′) = cov(Ut,s −Ut,s;t′,s′,Ut′,s′ −Ut′,s′;t,s),
+provided t +s ̸= t′ +s′. Therefore, by (1.5),E(Sγ,ξ)
+N
+)2 ⩽C(3N,1 +3N,2 +3N,3), where
+3N,1 =
+
+t,t′∈AN
+
+s,s′⪰0: t+s=t′+s′
+cov(Ut,s,Ut′,s′)
+,
+3N,2 =
+
+t,t′∈AN
+
+s,s′⪰s1: t+s̸=t′+s′
+cov(Ut,s −Ut,s;t′,s′,Ut′,s′ −Ut′,s′;t,s)
+,
+3N,3 =
+
+t,t′∈AN
+
+0⪯s,s′⪯s1: t+s̸=t′+s′
+cov(Ut,s −Ut,s;t′,s′,Ut′,s′ −Ut′,s′;t,s)
+.
+Put |s|−λ
++ = |s|−λ ∨1(λ > 0,s ∈Zd). By Lemma 3.3 below,
+3N,1 ⩽
+
+t,t′∈AN
+
+s,s′≻0: t+s=t′+s′
+EU 2
+t,s
+1/2EU 2
+t′,s′
+1/2
+⩽Cµ(x,y)
+
+t,t′∈AN
+
+s∈Zd
+|s|−α/2
++
+|t + s −t′|−α/2
++
+⩽Cµ(x,y)
+
+t,t′∈AN
+|t −t′|d−α
++
+⩽Cµ(x,y)N3d−α.
+(3.9)
+By Lemma 3.4,
+3N,2 ⩽
+
+t,t′∈AN
+
+s,s′∈Zd
+E1/2(Ut,s −Ut,s;t′,s′)2 E1/2(Ut′,s′ −Ut′,s′;t,s)2
+⩽µ(x,y)
+
+t,t′∈AN
+
+s,s′∈Zd
+|s|−β
++ |t′ + s′ −t|−β
++ |s′|−β
++ |t + s −t′|−β
++
+⩽Cµ(x,y)
+
+t,t′∈AN
+|t −t′|2d−4β
++
+⩽Cµ(x,y)N4d−4β.
+(3.10)
+
+--- Page 9 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+887
+Finally, from Lemma 3.5,
+3N,3 ⩽Cµ(x,y)
+
+t,t′∈AN
+|t′ −t|d−(2+δ)β
++
+⩽Cµ(x,y)N3d−2β−βδ.
+(3.11)
+From (3.9)–(3.11), Lemma 1.4 follows with κ = min(2β −d,α −2β,βδ) > 0.
+✷
+LEMMA 3.3. – There exist α > 2β and a ﬁnite measure µ on R such that for any
+t,s ∈Zd, x < y
+E
+Ut,s(x,y)
+2 ⩽µ(x,y)|s|−α
++ .
+(3.12)
+LEMMA 3.4. – There exists a ﬁnite measure µ on R such that for any x < y and any
+t,t′,s,s′ ∈Zd, s,s′ ≻s1, t + s ̸= t′ + s′, x < y
+E
+Ut,s(x,y) −Ut,s;t′,s′(x,y)
+2 ⩽µ(x,y)|s|−2β
++
+|t′ + s′ −t|−2β
++
+.
+(3.13)
+LEMMA 3.5. – There exists a ﬁnite measure µ on R such that for any x < y and any
+t,t′,s,s′ ∈Zd, t + s ̸= t′ + s′, 0 ⪯s,s ⪯s1
+cov
+Ut,s(x,y) −Ut,s;t′,s′(x,y),Ut′,s′(x,y) −Ut′,s′;t,s(x,y)
+
+⩽µ(x,y)|t′ −t|d−(2+δ)β
++
+,
+(3.14)
+where δ > 0 is the same as in (1.7).
+4. Proofs of Lemmas 3.3 and 3.4
+For γ > 1, x ∈R, put
+hγ (x) :=
+1 + |x|
+γ ,
+λγ (x) :=
+|x|,
+if |x| < 1,
+|x|γ ,
+if |x| ⩾1.
+Note that bounds (3.1)–(3.3) of Lemma 3.1 are valid with (1 + x2)−1 replaced by
+hγ(x), for 1 < γ ⩽2. We shall need some properties of functions hγ . Put µγ (x,y) :=
+ y
+x hγ (w)dw, x < y.
+LEMMA 4.1 (Koul and Surgailis [15, Lemma 5.1]). – There exists a constant Cγ
+depending only on γ > 1, such that, for any x,y ∈R,
+hγ(x + y) ⩽hγ (x)
+1 ∨|y|
+γ ,
+(4.1)
+
+y
+
+0
+hγ (x + w)dw
+ ⩽hγ (x)λγ (y).
+(4.2)
+LEMMA 4.2. – Let φ(x),x ∈R, be a real valued function such that for some 1 < γ ⩽
+2, |φ(x)| ⩽Chγ (x) and
+φ(x) −φ(y)
+ ⩽C|x −y|hγ (x),
+|x −y| ⩽1.
+(4.3)
+
+--- Page 10 ---
+888
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+Then for any x < y, u,v,z ∈R
+
+y
+
+x
+φ(ξ + v) −φ(ξ)
+dξ
+ ⩽Cµγ (x,y)λγ (v),
+(4.4)
+
+v
+
+0
+dw
+y
+
+x
+φ(ξ + w −z) −φ(ξ −z)
+dξ
+ ⩽Cµγ (x,y)|v|γ 1 ∨|z|
+γ ,
+(4.5)
+
+v
+
+0
+dw
+y
+
+x
+φ(ξ + w −u −z) −φ(ξ + w −z)
+dξ
+
+⩽Cµγ (x,y)λγ (u)λγ (v)
+1 ∨|z|
+γ .
+(4.6)
+Proof. – Consider (4.5). Let |v| ⩽1. Then by (4.3), the l.h.s. of (4.5) does not exceed:
+C
+|v|
+
+−|v|
+w dw
+y
+
+x
+hγ(ξ −z)dξ ⩽Cµγ (x,y)v21 ∨|z|
+γ ⩽Cµγ (x,y)|v|γ 1 ∨|z|
+γ ,
+according to (4.1). Now let |v| ⩾1, then the l.h.s. of (4.5) does not exceed:
+C
+|v|
+
+−|v|
+dw
+y
+
+x
+hγ (ξ + w −z) + hγ (ξ −z)
+dξ
+⩽C
+1 ∨|z|
+γ
+y
+
+x
+dξ
+|v|
+
+−|v|
+hγ(ξ + w) + hγ (ξ)
+dw
+⩽C
+1 ∨|z|
+γ µγ (x,y)
+|v|γ + |v|
+,
+according to (4.2). This proves (4.5). The proof of (4.4) and (4.6) is similar.
+✷
+Proof of Lemma 3.3. – Consider ﬁrst the case s ≻s1, where s1 was deﬁned in Lemma
+3.1. According to the deﬁnition, Ut,s(x,y) = 3
+i=1 Vi, where
+V1 :=
+
+R
+dG(u)
+bsζt+s
+
+−bsu
+dz
+˜y
+
+˜x
+f ′
+s(w + z −Yt,s) −f ′
+s(w −Yt,s)
+dw,
+(4.7)
+V2 := bsζt+s
+˜y
+
+˜x
+f ′(z) −f ′(z −Yt,s)
+dz,
+(4.8)
+V3 := bsζt+s
+˜y
+
+˜x
+f ′(z −Yt,s) −f ′
+s(z −Yt,s)
+dz,
+(4.9)
+and where ˜x := x + ξN,t, ˜y := y + ξN,t. Note µγ (˜x, ˜y) ⩽Cµγ (x,y) by (1.5) and (4.1),
+where the constant C does not depend on x,y,t,N. Applying Lemma 4.2 (4.5) to V1,
+we obtain on the one hand:
+
+--- Page 11 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+889
+|V1| ⩽Cµγ (˜x, ˜y)
+
+R
+dG(u)
+|bsu|γ + |bsζt+s|γ 1 ∨|Yt,s|
+γ
+⩽Cµγ (x,y)|bs|γ 1 + |ζt+s|γ 1 ∨|Yt,s|
+γ .
+(4.10)
+On the other hand, the function f ′
+s is bounded by the integrable function hγ so that the
+integral over w is bounded by a constant. Thus,
+|V1| ⩽C
+
+R
+dG(u)|bs|
+|ζs| + |u|
+ ⩽C|bs|
+1 + |ζt+s|
+.
+(4.11)
+Taking 2 < 1 + γ ⩽2 + δ, from (4.10) and (4.11) we get
+EV 2
+1 ⩽Cµγ (x,y)|bs|1+γ E
+1 + |ζt+s|1+γ E
+1 ∨|Yt,s|
+γ ⩽Cµγ (x,y)|bs|1+γ .
+(4.12)
+Consider V2. By Lemmas 3.1 and 4.2,
+|V2| ⩽C|bsζt+s|µ2(˜x, ˜y)λ2(Yt,s) ⩽C|bsζt+s|µ2(x,y)λ2(Yt,s).
+Combining this with the bound |V2| ⩽C|bsζt+s|, we obtain
+EV 2
+2 ⩽Cµ2(x,y)b2
+s Eζ 2
+t+s
+E|Yt,s| + EY 2
+t,s
+ ⩽Cµ2(x,y)b2
+s B1/2
+s
+.
+(4.13)
+A similar bound follows for V3. Indeed, by Lemmas 3.1 (3.3) and 4.1,
+|V3| ⩽C|bsζt+s|Bs
+˜y
+
+˜x
+h2(z −Yt,s)dz ⩽Cµ2(x,y)|bsζt+s|Bs
+1 ∨|Yt,s|
+2.
+(4.14)
+Combining (4.14) with |V3| ⩽C|bsζt+s|, one obtains
+EV 2
+3 ⩽Cµ2(x,y)b2
+s Bs
+1 ∨EY 2
+t,s
+ ⩽Cµ2(x,y)b2
+s Bs.
+(4.15)
+By the ball ﬁlling property of the enumeration of Zd,
+Bs ⩽C
+
+|u|⩾|s|
+b2
+s ⩽C
+
+|u|⩾|s|
+|u|−2β ⩽C|s|d−2β.
+(4.16)
+From (4.12)–(4.16) we obtain the bound (3.12) for s ≻s1, with α = min((2 + δ)β,3β −
+d/2) > 2β.
+In order to prove (3.12), it remains to obtain the bound E(Ut,s(x,y))2 ⩽µ(x,y) (0 ⪯
+s ⪯s1).
+We have
+E
+Ut,s(x,y)
+2 ⩽E
+P(˜x < Xt ⩽˜y | Ft,s−1) + P(˜x < Xt ⩽˜y | Ft,s) +
+f (˜x, ˜y)bsζt+s
+2
+⩽C
+F(˜x, ˜y) + f (˜x, ˜y)
+.
+Using F(˜x, ˜y) ⩽F(x,y)+
+
+|z|⩽|ξN,t | dz
+ y
+x |f ′(z+u)|du together with (1.5), (3.1), (4.1),
+one obtains the required bound, with µ(x,y) = C(F(x,y) + µ2(x,y)) a ﬁnite measure.
+Lemma 3.3 is proved.
+✷
+
+--- Page 12 ---
+890
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+Proof of Lemma 3.4. – We only need to consider the case t′ + s′ −t ≻s. Write
+W := Ut,s(x,y) −Ut,s,t′,s′(x,y)
+=
+
+R
+dG(u)
+bt′−t+s′ζt′+s′
+
+0
+dw
+˜y
+
+˜x
+f ′
+s(w + η −bsu −Yt,s) −f ′
+s(w + η −bsζt+s −Yt,s)
+dη.
+Splitting the last difference as (f ′
+s(w + η −bsu −Yt,s) −f ′
+s(w + η −Yt,s)) −(f ′
+s(w +
+η −bsζt+s −Yt,s) −f ′
+s(w + η −Yt,s)) and using Lemma 4.2 (4.6) and Lemma 4.1 (4.1),
+one has
+|W| ⩽Cµγ (˜x, ˜y)λγ (bt′−t+s′ζt′+s′)
+1 ∨|Yt,s|
+γ 
+λγ (bsζt+s) +
+
+R
+λγ (bsu)dG(u)
+
+⩽Cµγ (x,y)|bsbt′+s′−t|λγ (ζt′+s′)
+λγ (ζt+s) + Eλγ(ζt+s)
+.
+For 2 < 2γ ⩽2 + δ, Eλ2
+γ (ζ0) < ∞and we obtain
+EW 2 ⩽C
+µγ (x,y)
+2b2
+sb2
+t′+s′−tEλ2
+γ(ζt+s)Eλ2
+γ(ζt′+s′) ⩽Cµγ (x,y)b2
+s b2
+t′+s′−t,
+thereby proving (3.13) and the lemma.
+✷
+5. Proof of Lemma 3.5
+We shall discuss the case t′ = s = s′ = 0 only. We have cov(U0,0(x,y)−U0,0;t,0(x,y),
+Ut,0(x,y) −Ut,0;0,0) = 4
+ℓ=1 ˜ρℓt, where
+˜ρ1t := E(IX0∈( ˜x0, ˜y0] −IX0;t∈( ˜x0, ˜y0])(IXt∈( ˜xt, ˜yt] −IXt;0∈( ˜xt, ˜yt]),
+˜ρ2t := E
+(IX0∈( ˜x0, ˜y0] −IX0;t∈( ˜x0, ˜y0])E(IXt∈( ˜xt, ˜yt] −IXt;0∈( ˜xt, ˜yt] | Ft)
+,
+˜ρ3t := E
+E(IX0∈( ˜x0, ˜y0] −IX0;t∈( ˜x0, ˜y0] | F0)(IXt∈( ˜xt, ˜yt] −IXt;0∈( ˜xt, ˜yt])
+,
+˜ρ4t := E
+E(IX0∈( ˜x0, ˜y0] −IX0;t∈( ˜x0, ˜y0] | F0)E(IXt∈( ˜xt, ˜yt] −IXt;0∈( ˜xt, ˜yt] | Ft)
+,
+and where we put ˜xt := x + ξN,t, ˜yt := y + ξN,t, Ft := Ft,0 = σ{ζs: s ̸= t} and X0;t :=
+X0,0;t′,0 = 
+s̸=t bsζs, Xt;0 := Xt,0;t′,0 = 
+s̸=−t bsζt+s. Let ρℓt ≡ρℓt(x1,y1;x2,y2), ℓ=
+1,...,4, be deﬁned as above, with ˜x0, ˜y0, ˜xt, ˜yt replaced by x1,y1,x2,y2, respectively.
+With Lemma 4.1 in mind, it sufﬁces to show that for some γ > 1 and any xi < yi, i =
+1,2, t ∈Zd
+|ρℓt| ⩽Cµγ (x1,y1)µγ (x2,y2)|t|d−(2+δ)β
++
+,
+ℓ= 1,...,4.
+(5.1)
+The proof below is restricted to the case ℓ= 1, as the remaining cases ℓ= 2,3,4
+can be treated similarly. Indeed, put
+X0 := 
+s̸=0 bsζs, X0;t := 
+s̸=0,t bsζs, Xt :=
+
+s̸=0 bsζt+s, Xt;0 := 
+s̸=0,−t bsζt+s, then
+ρ4t =
+
+R
+
+R
+ˆρt(x1 −b0v1,y1 −b0v1;x2 −b0v2,y2 −b0v2)dG(v1)dG(v2),
+(5.2)
+
+--- Page 13 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+891
+where ˆρt(x1,y1;x2,y2) := E(I
+X0∈(x1,y1] −I
+X0;t∈(x1,y1])(I
+Xt∈(x2,y2] −I
+Xt;0∈(x2,y2]). Exactly
+similarly as (5.1) for ℓ= 1, one can show the bound
+ ˆρt(x1,y1;x2,y2)
+ ⩽Cµγ (x1,y1)µγ (x2,y2)|t|d−(2+δ)β
++
+.
+(5.3)
+Then from (5.2), (5.3) and Lemma 4.1, formula (4.1), one obtains
+|ρ4t| ⩽C|t|d−(2+δ)β
++
+2
+
+i=1
+
+R
+yi
+
+xi
+hγ(ui + b0vi)dui dG(vi) ⩽C|t|d−(2+δ)β
++
+2
+
+i=1
+µγ (xi,yi),
+or the bound (5.1) for ℓ= 4; the cases ℓ= 2,3 can be treated similarly.
+Denote f00,t(z1,z2), f01,t(z1,z2), f10,t(z1,z2), f11,t(z1,z2) the joint probability den-
+sities of vectors (X0,Xt), (X0,Xt;0), (X0;t,Xt), (X0;t,Xt;0), respectively. Then ρ1t =
+ y1
+x1
+ y2
+x2 Et(z1,z2)dz1 dz2, where Et(z1,z2) := 1
+j,k=0(−1)j+kfjk,t(z1,z2), z1,z2 ∈R.
+Now, according to Lemma 5.1 below, the bound (1 + |z1|)γ (1 + |z2|)γ |Et(z1,z2)| ⩽
+Ctd−(2+δ)β with γ = 1 + δ′ > 1 follows from (5.5) if |z1| ⩽c2,|z2| ⩽c2, from (5.7) if
+|z1| > c2,|z2| > c2, and from (5.6) elsewhere. This entails (5.1) for ℓ= 1 and completes
+the proof of Lemma 3.5.
+✷
+LEMMA 5.1. – There exists a locally bounded function q(z),z ∈R satisfying
+q(z)
+ ⩾c1|z|δ′,
+|z| > c2,
+(5.4)
+where c1,c2 > 0,δ′ > 0 are some constants, such that for all z1,z2 ∈R2
+Et(z1,z2)
+ ⩽C|t|d−(2+δ)β,
+(5.5)
+ziq(zi)Et(z1,z2)
+ ⩽C|t|d−(2+δ)β,
+i = 1,2,
+(5.6)
+z1z2q(z1)q(z2)Et(z1,z2)
+ ⩽C|t|d−(2+δ)β.
+(5.7)
+Proof. – Write Et(z1,z2) = (2π)−2 
+R
+
+R e−i(u1z1+u2z2) Et(u1,u2)du1 du2, where the
+Fourier transform Et(u1,u2) = 1
+j,k=0(−1)j+k ˆfjk,t(u1,u2), and
+ˆf00,t(u1,u2) = Eei(u1X0+u2Xt),
+ˆf01,t(u1,u2) = Eei(u1X0+u2Xt;0),
+ˆf10,t(u1,u2) = Eei(u1X0;t+u2Xt),
+ˆf11,t(u1,u2) = Eei(u1X0;t+u2Xt;0)
+are the corresponding bivariate characteristic functions. Put φ(u) := Eeiuζ0, u ∈R. Then
+ˆf00,t(u1,u2) =
+
+s
+φ(u1bs + u2bs−t),
+ˆf01,t(u1,u2) = φ(u1b0)
+
+s̸=0
+φ(u1bs + u2bs−t),
+ˆf10,t(u1,u2) = φ(u2b0)
+
+s̸=t
+φ(u1bs + u2bs−t),
+ˆf11,t(u1,u2) = φ(u1b0)φ(u2b0)
+
+s̸=0,t
+φ(u1bs + u2bs−t),
+
+--- Page 14 ---
+892
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+Et(u1,u2) =
+φ(u1b0 + u2b−t) −φ(u1b0)
+φ(u1bt + u2b0) −φ(u2b0)
+
+×
+
+s̸=0,t
+φ(u1bs + u2bs−t).
+(5.8)
+Using (1.6), similarly as in Giraitis, Koul and Surgailis [7, p. 323], one can show that for
+any k ⩾0 there exist L > 0 and a constant C < ∞such that for all u1,u2 ∈R and all
+|t| > L
+
+
+s̸=0,t
+φ(u1bs + u2bs−t)
+ ⩽C
+1 + |u1| + |u2|
+−k.
+(5.9)
+By the inequality |φ(u1 + u2) −φ(u1)| ⩽|u2|E|ζ0|, from (5.8), (5.9) one obtains
+ Et(u1,u2)
+ ⩽C|btb−t||u1u2|
+1 + |u1| + |u2|
+−k.
+(5.10)
+As
+
+R2 |u1u2|(1 + |u1| + |u2|)−k du1 du2 < ∞for k ⩾5, this proves (5.5).
+The proof of (5.6) is similar to that of (5.5) and (5.7) and we shall discuss the latter
+one only. Write
+z1z2Et(z1,z2) = −(2π)−2
+
+R2
+e−i(z1u1+z2u2)∂12 Et(u1,u2)du1 du2,
+(5.11)
+where ∂12 Et(u1,u2) = ∂2 Et(u1,u2)/∂u1∂u2. Further, let the function q(z) be deﬁned
+by
+q(z) =
+∞
+
+0
+1 −e−izξξ −1−δ′ dξ −
+∞
+
+1
+1 −e−izξξ −1−δ′ dξ
+= |z|δ′eisgn(z)πδ′/2π/sin(πδ′) −˜q(z),
+(5.12)
+where 0 < δ′ < 1 and ˜q(z) =
+ ∞
+1 (1 −e−izξ)ξ −1−δ′ dξ is bounded on R. Therefore q(z)
+satisﬁes (5.4). For any smooth, integrable test function ψ, let ˆψ be its Fourier transform,
+then:
+q(z)ψ(z) = (2π)−1
+
+R
+e−izu du
+1
+
+0
+ ˆψ(u) −ˆψ(u −ξ)
+ξ −1−δ′ dξ.
+(5.13)
+From (5.11) and (5.13), one infers
+q(z1)q(z2)z1z2Et(z1,z2)
+= −(2π)−2
+
+R2
+e−i(u1z1+u2z2) du1 du2
+
+[0,1]2
+Jξ1ξ2∂12 Et(u1,u2)ξ −1−δ′
+1
+ξ −1−δ′
+2
+dξ1 dξ2,
+where Jξ1ξ2 is the double difference operator deﬁned by Jξ1ξ2ψ(u1,u2) := ψ(u1,u2) −
+ψ(u1 −ξ1,u2) −ψ(u1,u2 −ξ2) + ψ(u1 −ξ1,u2 −ξ2), u1,u2 ∈R,ξ1,ξ2 ∈[0,1].
+Consequently,
+
+--- Page 15 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+893
+q(z1)q(z2)z1z2Et(z1,z2)
+
+⩽C
+
+R2
+du1 du2
+
+
+[0,1]2
+Jξ1ξ2∂12 Et(u1,u2)ξ −1−δ′
+1
+ξ −1−δ′
+2
+dξ1 dξ2
+.
+(5.14)
+To evaluate the r.h.s. of (5.14), it is convenient to rewrite the product (5.8) as
+Et(u1,u2) = 
+s⪰0 ψs(u1,u2), where
+ψs(u1,u2) :=
+
+
+
+φ(u1bs + u2bs−t),
+if s ̸= 0,s ̸= t,
+φ(u1b0 + u2b−t) −φ(u1b0),
+if s = 0,
+φ(u1bt + u2b0) −φ(u2b0),
+if s = t.
+(5.15)
+Then
+∂12 Et =
+
+τ1,τ2⪰0
+
+s⪰0
+ϑτ1τ2ψs,
+(5.16)
+where
+ϑτ1τ2ψs :=
+
+
+
+
+
+
+
+∂12ψs,
+s = τ1 = τ2,
+∂1ψs,
+s = τ1 ̸= τ2,
+∂2ψs,
+s = τ2 ̸= τ1,
+ψs,
+s ̸= τ1,s ̸= τ2,
+and where ∂jψ = ∂ψ/∂uj, j = 1,2, ∂12ψ = ∂2ψ/∂u1∂u2. Introduce also
+θξ1ξ2
+τ1τ2 ψs(u1,u2) =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Jξ1ξ2ψs(u1,u2),
+s = τ1 = τ2,
+ψs(u1,u2) −ψs(u1 −ξ1,u2),
+s = τ1 ≻τ2,
+ψs(u1,u2 −ξ2) −ψs(u1 −ξ1,u2 −ξ2),
+s = τ1 ≺τ2,
+ψs(u1,u2) −ψs(u1,u2 −ξ2),
+s = τ2 ≻τ1,
+ψs(u1 −ξ1,u2) −ψs(u1 −ξ1,u2 −ξ2),
+s = τ2 ≺τ1,
+ψs(u1 −ξ1,u2 −ξ2),
+s ≺τ1,s ≺τ2,
+ψs(u1 −ξ1,u2),
+s ≺τ1,s ≻τ2,
+ψs(u1,u2 −ξ2),
+s ≻τ1,s ≺τ2,
+ψs(u1,u2),
+s ≻τ1,s ≻τ2.
+Then one has the telescoping identity similar to (5.16):
+Jξ1ξ2 Et =
+
+τ1,τ2⪰0
+
+s⪰0
+θξ1ξ2
+τ1τ2 ψs.
+(5.17)
+From (5.16), (5.17) we ﬁnally obtain
+Jξ1ξ2∂12 Et =
+
+τ1,τ2⪰0
+
+σ1,σ2⪰0
+
+s⪰0
+θξ1ξ2
+τ1τ2 ϑσ1σ2ψs.
+(5.18)
+In (5.16)–(5.18), the sums are taken over all indices τ1,τ2,σ1,σ2 ∈Zd, respectively,
+which are completely ordered by the relation ≺, and the convergence of these series can
+be shown similarly as in [7]. From (5.14), (5.18) we obtain
+q(z1)q(z2)z1z2Et(z1,z2)
+ ⩽C
+
+τ1,τ2⪰0
+
+σ1,σ2⪰0
+Mτ1τ2σ1σ2,
+(5.19)
+
+--- Page 16 ---
+894
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+where
+Mτ1τ2σ1σ2 :=
+
+R2
+du1 du2
+
+[0,1]2
+
+s⪰0
+θξ1ξ2
+τ1τ2 ϑσ1σ2ψs
+ξ −1−δ′
+1
+ξ −1−δ′
+2
+dξ1 dξ2.
+(5.20)
+Write 
+τ1,τ2⪰0
+
+σ1,σ2⪰0 = 4
+i=1
+
+|T |=i, where the last sum is taken over all subsets
+T := {τ1,τ2,σ1,σ2} ⊂Zd of cardinality |T | = i depending on the number of distinct
+indices in T . Clearly it sufﬁces to show (5.7) for each sum 
+|T |=i Mτ1τ2σ1σ2, i = 1,2,3,4.
+To avoid tedious computations, we discuss below the extreme cases i = 1 and i = 4 only.
+Similarly to (5.9), one can show that for each k ⩾0 there is a constant C < ∞
+independent of T ⊂Zd, |T | = 1,...,4, and such that
+
+s /∈T, s̸=0,t
+θξ1ξ2
+τ1τ2 ϑσ1σ2ψs
+ ⩽C
+1 + |u1| + |u2|
+−k,
+u1,u2 ∈R.
+(5.21)
+Consider ﬁrst the “diagonal” sum 
+|T |=1, or the case τ1 = τ2 = σ1 = σ2 =: τ. Then
+θξ1ξ2
+ττ ϑττψτ(u1,u2) = Jξ1ξ2∂12ψτ(u1,u2)
+= bτbτ−t
+φ′′(u1bτ + u2bτ−t) −φ′′(u1 −ξ1)bτ + u2bτ−t
+
+−φ′′u1bτ + (u2 −ξ2)bτ−t
+ + φ′′(u1 −ξ1)bτ
++ (u2 −ξ2)bτ−t
+.
+(5.22)
+This holds for τ = 0 or t, because ∂12ψτ(u1,u2) = bτbτ−tφ′′(u1bτ + u2bτ−t) for any
+τ ∈Zd. Next,
+φ′′(u1bτ + u2bτ−t) −φ′′(u1 −ξ1)bτ + u2bτ−t
+
+−φ′′u1bτ + (u2 −ξ2)bτ−t
+ + φ′′(u1 −ξ1)bτ + (u2 −ξ2)bτ−t
+
+=
+Eζ 2ei(u1bτ+u2bτ−t)ζ1 −e−iξ1bτζ1 −e−iξ2bτ−tζ
+⩽Eζ 21 −e−iξ1bτζ 1 −e−iξ2bτ−tζ 
+⩽Eζ 21 ∧|ξ1bτζ|
+1 ∧|ξ2bτ−tζ|
+.
+(5.23)
+By the inequality 1 ∧|x| ⩽|x|δ/2(∀x ∈R, ∀δ ∈(0,1), and the moment condition (1.7),
+from (5.22) and (5.23) we obtain |θξ1ξ2
+ττ ϑττψτ(u1,u2)| ⩽C|bτbτ−t|1+δ/2|ξ1|δ/2|ξ2|δ/2,
+C = E|ζ|2+δ.
+Taking 0 < δ′ < δ/2 in (5.20), the inequality Mττττ ⩽C|bτbτ−t|1+δ/2 follows, yielding
+
+|T |=1
+Mτ1τ2σ1σ2 ⩽C
+
+τ∈Zd
+|τ|−β(1+δ/2)
++
+|τ −t|−β(1+δ/2)
++
+⩽C|t|d−(2+δ)β.
+(5.24)
+Next, consider 
+|T |=4, or τ1,τ2,σ1,σ2 being all different. Let T ∩{0,t} = ∅. Then
+θξ1ξ2
+τ1τ2 ϑσ1σ2ψs =
+
+
+
+
+
+
+
+bσ1φ′(u1bσ1 + u2bσ1−t),
+s = σ1 ≻τ1,τ2,
+bσ2−tφ′(u1bσ2 + u2bσ2−t),
+s = σ2 ≻τ1,τ2,
+φ(u1bτ1 + u2bτ1−t) −φ((u1 −ξ1)bτ1 + u2bτ1−t),
+s = τ1 ≻τ2,
+φ(u1bτ2 + u2bτ2−t) −φ(u1bτ2 + (u2 −ξ2)bτ2−t),
+s = τ2 ≻τ1
+
+--- Page 17 ---
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+895
+(similar expressions for θξ1ξ2
+τ1τ2 ϑσ1σ2ψs hold in the remaining cases). Hence
+θξ1ξ2
+τ1τ2 ϑσ1σ2ψs
+ ⩽C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+|bσ1|((|u1| + 1)|bσ1| + (|u2| + 1)|bσ1−t|),
+s = σ1,
+|bσ2−t|((|u1| + 1)|bσ2| + (|u2| + 1)|bσ2−t|),
+s = σ2,
+|ξ1bτ1|((|u1| + 1)|bτ1| + (|u2| + 1)|bτ1−t|),
+s = τ1,
+|ξ2bτ2−t|((|u1| + 1)|bτ2| + (|u2| + 1)|bτ2−t|),
+s = τ2,
+|b−t|,
+s = 0,
+|bt|,
+s = t.
+Therefore, for T ∩{0,t} = ∅,|T | = 4 we obtain by (5.20), (5.21)
+
+s⪰0
+θξ1ξ2
+τ1τ2 ϑσ1σ2ψs
+ ⩽C|ξ1ξ2||btb−t|
+1 + |u1| + |u2|
+−k
+×
+b2
+σ1 + b2
+σ1−t
+b2
+σ2 + b2
+σ2−t
+b2
+τ1 + b2
+τ1−t
+b2
+τ2 + b2
+τ2−t
+
+and
+
+|T |=4; T ∩{0,t}=∅
+Mτ1τ2σ1σ2 ⩽C|btb−t| ⩽C|t|−2β = O
+|t|d−(2+δ)β
+provided δβ ⩽d. Similar bounds for |θξ1ξ2
+τ1τ2 ϑσ1σ2ψs| hold in the case T ∩{0,t} ̸= ∅. This
+proves (5.7) and Lemma 5.1, too.
+✷
+REFERENCES
+[1] S. Albeverio, S.A. Molchanov, D. Surgailis, Stratiﬁed structure of the Universe and Burgers’
+equation – a probabilistic approach, Probab. Theory Related Fields 100 (1994) 457–484.
+[2] V.V. Anh, J.M. Angulo, M.D. Ruiz-Medina, Possible long-range dependence in fractional
+random ﬁelds, J. Statist. Plan. Inf. 80 (1999) 95–110.
+[3] H. Dehling, M.S. Taqqu, The empirical process of some long-range dependent sequences
+with an application to U-statistics, Ann. Statist. 17 (1989) 1767–1783.
+[4] M. Denker, Weak convergence in nonparametric statistics, in: R. Bhattacharya, M. Denker
+(Eds.), Asymptotic Statistics, Birkhäuser, 1990.
+[5] R.L. Dobrushin, P. Major, Non-central limit theorems for non-linear functions of Gaussian
+ﬁelds, Z. Wahrsch. Verw. Geb. 50 (1979) 27–52.
+[6] P. Doukhan, D. Surgailis, Functional central limit theorem for the empirical process of short
+memory linear processes, C. R. Acad. Sci. Paris Serie 1 326 (1998) 87–92.
+[7] L. Giraitis, H.L. Koul, D. Surgailis, Asymptotic normality of regression estimators with
+long memory errors, Statist. Probab. Lett. 29 (1996) 317–335.
+[8] L. Giraitis, D. Surgailis, Central limit theorem for the empirical process of a linear sequence
+with long memory, J. Stat. Plan. Inf. 80 (1999) 81–93.
+[9] H.C. Ho, T. Hsing, On the asymptotic expansion of the empirical process of long memory
+moving averages, Ann. Statist. 24 (1996) 992–1024.
+[10] H.C. Ho, T. Hsing, Limit theorems for functionals of moving averages, Ann. Probab. 25
+(1997) 1636–1669.
+[11] A.V. Ivanov, N.N. Leonenko, Statistical Analysis of Random Fields, Kluwer, Dordrecht,
+1989.
+[12] H.L. Koul, Weighted Empiricals and Linear Models, in: IMS Lecture Notes-Monograph
+Series, Vol. 21, Hayward, CA, 1992.
+
+--- Page 18 ---
+896
+P. DOUKHAN ET AL. / Ann. I. H. Poincaré – PR 38 (2002) 879–896
+[13] H.L. Koul, K. Mukherjee, Asymptotics of R-, MD- and LAD-estimators in linear regression
+models with long range dependent errors, Probab. Theory Related Fields 95 (1993) 535–
+553.
+[14] H.L. Koul, D. Surgailis, Asymptotic expansion of M-estimators with long memory errors,
+Ann. Statist. 25 (1997) 818–850.
+[15] H.L. Koul, D. Surgailis, Asymptotics of empirical processes of long memory moving
+averages with inﬁnite variance, Stoch. Proc. Appl. 91 (2001) 309–336.
+[16] N.N. Leonenko, Random Fields with Singular Spectrum, Kluwer, Dordrecht, 1999.
+[17] N.N. Leonenko, W.A. Woyczynski, Parameter identiﬁcation for singular random ﬁelds
+arising in Burgers’ turbulence, J. Statist. Plan. Inf. 80 (1999) 1–14.
+[18] D. Marinucci, Gaussian semiparametric estimation for random ﬁelds with singular spec-
+trum, Preprint, 2001.
+[19] D. Surgailis, W.A. Woyczynski, Scaling limits of solutions of Burgers’ equation with
+singular Gaussian initial data, in: C. Houdré, V. Pérez-Abreu (Eds.), Chaos Expansions,
+Multiple Wiener–Itô Integrals and Their Applications, CRC Press, Boca Raton, 1994,
+pp. 145–162.
+[20] M.S. Taqqu, Convergence of integrated processes of arbitrary Hermite rank, Z. Wahrsch.
+Verw. Geb. 50 (1979) 53–83.

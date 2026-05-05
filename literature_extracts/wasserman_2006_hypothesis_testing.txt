@@ -1,0 +1,3494 @@
+Later Chapters: Hypothesis Testing and Goodness-of-Fit
+======================================================================
+
+--- Page 161 ---
+7.5 Minimax Risk and Pinsker’s Theorem
+153
+is called nested subset selection. Taking S to be all subsets of {1, . . . , n}
+corresponds to all possible subsets. For any ﬁxed model S, we expect that
+RS will be close to R(θS, θ). However, this does not guarantee that RS is close
+to R(θS, θ) uniformly over S. See Exercise 10. ■
+7.5
+Minimax Risk and Pinsker’s Theorem
+If Θn is a subset of Rn, we deﬁne the minimax risk over Θn by
+Rn ≡R(Θn) ≡inf
+θ
+sup
+θ∈Θn
+R(θ, θ)
+(7.27)
+where the inﬁmum is over all estimators. Two questions we will address are:
+(i) what is the value of the minimax risk R(Θn)? and (ii) can we ﬁnd an
+estimator that achieves this risk?
+The following theorem4 gives the exact, limiting form of the minimax risk
+for the L2 ball
+Θn(c) =
+
+(θ1, . . . , θn) :
+n
+
+i=1
+θ2
+i ≤c2
+*
+.
+7.28 Theorem (Pinsker’s theorem). Assume the model (7.1) with σ2
+n = σ2/n.
+For any c > 0,
+lim inf
+n→∞inf
+θ
+sup
+θ∈Θn(c)
+R(θ, θ) =
+σ2c2
+σ2 + c2 .
+(7.29)
+The right-hand side of (7.29) gives an exact expression for the (asymptotic)
+minimax risk. This expression is strictly smaller than σ2 which is the risk for
+the maximum likelihood estimator. Later, we will introduce the James–Stein
+estimator which asymptotically achieves this risk. The proof of the theorem,
+which is in the appendix, is a bit technical and may be skipped without loss
+of continuity. Here is the basic idea behind the proof.
+First, we note that the estimator with coordinates θj = c2Zj/(σ2 + c2) has
+risk bounded above by σ2c2/(σ2 + c2). Hence,
+Rn ≤
+σ2c2
+σ2 + c2 .
+(7.30)
+If we could ﬁnd a prior π on Θn(c) whose posterior mean θ also has risk
+σ2c2/(σ2 + c2) then we could argue that, for any estimator θ, we have
+σ2c2
+σ2 + c2 =
+
+R(θ, θ)dπ(θ) ≤
+
+R(θ, θ)dπ(θ) ≤sup
+θ∈Θn
+R(θ, θ) = Rn.
+(7.31)
+4This is a ﬁnite-dimensional version of Pinsker’s theorem. Theorem 7.32 is the usual version.
+
+--- Page 162 ---
+154
+7. Normal Means and Minimax Theory
+Combining (7.30) and (7.31) would yield Rn = σ2c2/(σ2 + c2). The proof is
+essentially an approximate version of this argument. One ﬁnds a prior over
+all of Rn whose risk is arbitrarily close to σ2c2/(σ2 + c2) and one then shows
+that the prior asymptotically concentrates on Θn(c).
+Now let us see how minimax theory works for smooth functions.
+7.32 Theorem (Pinsker’s theorem for Sobolev ellipsoids). Let
+Zj = θj + σ
+√nϵj,
+j = 1, 2, . . .
+(7.33)
+where ϵ1, ϵ2, . . . ∼N(0, 1). Assume that θ ∈Θ(m, c), a Sobolev ellipsoid (recall
+Deﬁnition 7.10). Let Rn denote the minimax risk over Θ(m, c). Then,
+lim
+n→∞n2m/(2m+1)Rn =
+σ
+π
+2m/(2m+1)
+c2/(2m+1)Pm
+(7.34)
+where
+Pm =
+
+m
+m + 1
+2m/(2m+1)
+(2m + 1)1/(2m+1)
+(7.35)
+is the Pinsker constant. Hence, the minimax rate is n−2m/(2m+1), that is,
+0 < lim
+n→∞n2m/(2m+1)Rn < ∞.
+Here is a more general version of the theorem.
+7.36 Theorem (Pinsker’s theorem for ellipsoids). Let
+Θ =
+
+θ :
+∞
+
+j=1
+ajθ2
+j ≤c2
+*
+.
+The set Θ is called an ellipsoid. Assume that aj →∞as j →∞. Let
+Rn = inf
+θ
+sup
+θ∈Θ
+R(θ, θ)
+denote the minimax risk and let
+RL
+n = inf
+θ∈L
+sup
+θ∈Θ
+R(θ, θ)
+denote the minimax linear risk where L is the set of linear estimators of the
+form θ = (w1Z1, w2Z2, . . .). Then:
+(1) linear estimators are asymptotically minimax: Rn ∼RL
+n as n →∞;
+(2) the minimax linear risk satisﬁes
+RL
+n = σ2
+n
+
+i
+
+1 −ai
+µ
+
++
+
+--- Page 163 ---
+7.6 Linear Shrinkage and the James–Stein Estimator
+155
+where µ solves
+σ2
+n
+
+i
+ai(µ −ai)+ = c2.
+(3) The linear minimax estimator is θi = wiZi where wi = [1 −(ai/µ)]+.
+(4) The linear minimax estimator is Bayes5for the prior with independent
+components such that θi ∼N(0, τ 2
+i ), τ2
+i = (σ2/n)(µ/ai −1)+.
+7.6
+Linear Shrinkage and the James–Stein Estimator
+Let us now return to model (7.1) and see how we can improve on the mle using
+linear estimators. A linear estimator is an estimator of the form θ = bZ =
+(bZ1, . . . , bZn) where 0 ≤b ≤1. Linear estimators are shrinkage estimators
+since they shrink Z towards the origin. We denote the set of linear shrinkage
+estimators by L = {bZ : b ∈[0, 1]}.
+The risk of a linear estimator is easy to compute. From the basic bias–
+variance breakdown we have
+R(bZ, θ) = (1 −b)2||θ||2
+n + nb2σ2
+n
+(7.37)
+where ||θ||2
+n = n
+i=1 θ2
+i . The risk is minimized by taking
+b∗=
+||θ||2
+n
+nσ2n + ||θ||2n
+.
+We call b∗Z the ideal linear estimator. The risk of this ideal linear estimator
+is
+R(b∗Z, θ) =
+nσ2
+n||θ||2
+n
+nσ2n + ||θ||2n
+.
+(7.38)
+Thus we have proved:
+7.39 Theorem.
+inf
+θ∈L
+R(θ, θ) =
+nσ2
+n||θ||2
+n
+nσ2n + ||θ||2n
+.
+(7.40)
+We can’t use the estimator b∗Z because b∗depends on the unknown pa-
+rameter θ. For this reason we call R(b∗Z, θ) the linear oracular risk since
+the risk could only be obtained by an “oracle” that knows ||θ||2
+n. We shall now
+show that the James–Stein estimator nearly achieves the risk of the ideal
+oracle.
+5The Bayes estimator minimizes Bayes risk
+
+R(θ, θ)dπ(θ) for a given prior π.
+
+--- Page 164 ---
+156
+7. Normal Means and Minimax Theory
+The James–Stein estimator of θ is deﬁned by
+θJS =
+
+1 −(n −2)σ2
+n
+n
+i=1 Z2
+i
+
+Z.
+(7.41)
+We’ll see in Theorem 7.48 that this estimator is asymptotically optimal.
+7.42 Theorem. The risk of the James–Stein estimator satisﬁes the following
+bound:
+R(θJS, θ) ≤2σ2
+n +
+(n −2)σ2
+n||θ||2
+n
+(n −2)σ2n + ||θ||2n
+≤2σ2
+n +
+nσ2
+n||θ||2
+n
+nσ2n + ||θ||2n
+(7.43)
+where ||θ||2
+n = n
+i=1 θ2
+i .
+Proof. Write θJS = Z + g(Z) where g(z) = −(n −2)σ2
+nz/ 
+i z2
+i . Hence
+Di = ∂gi
+∂zi
+= −(n −2)σ2
+n
+
+1
+
+i z2
+i
+−
+2z2
+i
+(
+i z2
+i )2
+
+and
+n
+
+i=1
+Di = −(n −2)2σ2
+n
+n
+i=1 z2
+i
+.
+Plugging this into the sure formula (7.19) yields
+R(Z) = nσ2
+n −(n −2)2σ4
+n
+
+i Z2
+i
+.
+Hence, the risk is
+R(θJS, θ) = E( R(Z)) = nσ2
+n −(n −2)2σ4
+nE
+
+1
+
+i Z2
+i
+
+.
+(7.44)
+Now Z2
+i = σ2
+n((θi/σn) + ϵi)2 and so n
+i=1 Z2
+i ∼σ2
+nW where W is noncentral
+χ2 with n degrees of freedom and noncentrality parameter δ = n
+i=1(θ2
+i /σ2
+n).
+Using a well-known result about noncentral χ2 random variables, we can then
+write W ∼χ2
+n+2K where K ∼Poisson(δ/2). Recall that (for n > 2) E(1/χ2
+n) =
+1/(n −2). So,
+Eθ
+!
+1
+
+i Z2
+i
+"
+=
+
+ 1
+σ2n
+
+E
+!
+1
+χ2
+n+2K
+"
+=
+
+ 1
+σ2n
+
+E
+
+E
+3
+1
+χ2
+n+2K
+ K
+4
+=
+
+ 1
+σ2n
+
+E
+!
+1
+n −2 + 2K
+"
+≥
+
+ 1
+σ2n
+
+1
+(n −2) + σ−2
+n
+n
+i=1 θ2
+i
+from Jensen′s inequality
+=
+1
+(n −2)σ2n + n
+i=1 θ2
+i
+.
+
+--- Page 165 ---
+7.6 Linear Shrinkage and the James–Stein Estimator
+157
+Substituting into (7.44) we get the ﬁrst inequality. The second inequality
+follows from simple algebra. ■
+7.45 Remark. The modiﬁed James–Stein estimator is deﬁned by
+θ =
+
+1 −
+nσ2
+n
+
+i Z2
+i
+
++
+Z
+(7.46)
+where (a)+ = max{a, 0}. The change from n −2 to n leads to a simpler
+expression and for large n this has negligible eﬀect. Taking the positive part
+of the shrinkage factor cannot increase the risk. In practice, the modiﬁed
+James–Stein estimator is often preferred.
+The next result shows that the James–Stein estimator nearly achieves the
+risk of the linear oracle.
+7.47 Theorem (James–Stein oracle inequality). Let L = {bZ : b ∈R} denote
+the class of linear estimators. For all θ ∈Rn,
+inf
+θ∈L
+R(θ, θ) ≤R(θJS, θ) ≤2σ2
+n + inf
+θ∈L
+R(θ, θ).
+Proof. This follows from (7.38) and Theorem 7.42. ■
+Here is another perspective on the James–Stein estimator. Let θ = bZ.
+Stein’s unbiased risk estimator is R(Z) = nσ2
+n+2nσ2
+n(b−1)+(b−1)2 n
+i=1 Z2
+i
+which is minimized at
+b = 1 −
+nσ2
+n
+n
+i=1 Z2
+i
+yielding the estimator
+θ = bZ =
+
+1 −
+nσ2
+n
+n
+i=1 Z2
+i
+
+Z
+which is essentially the James–Stein estimator.
+We can now show that the James–Stein estimator achieves the Pinsker
+bound (7.29) and so is asymptotically minimax.
+7.48 Theorem. Let σ2
+n = σ2/n. The James–Stein estimator is asymptotically
+minimax, that is,
+lim
+n→∞
+sup
+θ∈Θn(c)
+R(θJS, θ) =
+σ2c2
+σ2 + c2 .
+Proof. Follows from Theorem 7.42 and 7.28. ■
+
+--- Page 166 ---
+158
+7. Normal Means and Minimax Theory
+7.49 Remark. The James–Stein estimator is adaptive in the sense that it
+achieves the minimax bound over Θn(c) without knowledge of the
+parameter c.
+To summarize: the James–Stein estimator is essentially optimal over all
+linear estimators. Moreover, it is asymptotically optimal over all estimators,
+not just linear estimators. This also shows that the minimax risk and the linear
+minimax risk are asymptotically equivalent. This turns out to (sometimes) be
+a more general phenomenon, as we shall see.
+7.7
+Adaptive Estimation Over Sobolev Spaces
+Theorem 7.32 gives an estimator that is minimax over Θ(m, c). However, the
+estimator is unsatisfactory because it requires that we know c and m.
+Efromovich and Pinsker (1984) proved the remarkable result that there
+exists an estimator that is minimax over Θ(m, c) without requiring knowledge
+of m or c. The estimator is said to be adaptively asymptotically minimax.
+The idea is to divide the observations into blocks B1 = {Z1, . . . , Zn1}, B2 =
+{Zn1+1, . . . , Zn2}, . . . and then apply a suitable estimation procedure within
+blocks.
+Here is particular block estimation scheme due to Cai et al. (2000). For any
+real number a let [a] denote the integer part of a. Let b = 1 + 1/ log n and let
+K0 be an integer such that [bK0] ≥3 and [bk] −[bk−1] ≥3 for k ≥K0 + 1.
+Let B0 = {Zi : 1 ≤i ≤[bK0]} and let Bk = {Zi :
+[bk−1] < i ≤[bk]} for
+k ≥K0 + 1. Let θ be the estimator obtained by applying the James–Stein
+estimator within each block Bk. The estimator is taken to be 0 for i > [bK1]
+where K1 = [logb(n)] −1.
+7.50 Theorem (Cai, Low and Zhao, 2000). Let θ be the estimator above. Let
+Θ(m, c) = {θ : ∞
+i=1 a2
+i θ2
+i ≤c2} where a1 = 1 and a2i = a2i+1 = 1+(2iπ)2m.
+Let Rn(m, c) denote the minimax risk over Θ(m, c). Then for all m > 0 and
+c > 0,
+lim
+n→∞
+supθ∈Θ(m,c) R(θ, θ)
+Rn(m, c)
+= 1.
+
+--- Page 167 ---
+7.8 Conﬁdence Sets
+159
+7.8
+Conﬁdence Sets
+In this section we discuss the construction of conﬁdence sets for θn. It will
+now be convenient to write θ and Z instead of θn and Zn.
+Recall that Bn ⊂Rn is a 1 −α conﬁdence set if
+inf
+θ∈Rn Pθ(θ ∈Bn) ≥1 −α.
+(7.51)
+We have written the probability distribution Pθ with the subscript θ to em-
+phasize that the distribution depends on θ. Here are some methods for con-
+structing conﬁdence sets.
+Method I: The χ2 Confidence Set. The simplest conﬁdence set for θ
+is based on the fact that ||Z −θ||2/σ2
+n has a χ2
+n distribution. Let
+Bn =
+
+θ ∈Rn : ||Z −θ||2 ≤σ2
+n χ2
+n,α
+
+(7.52)
+where χ2
+n,α is the upper α quantile of a χ2 random variable with n degrees of
+freedom. It follows immediately that
+Pθ(θ ∈Bn) = 1 −α,
+for all θ ∈Rn.
+Hence, (7.51) is satisﬁed. The expected radius of this ball is nσ2
+n. We will see
+that we can improve on this.
+Improving the χ2 Ball by Pre-testing. Before discussing more com-
+plicated methods, here is a simple idea—based on ideas in Lepski (1999)—
+for improving the χ2 ball. The methods that follow are generalizations of this
+method.
+Note that the χ2 ball Bn has a ﬁxed radius sn = σn
+√n. When applied to
+function estimation, σn = O(1/√n) so that sn = O(1) and hence the radius of
+the ball does not even converge to zero as n →∞. The following construction
+makes the radius smaller. The idea is to test the hypothesis that θ = θ0. If we
+accept the null hypothesis, we use a smaller ball centered at θ0. Here are the
+details.
+First, test the hypothesis that θ = (0, . . . , 0) using 
+i Z2
+i as a test statistic.
+Speciﬁcally, reject the null when
+Tn =
+
+i
+Z2
+i > c2
+n
+and cn is deﬁned by
+P
+
+χ2
+n > c2
+n
+σ2n
+
+= α
+2 .
+
+--- Page 168 ---
+160
+7. Normal Means and Minimax Theory
+By construction, the test has type one error rate α/2. If Z denotes a N(0,1)
+random variable then
+α
+2 = P
+
+χ2
+n > c2
+n
+σ2n
+
+= P
+⎛
+⎝χ2
+n −n
+√
+2n
+>
+c2
+n
+σ2n −n
+√
+2n
+⎞
+⎠≈P
+⎛
+⎝Z >
+c2
+n
+σ2n −n
+√
+2n
+⎞
+⎠
+implying that
+c2
+n ≈σ2
+n(n +
+√
+2nzα/2).
+Now we compute the power of this test when ||θ|| > ∆n where
+∆n =
+
+2
+√
+2zα/2 n1/4σn.
+Write Zi = θi + σnϵi where ϵi ∼N(0, 1). Then,
+Pθ(Tn > c2
+n)
+=
+Pθ
+
+
+i
+Z2
+i > c2
+n
+
+= Pθ
+
+
+i
+(θi + σnϵi)2 > c2
+n
+
+=
+Pθ
+
+||θ||2 + 2σn
+
+i
+θiϵi + σ2
+n
+
+i
+ϵ2
+i > c2
+n
+
+.
+Now, ||θ||2+2σn
+
+i θiϵi+σ2
+n
+
+i ϵ2
+i has mean ||θ||2+nσ2
+n and variance 4σ2
+n||θ||2+
+2nσ4
+n. Hence, with Z denoting a N(0,1) random variable,
+Pθ(Tn > c2
+n)
+≈
+P
+
+||θ||2 + nσ2
+n +
+
+4σ2n||θ||2 + 2nσ4nZ > c2
+n
+
+≈
+P
+
+||θ||2nσ2
+n +
+
+4σ2n||θ||2 + 2nσ4nZ > σ2
+n(n +
+√
+2nzα/2)
+
+=
+P
+⎛
+⎝Z >
+√
+2zα/2 −||θ||2
+√nσ2n
+
+2 + 4||θ||2
+nσ2n
+⎞
+⎠≥P
+⎛
+⎝Z >
+√
+2zα/2 −||θ||2
+√nσ2n
+
+2
+⎞
+⎠
+≥
+1 −α
+2
+since ||θ|| > ∆n implies that
+√
+2zα/2 −||θ||2
+√nσ2n
+
+2
+≥−zα/2.
+In summary, the test has type-one error α/2 and type-two error no more than
+α/2 for all ||θ|| > ∆n.
+Next we deﬁne the conﬁdence procedure as follows. Let φ = 0 if the test
+accepts and φ = 1 if the test rejects. Deﬁne
+Rn =
+⎧
+⎨
+⎩
+Bn
+if φ = 1
+
+θ : ||θ|| ≤∆n
+
+if φ = 0.
+
+--- Page 169 ---
+7.8 Conﬁdence Sets
+161
+Thus, Rn is a random radius conﬁdence ball. The radius is the same as the
+χ2 ball when φ = 1 but when φ = 0, the radius is ∆n which is much smaller.
+Let us now verify that the ball has the right coverage.
+The noncoverage of this ball when θ = (0, . . . , 0) is
+P0(θ /∈R)
+=
+P0(θ /∈R, φ = 0) + P0(θ /∈R, φ = 1)
+≤
+0 + P0(φ = 1) = α
+2 .
+The noncoverage of this ball when θ ̸= (0, . . . , 0) and ||θ|| ≤∆n is
+Pθ(θ /∈R)
+=
+Pθ(θ /∈R, φ = 0) + Pθ(θ /∈R, φ = 1)
+≤
+0 + Pθ(θ /∈B) = α
+2 .
+The noncoverage of this ball when θ ̸= (0, . . . , 0) and ||θ|| > ∆n is
+Pθ(θ /∈R)
+=
+Pθ(θ /∈R, φ = 0) + Pθ(θ /∈R, φ = 1)
+≤
+Pθ(φ = 0) + Pθ(θ /∈B) ≤α
+2 + α
+2 = α.
+In summary, by testing whether θ is close to (0, . . . , 0) and using a smaller
+ball centered at (0, . . . , 0) when the test accepts, we get a ball with proper
+coverage and whose radius is sometimes smaller than the χ2 ball. The message
+is that:
+a random radius conﬁdence ball can have an expected radius that is
+smaller than a ﬁxed conﬁdence ball at some points in the parameter
+space.
+The next section generalizes this idea.
+Method II: The Baraud Confidence Set.
+Here we discuss the
+method due to Baraud (2004) which builds on Lepski (1999), as discussed
+above. We begin with a class S of linear subspaces of Rn. Let ΠS denote the
+projector onto S. Thus, for any vector Z ∈Rn, ΠSZ is the vector in S closest
+to Z.
+For each subspace S, we construct a ball BS of radius ρS centered at an
+estimator in S, namely,
+BS =
+
+θ : ||θ −ΠSZ|| ≤ρS
+
+.
+(7.53)
+For each S ∈S, we test whether θ is close to S using ||Z −ΠSZ|| as a test
+statistic. We then take the smallest conﬁdence ball BS among all unrejected
+
+--- Page 170 ---
+162
+7. Normal Means and Minimax Theory
+subspaces S. The key to making this work is this: the radius ρS is chosen so
+that
+max
+θ
+Pθ(S is not rejected and θ /∈BS) ≤αS
+(7.54)
+where 
+S∈S αS ≤α. The resulting conﬁdence ball has coverage at least 1−α
+since
+max
+θ
+Pθ(θ /∈B)
+≤
+
+S
+max
+θ
+Pθ(S is not rejected and θ /∈BS)
+=
+
+S
+αS ≤α.
+We will see that the n-dimensional maximization over θ ∈Rn can be reduced
+to a one-dimensional maximization since the probabilities only depend on θ
+through the quantity z = ||θ −ΠSθ||.
+The conﬁdence set has coverage 1 −α even if θ is not close to one of the
+subspaces in S. However, if it is close to one of the subspaces in S, then the
+conﬁdence ball will be smaller than the χ2 ball.
+For example, suppose we expand a function f(x) = 
+j θjφj(x) in a basis, as
+in Section 7.3. Then, the θis correspond to the coeﬃcients of f in this basis. If
+the function is smooth, then we expect that θi will be small for large i. Hence,
+θ might be well approximated by a vector of the form (θ1, . . . , θm, 0, . . . , 0).
+This suggests that we could test whether θ is close to the subspace Sm of
+the vectors of the form (θ1, . . . , θm, 0, . . . , 0), for m = 0, . . . , n. In this case we
+would take the class of subspaces to be S = {S0, . . . , Sn}.
+Before we proceed with the details, we need some notation. If Xj ∼N(µj, 1),
+j = 1, . . . , k are iid, then T = k
+j=1 X2
+j has a noncentral χ2 distribution
+with noncentrality parameter d = 
+j µ2
+j and k degrees of freedom and we
+write T ∼χ2
+d,k. Let Gd,k denote the cdf of this random variable and let
+qd,k(α) = G−1
+d,k(1 −α) denote the upper α quantile. By convention, we deﬁne
+qd,k(α) = −∞for α ≥1.
+Let S be a ﬁnite collection of linear subspaces of Rn. We assume that
+Rn ∈S. Let d(S) be the dimension of S ∈S and let e(S) = n −d(S). Fix
+α ∈(0, 1) and γ ∈(0, 1) where γ < 1 −α. Let
+A =
+
+S : ||Z −ΠSZ||2
+σ2n
+≤c(S)
+*
+(7.55)
+where
+c(S) = q0,e(S)(γ).
+(7.56)
+
+--- Page 171 ---
+7.8 Conﬁdence Sets
+163
+Think of ||Z −ΠSZ||2 as a test statistic for the hypothesis that θ ∈S. Then A
+is the set of nonrejected subspaces. Note that A always includes the subspace
+S = Rn since, when S = Rn, ΠSZ = Z and ||Z −ΠSZ||2 = 0.
+Let (αS : S ∈S) be a set of numbers such that 
+S∈S αS ≤α. Now deﬁne
+the ρS as follows:
+ρ2
+S = σ2
+n ×
+⎧
+⎪
+⎪
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪
+⎪
+⎪
+⎩
+infz>0
+
+Gz,n(q0,n(γ)) ≤αS
+
+if d(S) = 0
+supz>0
+
+z + q0,d(S)
+
+αS
+Gz,e(S)(c(S))
+
+if 0 < d(S) < n
+ρ2
+S = σ2
+nq0,n(αS)
+if d(S) = n.
+(7.57)
+Deﬁne
+S = argminS∈A ρS,
+θ = ΠSZ, and ρ = ρ S. Finally, deﬁne
+Bn =
+
+θ ∈Rn : ||θ −θ||2 ≤ρ2
+.
+(7.58)
+7.59 Theorem (Baraud 2004). The set Bn deﬁned in (7.58) is a valid conﬁ-
+dence set:
+inf
+θ∈Rn Pθ(θ ∈Bn) ≥1 −α.
+(7.60)
+Proof. Let BS = {θ : ||θ −ΠSZ||2 ≤ρ2
+S}. Then,
+Pθ(θ /∈Bn)
+≤
+Pθ(θ /∈BS for some S ∈A)
+≤
+
+S
+Pθ(||θ −ΠSZ|| > ρS, S ∈A)
+=
+
+S
+Pθ
+
+||θ −ΠSZ|| > ρS, ||Z −ΠSZ||2 ≤c(S)σ2
+n
+
+.
+Since 
+S αS ≤α, it suﬃces to show that a(S) ≤αS for all S ∈S, where
+a(S) ≡Pθ
+
+||θ −ΠSZ|| > ρS, ||Z −ΠSZ||2 ≤σ2
+n c(S)
+
+.
+(7.61)
+When d(S) = 0, ΠSZ = (0, . . . , 0). If ||θ|| ≤ρS then a(0) = 0 which is less
+than αS. If ||θ|| > ρS, then
+a(S)
+=
+Pθ
+ n
+
+i=1
+Z2
+i ≤σ2
+nq0,n(γ)
+
+=
+G||θ||2/σ2n,n(q0,n(γ)) ≤Gρ2
+0/σ2n,n(q0,n(γ))
+≤
+αS
+
+--- Page 172 ---
+164
+7. Normal Means and Minimax Theory
+since Gd,n(u) is decreasing in z for all u and from the deﬁnition of ρ2
+0.
+Now consider the case where 0 < d(S) < n. Let
+A = ||θ −ΠSZ||2
+σ2n
+= z +
+m
+
+j=1
+ϵ2
+j,
+B = ||θ −Z||2
+σ2n
+where z = ||θ −ΠSθ||2/σ2
+n. Then A and B are independent, A ∼z + χ2
+0,d(S),
+and B ∼χ2
+z,e(S). Hence,
+a(S)
+=
+Pθ
+
+A > ρ2
+m
+σ2n
+, B < c(S)
+
+=
+Pθ
+
+z + χ2
+d(S) > ρ2
+S
+σ2n
+, χ2
+z,e(S) < c(S)
+
+(7.62)
+=
+
+1 −G0,d(S)
+
+ρ2
+S
+σ2n
+−z
+
+× Gz,e(S)
+
+c(S)
+
+.
+(7.63)
+From the deﬁnition of ρ2
+S,
+ρ2
+S
+σ2n
+−z ≥q0,d(S)
+
+αS
+Gz,e(S)(c(S)) ∧1
+
+and hence,
+1 −G0,d(S)
+
+ρ2
+S
+σ2n
+−z
+
+≤
+1 −G0,d(S)
+
+q0,d(S)
+
+αS
+Gz,e(S)(c(S))
+
+=
+αS
+Gz,e(S)(c(S)).
+(7.64)
+It then follows (7.63) and (7.64) that a(S) ≤αS.
+For the case d(S) = n, ΠSZ = Z, and ||θ −ΠSZ||2 = σ2
+n
+n
+i=1 ϵ2
+i
+d= σ2
+nχ2
+n
+and so
+a(S) = Pθ
+
+σ2
+nχ2
+n > q0,n(αS)σ2
+n
+
+= αS
+by the deﬁnition of q0,n. ■
+When σn is unknown we estimate the variance using one of the methods dis-
+cussed in Chapter 5 and generally the coverage is only asymptotically correct.
+To see the eﬀect of having uncertainty about σn, consider the idealized case
+where σn is known to lie with certainty in the interval I = [√1 −ηnτn, τn].
+(In practice, we would construct a conﬁdence interval for σ and adjust the
+
+--- Page 173 ---
+7.8 Conﬁdence Sets
+165
+level α of the conﬁdence ball appropriately.) In this case, the radii ρS are now
+deﬁned by:
+ρ2
+S =
+⎧
+⎪
+⎪
+⎪
+⎪
+⎨
+⎪
+⎪
+⎪
+⎪
+⎩
+infz>0
+
+supσn∈I Gz/σ2n,n(q0,n(γ)τ 2
+n/σ2
+n) ≤αS
+
+if d(S) = 0
+supz>0,σn∈I
+
+zσ2
+n + σ2
+nq0,d(S)(hS(z, σn))
+
+if 0 < d(S) < n
+q0,n(αS)τ 2
+n
+if d(S) = n
+(7.65)
+where
+hS(z, σ) =
+αS
+Gz,e(S)
+
+Gz,e(S)(q0,e(S)(γ)τ 2n/σ2)
+
+(7.66)
+and A is now deﬁned by
+A =
+
+S ∈S : ||Z −ΠSZ||2 ≤q0,e(S)(γ)τ 2
+n
+
+.
+(7.67)
+Beran–D¨umbgen–Stein Pivotal method. Now we discuss a diﬀerent
+approach due to Stein (1981) and developed further by Li (1989), Beran and
+D¨umbgen (1998), and Genovese and Wasserman (2005). The method is sim-
+pler than the Baraud–Lepski approach but it uses asymptotic approximations.
+This method is considered in more detail in the next chapter but here is the
+basic idea.
+Consider nested subsets S = {S0, S1, . . . , Sn} where
+Sj =
+
+θ = (θ1, . . . , θj, 0, . . . , 0) : (θ1, . . . , θj) ∈Rj
+.
+Let θm = (Z1, . . . , Zm, 0, . . . , 0) denote the estimator under model Sm. The
+loss function is
+Lm = ||θm −θ||2.
+Deﬁne the pivot
+Vm = √n(Lm −Rm)
+(7.68)
+where Rm = mσ2
+n + n
+j=m+1(Z2
+j −σ2
+n) is sure. Let m minimize Rm over m.
+Beran and D¨umbgen (1998) show that V m/τ ⇝N(0, 1) where
+τ 2
+m = V(Vm) = 2nσ2
+n
+
+nσ2
+n + 2
+n
+
+j=m+1
+θ2
+j
+
+and
+τ2 = 2nσ2
+n
+
+nσ2
+n + 2
+n
+
+j= m+1
+(Z2
+j −σ2
+n)
+
+.
+
+--- Page 174 ---
+166
+7. Normal Means and Minimax Theory
+Let
+r2
+n = Rm + τzα
+√n
+and deﬁne
+Bn =
+
+θ ∈Rn : ||θm −θ||2 ≤r2
+n
+
+.
+Then,
+Pθ(θ ∈Bn)
+=
+Pθ(||θ −θ||2 ≤r2
+n) = Pθ(Lm ≤r2
+n)
+=
+Pθ
+
+Lm ≤Rm + τzα
+√n
+
+= Pθ
+
+V m
+τ
+≤zα
+
+→
+1 −α.
+A practical problem with this method is that r2
+n can be negative. This is due
+to the presence of the term n
+j=m+1(Z2
+j −σ2
+n) in R and τ. We deal with this
+by replacing such terms with max{n
+j=m+1(Z2
+j −σ2
+n), 0}. This can lead to
+over-coverage but at least leads to well-deﬁned radii.
+7.69 Example. Consider nested subsets S = {S0, S1, . . . , Sn} where S0 =
+{(0, . . . , 0)} and
+Sj =
+
+θ = (θ1, . . . , θj, 0, . . . , 0) : (θ1, . . . , θj) ∈Rj
+.
+We take α = 0.05, n = 100, σn = 1/√n, and αS = α/(n + 1) for all S so
+that  αS = α as required. Figure 7.2 shows ρS versus the dimension of S
+for γ = 0.05, 0.15, 0.50, 0.90. The dotted line is the radius of the χ2 ball. One
+can show that
+ρ0
+ρn
+= O
+
+n−1/4
+(7.70)
+which shows that shrinking towards lower-dimensional models leads to smaller
+conﬁdence sets. There is an interesting tradeoﬀ. Setting γ large makes ρ0
+small leading to a potentially smaller conﬁdence ball. However, making γ
+large increases the set A which diminishes the chances of choosing a small
+ρ. We simulated under the model θ = (10, 10, 10, 10, 10, 0, . . ., 0). See Table
+7.1 for a summary. In this example, the pivotal method seems to perform the
+best. ■
+7.9
+Optimality of Conﬁdence Sets
+How small can we make the conﬁdence set while still maintaining correct
+coverage? In this section we will see that if Bn is a conﬁdence ball with radius
+
+--- Page 175 ---
+7.9 Optimality of Conﬁdence Sets
+167
+1
+50
+100
+0.5
+1.0
+γ = 0.05
+γ = 0.90
+FIGURE 7.2. Constants ρS from Example 7.69. The horizontal axis is the dimension
+of the submodel. The four curves show ρS for γ = 0.05, 0.15, 0.50, 0.90. The highest
+curve corresponds to γ = 0.05 and the curves get lower as γ increases. The dotted
+line is the radius of the χ2 ball.
+Method
+Coverage
+Radius
+χ2
+0.950
+1.115
+Baraud (γ = 0.90)
+1.000
+0.973
+(γ = 0.50)
+1.000
+0.904
+(γ = 0.15)
+1.000
+0.779
+(γ = 0.05)
+0.996
+0.605
+Pivotal
+0.998
+0.582
+TABLE 7.1. Simulation results from Example 7.69 based on 1000 simulations.
+
+--- Page 176 ---
+168
+7. Normal Means and Minimax Theory
+sn then Eθ(sn) ≥C1σnn1/4 for every θ and Eθ(sn) ≥C2σnn1/2 for some
+θ. Here, C1 and C2 are positive constants. The χ2 ball has radius σnn1/2 for
+all θ. This suggests that the χ2 ball can be improved upon, and indeed, the
+Baraud conﬁdence ball can achieve the faster σnn1/4 rate at some points in
+the parameter space. We will provide some of the details in this section. But
+ﬁrst, let us compare this with point estimation.
+From Theorem 7.32, the optimal rate of convergence of a point estimator
+over a Sobolev space of order m is n−2m/(2m+1). According to Theorem 7.50,
+we can construct estimators that achieve this rate, without prior knowledge
+of m. This raises the following questions: Can we construct conﬁdence balls
+that adaptively achieve this optimal rate? The short answer is no. Robins and
+van der Vaart (2005), Juditsky and Lambert-Lacroix (2003), and Cai and Low
+(2005) show that some degree of adaptivity is possible for conﬁdence sets but
+the amount of adaptivity is quite restricted. Without any smoothness assump-
+tions, we see from our comments above that the fastest rate of convergence
+one can attain is σnn1/4 which is of order O(n−1/4) when σn = σ/√n.
+Turning to the details, we begin with the following Theorem due to Li
+(1989).
+7.71 Theorem (Li 1989). Let Bn = {θn ∈Rn : ||θn −θn|| ≤sn} where θn is
+any estimator of θn and sn = sn(Zn) is the radius of the ball. Suppose that
+lim inf
+n→∞
+inf
+θn∈Rn Pθn(θn ∈Bn) ≥1 −α.
+(7.72)
+Then for any sequence θn and any cn →0,
+lim sup
+n→∞Pθn(sn ≤cnσnn1/4) ≤α.
+(7.73)
+Finite sample results are available from Baraud (2004) and Cai and Low
+(2005). For example, we have the following result, whose proof is in the ap-
+pendix.
+7.74 Theorem (Cai and Low 2004). Assume the model (7.1). Fix 0 < α <
+1/2. Let Bn = {θ : ||θ −θ|| ≤sn} be such that
+inf
+θ∈Rn Pθ(θ ∈Bn) ≥1 −α.
+Then, for every 0 < ϵ < (1/2) −α,
+inf
+θ∈Rn Eθ(sn) ≥σn(1 −2α −2ϵ)n1/4(log(1 + ϵ2))1/4.
+(7.75)
+
+--- Page 177 ---
+7.9 Optimality of Conﬁdence Sets
+169
+In particular, if σn = σ/√n, then
+inf
+θ∈Rn Eθ(sn) ≥
+C
+n1/4
+(7.76)
+where C = σ(1 −2α −2ϵ)(log(1 + ϵ2))1/4.
+The lower bound in the above theorem cannot be attained everywhere, as
+the next result shows.
+7.77 Theorem (Cai and Low 2004). Assume the model (7.1). Fix 0 < α <
+1/2. Let Bn = {θ : ||θ −θ|| ≤sn} be such that
+inf
+θ∈Rn Pθ(θ ∈Bn) ≥1 −α.
+Then, for every 0 < ϵ < (1/2) −α,
+sup
+θ∈Rn Eθ(sn) ≥ϵ σnzα+2ϵ
+√n
+
+ϵ
+1 −α −ϵ.
+(7.78)
+In particular, if σn = σ/√n, then
+sup
+θ∈Rn Eθ(sn) ≥C
+(7.79)
+where C = ϵzα+2ϵ
+
+ϵ/(1 −α −ϵ).
+Despite these pessimistic sounding results, there is some potential for adap-
+tation since the inﬁmum in Theorem 7.74 is smaller than the supremum in
+Theorem 7.77. For example, the χ2 ball has radius O(σn
+√n) but the lower
+bound in the above theorem is O(σnn1/4) suggesting that we can do better
+than the χ2 ball. This was the motivation for the Baraud and pivotal conﬁ-
+dence sets. The Baraud conﬁdence set does have a certain type of adaptivity:
+if θ ∈S then ρ ≤ρS with high probability. This follows easily from the way
+that the ball is deﬁned. Let us formalize this as a lemma.
+7.80 Lemma. Deﬁne S, α, γ and (ρS : S ∈S) as in Theorem 7.59. For each
+S ∈S,
+inf
+θ∈S Pθ(ρ ≤ρS) ≥1 −γ.
+(7.81)
+Baraud also gives the following results which show that his construction
+is essentially optimal. The ﬁrst result gives a lower bound on any adaptive
+conﬁdence ball. The result after that shows that the radius ρS of his conﬁdence
+set essentially achieves this lower bound.
+
+--- Page 178 ---
+170
+7. Normal Means and Minimax Theory
+7.82 Theorem (Baraud 2004). Suppose that θ = θ(Z) and r = r(Z) are such
+that B = {θ : ||θ −θ||2 ≤r2} is a 1 −α conﬁdence ball. Also suppose that
+2α + γ < 1 −e−1/36 and that d(S) ≤n/2. If
+inf
+θ∈S Pθ(r ≤rS) ≥1 −γ
+(7.83)
+then, for some C = C(α, γ) > 0,
+r2
+S ≥Cσ2
+n max
+
+d(S), √n
+
+.
+(7.84)
+Taking S to consist of a single point yields the same result as Theorem 7.74
+and taking S = Rn yields the same result as Theorem 7.77.
+7.85 Theorem (Baraud 2004). Deﬁne S, α, γ and (ρS : S ∈S) as in Theo-
+rem 7.59. Assume that d(S) ≤n/2 for every S ∈S except for S = Rn. There
+exists a universal constant C > 0 such that
+ρ2
+S ≤C σ2
+n max
+
+d(S),
+
+n log(1/αS), log(1/αS)
+
+.
+(7.86)
+When σn is only known to lie in an interval I = [√1 −ηnτn, τn], Baraud
+shows that the lower bound (7.84) becomes
+r2
+S ≥Cτ2
+n max
+
+ηnn/2, d(S)(1 −ηn),
+
+n −d(S)(1 −ηn)
+
+(7.87)
+which shows that information about σ is crucial. Indeed, the best we realisti-
+cally could hope for is to know σ2 up to order ηn = O(n−1/2) in which case
+the lower bound is of order max{√n, d(S)}.
+7.10
+Random Radius Bands?
+We have seen that random radius conﬁdence balls can be adaptive in the
+sense that they can be smaller than ﬁxed radius conﬁdence balls at some
+points in the parameter space. Is the same true for conﬁdence bands? The
+answer is no, as follows from results in Low (1997). Actually, Low considers
+estimating a density f at a single point x but essentially the same results
+apply to regression and to conﬁdence bands. He shows that any random radius
+conﬁdence interval for f(x) must have expected width at least as large as a
+ﬁxed width conﬁdence interval. Thus, there is a qualitative diﬀerence between
+constructing a conﬁdence ball versus a conﬁdence band.
+Similar comments apply for other norms. The Lp norm is deﬁned by
+||θ||p =
+
+(
+i |θi|p)1/p
+p < ∞
+maxi |θi|
+p = ∞.
+
+--- Page 179 ---
+7.11 Penalization, Oracles and Sparsity
+171
+Conﬁdence bands can be thought of as L∞conﬁdence balls. It can be shown
+that conﬁdence balls in the Lp norm with 2 < p < ∞fall in between the two
+extremes of L2 and L∞in the sense that they have some adaptivity, but not
+as much as in the L2 norm. Similar comments apply to hypothesis testing; see
+Ingster and Suslina (2003).
+7.11
+Penalization, Oracles and Sparsity
+Consider again the many Normal means problem
+Zi ∼θi + σnϵi,
+i = 1, . . . , n.
+If we choose θ to minimize the sums of squares n
+i=1(Zi−θi)2, we get the mle
+θ = Z = (Z1, . . . , Zn). If instead we minimize a penalized sums of squares, we
+get diﬀerent estimators.
+7.88 Theorem. Let J : Rn →[0, ∞), λ ≥0 and deﬁne the penalized sums
+of squares
+M =
+n
+
+i=1
+(Zi −θi)2 + λ J(θ).
+Let θ minimize M. If λ = 0 then θ = Z. If J(θ) = n
+i=1 θ2
+i then θi = Zi/(1+λ)
+which is a linear shrinkage estimator. If J(θ) = n
+i=1 |θi| then θ is the soft-
+thresholding estimator (7.21). If J(θ) = #{θi : θi ̸= 0} then θ is the hard-
+thresholding estimator (7.23).
+Thus we see that linear shrinkage, soft thresholding and hard thresholding
+are all special cases of one general approach. The case of the L1 penalty
+n
+i=1 |θi| is especially interesting. According to Theorem 7.88, the estimator
+that minimizes
+n
+
+i=1
+(Zi −θi)2 + λ
+n
+
+i=1
+|θi|
+(7.89)
+is the soft-threshold estimator θλ = (θλ,1, . . . , θλ,n) where
+θi,λ = sign(Zi)(|Zi| −λ)+.
+The criterion (7.89) arises in variable selection for linear regression under the
+name lasso (Tibshirani (1996)) and in signal processing under the name basis
+pursuit (Chen et al. (1998)). We will see in Chapter 9 that soft thresholding
+also plays an important role in wavelet methods.
+
+--- Page 180 ---
+172
+7. Normal Means and Minimax Theory
+To get more insight on soft thresholding, we consider a result from Donoho
+and Johnstone (1994). Consider estimating θi and suppose we use either Zi
+or 0 as an estimator. Such an estimator might be appropriate if we think the
+vector θ is sparse in the sense that it has many zeroes. The risk of Zi is σ2
+n
+and the risk of 0 is θ2
+i . Imagine an oracle that knows when Zi has better risk
+and when 0 has better risk. The risk of the oracles estimator is min{σ2
+n, θ2
+i }.
+The risk for estimating the whole vector θ is
+Roracle =
+n
+
+i=1
+min
+
+σ2
+n, θ2
+i
+
+.
+Donoho and Johnstone (1994) showed that soft thresholding gives an estima-
+tor that comes close to the oracle.
+7.90 Theorem (Donoho and Johnstone 1994). Let λ = σn
+√2 log n. Then, for
+every θ ∈Rn,
+Eθ||θλ −θ||2 ≤(2 log n + 1)(σ2
+n + Roracle).
+Moreover, no estimator can get substantially closer to the oracle in the sense
+that, as n →∞,
+inf
+θ
+sup
+θ∈Rn
+Eθ||θ −θ||2
+σ2n + Roracle
+∼2 log n.
+(7.91)
+Consider now a sparse vector θ that is 0 except for k large components,
+where k << n. Then, Roracle = kσ2
+n. In function estimation problems, we will
+see in the next chapter that σ2
+n = O(1/n) and hence Roracle = O(k/n) which
+is small in sparse cases (k small).
+7.12
+Bibliographic Remarks
+The idea of reducing nonparametric models to Normal means models (or the
+white noise model in the appendix) dates back at least to Ibragimov and
+Has’minskii (1977), Efromovich and Pinsker (1982), and others. See Brown
+and Low (1996), Nussbaum (1996a) for examples of recent results in this
+area. A thorough treatment of Normal decision theory and its relation to
+nonparametric problems is contained in Johnstone (2003). There is also a
+substantial literature on hypothesis testing in this framework. Many of the
+results are due to Ingster and are summarized in Ingster and Suslina (2003).
+
+--- Page 181 ---
+7.13 Appendix
+173
+7.13
+Appendix
+The White Noise Model. Regression is also connected with the white noise
+model. Here is a brief description. Recall that a standard Brownian motion
+W(t), 0 ≤t ≤1 is a random function such that W(0) = 0, W(s+t)−W(s) ∼
+N(0, t) and, W(v) −W(u) is independent of W(t) −W(s) for 0 ≤u ≤v ≤
+s ≤t. You can think of W as a continuous version of a random walk. Let
+Zi = f(i/n) + σϵi with ϵi ∼N(0, 1). For 0 ≤t ≤1, deﬁne
+Zn(t) = 1
+n
+[nt]
+
+i=1
+Zi = 1
+n
+[nt]
+
+i=1
+f(i/n) + σ
+√n
+1
+√n
+[nt]
+
+i=1
+Zi.
+The term 1
+n
+[nt]
+i=1 f(i/n) converges to
+ t
+0 f(s)ds as n →∞. The term n−1/2
+[nt]
+i=1 Zi converges to a standard Brownian motion. (For any ﬁxed t, this is
+just an application of the central limit theorem.) Thus, asymptotically we can
+write
+Z(t) =
+ t
+0
+f(s)ds + σ
+√nW(t).
+This is called the standard white noise model, often written in diﬀerential
+form as
+dZ(t) = f(t)dt + σ
+√ndW(t)
+(7.92)
+where dW(t) is the white noise process.6
+Let φ1, φ2, . . . be an orthonormal basis for L2(0, 1) and write f(x) =
+∞
+i=1 θiφi(x) where θi =
+
+f(x)φi(x)dx. Multiply (7.92) by φj and inte-
+grate. This yields Zi = θi + (σ/√n)ϵi where Zi =
+
+φi(t)dZ(t) and ϵi =
+ φi(t)dW(t) ∼N(0, 1). We are back to the Normal means problem. A more
+complicated argument can be used to relate density estimation to the white
+noise model as in Nussbaum (1996a).
+Weak Diﬀerentiability. Let f be integrable on every bounded interval. Then
+f is weakly diﬀerentiable if there exists a function f ′ that is integrable on
+every bounded interval, such that
+ y
+x
+f ′(s)ds = f(y) −f(x)
+whenever x ≤y. We call f ′ the weak derivative of f. An equivalent condition
+is that for every φ that is compactly supported and inﬁnitely diﬀerentiable,
+
+f(s)φ′(s)ds = −
+
+f ′(s)φ(s)ds.
+6Intuitively, think of dW (t) as a vector of Normals on a very ﬁne grid.
+
+--- Page 182 ---
+174
+7. Normal Means and Minimax Theory
+See H¨ardle et al. (1998), page 72.
+Proof of Pinsker’s Theorem (Theorem 7.28). (Following Nussbaum (1996b).)
+We will need to use Bayes estimators, which we now review. Let πn be a prior
+for θn. The integrated risk is deﬁned to be B(θ, πn) =
+
+R(θn, θn)dπn(θn) =
+EπnEθL(θ, θ). The Bayes estimator θπn minimizes the Bayes risk:
+B(πn) = inf
+θ
+B(θn, πn).
+(7.93)
+An explicit formula for the Bayes estimator is
+θπn(y) = argminaE
+
+L(a, θ)
+ Zn
+.
+In the case of squared error loss L(a, θ) = ||a −θ||2
+n, the Bayes estimator is
+θπn(y) = E(θ|Zn).
+Let Θn = Θn(c). Let
+Rn = inf
+θ
+sup
+θ∈Θn
+R(θ, θ)
+denote the minimax risk. We will ﬁnd an upper bound and a lower bound on
+the risk.
+Upper Bound. Let θj = c2Zj/(σ2 + c2). The bias of this estimator is
+Eθ(θj) −θj = −σ2θj
+σ2 + c2
+and the variance is
+Vθ(θj) =
+
+c2
+c2 + σ2
+2
+σ2
+n =
+
+c2
+c2 + σ2
+2 σ2
+n
+and hence the risk is
+Eθ||θ −θ||2
+=
+n
+
+j=1
+3
+ σ2θj
+σ2 + c2
+2
++
+
+c2
+c2 + σ2
+2 
+σ2
+n
+4
+=
+
+σ2
+σ2 + c2
+2
+n
+
+j=1
+θ2
+j + σ2
+
+σ2
+σ2 + c2
+2
+≤
+c2
+
+σ2
+σ2 + c2
+2
++ σ2
+
+σ2
+σ2 + c2
+2
+=
+σ2c2
+σ2 + c2 .
+Hence,
+Rn ≤
+c2σ2
+c2 + σ2
+
+--- Page 183 ---
+7.13 Appendix
+175
+for all n.
+Lower Bound. Fix 0 < δ < 1. Let πn be a Normal prior for which
+θ1, . . . , θn are iid N(0, c2δ2/n). Let B(πn) denote the Bayes risk. Recall that
+B(πn) minimizes the integrated risk B(θ, πn) over all estimators. The mini-
+mum is obtained by taking θ to be the posterior mean which has coordinates
+θj = c2δ2Zj/(c2δ2 + σ2) with risk
+R(θ, θ) =
+n
+
+i=1
+⎡
+⎣θ2
+i
+
+σ2
+n
+c2δ2
+n
++ σ2n
+2
++ σ2
+
+c2δ2
+n
+c2δ2
+n
++ σ2n
+2⎤
+⎦.
+The Bayes risk is
+B(πn) =
+
+R(θ, θ)dπn(θ) =
+σ2δ2c2
+σ2 + δ2c2 .
+So, for any estimator θ,
+B(πn)
+≤
+B(θ, πn)
+=
+
+Θn
+R(θ, θ)dπn +
+
+Θcn
+R(θ, θ)dπn
+≤
+sup
+θ∈Θn
+R(θ, θ) +
+
+Θcn
+R(θ, θ)dπn
+≤
+sup
+θ∈Θn
+R(θ, θ) + sup
+θ
+
+Θcn
+R(θ, θ)dπn.
+Taking the inﬁmum over all estimators that take values in Θn yields
+B(πn) ≤Rn + sup
+θ
+
+Θcn
+R(θ, θ)dπn.
+Hence,
+Rn
+≥
+B(πn) −sup
+θ
+
+Θcn
+R(θ, θ)dπn
+=
+σ2δ2c2
+δ2c2 + σ2 −sup
+θ
+
+Θc
+n
+R(θ, θ)dπn.
+Now, using the fact that ||a + b||2 ≤2(||a||2 + ||b||2), and the Cauchy–
+Schwartz inequality,
+sup
+θ
+
+Θcn
+R(θ, θ)dπn
+≤
+2
+
+Θcn
+||θ||2dπn + 2 sup
+θ
+
+Θcn
+Eθ||θ||2dπn
+≤
+2
+
+πn(Θcn)
+'
+(
+(
+(
+)Eπn
+⎛
+⎝
+j
+θ2
+j
+⎞
+⎠
+2
++ 2c2πn(Θc
+n).
+
+--- Page 184 ---
+176
+7. Normal Means and Minimax Theory
+Thus,
+Rn ≥
+σ2δ2c2
+σ2 + δ2c2 −2
+
+πn(Θcn)
+'
+(
+(
+(
+)Eπn
+⎛
+⎝
+j
+θ2
+j
+⎞
+⎠
+2
+−2c2πn(Θc
+n).
+(7.94)
+We now bound the last two terms in (7.94).
+We shall make use of the following large deviation inequality: if Z1, . . . , Zn ∼
+N(0, 1) and 0 < t < 1, then
+P
+⎛
+⎝
+
+1
+n
+
+j
+(Z2
+j −1)
+
+> t
+⎞
+⎠≤2e−nt2/8.
+Let Zj = √nθj/(cδ) and let t = (1 −δ2)/δ2. Then,
+πn(Θc
+n)
+=
+P
+⎛
+⎝
+n
+
+j=1
+θ2
+j > c2
+⎞
+⎠= P
+⎛
+⎝1
+n
+n
+
+j=1
+(Z2
+j −1) > t
+⎞
+⎠
+≤
+P
+⎛
+⎝
+
+1
+n
+
+j
+(Z2
+j −1)
+
+> t
+⎞
+⎠≤2e−nt2/8.
+Next, we note that
+Eπn
+⎛
+⎝
+j
+θ2
+j
+⎞
+⎠
+2
+=
+n
+
+i=1
+Eπn(θ4
+i ) +
+n
+
+i=1
+n
+
+j̸=i
+Eπn(θ2
+i )Eπn(θ2
+j )
+=
+c4δ4E(Z4
+1)
+n
++
+
+n
+2
+c4δ4
+n2
+= O(1).
+Therefore, from (7.94),
+Rn ≥
+σ2δ2c2
+σ2 + δ2c2 −2
+√
+2e−nt2/16O(1) −2c2e−nt2/8.
+Hence,
+lim inf
+n→∞Rn ≥
+σ2δ2c2
+σ2 + δ2c2 .
+The conclusion follows by letting δ ↑1. ■
+Proof of Theorem 7.74. Let
+a = σn
+n1/4 (log(1 + ϵ2))1/4
+
+--- Page 185 ---
+7.13 Appendix
+177
+and deﬁne
+Ω=
+
+θ = (θ1, . . . , θn) : |θi| = a,
+i = 1, . . . , n
+
+.
+Note that Ωcontains 2n elements. Let fθ denote the density of a multivariate
+Normal with mean θ and covariance σ2
+nI where I is the identity matrix. Deﬁne
+the mixture
+q(y) = 1
+2n
+
+θ∈Ω
+fθ(y).
+Let f0 denote the density of a multivariate Normal with mean (0, . . . , 0) and
+covariance σ2
+nI. Then,
+
+|f0(x) −g(x)|dx
+=
+ |f0(x) −g(x)|
+
+f0(x)
+
+f0(x)dx
+≤
+ (f0(x) −g(x))2
+f0(x)
+dx
+=
+ g2(x)
+f0(x)dx −1.
+Now,
+ q2(x)
+f0(x)dx
+=
+ 
+ q(x)
+f0(x)
+2
+f0(x)dx = E0
+
+ q(x)
+f0(x)
+2
+=
+
+ 1
+2n
+2 
+θ,ν∈Ω
+E0
+
+fθ(x)fν(x)
+f 2
+0(x)
+
+=
+
+ 1
+2n
+2 
+θ,ν∈Ω
+exp
+
+−1
+2σ2n
+(||θ||2 + ||ν||2)
+
+E0
+
+exp
+
+ϵT (θ + ν)/σ2
+n
+
+=
+
+ 1
+2n
+2 
+θ,ν∈Ω
+exp
+
+−1
+2σ2n
+(||θ||2 + ||ν||2)
+
+exp
+ n
+
+i=1
+(θi + νi)2/(2σ2
+n)
+*
+=
+
+ 1
+2n
+2 
+θ,ν∈Ω
+exp
+⟨θ, ν⟩
+σ2n
+
+.
+The latter is equal to the mean of exp(⟨θ, ν⟩/σ2
+n) when drawing two vectors θ
+and ν at random from Ω. And this, in turn, is equal to
+E exp
+a2 n
+i=1 Ei
+σ2n
+
+
+--- Page 186 ---
+178
+7. Normal Means and Minimax Theory
+where E1, . . . , En are independent and P(Ei = 1) = P(Ei = −1) = 1/2.
+Moreover,
+E exp
+a2 n
+i=1 Ei
+σ2n
+
+=
+n
+
+i=1
+E exp
+a2Ei
+σ2n
+
+=
+
+E exp
+a2E1
+σ2n
+n
+=
+
+cosh
+
+ a2
+σ2n
+n
+where cosh(y) = (ey + e−y)/2. Thus,
+ q2(x)
+f0(x)dx =
+
+cosh
+
+ a2
+σ2n
+n
+≤ea4n/σ4
+n
+where we have used the fact that cosh(y) ≤ey2. Thus,
+
+|f0(x) −q(x)|dx ≤
+
+ea4n/σ4n −1 = ϵ.
+So, if Q denotes the probability measure with density q, we have, for any
+event A,
+Q(A)
+=
+
+A
+q(x)dx =
+
+A
+f0(x)dx +
+
+A
+(q(x) −f0(x))dx
+≥
+P0(A) −
+
+A
+|q(x) −f0(x)|dx ≥P0(A) −ϵ.
+(7.95)
+Deﬁne two events, A = {(0, . . . , 0) ∈Bn} and B = {Ω Bn ̸= ∅}. Every
+θ ∈Ωhas norm
+||θ|| =
+√
+na2 = σnn1/4(log(1 + ϵ2))1/4 ≡cn.
+Hence, A  B ⊂{sn ≥cn}. Since Pθ(θ ∈Bn) ≥1 −α for all θ, it follows that
+Pθ(B) ≥1 −α for all θ ∈Ω. Hence, Q(B) ≥1 −α. From (7.95),
+P0(sn ≥cn)
+≥
+P0(A
+
+B) ≥Q(A
+
+B) −ϵ
+=
+Q(A) + Q(B) −Q(A
+
+B) −ϵ
+≥
+Q(A) + Q(B) −1 −ϵ
+≥
+Q(A) + (1 −α) −1 −ϵ
+≥
+P0(A) + (1 −α) −1 −2ϵ
+≥
+(1 −α) + (1 −α) −1 −2ϵ
+=
+1 −2α −2ϵ.
+
+--- Page 187 ---
+7.13 Appendix
+179
+So, E0(sn) ≥(1 −2α −2ϵ)cn. It is easy to see that the same argument can be
+used for any θ ∈Rn and hence Eθ(sn) ≥(1 −2α −2ϵ)cn for every θ ∈Rn. ■
+Proof of Theorem 7.77. Let a = σnzα+2ϵ where 0 < ϵ < (1/2)(1/2 −α) and
+deﬁne
+Ω=
+
+θ = (θ1, . . . , θn) : |θi| = a,
+i = 1, . . . , n
+
+.
+Deﬁne the loss function L = L(θ, θ) = n
+i=1 I(|θi −θi| ≥a). Let π be the uni-
+form prior on Ω. The posterior mass function over Ωis p(θ|y) = n
+i=1 p(θi|yi)
+where
+p(θi|yi) =
+e2ayi/σ2
+n
+1 + e2ayi/σ2
+n I(θi = a) +
+1
+1 + e2ayi/σ2
+n I(θi = −a).
+The posterior risk is
+E(L(θ, θ)|y) =
+n
+
+i=1
+P(|θi −θi| ≥a|yi)
+which is minimized by taking θi = a if yi ≥0 and θi = −a if yi < 0. The risk
+of this estimator is
+n
+
+i=1
+
+P(Yi < 0|θi = a)I(θi = a) + P(Yi > 0|θi = −a)I(θi = −a)
+
+= nΦ(−a/σn) = n(α + 2ϵ).
+Since this risk is constant, it is the minimax risk. Therefore,
+inf
+θ
+sup
+θ∈Rn
+n
+
+i=1
+Pθ(|θi −θi| ≥a)
+≥
+inf
+θ
+sup
+θ∈Ω
+n
+
+i=1
+Pθ(|θi −θi| ≥a)
+=
+n(α + 2ϵ).
+Let γ = ϵ/(1 −α −ϵ). Given any estimator θ,
+γnPθ(L < γn) + nPθ(L ≥γn) ≥L
+and so
+sup
+θ
+
+γnPθ(L < γn) + nPθ(L ≥γn)
+
+≥sup
+θ
+Eθ(L) ≥n(α + 2ϵ).
+This inequality, together with the fact that Pθ(L < γn) + Pθ(L ≥γn) = 1
+implies that
+sup
+θ
+Pθ(L ≥γn) ≥α + ϵ.
+
+--- Page 188 ---
+180
+7. Normal Means and Minimax Theory
+Thus,
+sup
+θ
+Pθ(||θ −θ||2 ≥γna2) ≥sup
+θ
+Pθ(L ≥γn) ≥α + ϵ.
+Therefore,
+sup
+θ
+Pθ(s2
+n ≥γna2)
+≥
+sup
+θ
+Pθ(s2
+n ≥||θ −θ||2 ≥γna2)
+=
+sup
+θ
+Pθ(s2
+n ≥||θ −θ||2) + sup
+θ
+Pθ(||θ −θ||2 ≥γna2) −1
+≥
+α + ϵ + 1 −α −1 = ϵ.
+Thus, supθ Eθ(sn) ≥ϵa√γn. ■
+7.14
+Exercises
+1. Let θi = 1/i2 for i = 1, . . . , n. Take n = 1000. Let Zi ∼N(θi, 1) for
+i = 1, . . . , n. Compute the risk of the mle. Compute the risk of the
+estimator θ = (bZ1, bZ2, . . . , bZn). Plot this risk as a function of b. Find
+the optimal value b∗. Now conduct a simulation. For each run of the
+simulation, ﬁnd the (modiﬁed) James–Stein estimator bZ where
+b =
+!
+1 −
+n
+
+i Z2
+i
+"+
+.
+You will get one b for each simulation. Compare the simulated values of
+b to b∗. Also, compare the risk of the mle and the James–Stein estimator
+(the latter obtained by simulation) to the Pinsker bound.
+2. For the Normal means problem, consider the following curved soft thresh-
+old estimator:
+θi =
+⎧
+⎨
+⎩
+−(Zi + λ)2
+Zi < −λ
+0
+−λ ≤Zi ≤λ
+(Zi −λ)2
+Zi > λ
+where λ > 0 is some ﬁxed constant.
+(a) Find the risk of this estimator. Hint: R = E(sure).
+(b) Consider problem (1). Use your estimator from (2a) with λ chosen
+from the data using sure. Compare the risk to the risk of the James–
+Stein estimator. Now repeat the comparison for
+θ = (
+10 times
+#
+$%
+&
+10, . . . , 10,
+990 times
+# $% &
+0, . . . , 0).
+
+--- Page 189 ---
+7.14 Exercises
+181
+3. Let J = Jn be such that Jn →∞and n →∞. Let
+σ2 = n
+J
+n
+
+i=n−J+1
+Z2
+i
+where Zi ∼N(θi, σ2/n). Show that if θ = (θ1, θ2, . . .) belongs to a
+Sobolev body of order m > 1/2 then σ2 is a uniformly consistent esti-
+mator of σ2 in the Normal means model.
+4. Prove Stein’s lemma: if X ∼N(µ, σ2) then E(g(X)(X−µ)) = σ2Eg′(X).
+5. Verify equation 7.22.
+6. Show that the hard threshold estimator deﬁned in (7.23) is not weakly
+diﬀerentiable.
+7. Compute the risk functions for the soft threshold estimator (7.21) and
+the hard threshold estimator (7.23).
+8. Generate Zi ∼N(θi, 1), i = 1, . . . , 100, where θi = 1/i. Compute a 95
+percent conﬁdence ball using: (i) the χ2 conﬁdence ball, (ii) the Baraud
+method, (iii) the pivotal method. Repeat 1000 times and compare the
+radii of the balls.
+9. Let ||a−b||∞= supj |aj −bj|. Construct a conﬁdence set Bn of the form
+Bn = {θ ∈Rn : ||θ −Zn||∞≤cn} such that Pθ(θ ∈Bn) ≥1 −α for all
+θ ∈Rn under model (7.1) with σn = σ/√n. Find the expected diameter
+of your conﬁdence set.
+10. Consider Example 7.24. Deﬁne
+δ = max
+S∈S sup
+θ∈Rn | RS −R(θS, θ)|.
+Try to bound δ in the following three cases: (i) S consists of a single
+model S; (ii) nested model selection; (iii) all subsets selection.
+11. Consider Example 7.24. Another method for choosing a model is to use
+penalized likelihood. In particular, some well-known penalization model
+selection methods are AIC (Akaike’s Information Criterion), Akaike
+(1973), Mallows’ Cp, Mallows (1973), and BIC (Bayesian Information
+Criterion), Schwarz (1978).
+In the Normal means model, minimizing
+
+--- Page 190 ---
+182
+7. Normal Means and Minimax Theory
+sure, AIC and Cp are equivalent. But BIC leads to a diﬀerent model
+selection procedure. Speciﬁcally,
+BICB = ℓB −|B|
+2 log n
+where ℓB is the log-likelihood of the submodel B evaluated at its max-
+imum likelihood estimator. Find an explicit expression for BICB. Sup-
+pose we choose B by maximizing BICB over B. Investigate the properties
+of this model selection procedure and compare it to selecting a model by
+minimizing sure. In particular, compare the risk of the resulting esti-
+mators. Also, assuming there is a “true” submodel (that is, θi ̸= 0 if and
+only if i ∈B), compare the probability of selecting the true submodel
+under each procedure. In general, estimating θ accurately and ﬁnding
+the true submodel are not the same. See Wasserman (2000).
+12. By approximating the noncentral χ2 with a Normal, ﬁnd a large sample
+approximation to for ρ0 and ρn in Example 7.69. Then prove equation
+(7.70).
+
+--- Page 191 ---
+8
+Nonparametric Inference Using
+Orthogonal Functions
+8.1
+Introduction
+In this chapter we use orthogonal function methods for nonparametric infer-
+ence. Speciﬁcally, we use an orthogonal basis to convert regression and density
+estimation into a Normal means problem and then we construct estimates and
+conﬁdence sets using the theory from Chapter 7. In the regression case, the
+resulting estimators are linear smoothers and thus are a special case of the es-
+timators described in Section 5.2. We discuss another approach to orthogonal
+function regression based on wavelets in the next chapter.
+8.2
+Nonparametric Regression
+The particular version of orthogonal function regression that we consider here
+was developed by Beran (2000) and Beran and D¨umbgen (1998). They call
+the method react, which stands for Risk Estimation and Adaptation
+after Coordinate Transformation. Similar ideas have been developed by
+Efromovich (1999). In fact, the basic idea is quite old; see Cen˘cov (1962), for
+example.
+Suppose we observe
+Yi = r(xi) + σϵi
+(8.1)
+
+--- Page 192 ---
+184
+8. Nonparametric Inference Using Orthogonal Functions
+where ϵi ∼N(0, 1) are iid. For now, we assume a regular design meaning
+that xi = i/n, i = 1, . . . , n.
+Let φ1, φ2, . . . be an orthonormal basis for [0, 1]. In our examples we will
+often use the cosine basis:
+φ1(x) ≡1,
+φj(x) =
+√
+2 cos((j −1)πx), j ≥2.
+(8.2)
+Expand r as
+r(x) =
+∞
+
+j=1
+θjφj(x)
+(8.3)
+where θj =  1
+0 φj(x)r(x)dx.
+First, we approximate r by
+rn(x) =
+n
+
+j=1
+θjφj(x)
+which is the projection of r onto the span of {φ1, . . . , φn}.1 This introduces
+an integrated squared bias of size
+Bn(θ) =
+ 1
+0
+(r(x) −rn(x))2dx =
+∞
+
+j=n+1
+θ2
+j .
+If r is smooth, this bias is quite small.
+8.4 Lemma. Let Θ(m, c) be a Sobolev ellipsoid.2 Then,
+sup
+θ∈Θ(m,c)
+Bn(θ) = O
+
+ 1
+n2m
+
+.
+(8.5)
+In particular, if m > 1/2 then supθ∈Θ(m,c) Bn(θ) = o(1/n).
+Hence this bias is negligible and we shall ignore it for the rest of the chapter.
+More precisely, we will focus on estimating rn rather than r. Our next task is
+to estimate the θ = (θ1, . . . , θn). Let
+Zj = 1
+n
+n
+
+i=1
+Yi φj(xi),
+j = 1, . . . .
+(8.6)
+1More generally we could take rn(x) = p(n)
+j=1 θjφj(x) where p(n) →∞at an appropriate
+rate.
+2See Deﬁnition 7.2.
+
+--- Page 193 ---
+8.2 Nonparametric Regression
+185
+As we saw in equation (7.15) of Chapter 7,
+Zj ≈N
+
+θj, σ2
+n
+
+.
+(8.7)
+We know from the previous chapter that the mle Z = (Z1, . . . , Zn) has large
+risk. One possibility for improving on the mle is to use the James–Stein
+estimator θJS deﬁned in (7.41). We can think of the James–Stein estimator
+as the estimator that minimizes the estimated risk over all estimators of the
+form (bZ1, . . . , bZn). react generalizes this idea by minimizing the risk over
+a larger class of estimators, called modulators.
+A modulator is a vector b = (b1, . . . , bn) such that 0 ≤bj ≤1, j = 1, . . . , n.
+A modulation estimator is an estimator of the form
+θ = bZ = (b1Z1, b2Z2, . . . , bnZn).
+(8.8)
+A constant modulator is a modulator of the form (b, . . . , b). A nested
+subset selection modulator is a modulator of the form
+b = (1, . . . , 1, 0, . . ., 0).
+A monotone modulator is a modulator of the form
+1 ≥b1 ≥· · · ≥bn ≥0.
+The set of constant modulators is denoted by MCONS, the set of nested sub-
+set modulators is denoted by MNSS and the set of monotone modulators is
+denoted by MMON.
+Given a modulator b = (b1, . . . , bn), the function estimator is
+rn(x) =
+n
+
+j=1
+θjφj(x) =
+n
+
+j=1
+bjZjφj(x).
+(8.9)
+Observe that
+rn(x) =
+n
+
+i=1
+Yi ℓi(x)
+(8.10)
+where
+ℓi(x) = 1
+n
+n
+
+j=1
+bjφj(x)φj(xi).
+(8.11)
+Hence, rn is a linear smoother as described in Section 5.2.
+Modulators shrink the Zjs towards 0 and, as we saw in the last chapter,
+shrinking tends to smooth the function. Thus, choosing the amount of shrink-
+age corresponds to the problem of choosing a bandwidth that we faced in
+
+--- Page 194 ---
+186
+8. Nonparametric Inference Using Orthogonal Functions
+Chapter 5. We shall address the problem using Stein’s unbiased risk estima-
+tor (Section 7.4) instead of cross-validation.
+Let
+R(b) = Eθ
+3 n
+
+j=1
+(bjZj −θj)2
+4
+denote the risk of the estimator θ = (b1Z1, . . . , bnZn). The idea of react is
+to estimate the risk R(b) and choose b to minimize the estimated risk over
+a class of modulators M. Minimizing over MCONS yields the James–Stein
+estimator, so react is a generalization of James–Stein estimation.
+To proceed, we need to estimate σ. Any of the methods discussed in Chapter
+5 can be used. Another estimator, well-suited for the present framework, is
+σ2 =
+1
+n −Jn
+n
+
+i=n−Jn+1
+Z2
+i .
+(8.12)
+This estimator is consistent as long as Jn →∞and n −Jn →∞as n →∞.
+As a default value, Jn = n/4 is not unreasonable. The intuition is that if r is
+smooth then we expect θj ≈0 for large j, and hence Z2
+j = (θ2
+j + σϵj/√n)2 ≈
+(σϵj/√n)2 = σ2ϵ2
+j/n. Therefore,
+E(σ2) =
+1
+n −Jn
+n
+
+n−Jn+1
+E(Z2
+i ) ≈
+1
+n −Jn
+n
+
+n−Jn+1
+σ2
+n E(ϵ2
+i ) = σ2.
+Now we can estimate the risk function.
+8.13 Theorem. The risk of a modulator b is
+R(b) =
+n
+
+j=1
+θ2
+j(1 −bj)2 + σ2
+n
+n
+
+j=1
+b2
+j.
+(8.14)
+The (modiﬁed)3 sure estimator of R(b) is
+R(b) =
+n
+
+j=1
+
+Z2
+j −σ2
+n
+
++
+(1 −bj)2 + σ2
+n
+n
+
+j=1
+b2
+j
+(8.15)
+where σ2 is a consistent estimate of σ2 such as (8.12).
+3We call this a modiﬁed risk estimator since we have inserted an estimate σ of σ and we
+replaced (Z2
+j −σ2/n) with (Z2
+j −σ2/n)+ which usually improves the risk estimate.
+
+--- Page 195 ---
+8.2 Nonparametric Regression
+187
+8.16 Deﬁnition. Let M be a set of modulators. The modulation
+estimator of θ is θ = (b1Z1, . . . ,bnZn) where b = (b1 . . . ,bn) minimizes
+R(b) over M. The react function estimator is
+rn(x) =
+n
+
+j=1
+θjφj(x) =
+n
+
+j=1
+bjZjφj(x).
+For a ﬁxed b, we expect that R(b) approximates R(b). But for the react
+estimator we require more: we want R(b) to approximate R(b) uniformly for
+b ∈M. If so, then infb∈M R(b) ≈infb∈M R(b) and the b that minimizes R(b)
+should be nearly as good as the b that minimizes R(b). This motivates the
+next result.
+8.17 Theorem (Beran and D¨umbgen, 1998). Let M be one of MCONS, MNSS
+or MMON. Let R(b) denote the true risk of the estimator (b1Z1, . . . , bnZn).
+Let b∗minimize R(b) over M and let b minimize R(b) over M. Then
+|R(b) −R(b∗)| →0
+as n →∞. For M = MCONS or M = MMON, the estimator θ = (b1Z1, . . .,
+bnZn) achieves the Pinsker bound (7.29).
+To implement this method, we need to ﬁnd b to minimize R(b). The min-
+imum of R(b) over MCONS is the James–Stein estimator. To minimize R(b)
+over MNSS, we compute R(b) for every modulator of the form (1, 1 . . . , 1, 0, . . ., 0)
+and then the minimum is found. In other words, we ﬁnd J to minimize
+R(J) = Jσ2
+n
++
+n
+
+j=J+1
+
+Z2
+j −σ2
+n
+
++
+(8.18)
+and set rn(x) =  J
+j=1 Zjφj(x). It is a good idea to plot the estimated risk as
+a function of J. To minimize R(b) over MMON, note that R(b) can be written
+as
+R(b) =
+n
+
+i=1
+(bi −gi)2Z2
+i + σ2
+n
+n
+
+i=1
+gi
+(8.19)
+where gi = (Z2
+i −(σ2/n))/Z2
+i . So it suﬃces to minimize
+n
+
+i=1
+(bi −gi)2Z2
+i
+
+--- Page 196 ---
+188
+8. Nonparametric Inference Using Orthogonal Functions
+subject to b1 ≥· · · ≥bn. This is simply a weighted least squares problem sub-
+ject to a monotonicity constraint. There is a well-known algorithm called the
+pooled-adjacent-violators (PAV) algorithm for performing this minimization;
+See Robertson et al. (1988).
+Usually, monotone modulators lead to estimates that are close to the NSS
+modulators and the latter are very easy to implement. Thus, as a default, the
+NSS method is reasonable. At this point, we can summarize the whole react
+procedure.
+Summary of react
+1. Let Zj = n−1 n
+i=1 Yi φj(xi) for j = 1, . . . , n.
+2. Find J to minimize the risk estimator R(J) given by equation (8.18).
+3. Let
+rn(x) =
+J
+
+j=1
+Zjφj(x).
+8.20 Example (Doppler function). Recall that the Doppler function from
+Example 5.63 is
+r(x) =
+
+x(1 −x) sin
+
+ 2.1π
+x + .05
+
+.
+The top left panel in Figure 8.1 shows the true function. The top right panel
+shows 1000 data points. The data were simulated from the model Yi = r(i/n)+
+σϵi with σ = 0.1 and ϵi ∼N(0, 1). The bottom left panel shows the estimated
+risk for the NSS modulator as a function of the number of terms in the ﬁt.
+The risk was minimized by using the modulator:
+b = (1, . . . , 1
+% &# $
+187
+, 0, . . . , 0
+% &# $
+813
+).
+The bottom right panel shows the react ﬁt. Compare with Figure 5.6. ■
+8.21 Example (CMB data). Let us compare react to local smoothing for the
+CMB data from Example 4.4. The estimated risk (for NSS) is minimized by
+using J = 6 basis functions. The ﬁt is shown in Figure 8.2. and is similar to
+the ﬁts obtained in Chapter 5. (We are ignoring the fact that the variance is
+not constant.) The plot of the risk reveals that there is another local minimum
+around J = 40. The bottom right plot shows the ﬁt using 40 basis functions.
+This ﬁt appears to undersmooth. ■
+
+--- Page 197 ---
+8.2 Nonparametric Regression
+189
+0.0
+0.5
+1.0
+−1
+0
+1
+0.0
+0.5
+1.0
+−1
+0
+1
+0
+500
+1000
+0.0
+0.5
+1.0
+−1
+0
+1
+FIGURE 8.1. Doppler test function. Top left: true function. Top right: 1000 data
+points. Bottom left: estimated risk as a function of the number of terms in the ﬁt.
+Bottom right: ﬁnal react ﬁt.
+There are several ways to construct a conﬁdence set for r. We begin with
+conﬁdence balls. First, construct a conﬁdence ball Bn for θ = (θ1, . . . , θn)
+using any of the methods in Section 7.8. Then deﬁne
+Cn =
+
+r =
+n
+
+j=1
+θjφj : (θ1, . . . , θn) ∈Bn
+*
+.
+(8.22)
+It follows that Cn is a conﬁdence ball for rn. If we use the pivotal method
+from Section 7.8 we get the following.
+8.23 Theorem (Beran and D¨umbgen, 1998). Let θ be the MON or NSS esti-
+mator and let σ2 be the estimator of σ deﬁned in (8.12). Let
+Bn =
+
+θ = (θ1, . . . , θn) :
+n
+
+j=1
+(θj −θj)2 ≤s2
+n
+*
+(8.24)
+where
+s2
+n
+=
+R(b) + τ zα
+√n
+τ2
+=
+2σ4
+n
+
+j
+
+(2bj −1)(1 −cj)
+2
++ 4σ2 
+j
+
+Z2
+j −σ2
+n
+ 
+(1 −bj) + (2bj −1)cj
+2
+
+--- Page 198 ---
+190
+8. Nonparametric Inference Using Orthogonal Functions
+0
+450
+900
+0
+25
+50
+0
+450
+900
+FIGURE 8.2. CMB data using react. Top left: NSS ﬁt using J = 6 basis functions.
+Top right: estimated risk. Bottom left: NSS ﬁt using J = 40 basis functions.
+and
+cj =
+
+0
+if j ≤n −J
+1/J
+if j > n −J.
+Then, for any c > 0 and m > 1/2,
+lim
+n→∞
+sup
+θ∈Θ(m,c)
+|Pθ(θ ∈Bn) −(1 −α)| = 0.
+To construct conﬁdence bands, we use the fact that rn is a linear smoother
+and we can then use the method from Section 5.7. The band is given by (5.99),
+namely,
+I(x) =
+
+rn(x) −c σ||ℓ(x)||, rn(x) + c σ||ℓ(x)||
+
+(8.25)
+where
+||ℓ(x)||2 ≈1
+n
+n
+
+j=1
+b2
+jφ2
+j(x)
+(8.26)
+and c is from equation (5.102).
+8.3
+Irregular Designs
+So far we have assumed a regular design xi = i/n. Now let us relax this
+assumption and deal with an irregular design. There are several ways to
+
+--- Page 199 ---
+8.3 Irregular Designs
+191
+handle this case. The simplest is to use a basis {φ1, . . . , φn} that is orthogonal
+with respect to the design points x1, . . . , xn. That is, we choose a basis for
+L2(Pn) where Pn = n−1 n
+i=1 δi and δi is a point mass at xi. This requires
+that
+||φ2
+j|| = 1,
+j = 1, . . . , n
+and
+⟨φj, φk⟩= 0,
+1 ≤j < k ≤n
+where
+⟨f, g⟩=
+
+f(x)g(x)dPn(x) = 1
+n
+n
+
+i=1
+f(xi)g(xi)
+and
+||f||2 =
+
+f 2(x)dPn(x) = 1
+n
+n
+
+i=1
+f 2(xi).
+We can construct such a basis by Gram–Schmidt orthogonalization as follows.
+Let g1, . . . , gn be any convenient orthonormal basis for Rn. Let
+φ1(x) = ψ1(x)
+||ψ1||
+where
+ψ1(x) = g1(x)
+and for 2 ≤r ≤n deﬁne
+φr(x) = ψr(x)
+||ψr||
+where
+ψr(x) = gr(x) −
+r−1
+
+j=1
+ar,jφj(x)
+and
+ar,j = ⟨gr, φj⟩.
+Then, φ1, . . . , φn form an orthonormal basis with respect to Pn.
+Now, as before, we deﬁne
+Zj = 1
+n
+n
+
+i=1
+Yi φj(xi),
+j = 1, . . . , n.
+(8.27)
+It follows that
+Zj ≈N
+
+θj, σ2
+n
+
+and we can then use the methods that we developed in this chapter.
+
+--- Page 200 ---
+192
+8. Nonparametric Inference Using Orthogonal Functions
+8.4
+Density Estimation
+Orthogonal function methods can also be used for density estimation. Let
+X1, . . . , Xn be an iid sample from a distribution F with density f with support
+on (0, 1). We assume that f ∈L2(0, 1) so we can expand f as
+f(x) =
+∞
+
+j=1
+θjφj(x)
+where, as before, φ1, φ2, . . . , is an orthogonal basis. Let
+Zj = 1
+n
+n
+
+i=1
+φj(Xi),
+j = 1, 2, . . . , n.
+(8.28)
+Then,
+E(Zj) =
+
+φj(x)f(x)dx = θj
+and
+V(Zj) = 1
+n
+
+φ2
+j(x)f(x)dx −θ2
+j
+
+≡σ2
+j .
+As in the regression case, we take θj = 0 for j > n and we estimate θ =
+(θ1, . . . , θn) using a modulation estimator θ = bZ = (b1Z1, . . . , bnZn). The
+risk of this estimator is
+R(b) =
+n
+
+j=1
+b2
+jσ2
+j +
+n
+
+j=1
+(1 −bj)2θ2
+j.
+(8.29)
+We estimate σ2
+j by
+σ2
+j = 1
+n2
+n
+
+i=1
+(φj(Xi) −Zj)2
+and θ2
+j by Z2
+j −σ2
+j ; then we can estimate the risk by
+R(b) =
+n
+
+j=1
+b2
+jσ2
+j +
+n
+
+j=1
+(1 −bj)2 
+Z2
+j −σ2
+j
+
++ .
+(8.30)
+Finally, we choose b by minimizing R(b) over some class of modulators M.
+The density estimate can be negative. We can ﬁx this by performing surgery:
+remove the negative part of the density and renormalize it to integrate to 1.
+Better surgery methods are discussed in Glad et al. (2003).
+
+--- Page 201 ---
+8.5 Comparison of Methods
+193
+8.5
+Comparison of Methods
+The methods we have introduced for nonparametric regression so far are lo-
+cal regression (Section 5.4), spline smoothing (Section 5.5), and orthogonal
+function smoothing. In many ways, these methods are very similar. They all
+involve a bias–variance tradeoﬀand they all require choosing a smoothing
+parameter. Local polynomial smoothers have the advantage that they auto-
+matically correct for boundary bias. It is possible to modify orthogonal func-
+tion estimators to alleviate boundary bias by changing the basis slightly; see
+Efromovich (1999). An advantage of orthogonal function smoothing is that
+it converts nonparametric regression into the many Normal means problem,
+which is simpler, at least for theoretical purposes. There are rarely huge dif-
+ferences between the approaches, especially when these diﬀerences are judged
+relative to the width of conﬁdence bands. Each approach has its champions
+and its detractors. It is wise to use all available tools for each problem. If they
+agree then the choice of method is one of convenience or taste; if they disagree
+then there is value in ﬁguring out why they diﬀer.
+Finally, let us mention that there is a formal relationship between these ap-
+proaches. For example, orthogonal function can be viewed as kernel smoothing
+with a particular kernel and vice versa. See H¨ardle et al. (1998) for details.
+8.6
+Tensor Product Models
+The methods in this chapter extend readily to higher dimensions although
+our previous remarks about the curse of dimensionality apply here as well.
+Suppose that r(x1, x2) is a function of two variables. For simplicity, assume
+that 0 ≤x1, x2 ≤1. If φ0, φ1, . . . is an orthonormal basis for L2(0, 1) then the
+functions
+
+φj,k(x1, x2) = φj(x1)φk(x2) : j, k = 0, 1, . . . ,
+
+form an orthonormal basis for L2([0, 1] × [0, 1]), called the tensor product
+basis. The basis can be extended to d dimensions in the obvious way.
+Suppose that φ0 = 1. Then a function r ∈L2([0, 1]×[0, 1]) can be expanded
+in the tensor product basis as
+r(x1, x2)
+=
+∞
+
+j,k=0
+βj,k φj(x1)φk(x2)
+=
+β0 +
+∞
+
+j=1
+βj,0 φj(x1) +
+∞
+
+j=1
+β0,j φj(x2) +
+∞
+
+j,k=1
+βj,k φj(x1)φk(x2).
+
+--- Page 202 ---
+194
+8. Nonparametric Inference Using Orthogonal Functions
+This expansion has an ANOVA-like structure consisting of a mean, main ef-
+fects, and interactions. This structure suggests a way to get better estimators.
+We could put stronger smoothness assumptions on higher-order interactions
+to get better rates of convergence (at the expense of more assumptions). See
+Lin (2000), Wahba et al. (1995), Gao et al. (2001), and Lin et al. (2000).
+8.7
+Bibliographic Remarks
+The react method is developed in Beran (2000) and Beran and D¨umbgen
+(1998). A diﬀerent approach to using orthogonal functions is discussed in Efro-
+movich (1999). react conﬁdence sets are extended to nonconstant variance
+in Genovese et al. (2004), to wavelets in Genovese and Wasserman (2005),
+and to density estimation in Jang et al. (2004).
+8.8
+Exercises
+1. Prove Lemma 8.4.
+2. Prove Theorem 8.13.
+3. Prove equation (8.19).
+4. Prove equation (8.26).
+5. Show that the estimator (8.12) is consistent.
+6. Show that the estimator (8.12) is uniformly consistent over Sobolev
+ellipsoids.
+7. Get the data on fragments of glass collected in forensic work from the
+book website. Let Y be refractive index and let x be aluminium con-
+tent (the fourth variable). Perform a nonparametric regression to ﬁt the
+model Y = r(x) + ϵ. Use react and compare to local linear smoothing.
+Estimate the variance. Construct 95 percent conﬁdence bands for your
+estimate.
+8. Get the motorcycle data from the book website. The covariate is time
+(in milliseconds) and the response is acceleration at time of impact. Use
+react to ﬁt the data. Compute 95 percent conﬁdence bands. Compute
+a 95 percent conﬁdence ball. Can you think of a creative way to display
+the conﬁdence ball?
+
+--- Page 203 ---
+8.8 Exercises
+195
+9. Generate 1000 observations from the model Yi = r(xi) + σϵi where
+xi = i/n, ϵi ∼N(0, 1) and r is the Doppler function. Make three data
+sets corresponding to σ = .1, σ = 1 and σ = 3. Estimate the function
+using local linear regression and using react. In each case, compute a
+95 percent conﬁdence band. Compare the ﬁts and the conﬁdence bands.
+10. Repeat the previous exercise but use Cauchy errors instead of Normal
+errors. How might you change the procedure to make the estimators
+more robust?
+11. Generate n = 1000 data points from (1/2)N(0, 1)+ (1/2)N(µ, 1). Com-
+pare kernel density estimators and react density estimators. Try µ =
+0, 1, 2, 3, 4, 5.
+12. Recall that a modulator is any vector of the form b = (b1, . . . , bn) such
+that 0 ≤bj ≤1, j = 1, . . . , n. The greedy modulator is the modulator
+b∗= (b∗
+1, . . . , b∗
+n) chosen to minimize the risk R(b) over all modulators.
+(a) Find b∗.
+(b) What happens if we try to estimate b∗from the data? In particular,
+consider taking b∗to minimize the estimated risk R. Why will this not
+work well? (The problem is that we are now minimizing R over a very
+large class and R does not approximate R uniformly over such a large
+class.)
+13. Let
+Yi = r(x1i, x2i) + ϵi
+where ϵi ∼N(0, 1), x1i = x2i = i/n and r(x1, x2) = x1 + cos(x2).
+Generate 1000 observations. Fit a tensor product model with J1 basis
+elements for x1 and J2 basis elements for x2. Use sure (Stein’s unbiased
+risk estimator) to choose J1 and J2.
+14. Download the air quality data set from the book website. Model ozone
+as a function of solar R, wind and temperature. Use a tensor product
+basis.
+
+--- Page 204 ---
+9
+Wavelets and Other Adaptive Methods
+This chapter concerns estimating functions that are spatially inhomoge-
+neous, functions r(x) whose smoothness varies substantially with x. For ex-
+ample, Figure 9.1 shows the “blocks” function whose deﬁnition is given in
+Example 9.39. The function is very smooth except for several abrupt jumps.
+The top right plot shows 100 data points drawn according to Yi = r(xi) + ϵi
+with ϵi ∼N(0, 1), and the xis equally spaced.
+It might be diﬃcult to estimate r using the methods we have discussed so
+far. If we use local regression with a large bandwidth, then we will smooth out
+the jumps; if we use a small bandwidth, then we will ﬁnd the jumps but we
+will make the rest of the curve very wiggly. If we use orthogonal functions and
+keep only low-order terms, we will miss the jumps; if we allow higher-order
+terms we will ﬁnd the jumps but we will make the rest of the curve very wiggly.
+The function estimates in Figure 9.1 illustrate this point. Another example of
+an inhomogeneous function is the Doppler function in Example 5.63.
+Estimators that are designed to estimate such functions are said to be spa-
+tially adaptive or locally adaptive. A closely related idea is to ﬁnd globally
+adaptive estimators; these are function estimators that perform well over large
+classes of function spaces. In this chapter we explore adaptive estimators with
+an emphasis on wavelet methods. In Section 9.9 we brieﬂy consider some
+other adaptive methods.
+
+--- Page 205 ---
+198
+9. Wavelets and Other Adaptive Methods
+0.0
+0.5
+1.0
+−10
+0
+10
+20
+0.0
+0.5
+1.0
+−10
+0
+10
+20
+0.0
+0.5
+1.0
+−10
+0
+10
+20
+0.0
+0.5
+1.0
+−10
+0
+10
+20
+FIGURE 9.1. The blocks function (upper left plot) is inhomogeneous. One-hundred
+data points are shown in the upper right plot. A local linear smoother with a small
+bandwidth (lower left) picks up the jumps but adds many wiggles. A local linear
+smoother with a large bandwidth (lower right) is smooth but misses the jumps.
+Caveat Emptor! Before proceeding, a warning is in order. Adaptive esti-
+mation is diﬃcult. Unless the signal-to-noise ratio is large, we cannot expect
+to adapt very well. To quote from Loader (1999b):
+Locally adaptive procedures work well on examples with plenty of
+data, obvious structure and low noise. But . . . these are not diﬃcult
+problems . . . . The real challenges . . . occur when the structure
+is not obvious, and there are questions as to which features in
+a dataset are real. In such cases, simpler methods . . . are most
+useful, and locally adaptive methods produce little beneﬁt.
+The reader is urged to keep this in mind as we proceed. See Section 9.10 for
+more discussion on this point. Despite the caveat, the methods in this chapter
+are important because they do work well in high signal-to-noise problems and,
+more importantly, the conceptual ideas underlying the methods are important
+in their own right.
+
+--- Page 206 ---
+9.1 Haar Wavelets
+199
+The wavelet methods discussed in this chapter illustrate a concept that is
+becoming increasingly important in statistics and machine learning, namely,
+the notion of sparseness. A function f = 
+j βjφj is sparse in a basis
+φ1, φ2, . . . if most of the βj’s are zero (or close to zero). We will see that even
+some fairly complicated functions are sparse when expanded in a wavelet
+basis. Sparseness generalizes smoothness: smooth functions are sparse but
+there are also nonsmooth functions that are sparse. It is interesting to note
+that sparseness is not captured well by the L2 norm but it is captured by
+the L1 norm. For example, consider the n-vectors a = (1, 0, . . . , 0) and b =
+(1/√n, . . . , 1/√n). Then both have the same L2 norm: ||a||2 = ||b||2 = 1.
+However, the L1 norms are ||a||1 = 
+i |ai| = 1 and ||b||1 = 
+i |bi| = √n. The
+L1 norms reﬂects the sparsity of a.
+Notation. Throughout this chapter, Z denotes the set of integers and Z+
+denotes the set of positive integers. The Fourier transform f ∗of a function
+f is
+f ∗(t) =
+ ∞
+−∞
+e−ixtf(x)dx
+(9.1)
+where i = √−1. If f ∗is absolutely integrable then f can be recovered at
+almost all x by the inverse Fourier transform
+f(x) = 1
+2π
+ ∞
+−∞
+eixtf ∗(t)dt.
+(9.2)
+Given any function f and integers j and k, deﬁne
+fjk(x) = 2j/2f(2jx −k).
+(9.3)
+9.1
+Haar Wavelets
+We begin with a simple wavelet called the Haar wavelet. The Haar father
+wavelet or Haar scaling function is deﬁned by
+φ(x) =
+ 1
+if 0 ≤x < 1
+0
+otherwise.
+(9.4)
+The mother Haar wavelet is deﬁned by
+ψ(x) =
+ −1
+if 0 ≤x ≤1
+2
+1
+if 1
+2 < x ≤1.
+(9.5)
+
+--- Page 207 ---
+200
+9. Wavelets and Other Adaptive Methods
+–2
+–1
+0
+1
+2
+0
+0.5
+1
+–2
+–1
+0
+1
+2
+0
+0.5
+1
+FIGURE 9.2. Some Haar wavelets. Left: the mother wavelet ψ(x); right: ψ2,2(x).
+For any integers j and k deﬁne φjk(x) and ψjk(x) as in (9.3). The function
+ψjk has the same shape as ψ but it has been rescaled by a factor of 2j/2 and
+shifted by a factor of k. See Figure 9.2 for some examples of Haar wavelets.
+Let
+Wj = {ψjk, k = 0, 1, . . . , 2j −1}
+be the set of rescaled and shifted mother wavelets at resolution j.
+9.6 Theorem. The set of functions
+
+φ, W0, W1, W2, . . . ,
+
+is an orthonormal basis for L2(0, 1).
+It follows from this theorem that we can expand any function f ∈L2(0, 1) in
+this basis. Because each Wj is itself a set of functions, we write the expansion
+as a double sum:
+f(x) = α φ(x) +
+∞
+
+j=0
+2j−1
+
+k=0
+βjkψjk(x)
+(9.7)
+where
+α =
+ 1
+0
+f(x)φ(x) dx,
+βjk =
+ 1
+0
+f(x)ψjk(x) dx.
+We call α the scaling coeﬃcient and the βjk’s are called the detail
+coeﬃcients. We call the ﬁnite sum
+fJ(x) = αφ(x) +
+J−1
+
+j=0
+2j−1
+
+k=0
+βjkψjk(x)
+(9.8)
+
+--- Page 208 ---
+9.1 Haar Wavelets
+201
+the resolution J approximation to f. The total number of terms in this sum
+is
+1 +
+J−1
+
+j=0
+2j = 1 + 2J −1 = 2J.
+9.9 Example. Figure 9.3 shows the Doppler signal (Example 5.63) and its
+resolution J approximation for J = 3, 5 and J = 8. ■
+0.0
+0.5
+1.0
+−0.4
+0.0
+0.4
+0.0
+0.5
+1.0
+−0.4
+0.0
+0.4
+0.0
+0.5
+1.0
+−0.4
+0.0
+0.4
+0.0
+0.5
+1.0
+−0.4
+0.0
+0.4
+FIGURE
+9.3.
+The
+Doppler
+signal
+(top
+left)
+and
+its
+reconstruction
+fJ(x) = αφ(x) + J−1
+j=0
+
+k βjkψjk(x) based on J
+= 3 (top right), J
+= 5
+(bottom left) and J = 8 (bottom right).
+When j is large, ψjk is a very localized function. This makes it possible
+to add a blip to a function in one place without adding wiggles elsewhere.
+This is what makes a wavelet basis a good tool for modeling inhomogeneous
+functions.
+Figure 9.4 shows that blocks function and the coeﬃcients of the expansion
+of the function in the Haar basis. Notice that the expansion is sparse (most
+coeﬃcients are zero) since nonzero coeﬃcients are needed mainly where the
+function has jumps.
+
+--- Page 209 ---
+202
+9. Wavelets and Other Adaptive Methods
+0.0
+0.5
+1.0
+f(x)
+x
+father coeﬃcients
+mother coeﬃcients (level 1)
+mother coeﬃcients (level 2)
+mother coeﬃcients (level 3)
+FIGURE 9.4. The blocks function f(x) is shown on top. The second plot show the
+coeﬃcients of the father wavelets. The third plot show the coeﬃcients of the sec-
+ond-level mother wavelets. The remaining plots show the coeﬃcients of the mother
+wavelets at higher levels. Despite the fact that the function is not smooth, the func-
+tion is sparse: most coeﬃcients are zero.
+
+--- Page 210 ---
+9.2 Constructing Wavelets
+203
+9.2
+Constructing Wavelets
+Haar wavelets are useful because they are localized, that is, they have bounded
+support. But Haar wavelets are not smooth. How can we construct other
+wavelets? In particular, how can we construct localized, smooth wavelets?
+The answer is quite involved. We will give a brief synopsis of the main ideas;
+see H¨ardle et al. (1998) and Daubechies (1992) for more details.
+Given any function φ deﬁne
+V0
+=
+
+f : f(x) =
+
+k∈Z
+ckφ(x −k),
+
+k∈Z
+c2
+k < ∞
+*
+,
+V1
+=
+
+f(x) = g(2x) : g ∈V0
+
+,
+(9.10)
+V2
+=
+
+f(x) = g(2x) : g ∈V1
+
+,
+...
+...
+...
+9.11 Deﬁnition. Given a function φ, deﬁne V0, V1, . . . , as in (9.10). We
+say that φ generates a multiresolution analysis (MRA) of R if
+Vj ⊂Vj+1,
+j ≥0,
+(9.12)
+and
+
+j≥0
+Vj
+is dense in L2(R).
+(9.13)
+We call φ the father wavelet or the scaling function.
+Equation (9.13) means that for any function f ∈L2(R), there exists a
+sequence of functions f1, f2, . . . such that each fr ∈	
+j≥0 Vj and ||fr −f|| →0
+as r →∞.
+9.14 Lemma. If V0, V1, . . . is an MRA generated by φ, then {φjk, k ∈Z} is
+an orthonormal basis for Vj.
+9.15 Example. If φ is the father Haar wavelet, then Vj is the set of functions
+f ∈L2(R) that are piecewise constant on [k2−j, (k + 1)2−j) for k ∈Z. It is
+easy to check that V0, V1, . . . form an MRA. ■
+Suppose we have an MRA. Since φ ∈V0 and V0 ⊂V1, we also have that
+φ ∈V1. Since {φ1k, k ∈Z} is an orthonormal basis for V1, we can thus write

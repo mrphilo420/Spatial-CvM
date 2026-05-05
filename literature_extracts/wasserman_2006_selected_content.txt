@@ -1,0 +1,5663 @@
+======================================================================
+SELECTED CONTENT FROM WASSERMAN (2006)
+Focus: Hypothesis Testing, Goodness-of-Fit, Empirical Processes
+======================================================================
+
+--- Page 3 ---
+Springer Texts in Statistics
+Alfred: Elements of Statistics for the Life and Social Sciences
+Berger: An Introduction to Probability and Stochastic Processes
+Bilodeau and Brenner: Theory of Multivariate Statistics
+Blom: Probability and Statistics: Theory and Applications
+Brockwell and Davis: Introduction to Times Series and Forecasting, Second
+Edition
+Chow and Teicher: Probability Theory: Independence, Interchangeability,
+Martingales, Third Edition
+Christensen: Advanced Linear Modeling: Multivariate, Time Series, and
+Spatial Data—Nonparametric Regression and Response Surface
+Maximization, Second Edition
+Christensen: Log-Linear Models and Logistic Regression, Second Edition
+Christensen: Plane Answers to Complex Questions: The Theory of Linear
+Models, Third Edition
+Creighton: A First Course in Probability Models and Statistical Inference
+Davis: Statistical Methods for the Analysis of Repeated Measurements
+Dean and Voss: Design and Analysis of Experiments
+du Toit, Steyn, and Stumpf: Graphical Exploratory Data Analysis
+Durrett: Essentials of Stochastic Processes
+Edwards: Introduction to Graphical Modelling, Second Edition
+Finkelstein and Levin: Statistics for Lawyers
+Flury: A First Course in Multivariate Statistics
+Jobson: Applied Multivariate Data Analysis, Volume I: Regression and
+Experimental Design
+Jobson: Applied Multivariate Data Analysis, Volume II: Categorical and
+Multivariate Methods
+Kalbfleisch: Probability and Statistical Inference, Volume I: Probability,
+Second Edition
+Kalbfleisch: Probability and Statistical Inference, Volume II: Statistical
+Inference, Second Edition
+Karr: Probability
+Keyfitz: Applied Mathematical Demography, Second Edition
+Kiefer: Introduction to Statistical Inference
+Kokoska and Nevison: Statistical Tables and Formulae
+Kulkarni: Modeling, Analysis, Design, and Control of Stochastic Systems
+Lange: Applied Probability
+Lehmann: Elements of Large-Sample Theory
+Lehmann: Testing Statistical Hypotheses, Second Edition
+Lehmann and Casella: Theory of Point Estimation, Second Edition
+Lindman: Analysis of Variance in Experimental Design
+Lindsey: Applying Generalized Linear Models
+(continued after index)
+
+
+--- Page 4 ---
+Larry Wasserman
+All of Nonparametric
+Statistics
+With 52 Illustrations
+
+
+--- Page 5 ---
+Larry Wasserman
+Department of Statistics
+Carnegie Mellon University
+Pittsburgh, PA 15213-3890
+USA
+larry@stat.cmu.edu
+Editorial Board
+George Casella
+Stephen Fienberg
+Ingram Olkin
+Department of Statistics
+Department of Statistics
+Department of Statistics
+University of Florida
+Carnegie Mellon University
+Stanford University
+Gainesville, FL 32611-8545
+Pittsburgh, PA 15213-3890
+Stanford, CA 94305
+USA
+USA
+USA
+Library of Congress Control Number: 2005925603
+ISBN-10: 0-387-25145-6
+ISBN-13: 978-0387-25145-5
+Printed on acid-free paper.
+© 2006 Springer Science+Business Media, Inc.
+All rights reserved. This work may not be translated or copied in whole or in part without the writ-
+ten permission of the publisher (Springer Science+Business Media, Inc., 233 Spring Street, New
+York, NY 10013, USA), except for brief excerpts in connection with reviews or scholarly analysis.
+Use in connection with any form of information storage and retrieval, electronic adaptation, com-
+puter software, or by similar or dissimilar methodology now known or hereafter developed is for-
+bidden.
+The use in this publication of trade names, trademarks, service marks, and similar terms, even if they
+are not identified as such, is not to be taken as an expression of opinion as to whether or not they
+are subject to proprietary rights.
+Printed in the United States of America.
+(MVY)
+9 8 7 6 5 4 3 2 1
+springeronline.com
+
+
+--- Page 6 ---
+To Isa
+
+
+--- Page 7 ---
+Preface
+There are many books on various aspects of nonparametric inference such
+as density estimation, nonparametric regression, bootstrapping, and wavelets
+methods. But it is hard to ﬁnd all these topics covered in one place. The goal
+of this text is to provide readers with a single book where they can ﬁnd a
+brief account of many of the modern topics in nonparametric inference.
+The book is aimed at master’s-level or Ph.D.-level statistics and computer
+science students. It is also suitable for researchers in statistics, machine learn-
+ing and data mining who want to get up to speed quickly on modern non-
+parametric methods. My goal is to quickly acquaint the reader with the basic
+concepts in many areas rather than tackling any one topic in great detail. In
+the interest of covering a wide range of topics, while keeping the book short,
+I have opted to omit most proofs. Bibliographic remarks point the reader to
+references that contain further details. Of course, I have had to choose topics
+to include and to omit, the title notwithstanding. For the most part, I decided
+to omit topics that are too big to cover in one chapter. For example, I do not
+cover classiﬁcation or nonparametric Bayesian inference.
+The book developed from my lecture notes for a half-semester (20 hours)
+course populated mainly by master’s-level students. For Ph.D.-level students,
+the instructor may want to cover some of the material in more depth and
+require the students to ﬁll in proofs of some of the theorems. Throughout, I
+have attempted to follow one basic principle: never give an estimator without
+giving a conﬁdence set.
+
+
+--- Page 8 ---
+viii
+Preface
+The book has a mixture of methods and theory. The material is meant
+to complement more method-oriented texts such as Hastie et al. (2001) and
+Ruppert et al. (2003).
+After the Introduction in Chapter 1, Chapters 2 and 3 cover topics related to
+the empirical cdf such as the nonparametric delta method and the bootstrap.
+Chapters 4 to 6 cover basic smoothing methods. Chapters 7 to 9 have a higher
+theoretical content and are more demanding. The theory in Chapter 7 lays the
+foundation for the orthogonal function methods in Chapters 8 and 9. Chapter
+10 surveys some of the omitted topics.
+I assume that the reader has had a course in mathematical statistics such
+as Casella and Berger (2002) or Wasserman (2004). In particular, I assume
+that the following concepts are familiar to the reader: distribution functions,
+convergence in probability, convergence in distribution, almost sure conver-
+gence, likelihood functions, maximum likelihood, conﬁdence intervals, the
+delta method, bias, mean squared error, and Bayes estimators. These back-
+ground concepts are reviewed brieﬂy in Chapter 1.
+Data sets and code can be found at:
+www.stat.cmu.edu/∼larry/all-of-nonpar
+I need to make some disclaimers. First, the topics in this book fall under
+the rubric of “modern nonparametrics.” The omission of traditional methods
+such as rank tests and so on is not intended to belittle their importance. Sec-
+ond, I make heavy use of large-sample methods. This is partly because I think
+that statistics is, largely, most successful and useful in large-sample situations,
+and partly because it is often easier to construct large-sample, nonparamet-
+ric methods. The reader should be aware that large-sample methods can, of
+course, go awry when used without appropriate caution.
+I would like to thank the following people for providing feedback and sugges-
+tions: Larry Brown, Ed George, John Laﬀerty, Feng Liang, Catherine Loader,
+Jiayang Sun, and Rob Tibshirani. Special thanks to some readers who pro-
+vided very detailed comments: Taeryon Choi, Nils Hjort, Woncheol Jang,
+Chris Jones, Javier Rojo, David Scott, and one anonymous reader. Thanks
+also go to my colleague Chris Genovese for lots of advice and for writing the
+LATEX macros for the layout of the book. I am indebted to John Kimmel,
+who has been supportive and helpful and did not rebel against the crazy title.
+Finally, thanks to my wife Isabella Verdinelli for suggestions that improved
+the book and for her love and support.
+Larry Wasserman
+Pittsburgh, Pennsylvania
+July 2005
+
+
+--- Page 9 ---
+Contents
+1
+Introduction
+1
+1.1
+What Is Nonparametric Inference? . . . . . . . . . . . . . . . .
+1
+1.2
+Notation and Background . . . . . . . . . . . . . . . . . . . . .
+2
+1.3
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+1.4
+Useful Inequalities
+. . . . . . . . . . . . . . . . . . . . . . . . .
+8
+1.5
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+10
+1.6
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+2
+Estimating the cdf and
+Statistical Functionals
+13
+2.1
+The cdf . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+13
+2.2
+Estimating Statistical Functionals
+. . . . . . . . . . . . . . . .
+15
+2.3
+Inﬂuence Functions . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+2.4
+Empirical Probability Distributions . . . . . . . . . . . . . . . .
+21
+2.5
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+23
+2.6
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+23
+2.7
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+3
+The Bootstrap and the Jackknife
+27
+3.1
+The Jackknife . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+3.2
+The Bootstrap
+. . . . . . . . . . . . . . . . . . . . . . . . . . .
+30
+3.3
+Parametric Bootstrap
+. . . . . . . . . . . . . . . . . . . . . . .
+31
+3.4
+Bootstrap Conﬁdence Intervals . . . . . . . . . . . . . . . . . .
+32
+3.5
+Some Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35
+
+
+--- Page 10 ---
+x
+Contents
+3.6
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+37
+3.7
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+37
+3.8
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+39
+4
+Smoothing: General Concepts
+43
+4.1
+The Bias–Variance Tradeoﬀ. . . . . . . . . . . . . . . . . . . .
+50
+4.2
+Kernels
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+55
+4.3
+Which Loss Function? . . . . . . . . . . . . . . . . . . . . . . .
+57
+4.4
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . .
+57
+4.5
+The Curse of Dimensionality
+. . . . . . . . . . . . . . . . . . .
+58
+4.6
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . .
+59
+4.7
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+59
+5
+Nonparametric Regression
+61
+5.1
+Review of Linear and Logistic Regression
+. . . . . . . . . . . .
+63
+5.2
+Linear Smoothers . . . . . . . . . . . . . . . . . . . . . . . . . .
+66
+5.3
+Choosing the Smoothing Parameter
+. . . . . . . . . . . . . . .
+68
+5.4
+Local Regression . . . . . . . . . . . . . . . . . . . . . . . . . .
+71
+5.5
+Penalized Regression, Regularization and Splines . . . . . . . .
+81
+5.6
+Variance Estimation . . . . . . . . . . . . . . . . . . . . . . . .
+85
+5.7
+Conﬁdence Bands . . . . . . . . . . . . . . . . . . . . . . . . . .
+89
+5.8
+Average Coverage . . . . . . . . . . . . . . . . . . . . . . . . . .
+94
+5.9
+Summary of Linear Smoothing
+. . . . . . . . . . . . . . . . . .
+95
+5.10 Local Likelihood and Exponential Families . . . . . . . . . . . .
+96
+5.11 Scale-Space Smoothing . . . . . . . . . . . . . . . . . . . . . . .
+99
+5.12 Multiple Regression
+. . . . . . . . . . . . . . . . . . . . . . . . 100
+5.13 Other Issues . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 111
+5.14 Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 119
+5.15 Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119
+5.16 Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 120
+6
+Density Estimation
+125
+6.1
+Cross-Validation
+. . . . . . . . . . . . . . . . . . . . . . . . . . 126
+6.2
+Histograms
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . 127
+6.3
+Kernel Density Estimation . . . . . . . . . . . . . . . . . . . . . 131
+6.4
+Local Polynomials
+. . . . . . . . . . . . . . . . . . . . . . . . . 137
+6.5
+Multivariate Problems . . . . . . . . . . . . . . . . . . . . . . . 138
+6.6
+Converting Density Estimation Into Regression . . . . . . . . . 139
+6.7
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 140
+6.8
+Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
+6.9
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 142
+7
+Normal Means and Minimax Theory
+145
+7.1
+The Normal Means Model . . . . . . . . . . . . . . . . . . . . . 145
+7.2
+Function Spaces . . . . . . . . . . . . . . . . . . . . . . . . . . . 147
+
+
+--- Page 11 ---
+Contents
+xi
+7.3
+Connection to Regression and Density Estimation
+. . . . . . . 149
+7.4
+Stein’s Unbiased Risk Estimator (sure) . . . . . . . . . . . . . 150
+7.5
+Minimax Risk and Pinsker’s Theorem
+. . . . . . . . . . . . . . 153
+7.6
+Linear Shrinkage and the James–Stein Estimator . . . . . . . . 155
+7.7
+Adaptive Estimation Over Sobolev Spaces . . . . . . . . . . . . 158
+7.8
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . . 159
+7.9
+Optimality of Conﬁdence Sets . . . . . . . . . . . . . . . . . . . 166
+7.10 Random Radius Bands? . . . . . . . . . . . . . . . . . . . . . . 170
+7.11 Penalization, Oracles and Sparsity
+. . . . . . . . . . . . . . . . 171
+7.12 Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 172
+7.13 Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 173
+7.14 Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 180
+8
+Nonparametric Inference Using Orthogonal Functions
+183
+8.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 183
+8.2
+Nonparametric Regression . . . . . . . . . . . . . . . . . . . . . 183
+8.3
+Irregular Designs . . . . . . . . . . . . . . . . . . . . . . . . . . 190
+8.4
+Density Estimation . . . . . . . . . . . . . . . . . . . . . . . . . 192
+8.5
+Comparison of Methods . . . . . . . . . . . . . . . . . . . . . . 193
+8.6
+Tensor Product Models
+. . . . . . . . . . . . . . . . . . . . . . 193
+8.7
+Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 194
+8.8
+Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 194
+9
+Wavelets and Other Adaptive Methods
+197
+9.1
+Haar Wavelets
+. . . . . . . . . . . . . . . . . . . . . . . . . . . 199
+9.2
+Constructing Wavelets . . . . . . . . . . . . . . . . . . . . . . . 203
+9.3
+Wavelet Regression . . . . . . . . . . . . . . . . . . . . . . . . . 206
+9.4
+Wavelet Thresholding
+. . . . . . . . . . . . . . . . . . . . . . . 208
+9.5
+Besov Spaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . 211
+9.6
+Conﬁdence Sets . . . . . . . . . . . . . . . . . . . . . . . . . . . 214
+9.7
+Boundary Corrections and Unequally Spaced Data . . . . . . . 215
+9.8
+Overcomplete Dictionaries . . . . . . . . . . . . . . . . . . . . . 215
+9.9
+Other Adaptive Methods
+. . . . . . . . . . . . . . . . . . . . . 216
+9.10 Do Adaptive Methods Work? . . . . . . . . . . . . . . . . . . . 220
+9.11 Bibliographic Remarks . . . . . . . . . . . . . . . . . . . . . . . 221
+9.12 Appendix . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 221
+9.13 Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 223
+10 Other Topics
+227
+10.1 Measurement Error . . . . . . . . . . . . . . . . . . . . . . . . . 227
+10.2 Inverse Problems . . . . . . . . . . . . . . . . . . . . . . . . . . 233
+10.3 Nonparametric Bayes . . . . . . . . . . . . . . . . . . . . . . . . 235
+10.4 Semiparametric Inference
+. . . . . . . . . . . . . . . . . . . . . 235
+10.5 Correlated Errors . . . . . . . . . . . . . . . . . . . . . . . . . . 236
+10.6 Classiﬁcation . . . . . . . . . . . . . . . . . . . . . . . . . . . . 236
+
+
+--- Page 12 ---
+xii
+Contents
+10.7 Sieves
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 237
+10.8 Shape-Restricted Inference . . . . . . . . . . . . . . . . . . . . . 237
+10.9 Testing
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 238
+10.10Computational Issues
+. . . . . . . . . . . . . . . . . . . . . . . 240
+10.11Exercises
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 240
+Bibliography
+243
+List of Symbols
+259
+Table of Distributions
+261
+Index
+263
+
+
+--- Page 13 ---
+1
+Introduction
+In this chapter we brieﬂy describe the types of problems with which we will
+be concerned. Then we deﬁne some notation and review some basic concepts
+from probability theory and statistical inference.
+1.1
+What Is Nonparametric Inference?
+The basic idea of nonparametric inference is to use data to infer an unknown
+quantity while making as few assumptions as possible. Usually, this means
+using statistical models that are inﬁnite-dimensional. Indeed, a better name
+for nonparametric inference might be inﬁnite-dimensional inference. But it is
+diﬃcult to give a precise deﬁnition of nonparametric inference, and if I did
+venture to give one, no doubt I would be barraged with dissenting opinions.
+For the purposes of this book, we will use the phrase nonparametric in-
+ference to refer to a set of modern statistical methods that aim to keep the
+number of underlying assumptions as weak as possible. Speciﬁcally, we will
+consider the following problems:
+1. (Estimating the distribution function). Given an iid sample X1, . . . , Xn ∼
+F, estimate the cdf F(x) = P(X ≤x). (Chapter 2.)
+
+
+--- Page 14 ---
+2
+1. Introduction
+2. (Estimating functionals). Given an iid sample X1, . . . , Xn ∼F, estimate
+a functional T (F) such as the mean T (F) =
+
+x dF(x). (Chapters 2
+and 3.)
+3. (Density estimation). Given an iid sample X1, . . . , Xn ∼F, estimate the
+density f(x) = F ′(x). (Chapters 4, 6 and 8.)
+4. (Nonparametric regression or curve estimation). Given (X1, Y1), . . . , (Xn, Yn)
+estimate the regression function r(x) = E(Y |X = x). (Chapters 4, 5, 8
+and 9.)
+5. (Normal means). Given Yi ∼N(θi, σ2), i = 1, . . . , n, estimate θ =
+(θ1, . . . , θn). This apparently simple problem turns out to be very com-
+plex and provides a unifying basis for much of nonparametric inference.
+(Chapter 7.)
+In addition, we will discuss some unifying theoretical principles in Chapter
+7. We consider a few miscellaneous problems in Chapter 10, such as measure-
+ment error, inverse problems and testing.
+Typically, we will assume that distribution F (or density f or regression
+function r) lies in some large set F called a statistical model. For example,
+when estimating a density f, we might assume that
+f ∈F =
+
+g :
+
+(g′′(x))2dx ≤c2
+
+which is the set of densities that are not “too wiggly.”
+1.2
+Notation and Background
+Here is a summary of some useful notation and background. See also
+Table 1.1.
+Let a(x) be a function of x and let F be a cumulative distribution function.
+If F is absolutely continuous, let f denote its density. If F is discrete, let f
+denote instead its probability mass function. The mean of a is
+E(a(X)) =
+
+a(x)dF(x) ≡
+ 
+a(x)f(x)dx
+continuous case
+
+j a(xj)f(xj)
+discrete case.
+Let V(X) = E(X −E(X))2 denote the variance of a random variable. If
+X1, . . . , Xn are n observations, then
+
+a(x)d Fn(x) = n−1 
+i a(Xi) where Fn
+is the empirical distribution that puts mass 1/n at each observation Xi.
+
+
+--- Page 15 ---
+1.2 Notation and Background
+3
+Symbol
+Deﬁnition
+xn = o(an)
+limn→∞xn/an = 0
+xn = O(an)
+|xn/an| is bounded for all large n
+an ∼bn
+an/bn →1 as n →∞
+an ≍bn
+an/bn and bn/an are bounded for all large n
+Xn ⇝X
+convergence in distribution
+Xn
+P
+−→X
+convergence in probability
+Xn
+a.s.
+−→X
+almost sure convergence
+θn
+estimator of parameter θ
+bias
+E(θn) −θ
+se
+
+V(θn)
+(standard error)
+se
+estimated standard error
+mse
+E(θn −θ)2 (mean squared error)
+Φ
+cdf of a standard Normal random variable
+zα
+Φ−1(1 −α)
+TABLE 1.1. Some useful notation.
+Brief Review of Probability. The sample space Ωis the set of possible
+outcomes of an experiment. Subsets of Ωare called events. A class of events
+A is called a σ-ﬁeld if (i) ∅∈A, (ii) A ∈A implies that Ac ∈A and (iii)
+A1, A2, . . . , ∈A implies that 	∞
+i=1 Ai ∈A. A probability measure is a
+function P deﬁned on a σ-ﬁeld A such that P(A) ≥0 for all A ∈A, P(Ω) = 1
+and if A1, A2, . . . ∈A are disjoint then
+P
+
+ ∞
+
+i=1
+Ai
+
+=
+∞
+
+i=1
+P(Ai).
+The triple (Ω, A, P) is called a probability space. A random variable is a
+map X : Ω→R such that, for every real x, {ω ∈Ω: X(ω) ≤x} ∈A.
+A sequence of random variables Xn converges in distribution (or con-
+verges weakly) to a random variable X, written Xn ⇝X, if
+P(Xn ≤x) →P(X ≤x)
+(1.1)
+as n →∞, at all points x at which the cdf
+F(x) = P(X ≤x)
+(1.2)
+is continuous. A sequence of random variables Xn converges in probability
+to a random variable X, written Xn
+P
+−→X, if,
+for every ϵ > 0,
+P(|Xn −X| > ϵ) →0
+as n →∞.
+(1.3)
+
+
+--- Page 16 ---
+4
+1. Introduction
+A sequence of random variables Xn converges almost surely to a random
+variable X, written Xn
+a.s.
+−→X, if
+P( lim
+n→∞|Xn −X| = 0) = 1.
+(1.4)
+The following implications hold:
+Xn
+a.s.
+−→X
+implies that
+Xn
+P
+−→X
+implies that
+Xn ⇝X.
+(1.5)
+Let g be a continuous function. Then, according to the continuous map-
+ping theorem,
+Xn ⇝X
+implies that
+g(Xn) ⇝g(X)
+Xn
+P
+−→X
+implies that
+g(Xn)
+P
+−→g(X)
+Xn
+a.s.
+−→X
+implies that
+g(Xn)
+a.s.
+−→g(X)
+According to Slutsky’s theorem, if Xn ⇝X and Yn ⇝c for some constant
+c, then Xn + Yn ⇝X + c and XnYn ⇝cX.
+Let X1, . . ., Xn ∼F be iid. The weak law of large numbers says that if
+E|g(X1)| < ∞, then n−1 n
+i=1 g(Xi)
+P
+−→E(g(X1)). The strong law of large
+numbers says that if E|g(X1)| < ∞, then n−1 n
+i=1 g(Xi)
+a.s.
+−→E(g(X1)).
+The random variable Z has a standard Normal distribution if it has density
+φ(z) = (2π)−1/2e−z2/2 and we write Z ∼N(0, 1). The cdf is denoted by
+Φ(z). The α upper quantile is denoted by zα. Thus, if Z ∼N(0, 1), then
+P(Z > zα) = α.
+If E(g2(X1)) < ∞, the central limit theorem says that
+√n(Y n −µ) ⇝N(0, σ2)
+(1.6)
+where Yi = g(Xi), µ = E(Y1), Y n = n−1 n
+i=1 Yi and σ2 = V(Y1). In general,
+if
+(Xn −µ)
+σn
+⇝N(0, 1)
+then we will write
+Xn ≈N(µ, σ2
+n).
+(1.7)
+According to the delta method, if g is diﬀerentiable at µ and g′(µ) ̸= 0
+then
+√n(Xn −µ) ⇝N(0, σ2)
+=⇒
+√n(g(Xn)−g(µ)) ⇝N(0, (g′(µ))2σ2). (1.8)
+A similar result holds in the vector case. Suppose that Xn is a sequence of
+random vectors such that √n(Xn −µ) ⇝N(0, Σ), a multivariate, mean 0
+
+
+--- Page 17 ---
+1.3 Conﬁdence Sets
+5
+normal with covariance matrix Σ. Let g be diﬀerentiable with gradient ∇g
+such that ∇µ ̸= 0 where ∇µ is ∇g evaluated at µ. Then
+√n(g(Xn) −g(µ)) ⇝N
+
+0, ∇T
+µΣ∇µ
+
+.
+(1.9)
+Statistical Concepts. Let F = {f(x; θ) :
+θ ∈Θ} be a parametric model
+satisfying appropriate regularity conditions. The likelihood function based
+on iid observations X1, . . . , Xn is
+Ln(θ) =
+n
+
+i=1
+f(Xi; θ)
+and the log-likelihood function is ℓn(θ) = log Ln(θ). The maximum likeli-
+hood estimator, or mle θn, is the value of θ that maximizes the likelihood. The
+score function is s(X; θ) = ∂log f(x; θ)/∂θ. Under appropriate regularity
+conditions, the score function satisﬁes Eθ(s(X; θ)) =
+
+s(x; θ)f(x; θ)dx = 0.
+Also,
+√n(θn −θ) ⇝N(0, τ2(θ))
+where τ2(θ) = 1/I(θ) and
+I(θ) = Vθ(s(x; θ)) = Eθ(s2(x; θ)) = −Eθ
+
+∂2 log f(x; θ)
+∂θ2
+
+is the Fisher information. Also,
+(θn −θ)
+se
+⇝N(0, 1)
+where se2 = 1/(nI(θn)). The Fisher information In from n observations sat-
+isﬁes In(θ) = nI(θ); hence we may also write se2 = 1/(In(θn)).
+The bias of an estimator θn is E(θ)−θ and the the mean squared error mse
+is mse = E(θ −θ)2. The bias–variance decomposition for the mse of an
+estimator θn is
+mse = bias2(θn) + V(θn).
+(1.10)
+1.3
+Conﬁdence Sets
+Much of nonparametric inference is devoted to ﬁnding an estimator θn of
+some quantity of interest θ. Here, for example, θ could be a mean, a density
+or a regression function. But we also want to provide conﬁdence sets for these
+quantities. There are diﬀerent types of conﬁdence sets, as we now explain.
+
+
+--- Page 18 ---
+6
+1. Introduction
+Let F be a class of distribution functions F and let θ be some quantity of
+interest. Thus, θ might be F itself, or F ′ or the mean of F, and so on. Let
+Cn be a set of possible values of θ which depends on the data X1, . . . , Xn. To
+emphasize that probability statements depend on the underlying F we will
+sometimes write PF .
+1.11 Deﬁnition. Cn is a ﬁnite sample 1 −α conﬁdence set if
+inf
+F ∈F
+PF (θ ∈Cn) ≥1 −α
+for all n.
+(1.12)
+Cn is a uniform asymptotic 1 −α conﬁdence set if
+lim inf
+n→∞inf
+F ∈F
+PF (θ ∈Cn) ≥1 −α.
+(1.13)
+Cn is a pointwise asymptotic 1 −α conﬁdence set if,
+for every F ∈F,
+lim inf
+n→∞PF (θ ∈Cn) ≥1 −α.
+(1.14)
+If || · || denotes some norm and fn is an estimate of f, then a conﬁdence
+ball for f is a conﬁdence set of the form
+Cn =
+
+f ∈F : ||f −fn|| ≤sn
+
+(1.15)
+where sn may depend on the data. Suppose that f is deﬁned on a set X. A
+pair of functions (ℓ, u) is a 1 −α conﬁdence band or conﬁdence envelope
+if
+inf
+f∈F
+P
+
+ℓ(x) ≤f(x) ≤u(x) for all x ∈X
+
+≥1 −α.
+(1.16)
+Conﬁdence balls and bands can be ﬁnite sample, pointwise asymptotic and
+uniform asymptotic as above. When estimating a real-valued quantity instead
+of a function, Cn is just an interval and we call Cn a conﬁdence interval.
+Ideally, we would like to ﬁnd ﬁnite sample conﬁdence sets. When this is
+not possible, we try to construct uniform asymptotic conﬁdence sets. The
+last resort is a pointwise asymptotic conﬁdence interval. If Cn is a uniform
+asymptotic conﬁdence set, then the following is true: for any δ > 0 there exists
+an n(δ) such that the coverage of Cn is at least 1 −α −δ for all n > n(δ).
+With a pointwise asymptotic conﬁdence set, there may not exist a ﬁnite n(δ).
+In this case, the sample size at which the conﬁdence set has coverage close to
+1 −α will depend on f (which we don’t know).
+
+
+--- Page 19 ---
+1.3 Conﬁdence Sets
+7
+1.17 Example. Let X1, . . . , Xn ∼Bernoulli(p). A pointwise asymptotic 1 −α
+conﬁdence interval for p is
+pn ± zα/2
+
+pn(1 −pn)
+n
+(1.18)
+where pn = n−1 n
+i=1 Xi. It follows from Hoeﬀding’s inequality (1.24) that a
+ﬁnite sample conﬁdence interval is
+pn ±
+
+1
+2n log
+
+ 2
+α
+
+.
+■
+(1.19)
+1.20 Example (Parametric models). Let
+F = {f(x; θ) : θ ∈Θ}
+be a parametric model with scalar parameter θ and let θn be the maximum
+likelihood estimator, the value of θ that maximizes the likelihood function
+Ln(θ) =
+n
+
+i=1
+f(Xi; θ).
+Recall that under suitable regularity assumptions,
+θn ≈N(θ, se2)
+where
+se = (In(θn))−1/2
+is the estimated standard error of θn and In(θ) is the Fisher information.
+Then
+θn ± zα/2 se
+is a pointwise asymptotic conﬁdence interval. If τ = g(θ) we can get an
+asymptotic conﬁdence interval for τ using the delta method. The mle for
+τ is τn = g(θn). The estimated standard error for τ is se(τn) = se(θn)|g′(θn)|.
+The conﬁdence interval for τ is
+τn ± zα/2 se(τn) = τn ± zα/2 se(θn)|g′(θn)|.
+Again, this is typically a pointwise asymptotic conﬁdence interval. ■
+
+
+--- Page 20 ---
+8
+1. Introduction
+1.4
+Useful Inequalities
+At various times in this book we will need to use certain inequalities. For
+reference purposes, a number of these inequalities are recorded here.
+Markov’s Inequality. Let X be a non-negative random variable and suppose
+that E(X) exists. For any t > 0,
+P(X > t) ≤E(X)
+t
+.
+(1.21)
+Chebyshev’s Inequality. Let µ = E(X) and σ2 = V(X). Then,
+P(|X −µ| ≥t) ≤σ2
+t2 .
+(1.22)
+Hoeﬀding’s Inequality. Let Y1, . . . , Yn be independent observations such that
+E(Yi) = 0 and ai ≤Yi ≤bi. Let ϵ > 0. Then, for any t > 0,
+P
+ n
+
+i=1
+Yi ≥ϵ
+
+≤e−tϵ
+n
+
+i=1
+et2(bi−ai)2/8.
+(1.23)
+Hoeﬀding’s Inequality for Bernoulli Random Variables. Let X1, . . ., Xn ∼Bernoulli(p).
+Then, for any ϵ > 0,
+P
+
+|Xn −p| > ϵ
+
+≤2e−2nϵ2
+(1.24)
+where Xn = n−1 n
+i=1 Xi.
+Mill’s Inequality. If Z ∼N(0, 1) then, for any t > 0,
+P(|Z| > t) ≤2φ(t)
+t
+(1.25)
+where φ is the standard Normal density. In fact, for any t > 0,
+
+1
+t −1
+t3
+
+φ(t) < P(Z > t) < 1
+t φ(t)
+(1.26)
+and
+P(Z > t) < 1
+2e−t2/2.
+(1.27)
+
+
+--- Page 21 ---
+1.4 Useful Inequalities
+9
+Berry–Ess´een Bound. Let X1, . . . , Xn be iid with ﬁnite mean µ = E(X1),
+variance σ2 = V(X1) and third moment, E|X1|3 < ∞. Let Zn = √n(Xn −
+µ)/σ. Then
+sup
+z |P(Zn ≤z) −Φ(z)| ≤33
+4
+E|X1 −µ|3
+√nσ3
+.
+(1.28)
+Bernstein’s Inequality. Let X1, . . . , Xn be independent, zero mean random vari-
+ables such that −M ≤Xi ≤M. Then
+P
+
+n
+
+i=1
+Xi
+ > t
+
+≤2 exp
+
+−1
+2
+
+t2
+v + Mt/3
+
+(1.29)
+where v ≥n
+i=1 V(Xi).
+Bernstein’s Inequality (Moment version). Let X1, . . . , Xn be independent, zero
+mean random variables such that
+E|Xi|m ≤m!M m−2vi
+2
+for all m ≥2 and some constants M and vi. Then,
+P
+
+n
+
+i=1
+Xi
+ > t
+
+≤2 exp
+
+−1
+2
+
+t2
+v + Mt
+
+(1.30)
+where v = n
+i=1 vi.
+Cauchy–Schwartz Inequality. If X and Y have ﬁnite variances then
+E |XY | ≤
+
+E(X2)E(Y 2).
+(1.31)
+Recall that a function g is convex if for each x, y and each α ∈[0, 1],
+g(αx + (1 −α)y) ≤αg(x) + (1 −α)g(y).
+If g is twice diﬀerentiable, then convexity reduces to checking that g′′(x) ≥0
+for all x. It can be shown that if g is convex then it lies above any line that
+touches g at some point, called a tangent line. A function g is concave if
+−g is convex. Examples of convex functions are g(x) = x2 and g(x) = ex.
+Examples of concave functions are g(x) = −x2 and g(x) = log x.
+Jensen’s inequality. If g is convex then
+Eg(X) ≥g(EX).
+(1.32)
+
+
+--- Page 22 ---
+10
+1. Introduction
+If g is concave then
+Eg(X) ≤g(EX).
+(1.33)
+1.5
+Bibliographic Remarks
+References on probability inequalities and their use in statistics and pattern
+recognition include Devroye et al. (1996) and van der Vaart and Wellner
+(1996). To review basic probability and mathematical statistics, I recommend
+Casella and Berger (2002), van der Vaart (1998) and Wasserman (2004).
+1.6
+Exercises
+1. Consider Example 1.17. Prove that (1.18) is a pointwise asymptotic
+conﬁdence interval. Prove that (1.19) is a uniform conﬁdence interval.
+2. (Computer experiment). Compare the coverage and length of (1.18) and
+(1.19) by simulation. Take p = 0.2 and use α = .05. Try various sample
+sizes n. How large must n be before the pointwise interval has accurate
+coverage? How do the lengths of the two intervals compare when this
+sample size is reached?
+3. Let X1, . . . , Xn ∼N(µ, 1). Let Cn = Xn ± zα/2/√n. Is Cn a ﬁnite
+sample, pointwise asymptotic, or uniform asymptotic conﬁdence set
+for µ?
+4. Let X1, . . . , Xn ∼N(µ, σ2). Let Cn = Xn ± zα/2Sn/√n where S2
+n =
+n
+i=1(Xi −Xn)2/(n −1). Is Cn a ﬁnite sample, pointwise asymptotic,
+or uniform asymptotic conﬁdence set for µ?
+5. Let X1, . . . , Xn ∼F and let µ =  x dF(x) be the mean. Let
+Cn =
+
+Xn −zα/2 se, Xn + zα/2 se
+
+where se2 = S2
+n/n and
+S2
+n = 1
+n
+n
+
+i=1
+(Xi −Xn)2.
+(a) Assuming that the mean exists, show that Cn is a 1 −α pointwise
+asymptotic conﬁdence interval.
+
+
+--- Page 23 ---
+1.6 Exercises
+11
+(b) Show that Cn is not a uniform asymptotic conﬁdence interval. Hint:
+Let an →∞and ϵn →0 and let Gn = (1 −ϵn)F + ϵnδn where δn is
+a pointmass at an. Argue that, with very high probability, for an large
+and ϵn small,
+
+x dGn(x) is large but Xn + zα/2 se is not large.
+(c) Suppose that P(|Xi| ≤B) = 1 where B is a known constant. Use
+Bernstein’s inequality (1.29) to construct a ﬁnite sample conﬁdence in-
+terval for µ.
+
+
+--- Page 24 ---
+2
+Estimating the cdf and Statistical
+Functionals
+The ﬁrst problem we consider is estimating the cdf. By itself, this is not a
+very interesting problem. However, it is the ﬁrst step towards solving more
+important problems such as estimating statistical functionals.
+2.1
+The cdf
+We begin with the problem of estimating a cdf (cumulative distribution func-
+tion). Let X1, . . . , Xn ∼F where F(x) = P(X ≤x) is a distribution function
+on the real line. We estimate F with the empirical distribution function.
+2.1 Deﬁnition. The empirical distribution function Fn is the
+cdf that puts mass 1/n at each data point Xi. Formally,
+Fn(x) = 1
+n
+n
+
+i=1
+I(Xi ≤x)
+(2.2)
+where
+I(Xi ≤x) =
+ 1
+if Xi ≤x
+0
+if Xi > x.
+
+
+--- Page 25 ---
+14
+2. Estimating the cdf and Statistical Functionals
+0.0
+0.5
+1.0
+1.5
+0.0
+0.5
+1.0
+FIGURE 2.1. Nerve data. Each vertical line represents one data point. The solid
+line is the empirical distribution function. The lines above and below the middle
+line are a 95 percent conﬁdence band.
+2.3 Example (Nerve data). Cox and Lewis (1966) reported 799 waiting times
+between successive pulses along a nerve ﬁber. Figure 2.1 shows the data and
+the empirical cdf Fn. ■
+The following theorem gives some properties of Fn(x).
+2.4 Theorem. Let X1, . . . , Xn ∼F and let Fn be the empirical cdf. Then:
+1. At any ﬁxed value of x,
+E
+
+Fn(x)
+
+= F(x)
+and
+V
+
+Fn(x)
+
+= F(x)(1 −F(x))
+n
+.
+Thus, MSE = F (x)(1−F (x))
+n
+→0 and hence Fn(x)
+P
+−→F(x).
+2. (Glivenko–Cantelli Theorem).
+sup
+x | Fn(x) −F(x)|
+a.s.
+−→0.
+3. (Dvoretzky–Kiefer–Wolfowitz (DKW) inequality). For any ϵ > 0,
+P
+
+sup
+x |F(x) −Fn(x)| > ϵ
+
+≤2e−2nϵ2.
+(2.5)
+
+
+--- Page 26 ---
+2.2 Estimating Statistical Functionals
+15
+From the DKW inequality, we can construct a conﬁdence set. Let ϵ2
+n =
+log(2/α)/(2n), L(x) = max{ Fn(x) −ϵn, 0} and U(x) = min{ Fn(x) + ϵn, 1}.
+It follows from (2.5) that for any F,
+P(L(x) ≤F(x) ≤U(x) for all x) ≥1 −α.
+Thus, (L(x), U(x)) is a nonparametric 1 −α conﬁdence band.1
+To summarize:
+2.6 Theorem. Let
+L(x)
+=
+max{ Fn(x) −ϵn, 0}
+U(x)
+=
+min{ Fn(x) + ϵn, 1}
+where
+ϵn =
+
+1
+2n log
+
+ 2
+α
+
+.
+Then, for all F and all n,
+P
+
+L(x) ≤F(x) ≤U(x) for all x
+
+≥1 −α.
+2.7 Example. The dashed lines in Figure 2.1 give a 95 percent conﬁdence
+band using ϵn =
+
+1
+2n log
+ 2
+.05
+
+= .048. ■
+2.2
+Estimating Statistical Functionals
+A statistical functional T (F) is any function of F. Examples are the mean
+µ =
+
+x dF(x), the variance σ2 =
+
+(x −µ)2dF(x) and the median m =
+F −1(1/2).
+2.8 Deﬁnition. The plug-in estimator of θ = T (F) is deﬁned by
+θn = T ( Fn).
+(2.9)
+A functional of the form  a(x)dF(x) is called a linear functional. Re-
+call that
+
+a(x)dF(x) is deﬁned to be
+
+a(x)f(x)dx in the continuous case
+1There exist tighter conﬁdence bands but we use the DKW band because it is simple.
+
+
+--- Page 27 ---
+16
+2. Estimating the cdf and Statistical Functionals
+and 
+j a(xj)f(xj) in the discrete case. The empirical cdf Fn(x) is discrete,
+putting mass 1/n at each Xi. Hence, if T (F) =
+
+a(x)dF(x) is a linear func-
+tional then we have:
+The plug-in estimator for linear functional T (F) =
+
+a(x)dF(x) is:
+T ( Fn) =
+
+a(x)d Fn(x) = 1
+n
+n
+
+i=1
+a(Xi).
+(2.10)
+Sometimes we can ﬁnd the estimated standard error se of T ( Fn) by doing
+some direct calculations. However, in other cases it is not obvious how to
+estimate the standard error. Later we will discuss methods for ﬁnding se. For
+now, let us just assume that somehow we can ﬁnd se. In many cases, it turns
+out that
+T ( Fn) ≈N(T (F), se2).
+(2.11)
+In that case, an approximate 1 −α conﬁdence interval for T (F) is then
+T ( Fn) ± zα/2 se
+(2.12)
+where zα is deﬁned by: P(Z > zα) = α with Z ∼N(0, 1). We will call (2.12)
+the Normal-based interval.
+2.13 Example (The mean). Let µ = T (F) =
+
+x dF(x). The plug-in estima-
+tor is µ =
+
+x d Fn(x) = Xn. The standard error is se =
+
+V(Xn) = σ/√n. If
+σ denotes an estimate of σ, then the estimated standard error is se = σ/√n.
+A Normal-based conﬁdence interval for µ is Xn ± zα/2 σ/√n. ■
+2.14 Example (The variance). Let σ2 = V(X) =
+
+x2 dF(x) −
+
+x dF(x)
+2.
+The plug-in estimator is
+σ2
+=
+
+x2d Fn(x) −
+
+
+xd Fn(x)
+2
+=
+1
+n
+n
+
+i=1
+X2
+i −
+
+1
+n
+n
+
+i=1
+Xi
+2
+=
+1
+n
+n
+
+i=1
+(Xi −Xn)2.
+This is diﬀerent than the usual unbiased sample variance
+S2
+n =
+1
+n −1
+n
+
+i=1
+(Xi −Xn)2.
+
+
+--- Page 28 ---
+2.2 Estimating Statistical Functionals
+17
+In practice, there is little diﬀerence between σ2 and S2
+n. ■
+2.15 Example (The skewness). Let µ and σ2 denote the mean and variance of
+a random variable X. The skewness — which measures the lack of symmetry
+of a distribution — is deﬁned to be
+κ = E(X −µ)3
+σ3
+=
+
+(x −µ)3dF(x)
+
+(x −µ)2dF(x)
+3/2 .
+To ﬁnd the plug-in estimate, ﬁrst recall that µ = n−1 n
+i=1 Xi and σ2 =
+n−1 n
+i=1(Xi −µ)2. The plug-in estimate of κ is
+κ =
+
+(x −µ)3d Fn(x)
+
+(x −µ)2d Fn(x)
+3/2 =
+1
+n
+n
+i=1(Xi −µ)3
+σ3
+.
+■
+2.16 Example (Correlation). Let Z = (X, Y ) and let ρ = T (F) = E(X −
+µX)(Y −µY )/(σxσy) denote the correlation between X and Y , where F(x, y)
+is bivariate. We can write T (F) = a(T1(F), T2(F), T3(F), T4(F), T5(F)) where
+T1(F) =
+
+x dF(z)
+T2(F) =
+
+y dF(z)
+T3(F) =
+
+xy dF(z)
+T4(F) =
+
+x2 dF(z)
+T5(F) =
+
+y2 dF(z)
+and
+a(t1, . . . , t5) =
+t3 −t1t2
+
+(t4 −t2
+1)(t5 −t2
+2)
+.
+Replace F with Fn in T1(F), . . . , T5(F), and take
+ρ = a(T1( Fn), T2( Fn), T3( Fn), T4( Fn), T5( Fn)).
+We get
+ρ =
+n
+i=1(Xi −Xn)(Yi −Y n)
+n
+i=1(Xi −Xn)2
+n
+i=1(Yi −Y n)2
+which is called the sample correlation. ■
+2.17 Example (Quantiles). Let F be strictly increasing with density f. Let
+T (F) = F −1(p) be the pth quantile. The estimate of T (F) is F −1
+n (p). We have
+to be a bit careful since Fn is not invertible. To avoid ambiguity we deﬁne
+F −1
+n (p) = inf{x :
+Fn(x) ≥p}. We call F −1
+n (p) the pth sample quantile. ■
+The Glivenko–Cantelli theorem ensures that Fn converges to F. This sug-
+gests that θn = T ( Fn) will converge to θ = T (F). Furthermore, we would hope
+that under reasonable conditions, θn will be asymptotically normal. This leads
+us to the next topic.
+
+
+--- Page 29 ---
+18
+2. Estimating the cdf and Statistical Functionals
+2.3
+Inﬂuence Functions
+The inﬂuence function is used to approximate the standard error of a plug-in
+estimator. The formal deﬁnition is as follows.
+2.18 Deﬁnition. The Gˆateaux derivative of T at F in the direction G
+is deﬁned by
+LF(G) = lim
+ϵ→0
+T
+
+(1 −ϵ)F + ϵG
+
+−T (F)
+ϵ
+.
+(2.19)
+If G = δx is a point mass at x then we write LF(x) ≡LF (δx) and we call
+LF (x) the inﬂuence function. Thus,
+LF (x) = lim
+ϵ→0
+T
+
+(1 −ϵ)F + ϵδx
+
+−T (F)
+ϵ
+.
+(2.20)
+The empirical inﬂuence function is deﬁned by L(x) = L Fn(x). Thus,
+L(x) = lim
+ϵ→0
+T
+
+(1 −ϵ) Fn + ϵδx
+
+−T ( Fn)
+ϵ
+.
+(2.21)
+Often we drop the subscript F and write L(x) instead of LF (x).
+2.22 Theorem. Let T (F) =
+
+a(x)dF(x) be a linear functional. Then:
+1. LF (x) = a(x) −T (F) and L(x) = a(x) −T ( Fn).
+2. For any G,
+T (G) = T (F) +
+
+LF (x)dG(x).
+(2.23)
+3.
+
+LF(x)dF(x) = 0.
+4. Let τ 2 =  L2
+F (x)dF(x). Then, τ 2 =  (a(x) −T (F))2dF(x) and if
+τ 2 < ∞,
+√n(T (F) −T ( Fn)) ⇝N(0, τ 2).
+(2.24)
+5. Let
+τ2 = 1
+n
+n
+
+i=1
+L2(Xi) = 1
+n
+n
+
+i=1
+(a(Xi) −T ( Fn))2.
+(2.25)
+Then, τ 2
+P
+−→τ2 and se/se
+P
+−→1 where se = τ/√n and se =
+
+V(T ( Fn)).
+
+
+--- Page 30 ---
+2.3 Inﬂuence Functions
+19
+6. We have that
+√n(T (F) −T ( Fn))
+τ
+⇝N(0, 1).
+(2.26)
+Proof. The ﬁrst three claims follow easily from the deﬁnition of the inﬂu-
+ence function. To prove the fourth claim, write
+T ( Fn)
+=
+T (F) +
+
+LF (x)d Fn(x)
+=
+T (F) + 1
+n
+n
+
+i=1
+LF (Xi).
+From the central limit theorem and the fact that
+
+LF (x)dF(x) = 0, it follows
+that
+√n(T (F) −T ( Fn)) ⇝N(0, τ 2)
+where τ2 =
+
+L2
+F (x)dF(x). The ﬁfth claim follows from the law of large num-
+bers. The ﬁnal statement follows from the fourth and ﬁfth claims and Slutsky’s
+theorem. ■
+The theorem above tells us that the inﬂuence function LF (x) behaves like
+the score function in parametric estimation. To see this, recall that if f(x; θ) is
+a parametric model, Ln(θ) = n
+i=1 f(Xi; θ) is the likelihood function and the
+maximum likelihood estimator θn is the value of θ that maximizes Ln(θ). The
+score function is sθ(x) = ∂log f(x; θ)/∂θ which, under appropriate regularity
+conditions, satisﬁes
+
+sθ(x)f(x; θ)dx = 0 and V(θn) ≈
+
+(sθ(x))2f(x; θ)dx/n.
+Similarly, for the inﬂuence function we have that
+
+LF (x)dF(x) = 0 and and
+V(T ( Fn)) ≈
+
+L2
+F (x)dF(x)/n.
+If the functional T (F) is not linear, then (2.23) will not hold exactly, but
+it may hold approximately.
+2.27 Theorem. If T is Hadamard diﬀerentiable2 with respect to d(F, G) =
+supx |F(x) −G(x)| then
+√n(T ( Fn) −T (F)) ⇝N(0, τ 2)
+(2.28)
+where τ2 =
+
+LF (x)2dF(x). Also,
+(T ( Fn) −T (F))
+se
+⇝N(0, 1)
+(2.29)
+2Hadamard diﬀerentiability is deﬁned in the appendix.
+
+
+--- Page 71 ---
+62
+5. Nonparametric Regression
+0
+200
+400
+600
+800
+0
+26000
+0
+200
+400
+0
+5000
+multipole
+multipole
+power
+power
+FIGURE 5.1. CMB data. The horizontal axis is the multipole moment, essentially
+the frequency of ﬂuctuations in the temperature ﬁeld of the CMB. The vertical axis
+is the power or strength of the ﬂuctuations at each frequency. The top plot shows
+the full data set. The bottom plot shows the ﬁrst 400 data points. The ﬁrst peak,
+around x ≈200, is obvious. There may be a second and third peak further to the
+right.
+Figure 5.1 shows the data.1 The ﬁrst plot shows 899 data points over the
+whole range while the second plot shows the ﬁrst 400 data points. We have
+noisy measurements Yi of r(xi) so the data are of the form (5.1). Our goal is
+to estimate r. The variance V(ϵi) is most deﬁnitely not constant as a function
+of x. However, the second plot shows that the constant variance assumption
+is reasonable for the ﬁrst 400 data points. It is believed that r may have three
+peaks over the range of the data. The ﬁrst peak is obvious from the second
+plot. The presence of a second or third peak is much less obvious; careful
+inferences are required to assess the signiﬁcance of these peaks. ■
+1If you want to peek ahead, Figure 5.3 shows a nonparametric estimator of the regression
+function. Note that the vertical scale is diﬀerent on that plot.
+
+
+--- Page 72 ---
+5.1 Review of Linear and Logistic Regression
+63
+The methods we consider in this chapter are local regression methods
+and penalization methods. The former includes kernel regression and
+local polynomial regression. The latter leads to methods based on splines.
+In Chapters 8 and 9 we will consider a diﬀerent approach based on orthogonal
+functions. All the estimators in this chapter are linear smoothers, a point
+we will discuss in Section 5.2.
+Before we plunge into nonparametric regression, we ﬁrst brieﬂy review or-
+dinary linear regression and its close relative, logistic regression. For more on
+linear regression, see Weisberg (1985).
+5.1
+Review of Linear and Logistic Regression
+Suppose we have data (x1, Y1), . . . , (xn, Yn) where Yi ∈R and xi = (xi1, . . . ,
+xip)T ∈Rp. The linear regression model assumes that
+Yi = r(xi) + ϵi ≡
+p
+
+j=1
+βjxij + ϵi,
+i = 1, . . . , n,
+(5.4)
+where E(ϵi) = 0 and V(ϵi) = σ2.
+Warning! Usually, we want to include an intercept in the model so we will
+adopt the convention that xi1 = 1.
+The design matrix X is the n × p matrix deﬁned by
+X =
+⎛
+⎜
+⎜
+⎜
+⎝
+x11
+x12
+. . .
+x1p
+x21
+x22
+. . .
+x2p
+...
+...
+...
+...
+xn1
+xn2
+. . .
+xnp
+⎞
+⎟
+⎟
+⎟
+⎠.
+The set L of vectors that can be obtained as linear combinations of the
+columns of X, is called the column space of X.
+Let Y = (Y1, . . . , Yn)T , ϵ = (ϵ1, . . . , ϵn)T , and β = (β1, . . . , βp)T . We can
+then write (5.4) as
+Y = Xβ + ϵ.
+(5.5)
+The least squares estimator β = (β1, . . . , βp)T is the vector that mini-
+mizes the residual sums of squares
+rss = (Y −Xβ)T (Y −Xβ) =
+n
+
+i=1
+
+Yi −
+p
+
+j=1
+xijβj
+2
+.
+
+
+--- Page 73 ---
+64
+5. Nonparametric Regression
+Assuming that XT X is invertible, the least squares estimator is
+β = (XTX)−1XT Y.
+(5.6)
+The estimate of r(x) at x = (x1, . . . , xp)T is thus
+rn(x) =
+p
+
+j=1
+βjxj = xT β.
+It follows that the ﬁtted values r = (rn(x1), . . . , rn(xn))T can be written as
+r = X β = LY
+(5.7)
+where
+L = X(XT X)−1XT
+(5.8)
+is called the hat matrix. The elements of the vector ϵ = Y −r are called the
+residuals. The hat matrix is symmetric L = LT and idempotent, L2 = L.
+It follows that r is the projection of Y onto the column space L of X. It can
+be shown that the number of parameters p is related to the matrix L by way
+of the equation
+p = tr(L)
+(5.9)
+where tr(L) denotes the trace of the matrix L, that is, the sum of its diagonal
+elements. In nonparametric regression, the number of parameters will be re-
+placed with the eﬀective degrees of freedom which will be deﬁned through
+an equation like (5.9).
+Given any x = (x1, . . . , xp)T , we can write
+rn(x) = ℓ(x)T Y =
+n
+
+i=1
+ℓi(x)Yi
+(5.10)
+where
+ℓ(x)T = xT (XT X)−1XT .
+An unbiased estimator of σ2 is
+σ2 =
+n
+i=1(Yi −rn(xi))2
+n −p
+= ||ϵ||2
+n −p.
+(5.11)
+Next, we construct a conﬁdence band for r(x). We want to ﬁnd a pair of
+functions a(x), b(x) such that
+P
+
+a(x) ≤r(x) ≤b(x) for all x
+
+≥1 −α.
+(5.12)
+
+
+--- Page 74 ---
+5.1 Review of Linear and Logistic Regression
+65
+Since rn(x) = n
+i=1 ℓi(x)Yi, it follows that
+V(rn(x)) = σ2
+n
+
+i=1
+ℓ2
+i (x) = σ2||ℓ(x)||2
+which suggests using bands of the form
+I(x) = (a(x), b(x)) ≡
+
+rn(x) −c σ||ℓ(x)||, rn(x) + c σ||ℓ(x)||
+
+(5.13)
+for some constant c. The following theorem can be found in Scheﬀ´e (1959).
+Let Fp,n−p denote a random variable that has an F distribution with p and
+n −p degrees of freedom. Let Fα;p,n−p denote the upper α quantile for this
+random variable, i.e., P(Fp,n−p > Fα;p,n−p) = α.
+5.14 Theorem. The conﬁdence band deﬁned in (5.13) with c =
+
+pFα;p,n−p
+satisﬁes (5.12).
+When the Yi’s are not continuous, ordinary linear regression may not be
+appropriate. For example, suppose that Yi ∈{0, 1}. In this case, a commonly
+used parametric model is the logistic regression model given by
+pi ≡pi(β) = P(Yi = 1) =
+e
+
+j βjxij
+1 + e
+
+j βjxij .
+(5.15)
+As before, we can include an intercept by requiring that xi1 = 1 for all i.
+This model asserts that Yi is a Bernoulli random variable with mean pi. The
+parameters β = (β1, . . . , βp)T are usually estimated by maximum likelihood.
+Recall that if Y ∼Bernoulli(p) then its probability function is P(Y = y) ≡
+f(y) = py(1 −p)1−y. Thus the likelihood function for the model (5.15) is
+L(β) =
+n
+
+i=1
+pYi
+i (1 −pi)1−Yi.
+(5.16)
+The maximum likelihood estimator β = (β1, . . . , βp)T cannot be found in
+closed form. However, there is an iterative algorithm called reweighted least
+squares which works as follows.
+Reweighted Least Squares Algorithm
+Choose starting values β = (β1, . . . , βp)T and compute pi using equation
+(5.15), for i = 1, . . . , n with βj replaced by its current estimate βj. Iterate
+the following steps until convergence.
+1. Set
+Zi = log
+
+pi
+1 −pi
+
++
+Yi −pi
+pi(1 −pi),
+i = 1, . . . , n.
+
+
+--- Page 75 ---
+66
+5. Nonparametric Regression
+2. Set the new estimate of β to be
+β = (XT WX)−1XT WZ
+where W is the diagonal matrix with (i, i) element equal to
+pi(1 −pi). This corresponds to doing a (weighted) linear regression
+of Z on X.
+3. Compute the pis using (5.15) with the current estimate of β.
+Logistic regression and linear regression are special cases of a class of models
+called generalized linear models. See McCullagh and Nelder (1999) for
+details.
+5.2
+Linear Smoothers
+As we remarked earlier, all the nonparametric estimators in this chapter are
+linear smoothers. The formal deﬁnition is as follows.
+5.17 Deﬁnition. An estimator rn of r is a linear smoother if, for each
+x, there exists a vector ℓ(x) = (ℓ1(x), . . . , ℓn(x))T such that
+rn(x) =
+n
+
+i=1
+ℓi(x)Yi.
+(5.18)
+Deﬁne the vector of ﬁtted values
+r = (rn(x1), . . . , rn(xn))T
+(5.19)
+where Y = (Y1, . . . , Yn)T . It then follows that
+r = L Y
+(5.20)
+where L is an n × n matrix whose ith row is ℓ(xi)T ; thus, Lij = ℓj(xi). The
+entries of the ith row show the weights given to each Yi in forming the estimate
+rn(xi).
+5.21 Deﬁnition. The matrix L is called the smoothing matrix or the
+hat matrix. The ith row of L is called the eﬀective kernel for
+estimating r(xi). In analogy to (5.9), we deﬁne the eﬀective degrees of
+
+
+--- Page 76 ---
+5.2 Linear Smoothers
+67
+freedom by
+ν = tr(L).
+(5.22)
+Warning! The reader should not confuse linear smoothers—smoothers of
+the form (5.18)—with linear regression, in which one assumes that the regres-
+sion function r(x) is linear.
+5.23 Remark. The weights in all the smoothers we will use have the property
+that, for all x, n
+i=1 ℓi(x) = 1. This implies that the smoother preserves
+constant curves. Thus, if Yi = c for all i, then rn(x) = c.
+5.24 Example (Regressogram). Suppose that a ≤xi ≤b i = 1, . . . , n. Divide
+(a, b) into m equally spaced bins denoted by B1, B2, . . . , Bm. Deﬁne rn(x) by
+rn(x) = 1
+kj
+
+i:xi∈Bj
+Yi,
+for x ∈Bj
+(5.25)
+where kj is the number of points in Bj. In other words, the estimate rn is a
+step function obtained by averaging the Yis over each bin. This estimate is
+called the regressogram. An example is given in Figure 4.6. For x ∈Bj deﬁne
+ℓi(x) = 1/kj if xi ∈Bj and ℓi(x) = 0 otherwise. Thus, rn(x) = n
+i=1 Yiℓi(x).
+The vector of weights ℓ(x) looks like this:
+ℓ(x)T =
+
+0, 0, . . ., 0, 1
+kj
+, . . . , 1
+kj
+, 0, . . . , 0
+
+.
+To see what the smoothing matrix L looks like, suppose that n = 9, m = 3
+and k1 = k2 = k3 = 3. Then,
+L = 1
+3 ×
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+1
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+.
+In general, it is easy to see that there are ν = tr(L) = m eﬀective degrees of
+freedom. The binwidth h = (b −a)/m controls how smooth the estimate is.
+and the smoothing matrix L has the form ■
+
+
+--- Page 77 ---
+68
+5. Nonparametric Regression
+5.26 Example (Local averages). Fix h > 0 and let Bx = {i : |xi −x| ≤h}.
+Let nx be the number of points in Bx. For any x for which nx > 0 deﬁne
+rn(x) = 1
+nx
+
+i∈Bx
+Yi.
+This is the local average estimator of r(x), a special case of the kernel
+estimator discussed shortly. In this case, rn(x) = n
+i=1 Yiℓi(x) where ℓi(x) =
+1/nx if |xi −x| ≤h and ℓi(x) = 0 otherwise. As a simple example, suppose
+that n = 9, xi = i/9 and h = 1/9. Then,
+L =
+⎛
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎜
+⎝
+1/2
+1/2
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/3
+1/3
+1/3
+0
+0
+0
+0
+0
+0
+0
+1/2
+1/2
+⎞
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎟
+⎠
+.
+■
+5.3
+Choosing the Smoothing Parameter
+The smoothers we will use will depend on some smoothing parameter h and
+we will need some way of choosing h. As in Chapter 4, deﬁne the risk (mean
+squared error)
+R(h) = E
+
+1
+n
+n
+
+i=1
+(rn(xi) −r(xi))2
+
+.
+(5.27)
+Ideally, we would like to choose h to minimize R(h) but R(h) depends on the
+unknown function r(x). Instead, we will minimize an estimate R(h) of R(h).
+As a ﬁrst guess, we might use the average residual sums of squares, also called
+the training error
+1
+n
+n
+
+i=1
+(Yi −rn(xi))2
+(5.28)
+to estimate R(h). This turns out to be a poor estimate of R(h): it is biased
+downwards and typically leads to undersmoothing (overﬁtting). The reason
+is that we are using the data twice: to estimate the function and to estimate
+the risk. The function estimate is chosen to make n
+i=1(Yi −rn(xi))2 small
+so this will tend to underestimate the risk.
+
+
+--- Page 78 ---
+5.3 Choosing the Smoothing Parameter
+69
+We will estimate the risk using the leave-one-out cross-validation score
+which is deﬁned as follows.
+5.29 Deﬁnition. The leave-one-out cross-validation score is deﬁned
+by
+cv = R(h) = 1
+n
+n
+
+i=1
+(Yi −r(−i)(xi))2
+(5.30)
+where r(−i) is the estimator obtained by omitting the ith pair (xi, Yi).
+As stated above, Deﬁnition 5.29 is incomplete. We have not said what we
+mean precisely by r(−i). We shall deﬁne
+r(−i)(x) =
+n
+
+j=1
+Yjℓj,(−i)(x)
+(5.31)
+where
+ℓj,(−i)(x) =
+ 0
+if j = i
+ℓj(x)
+
+k̸=i ℓk(x)
+if j ̸= i.
+(5.32)
+In other words we set the weight on xi to 0 and renormalize the other weights
+to sum to one. For all the methods in this chapter (kernel regression, local
+polynomials, smoothing splines) this form for r(−i) can actually be derived as
+a property of the method, rather than a matter of deﬁnition. But it is simpler
+to treat this as a deﬁnition.
+The intuition for cross-validation is as follows. Note that
+E(Yi −r(−i)(xi))2
+=
+E(Yi −r(xi) + r(xi) −r(−i)(xi))2
+=
+σ2 + E(r(xi) −r(−i)(xi))2
+≈
+σ2 + E(r(xi) −rn(xi))2
+and hence, recalling (4.15),
+E( R) ≈R + σ2 = predictive risk.
+(5.33)
+Thus the cross-validation score is a nearly unbiased estimate of the risk.
+It seems that it might be time consuming to evaluate R(h) since we appar-
+ently need to recompute the estimator after dropping out each observation.
+Fortunately, there is a shortcut formula for computing R for linear smoothers.
+
+
+--- Page 79 ---
+70
+5. Nonparametric Regression
+5.34 Theorem. Let rn be a linear smoother. Then the leave-one-out
+cross-validation score R(h) can be written as
+R(h) = 1
+n
+n
+
+i=1
+
+Yi −rn(xi)
+1 −Lii
+2
+(5.35)
+where Lii = ℓi(xi) is the ith diagonal element of the smoothing matrix L.
+The smoothing parameter h can then be chosen by minimizing R(h).
+Warning! You can’t assume that R(h) always has a well-deﬁned minimum.
+You should always plot R(h) as a function of h.
+Rather than minimizing the cross-validation score, an alternative is to use
+an approximation called generalized cross-validation2 in which each Lii
+in equation (5.35) is replaced with its average n−1 n
+i=1 Lii = ν/n where
+ν = tr(L) is the eﬀective degrees of freedom. Thus, we would minimize
+GCV(h) = 1
+n
+n
+
+i=1
+
+Yi −rn(xi)
+1 −ν/n
+2
+.
+(5.36)
+Usually, the bandwidth that minimizes the generalized cross-validation score
+is close to the bandwidth that minimizes the cross-validation score.
+Using the approximation (1 −x)−2 ≈1 + 2x we see that
+GCV(h) ≈1
+n
+n
+
+i=1
+(Yi −rn(xi))2 + 2νσ2
+n
+≡Cp
+(5.37)
+where σ2 = n−1 n
+i=1(Yi −rn(xi))2. Equation (5.37) is known as the Cp
+statistic3 which was originally proposed by Colin Mallows as a criterion for
+variable selection in linear regression. More generally, many common band-
+width selection criteria can be written in the form
+B(h) = Ξ(n, h) × 1
+n
+n
+
+i=1
+(Yi −rn(xi))2
+(5.38)
+for diﬀerent choices of Ξ(n, h). See H¨ardle et al. (1988) for details. More-
+over, H¨ardle et al. (1988) prove, under appropriate conditions, the follow-
+ing facts about the minimizer h of B(h). Let h0 minimize the loss L(h) =
+n−1 n
+i=1(rn(xi)−r(xi))2, and let h0 minimize the risk. Then all of h, h0, and
+2Generalized cross-validation has certain invariance properties not shared by leave-one-out
+cross-validation. In practice, however, the two are usually similar.
+3Actually, this is not quite the Cp formula. Usually, the estimate (5.86) for σ2 is used.
+
+
+--- Page 80 ---
+5.4 Local Regression
+71
+h0 tend to 0 at rate n−1/5. Also, for certain positive constants C1, C2, σ1, σ2,
+n3/10(h −h0) ⇝N(0, σ2
+1),
+n(L(h) −L(h0) ⇝C1χ2
+1
+n3/10(h0 −h0) ⇝N(0, σ2
+2),
+n(L(h0) −L(h0) ⇝C2χ2
+1.
+Thus, the relative rate of convergence of h is
+h −h0
+h0
+= OP
+
+n3/10
+n1/5
+
+= OP (n−1/10).
+This slow rate shows that estimating the bandwidth is diﬃcult. This rate is
+intrinsic to the problem of bandwidth selection since it is also true that
+h0 −h0
+h0
+= OP
+
+n3/10
+n1/5
+
+= OP (n−1/10).
+5.4
+Local Regression
+Now we turn to local nonparametric regression. Suppose that xi ∈R is scalar
+and consider the regression model (5.1). In this section we consider estimators
+of r(x) obtained by taking a weighted average of the Yis, giving higher weight
+to those points near x. We begin with the kernel regression estimator.
+5.39 Deﬁnition. Let h > 0 be a positive number, called the bandwidth.
+The Nadaraya–Watson kernel estimator is deﬁned by
+rn(x) =
+n
+
+i=1
+ℓi(x)Yi
+(5.40)
+where K is a kernel (as deﬁned in Section 4.2) and the weights ℓi(x) are
+given by
+ℓi(x) =
+K
+ x−xi
+h
+
+n
+j=1 K
+
+x−xj
+h
+.
+(5.41)
+5.42 Remark. The local average estimator in Example 5.26 is a kernel esti-
+mator based on the boxcar kernel.
+5.43 Example (CMB data). Recall the CMB data from Figure 5.1. Figure
+5.2 shows four diﬀerent kernel regression ﬁts (using just the ﬁrst 400 data
+points) based on increasing bandwidths. The top two plots are based on small
+
+
+--- Page 81 ---
+72
+5. Nonparametric Regression
+bandwidths and the ﬁts are too rough. The bottom right plot is based on
+large bandwidth and the ﬁt is too smooth. The bottom left plot is just right.
+The bottom right plot also shows the presence of bias near the boundaries.
+As we shall see, this is a general feature of kernel regression. The bottom plot
+in Figure 5.3 shows a kernel ﬁt to all the data points. The bandwidth was
+chosen by cross-validation. ■
+0
+200
+400
+0
+200
+400
+0
+200
+400
+0
+200
+400
+multipole
+multipole
+multipole
+multipole
+power
+power
+power
+power
+FIGURE 5.2. Four kernel regressions for the CMB data using just the ﬁrst 400 data
+points. The bandwidths used were h = 1 (top left), h = 10 (top right), h = 50
+(bottom left), h = 200 (bottom right). As the bandwidth h increases, the estimated
+function goes from being too rough to too smooth.
+The choice of kernel K is not too important. Estimates obtained by using
+diﬀerent kernels are usually numerically very similar. This observation is con-
+ﬁrmed by theoretical calculations which show that the risk is very insensitive
+to the choice of kernel; see Section 6.2.3 of Scott (1992). We will often use
+the tricube kernel in examples. What does matter much more is the choice
+of bandwidth h which controls the amount of smoothing. Small bandwidths
+
+
+--- Page 82 ---
+5.4 Local Regression
+73
+give very rough estimates while larger bandwidths give smoother estimates. In
+general, we will let the bandwidth depend on the sample size so we sometimes
+write hn.
+The following theorem shows how the bandwidth aﬀects the estimator. To
+state these results we need to make some assumption about the behavior of
+x1, . . . , xn as n increases. For the purposes of the theorem, we will assume
+that these are random draws from some density f.
+5.44 Theorem. The risk (using integrated squared error loss) of the Nadaraya–
+Watson kernel estimator is
+R(rn, r)
+=
+h4
+n
+4
+
+
+x2K(x)dx
+2  
+r′′(x) + 2r′(x)f ′(x)
+f(x)
+2
+dx
++ σ2 
+K2(x)dx
+nhn
+
+1
+f(x)dx + o(nh−1
+n ) + o(h4
+n)
+(5.45)
+as hn →0 and nhn →∞.
+The ﬁrst term in (5.45) is the squared bias and the second term is the
+variance. What is especially notable is the presence of the term
+2r′(x)f ′(x)
+f(x)
+(5.46)
+in the bias. We call (5.46) the design bias since it depends on the design,
+that is, the distribution of the xi’s. This means that the bias is sensitive to
+the position of the xis. Furthermore, it can be shown that kernel estimators
+also have high bias near the boundaries. This is known as boundary bias.
+We will see that we can reduce these biases by using a reﬁnement called local
+polynomial regression.
+If we diﬀerentiate (5.45) and set the result equal to 0, we ﬁnd that the
+optimal bandwidth h∗is
+h∗=
+
+ 1
+n
+1/5
+⎛
+⎜
+⎝
+σ2 
+K2(x)dx
+
+dx/f(x)
+(
+
+x2K2(x)dx)2  
+r′′(x) + 2r′(x) f ′(x)
+f(x)
+2
+dx
+⎞
+⎟
+⎠
+1/5
+.
+(5.47)
+Thus, h∗= O(n−1/5). Plugging h∗back into (5.45) we see that the risk
+decreases at rate O(n−4/5). In (most) parametric models, the risk of the max-
+imum likelihood estimator decreases to 0 at rate 1/n. The slower rate n−4/5
+is the price of using nonparametric methods. In practice, we cannot use the
+bandwidth given in (5.47) since h∗depends on the unknown function r. In-
+stead, we use leave-one-out cross-validation as described in Theorem 5.34.
+
+
+--- Page 83 ---
+74
+5. Nonparametric Regression
+5.48 Example. Figure 5.3 shows the cross-validation score for the CMB ex-
+ample as a function of the eﬀective degrees of freedom. The optimal smoothing
+parameter was chosen to minimize this score. The resulting ﬁt is also shown
+in the ﬁgure. Note that the ﬁt gets quite variable to the right. Later we will
+deal with the nonconstant variance and we will add conﬁdence bands to the
+ﬁt. ■
+24
+26
+28
+30
+0
+400
+800
+1000
+3000
+5000
+Eﬀective degrees of freedom ν
+Multipole
+CV score
+Power
+FIGURE 5.3. Top: The cross-validation (CV) score as a function of the eﬀective
+degrees of freedom. Bottom: the kernel ﬁt using the bandwidth that minimizes the
+cross-validation score.
+Local Polynomials. Kernel estimators suﬀer from boundary bias and
+design bias. These problems can be alleviated by using a generalization of
+kernel regression called local polynomial regression.
+To motivate this estimator, ﬁrst consider choosing an estimator a ≡rn(x)
+to minimize the sums of squares n
+i=1(Yi −a)2. The solution is the constant
+
+
+--- Page 84 ---
+5.4 Local Regression
+75
+function rn(x) = Y which is obviously not a good estimator of r(x). Now
+deﬁne the weight function wi(x) = K((xi −x)/h) and choose a ≡rn(x) to
+minimize the weighted sums of squares
+n
+
+i=1
+wi(x)(Yi −a)2.
+(5.49)
+From elementary calculus, we see that the solution is
+rn(x) ≡
+n
+i=1 wi(x)Yi
+n
+i=1 wi(x)
+which is exactly the kernel regression estimator. This gives us an interest-
+ing interpretation of the kernel estimator: it is a locally constant estimator,
+obtained from locally weighted least squares.
+This suggests that we might improve the estimator by using a local poly-
+nomial of degree p instead of a local constant. Let x be some ﬁxed value at
+which we want to estimate r(x). For values u in a neighborhood of x, deﬁne
+the polynomial
+Px(u; a) = a0 + a1(u −x) + a2
+2! (u −x)2 + · · · + ap
+p! (u −x)p.
+(5.50)
+We can approximate a smooth regression function r(u) in a neighborhood of
+the target value x by the polynomial:
+r(u) ≈Px(u; a).
+(5.51)
+We estimate a = (a0, . . . , ap)T by choosing a = (a0, . . . , ap)T to minimize the
+locally weighted sums of squares
+n
+
+i=1
+wi(x) (Yi −Px(Xi; a))2 .
+(5.52)
+The estimator a depends on the target value x so we write a(x) = (a0(x), . . .
+, ap(x))T if we want to make this dependence explicit. The local estimate of
+r is
+rn(u) = Px(u; a).
+In particular, at the target value u = x we have
+rn(x) = Px(x; a) = a0(x).
+(5.53)
+Warning! Although rn(x) only depends on a0(x), this is not equivalent to
+simply ﬁtting a local constant.
+
+
+--- Page 85 ---
+76
+5. Nonparametric Regression
+Setting p = 0 gives back the kernel estimator. The special case where p = 1
+is called local linear regression and this is the version we recommend as a
+default choice. As we shall see, local polynomial estimators, and in particular
+local linear estimators, have some remarkable properties as shown by Fan
+(1992) and Hastie and Loader (1993). Many of the results that follow are
+from those papers.
+To ﬁnd a(x), it is helpful to re-express the problem in vector notation. Let
+Xx =
+⎛
+⎜
+⎜
+⎜
+⎜
+⎝
+1
+x1 −x
+· · ·
+(x1−x)p
+p!
+1
+x2 −x
+· · ·
+(x2−x)p
+p!
+...
+...
+...
+...
+1
+xn −x
+· · ·
+(xn−x)p
+p!
+⎞
+⎟
+⎟
+⎟
+⎟
+⎠
+(5.54)
+and let Wx be the n × n diagonal matrix whose (i, i) component is wi(x). We
+can rewrite (5.52) as
+(Y −Xxa)T Wx(Y −Xxa).
+(5.55)
+Minimizing (5.55) gives the weighted least squares estimator
+a(x) = (XT
+x WxXx)−1XT
+x WxY.
+(5.56)
+In particular, rn(x) = a0(x) is the inner product of the ﬁrst row of
+(XT
+x WxXx)−1 XT
+x Wx with Y . Thus we have:
+5.57 Theorem. The local polynomial regression estimate is
+rn(x) =
+n
+
+i=1
+ℓi(x)Yi
+(5.58)
+where ℓ(x)T = (ℓ1(x), . . . , ℓn(x)),
+ℓ(x)T = eT
+1 (XT
+x WxXx)−1XT
+x Wx,
+e1 = (1, 0, . . . , 0)T and Xx and Wx are deﬁned in (5.54). This estimator
+has mean
+E(rn(x)) =
+n
+
+i=1
+ℓi(x)r(xi)
+and variance
+V(rn(x)) = σ2
+n
+
+i=1
+ℓi(x)2 = σ2||ℓ(x)||2.
+
+
+--- Page 86 ---
+5.4 Local Regression
+77
+Once again, our estimate is a linear smoother and we can choose the band-
+width by minimizing the cross-validation formula given in Theorem 5.34.
+5.59 Example (LIDAR). These data were introduced in Example 4.5. Figure
+5.4 shows the 221 observations. The top left plot shows the data and the ﬁtted
+function using local linear regression. The cross-validation curve (not shown)
+has a well-deﬁned minimum at h ≈37 corresponding to 9 eﬀective degrees of
+freedom. The ﬁtted function uses this bandwidth. The top right plot shows
+the residuals. There is clear heteroscedasticity (nonconstant variance). The
+bottom left plot shows the estimate of σ(x) using the method in Section 5.6.
+(with h = 146 chosen via cross-validation). Next we use the method in Section
+5.7 to compute 95 percent conﬁdence bands. The resulting bands are shown in
+the lower right plot. As expected, there is much greater uncertainty for larger
+values of the covariate. ■
+Local Linear Smoothing
+5.60 Theorem. When p = 1, rn(x) = n
+i=1 ℓi(x)Yi where
+ℓi(x) =
+bi(x)
+n
+j=1 bj(x),
+bi(x) = K
+
+xi −x
+h
+ 
+Sn,2(x) −(xi −x)Sn,1(x)
+
+(5.61)
+and
+Sn,j(x) =
+n
+
+i=1
+K
+
+xi −x
+h
+
+(xi −x)j,
+j = 1, 2.
+5.62 Example. Figure 5.5 shows the local regression for the CMB data for
+p = 0 and p = 1. The bottom plots zoom in on the left boundary. Note that
+for p = 0 (the kernel estimator), the ﬁt is poor near the boundaries due to
+boundary bias. ■
+5.63 Example (Doppler function). Let
+r(x) =
+
+x(1 −x) sin
+
+ 2.1π
+x + .05
+
+,
+0 ≤x ≤1
+(5.64)
+which is called the Doppler function. This function is diﬃcult to estimate
+and provides a good test case for nonparametric regression methods. The
+function is spatially inhomogeneous which means that its smoothness (second
+
+
+--- Page 87 ---
+78
+5. Nonparametric Regression
+range
+log ratio
+400
+500
+600
+700
+−1.0
+−0.6
+−0.2
+range
+residuals
+400
+500
+600
+700
+−0.4
+0.0
+0.2
+0.4
+range
+sigma(x)
+400
+500
+600
+700
+0.00
+0.05
+0.10
+range
+log ratio
+400
+500
+600
+700
+−1.0
+−0.6
+−0.2
+FIGURE 5.4. The LIDAR data from Example 5.59. Top left: data and the ﬁtted
+function using local linear regression with h ≈37 (chosen by cross-validation). Top
+right: the residuals. Bottom left: estimate of σ(x). Bottom right: 95 percent conﬁ-
+dence bands.
+derivative) varies over x. The function is plotted in the top left plot of Figure
+5.6. The top right plot shows 1000 data points simulated from Yi = r(i/n)+σϵi
+with σ = .1 and ϵi ∼N(0, 1). The bottom left plot shows the cross-validation
+score versus the eﬀective degrees of freedom using local linear regression. The
+minimum occurred at 166 degrees of freedom corresponding to a bandwidth
+of .005. The ﬁtted function is shown in the bottom right plot. The ﬁt has high
+eﬀective degrees of freedom and hence the ﬁtted function is very wiggly. This
+is because the estimate is trying to ﬁt the rapid ﬂuctuations of the function
+near x = 0. If we used more smoothing, the right-hand side of the ﬁt would
+look better at the cost of missing the structure near x = 0. This is always
+a problem when estimating spatially inhomogeneous functions. We’ll discuss
+that further when we talk about wavelets in Chapter 9. ■
+
+
+--- Page 88 ---
+5.4 Local Regression
+79
+0
+200
+400
+1000
+3000
+5000
+0
+200
+400
+1000
+3000
+5000
+0
+20
+40
+500
+1500
+0
+20
+40
+500
+1500
+FIGURE 5.5. Locally weighted regressions using local polynomials of order p = 0
+(top left) and p = 1 (top right). The bottom plots show the left boundary in more
+detail (p = 0 bottom left and p = 1 bottom right). Notice that the boundary bias is
+reduced by using local linear estimation (p = 1).
+The following theorem gives the large sample behavior of the risk of the
+local linear estimator and shows why local linear regression is better than
+kernel regression. A proof can be found in Fan (1992) and Fan and Gijbels
+(1996).
+5.65 Theorem. Let Yi = r(Xi) + σ(Xi)ϵi for i = 1, . . . , n and a ≤Xi ≤b.
+Assume that X1, . . . , Xn are a sample from a distribution with density f and
+that (i) f(x) > 0, (ii) f, r′′ and σ2 are continuous in a neighborhood of x,
+and (iii) hn →0 and nhn →∞. Let x ∈(a, b). Given X1, . . . , Xn, we have
+the following: the local linear estimator and the kernel estimator both have
+variance
+σ2(x)
+f(x)nhn
+
+K2(u)du + oP
+
+ 1
+nhn
+
+.
+(5.66)
+
+
+--- Page 89 ---
+80
+5. Nonparametric Regression
+0.0
+0.5
+1.0
+−1
+0
+1
+0.0
+0.5
+1.0
+−1
+0
+1
+100
+150
+200
+0.0
+0.5
+1.0
+−1
+0
+1
+FIGURE 5.6. The Doppler function estimated by local linear regression. The func-
+tion (top left), the data (top right), the cross-validation score versus eﬀective degrees
+of freedom (bottom left), and the ﬁtted function (bottom right).
+The Nadaraya–Watson kernel estimator has bias
+h2
+n
+
+1
+2r′′(x) + r′(x)f ′(x)
+f(x)
+ 
+u2K(u)du + oP (h2)
+(5.67)
+whereas the local linear estimator has asymptotic bias
+h2
+n
+1
+2r′′(x)
+
+u2K(u)du + oP (h2)
+(5.68)
+Thus, the local linear estimator is free from design bias. At the boundary points
+a and b, the Nadaraya–Watson kernel estimator has asymptotic bias of order
+hn while the local linear estimator has bias of order h2
+n. In this sense, local
+linear estimation eliminates boundary bias.
+5.69 Remark. The above result holds more generally for local polynomials
+of order p. Generally, taking p odd reduces design bias and boundary bias
+without increasing variance.
+
+
+--- Page 90 ---
+5.5 Penalized Regression, Regularization and Splines
+81
+5.5
+Penalized Regression, Regularization and Splines
+Consider once again the regression model
+Yi = r(xi) + ϵi
+and suppose we estimate r by choosing rn(x) to minimize the sums of squares
+n
+
+i=1
+(Yi −rn(xi))2.
+Minimizing over all linear functions (i.e., functions of the form β0 + β1x)
+yields the least squares estimator. Minimizing over all functions yields a func-
+tion that interpolates the data. In the previous section we avoided these two
+extreme solutions by replacing the sums of squares with a locally weighted
+sums of squares. An alternative way to get solutions in between these extremes
+is to minimize the penalized sums of squares
+M(λ) =
+
+i
+(Yi −rn(xi))2 + λ J(r)
+(5.70)
+where J(r) is some roughness penalty. Adding a penalty term to the cri-
+terion we are optimizing is sometimes called regularization.
+We will focus on the special case
+J(r) =
+
+(r′′(x))2dx.
+(5.71)
+The parameter λ controls the trade-oﬀbetween ﬁt (the ﬁrst term of 5.70) and
+the penalty. Let rn denote the function that minimizes M(λ). When λ = 0,
+the solution is the interpolating function. When λ →∞, rn converges to the
+least squares line. The parameter λ controls the amount of smoothing. What
+does rn look like for 0 < λ < ∞? To answer this question, we need to deﬁne
+splines.
+A spline is a special piecewise polynomial.4 The most commonly used splines
+are piecewise cubic splines.
+5.72 Deﬁnition. Let ξ1 < ξ2 < · · · < ξk be a set of ordered points—called
+knots—contained in some interval (a, b). A cubic spline is a continuous
+function r such that (i) r is a cubic polynomial over (ξ1, ξ2), . . . and (ii) r
+has continuous ﬁrst and second derivatives at the knots. More generally,
+4More details on splines can be found in Wahba (1990).
+
+
+--- Page 91 ---
+82
+5. Nonparametric Regression
+an M th-order spline is a piecewise M −1 degree polynomial with M −2
+continuous derivatives at the knots. A spline that is linear beyond the
+boundary knots is called a natural spline.
+Cubic splines (M = 4) are the most common splines used in practice. They
+arise naturally in the penalized regression framework as the following theorem
+shows.
+5.73 Theorem. The function rn(x) that minimizes M(λ) with penalty (5.71)
+is a natural cubic spline with knots at the data points. The estimator rn is
+called a smoothing spline.
+The theorem above does not give an explicit form for rn. To do so, we will
+construct a basis for the set of splines.
+5.74 Theorem. Let ξ1 < ξ2 < · · · < ξk be knots contained in an interval (a, b).
+Deﬁne h1(x) = 1, h2(x) = x, h3(x) = x2, h4(x) = x3, hj(x) = (x −ξj−4)3
++
+for j = 5, . . . , k + 4. The functions {h1, . . . , hk+4} form a basis for the set of
+cubic splines at these knots, called the truncated power basis. Thus, any
+cubic spline r(x) with these knots can be written as
+r(x) =
+k+4
+
+j=1
+βjhj(x).
+(5.75)
+We now introduce a diﬀerent basis for the set of natural splines called the
+B-spline basis that is particularly well suited for computation. These are
+deﬁned as follows.
+Let ξ0 = a and ξk+1 = b. Deﬁne new knots τ1, . . . , τM such that
+τ1 ≤τ2 ≤τ3 ≤· · · ≤τM ≤ξ0,
+τj+M = ξj for j = 1, . . . , k, and
+ξk+1 ≤τk+M+1 ≤· · · ≤τk+2M.
+The choice of extra knots is arbitrary; usually one takes τ1 = · · · = τM = ξ0
+and ξk+1 = τk+M+1 = · · · = τk+2M. We deﬁne the basis functions recursively
+as follows. First we deﬁne
+Bi,1 =
+ 1
+if τi ≤x < τi+1
+0
+otherwise
+for i = 1, . . . , k + 2M −1. Next, for m ≤M we deﬁne
+Bi,m =
+x −τi
+τi+m−1 −τi
+Bi,m−1 +
+τi+m −x
+τi+m −τi+1
+Bi+1,m−1
+
+
+--- Page 92 ---
+5.5 Penalized Regression, Regularization and Splines
+83
+0.0
+0.5
+1.0
+0.0
+0.6
+1.2
+FIGURE 5.7. Cubic B-spline basis using nine equally spaced knots on (0,1).
+for i = 1, . . . , k + 2M −m. It is understood that if the denominator is 0, then
+the function is deﬁned to be 0.
+5.76 Theorem. The functions {Bi,4, i = 1, . . . , k + 4} are a basis for the set
+of cubic splines. They are called the B-spline basis functions.
+The advantage of the B-spline basis functions is that they have compact
+support which makes it possible to speed up calculations. See Hastie et al.
+(2001) for details. Figure 5.7 shows the cubic B-spline basis using nine equally
+spaced knots on (0,1).
+We are now in a position to describe the spline estimator in more detail.
+According to Theorem 5.73, r is a natural cubic spline. Hence, we can write
+rn(x) =
+N
+
+j=1
+βjBj(x)
+(5.77)
+where B1, . . . , BN are a basis for the natural splines (such as the B-splines with
+N = n + 4). Thus, we only need to ﬁnd the coeﬃcients β = (β1, . . . , βN)T .
+By expanding r in the basis we can now rewrite the minimization as follows:
+minimize :
+(Y −Bβ)T (Y −Bβ) + λβT Ωβ
+(5.78)
+where Bij = Bj(Xi) and Ωjk =
+
+B′′
+j (x)B′′
+k (x)dx.
+
+
+--- Page 93 ---
+84
+5. Nonparametric Regression
+5.79 Theorem. The value of β that minimizes (5.78) is5
+β = (BT B + λΩ)−1BT Y.
+(5.80)
+Splines are another example of linear smoothers.
+5.81 Theorem. The smoothing spline rn(x) is a linear smoother, that is, there
+exist weights ℓ(x) such that rn(x) = n
+i=1 Yiℓi(x). In particular, the smoothing
+matrix L is
+L = B(BT B + λΩ)−1BT
+(5.82)
+and the vector r of ﬁtted values is given by
+r = LY.
+(5.83)
+If we had done ordinary linear regression of Y on B, the hat matrix would be
+L = B(BT B)−1BT and the ﬁtted values would interpolate the observed data.
+The eﬀect of the term λΩin (5.82) is to shrink the regression coeﬃcients
+towards a subspace, which results in a smoother ﬁt. As before, we deﬁne
+the eﬀective degrees of freedom by ν = tr(L) and we choose the smoothing
+parameter λ by minimizing either the cross-validation score (5.35) or the
+generalized cross-validation score (5.36).
+5.84 Example. Figure 5.8 shows the smoothing spline with cross-validation
+for the CMB data. The eﬀective number of degrees of freedom is 8.8. The ﬁt is
+smoother than the local regression estimator. This is certainly visually more
+appealing, but the diﬀerence between the two ﬁts is small compared to the
+width of the conﬁdence bands that we will compute later. ■
+Silverman (1984) proved that spline estimates rn(x) are approximately ker-
+nel estimates in the sense that
+ℓi(x) ≈
+1
+f(xi)h(xi)K
+
+xi −x
+h(xi)
+
+where f(x) is the density of the covariate (treated here as random),
+h(x) =
+
+λ
+nf(x)
+1/4
+and
+K(t) = 1
+2 exp
+
+−|t|
+√
+2
+
+sin
+
+ |t|
+√
+2 + π
+4
+
+.
+5If you are familiar with ridge regression then you will recognize this as being similar to ridge
+regression.
+
+
+--- Page 94 ---
+5.6 Variance Estimation
+85
+0
+400
+800
+1000
+3000
+5000
+multipole
+power
+FIGURE 5.8. Smoothing spline for the CMB data. The smoothing parameter was
+chosen by cross-validation.
+Another nonparametric method that uses splines is called the regression
+spline method. Rather than placing a knot at each data point, we instead
+use fewer knots. We then do ordinary linear regression on the basis matrix
+B with no regularization. The ﬁtted values for this estimator are r = LY
+with L = B(BT B)−1BT . The diﬀerence between this estimate and (5.82) is
+that the basis matrix B is based on fewer knots and there is no shrinkage
+factor λΩ. The amount of smoothing is instead controlled by the choice of
+the number (and placement) of the knots. By using fewer knots, one can save
+computation time. These spline methods are discussed in detail in Ruppert
+et al. (2003).
+5.6
+Variance Estimation
+Next we consider several methods for estimating σ2. For linear smoothers,
+there is a simple, nearly unbiased estimate of σ2.
+5.85 Theorem. Let rn(x) be a linear smoother. Let
+σ2 =
+n
+i=1(Yi −r(xi))2
+n −2ν + ν
+(5.86)
+
+
+--- Page 95 ---
+86
+5. Nonparametric Regression
+where
+ν = tr(L),
+ν = tr(LT L) =
+n
+
+i=1
+||ℓ(xi)||2.
+If r is suﬃciently smooth, ν = o(n) and ν = o(n) then σ2 is a consistent
+estimator of σ2.
+We will now outline the proof of this result. Recall that if Y is a random
+vector and Q is a symmetric matrix then Y T QY is called a quadratic form
+and it is well known that
+E(Y T QY ) = tr(QV ) + µT Qµ
+(5.87)
+where V = V(Y ) is the covariance matrix of Y and µ = E(Y ) is the mean
+vector. Now,
+Y −r = Y −LY = (I −L)Y
+and so
+σ2 = Y T ΛY
+tr(Λ)
+(5.88)
+where Λ = (I −L)T (I −L). Hence,
+E(σ2) = E(Y T ΛY )
+tr(Λ)
+= σ2 +
+rT Λr
+n −2ν + ν .
+Assuming that ν and ν do not grow too quickly, and that r is smooth, the
+last term is small for large n and hence E(σ2) ≈σ2. Similarly, one can show
+that V(σ2) →0.
+Here is another estimator, due to Rice (1984). Suppose that the xis are
+ordered. Deﬁne
+σ2 =
+1
+2(n −1)
+n−1
+
+i=1
+(Yi+1 −Yi)2.
+(5.89)
+The motivation for this estimator is as follows. Assuming r(x) is smooth, we
+have r(xi+1) −r(xi) ≈0 and hence
+Yi+1 −Yi =
+1
+r(xi+1) + ϵi+1
+2
+−
+1
+r(xi) + ϵi
+2
+≈ϵi+1 −ϵi
+and hence (Yi+1 −Yi)2 ≈ϵ2
+i+1 + ϵ2
+i −2ϵi+1ϵi. Therefore,
+E(Yi+1 −Yi)2
+≈
+E(ϵ2
+i+1) + E(ϵ2
+i ) −2E(ϵi+1)E(ϵi)
+=
+E(ϵ2
+i+1) + E(ϵ2
+i ) = 2σ2.
+(5.90)
+
+
+--- Page 96 ---
+5.6 Variance Estimation
+87
+Thus, E(σ2) ≈σ2. A variation of this estimator, due to Gasser et al. (1986)
+is
+σ2 =
+1
+n −2
+n−1
+
+i=2
+c2
+i δ2
+i
+(5.91)
+where
+δi = aiYi−1 + biYi+1 −Yi,
+ai = (xi+1 −xi)/(xi+1 −xi−1),
+bi = (xi −xi−1)/(xi+1 −xi−1),
+c2
+i = (a2
+i + b2
+i + 1)−1.
+The intuition of this estimator is that it is the average of the residuals that
+result from ﬁtting a line to the ﬁrst and third point of each consecutive triple
+of design points.
+5.92 Example. The variance looks roughly constant for the ﬁrst 400 observa-
+tions of the CMB data. Using a local linear ﬁt, we applied the two variance
+estimators. Equation (5.86) yields σ2 = 408.29 while equation (5.89) yields
+σ2 = 394.55. ■
+So far we have assumed homoscedasticity meaning that σ2 = V(ϵi) does
+not vary with x. In the CMB example this is blatantly false. Clearly, σ2
+increases with x so the data are heteroscedastic. The function estimate
+rn(x) is relatively insensitive to heteroscedasticity. However, when it comes to
+making conﬁdence bands for r(x), we must take into account the nonconstant
+variance.
+We will take the following approach. See Yu and Jones (2004) and references
+therein for other approaches. Suppose that
+Yi = r(xi) + σ(xi)ϵi.
+(5.93)
+Let Zi = log(Yi −r(xi))2 and δi = log ϵ2
+i . Then,
+Zi = log
+
+σ2(xi)
+
++ δi.
+(5.94)
+This suggests estimating log σ2(x) by regressing the log squared residuals on
+x. We proceed as follows.
+Variance Function Estimation
+1. Estimate r(x) with any nonparametric method to get an estimate
+rn(x).
+2. Deﬁne Zi = log(Yi −rn(xi))2.
+
+
+--- Page 97 ---
+88
+5. Nonparametric Regression
+3. Regress the Zi’s on the xi’s (again using any nonparametric method)
+to get an estimate q(x) of log σ2(x) and let
+σ2(x) = eq(x).
+(5.95)
+5.96 Example. The solid line in Figure 5.9 shows the log of σ2(x) for the CMB
+example. I used local linear estimation and I used cross-validation to choose
+the bandwidth. The estimated optimal bandwidth for rn was h = 42 while
+the estimated optimal bandwidth for the log variance was h = 160. In this
+example, there turns out to be an independent estimate of σ(x). Speciﬁcally,
+because the physics of the measurement process is well understood, physicists
+can compute a reasonably accurate approximation to σ2(x). The log of this
+function is the dotted line on the plot. ■
+0
+400
+800
+5
+10
+15
+20
+multipole
+log σ2(x)
+FIGURE 5.9. The dots are the log squared residuals. The solid line shows the log
+of the estimated standard variance σ2(x) as a function of x. The dotted line shows
+the log of the true σ2(x) which is known (to reasonable accuracy) through prior
+knowledge.
+A drawback of this approach is that the log of a very small residual will be
+a large outlier. An alternative is to directly smooth the squared residuals. In
+
+
+--- Page 98 ---
+5.7 Conﬁdence Bands
+89
+this case, one might ﬁt a model of the type discussed in Section 5.10 since the
+model does not have an additive form and the error will not be Normal.
+5.7
+Conﬁdence Bands
+In this section we will construct conﬁdence bands for r(x). Typically these
+bands are of the form
+rn(x) ± c se(x)
+(5.97)
+where se(x) is an estimate of the standard deviation of rn(x) and c > 0 is
+some constant. Before we proceed, we discuss a pernicious problem that arises
+whenever we do smoothing, namely, the bias problem.
+The Bias Problem. Conﬁdence bands like those in (5.97), are not really con-
+ﬁdence bands for r(x), rather, they are conﬁdence bands for rn(x) = E(rn(x))
+which you can think of as a smoothed version of r(x). Getting a conﬁdence
+set for the true function r(x) is complicated for reasons we now explain.
+Denote the mean and standard deviation of rn(x) by rn(x) and sn(x). Then,
+rn(x) −r(x)
+sn(x)
+=
+rn(x) −rn(x)
+sn(x)
++ rn(x) −r(x)
+sn(x)
+=
+Zn(x) +
+bias(rn(x))
+
+variance(rn(x))
+where Zn(x) = (rn(x) −rn(x))/sn(x). Typically, the ﬁrst term Zn(x) con-
+verges to a standard Normal from which one derives conﬁdence bands. The
+second term is the bias divided by the standard deviation. In parametric infer-
+ence, the bias is usually smaller than the standard deviation of the estimator
+so this term goes to zero as the sample size increases. In nonparametric infer-
+ence, we have seen that optimal smoothing corresponds to balancing the bias
+and the standard deviation. The second term does not vanish even with large
+sample sizes.
+The presence of this second, nonvanishing term intro-
+duces a bias into the Normal limit. The result is that
+the conﬁdence interval will not be centered around the
+true function r due to the smoothing bias rn(x) −r(x).
+There are several things we can do about this problem. The ﬁrst is: live with
+it. In other words, just accept the fact that the conﬁdence band is for rn not r.
+
+
+--- Page 99 ---
+90
+5. Nonparametric Regression
+There is nothing wrong with this as long as we are careful when we report the
+results to make it clear that the inferences are for rn not r. A second approach
+is to estimate the bias function rn(x) −r(x). This is diﬃcult to do. Indeed,
+the leading term of the bias is r′′(x) and estimating the second derivative of r
+is much harder than estimating r. This requires introducing extra smoothness
+conditions which then bring into question the original estimator that did not
+use this extra smoothness. This has a certain unpleasant circularity to it.6
+A third approach is to undersmooth. If we smooth less than the optimal
+amount then the bias will decrease asymptotically relative to the variance.
+Unfortunately, there does not seem to be a simple, practical rule for choosing
+just the right amount of undersmoothing. (See the end of this chapter for
+more discussion on this point.) We will take the ﬁrst approach and content
+ourselves with ﬁnding a conﬁdence band for rn.
+5.98 Example. To understand the implications of estimating rn instead of r,
+consider the following example. Let
+r(x) = φ(x; 2, 1) + φ(x; 4, 0.5) + φ(x; 6, 0.1) + φ(x; 8, 0.05)
+where φ(x; m, s) denotes a Normal density function with mean m and variance
+s2. Figure 5.10 shows the true function (top left), a locally linear estimate rn
+(top right) based on 100 observations Yi = r(i/10) + .2N(0, 1), i = 1, . . . , 100,
+with bandwidth h = 0.27, the function rn(x) = E(rn(x)) (bottom left) and the
+diﬀerence r(x) −rn(x) (bottom right). We see that rn (dashed line) smooths
+out the peaks. Comparing the top right and bottom left plot, it is clear that
+rn(x) is actually estimating rn not r(x). Overall, rn is quite similar to r(x)
+except that rn omits some of the ﬁne details of r. ■
+Constructing Confidence Bands. Assume that rn(x) is a linear smoother,
+so that rn(x) = n
+i=1 Yiℓi(x). Then,
+r(x) = E(rn(x)) =
+n
+
+i=1
+ℓi(x)r(xi).
+For now, assume that σ2(x) = σ2 = V(ϵi) is constant. Then,
+V(rn(x)) = σ2||ℓ(x)||2.
+6A diﬀerent approach to estimating bias is discussed in Section 6.4 of Ruppert et al. (2003).
+However, I am not aware of any theoretical results to justify the resulting conﬁdence bands.
+
+
+--- Page 100 ---
+5.7 Conﬁdence Bands
+91
+0
+5
+10
+0
+2
+4
+6
+0
+5
+10
+0
+2
+4
+6
+0
+5
+10
+0
+2
+4
+6
+0
+5
+10
+−2
+0
+2
+4
+FIGURE 5.10. The true function (top left), an estimate rn (top right) based on
+100 observations, the function rn(x) = E(rn(x)) (bottom left) and the diﬀerence
+r(x) −rn(x) (bottom right).
+We will consider a conﬁdence band for rn(x) of the form
+I(x) =
+
+rn(x) −c σ||ℓ(x)||, rn(x) + c σ||ℓ(x)||
+
+(5.99)
+for some c > 0 and a ≤x ≤b.
+We follow the approach in Sun and Loader (1994). First suppose that σ is
+known. Then,
+P
+
+r(x) /∈I(x) for some x ∈[a, b]
+
+=
+P
+
+max
+x∈[a,b]
+|r(x) −r(x)|
+σ||ℓ(x)||
+> c
+
+= P
+
+max
+x∈[a,b]
+| 
+i ϵiℓi(x)|
+σ||ℓ(x)||
+> c
+
+=
+P
+
+max
+x∈[a,b] |W(x)| > c
+
+
+
+--- Page 141 ---
+6.3 Kernel Density Estimation
+133
+0.0
+0.1
+0.2
+0.0
+0.1
+0.2
+0.0
+0.1
+0.2
+0.000
+0.008
+f
+f
+f
+estimated mse
+redshift
+redshift
+redshift
+h
+FIGURE 6.5. Kernel density estimators and estimated risk for the astronomy data.
+Top left: oversmoothed. Top right: just right (bandwidth chosen by cross-validation).
+Bottom left: undersmoothed. Bottom right: cross-validation curve as a function of
+bandwidth h. The bandwidth was chosen to be the value of h where the curve is a
+minimum.
+6.27 Theorem. Assume that f is continuous at x and that hn →0 and nhn →
+∞as n →∞. Then fn(x)
+P
+−→f(x).
+6.28 Theorem. Let Rx = E(f(x)−f(x))2 be the risk at a point x and let R =
+
+Rx dx denote the integrated risk. Assume that f ′′ is absolutely continuous
+and that
+
+(f ′′′(x))2dx < ∞. Also, assume that K satisﬁes (4.22). Then,
+Rx = 1
+4σ4
+Kh4
+n(f ′′(x))2 + f(x)
+
+K2(x)dx
+nhn
++ O
+
+ 1
+n
+
++ O(h6
+n)
+and
+R = 1
+4σ4
+Kh4
+n
+
+(f ′′(x))2dx +
+
+K2(x)dx
+nh
++ O
+
+ 1
+n
+
++ O(h6
+n)
+(6.29)
+where σ2
+K =
+
+x2K(x)dx.
+
+
+--- Page 142 ---
+134
+6. Density Estimation
+Proof. Write Kh(x, X) = h−1K ((x −X)/h) and fn(x) = n−1 
+i Kh(x, Xi).
+Thus, E[ fn(x)] = E[Kh(x, X)] and V[ fn(x)] = n−1V[Kh(x, X)]. Now,
+E[Kh(x, X)]
+=
+ 1
+hK
+
+x −t
+h
+
+f(t) dt
+=
+
+K(u)f(x −hu) du
+=
+
+K(u)
+!
+f(x) −huf ′(x) + h2u2
+2
+f ′′(x) + · · ·
+"
+du
+=
+f(x) + 1
+2h2f ′′(x)
+
+u2K(u) du · · ·
+since
+
+K(x) dx = 1 and
+
+x K(x) dx = 0. The bias is
+E[Khn(x, X)] −f(x) = 1
+2σ2
+Kh2
+nf ′′(x) + O(h4
+n).
+By a similar calculation,
+V[ fn(x)] = f(x)
+
+K2(x) dx
+n hn
++ O
+
+ 1
+n
+
+.
+The ﬁrst result then follows since the risk is the squared bias plus variance.
+The second result follows from integrating the ﬁrst. ■
+If we diﬀerentiate (6.29) with respect to h and set it equal to 0, we see that
+the asymptotically optimal bandwidth is
+h∗=
+
+c2
+c2
+1A(f)n
+1/5
+(6.30)
+where c1 =
+
+x2K(x)dx, c2 =
+
+K(x)2dx and A(f) =
+
+(f ′′(x))2dx. This
+is informative because it tells us that the best bandwidth decreases at rate
+n−1/5. Plugging h∗into (6.29), we see that if the optimal bandwidth is used
+then R = O(n−4/5). As we saw, histograms converge at rate O(n−2/3) showing
+that kernel estimators are superior in rate to histograms. According to the
+next theorem, there does not exist an estimator that converges faster than
+O(n−4/5). For a proof, see, for example, Chapter 24 of van der Vaart (1998).
+6.31 Theorem. Let F be the set of all probability density functions and let
+f (m) denote the mth derivative of f. Deﬁne
+Fm(c) =
+
+f ∈F :
+
+|f (m)(x)|2dx ≤c2
+
+.
+
+
+--- Page 143 ---
+6.3 Kernel Density Estimation
+135
+For any estimator fn,
+sup
+f∈Fm(c)
+Ef
+
+( fn(x) −f(x))2dx ≥b
+
+ 1
+n
+2m/(2m+1)
+(6.32)
+where b > 0 is a universal constant that depends only on m and c.
+In particular, taking m = 2 in the previous theorem we see that n−4/5 is
+the fastest possible rate.
+In practice, the bandwidth can be chosen by cross-validation but ﬁrst we
+describe another method which is sometimes used when f is thought to be
+very smooth. Speciﬁcally, we compute h∗from (6.30) under the idealized
+assumption that f is Normal. This yields h∗= 1.06σn−1/5. Usually, σ is
+estimated by min{s, Q/1.34} where s is the sample standard deviation and Q
+is the interquartile range.1 This choice of h∗works well if the true density is
+very smooth and is called the Normal reference rule.
+The Normal Reference Rule
+For smooth densities and a Normal kernel, use the bandwidth
+hn = 1.06 σ
+n1/5
+where
+σ = min
+
+s,
+Q
+1.34
+
+.
+Since we don’t want to necessarily assume that f is very smooth, it is usually
+better to estimate h using cross-validation. Recall from Section 6.1 that the
+cross-validation score is
+J(h) =
+
+f 2(x)dx −2
+n
+n
+
+i=1
+f−i(Xi)
+(6.33)
+where f−i denotes the kernel estimator obtained by omitting Xi. The next
+theorem gives a simpler expression for J.
+6.34 Theorem. For any h > 0,
+E
+7
+J(h)
+8
+= E [J(h)] .
+1Recall that the interquartile range is the 75th percentile minus the 25th percentile. The
+reason for dividing by 1.34 is that Q/1.34 is a consistent estimate of σ if the data are from a
+N(µ, σ2).
+
+
+--- Page 144 ---
+136
+6. Density Estimation
+Also,
+J(h) =
+1
+hn2
+
+i
+
+j
+K∗
+
+Xi −Xj
+h
+
++ 2
+nhK(0) + O
+
+ 1
+n2
+
+(6.35)
+where K∗(x) = K(2)(x) −2K(x) and K(2)(z) =
+
+K(z −y)K(y)dy.
+6.36 Remark. When K is a N(0,1) Gaussian kernel then K(2)(z) is the N(0, 2)
+density. Also, we should point out that the estimator fn and the cross-validation
+score (6.35) can be computed quickly using the fast Fourier transform; see
+pages 61–66 of Silverman (1986).
+A justiﬁcation for cross-validation is given by the following remarkable the-
+orem due to Stone (1984).
+6.37 Theorem (Stone’s theorem). Suppose that f is bounded. Let fh denote
+the kernel estimator with bandwidth h and let h denote the bandwidth chosen
+by cross-validation. Then,
+ 
+f(x) −fh(x)
+2
+dx
+infh
+ 
+f(x) −fh(x)
+2
+dx
+a.s.
+−→1.
+(6.38)
+The bandwidth for the density estimator in the upper right panel of Figure
+6.5 is based on cross-validation. In this case it worked well but of course there
+are lots of examples where there are problems. Do not assume that, if the
+estimator f is wiggly, then cross-validation has let you down. The eye is not
+a good judge of risk.
+Another approach to bandwidth selection called plug-in bandwidths. The
+idea is as follows. The (asymptotically) optimal bandwidth is given in equation
+(6.30). The only unknown quantity in that formula is A(f) =
+
+(f ′′(x))2dx. If
+we have an estimate f ′′ of f ′′, then we can plug this estimate into the formula
+for the optimal bandwidth h∗. There is a rich and interesting literature on this
+and similar approaches. The problem with this approach is that estimating f ′′
+is harder than estimating f. Indeed, we need to make stronger assumptions
+about f to estimate f ′′. But if we make these stronger assumptions then the
+(usual) kernel estimator for f is not appropriate. Loader (1999b) has inves-
+tigated this issue in detail and provides evidence that the plug-in bandwidth
+approach might not be reliable. There are also methods that apply corrections
+to plug-in rules; see Hjort (1999).
+A generalization of the kernel method is to use adaptive kernels where
+one uses a diﬀerent bandwidth h(x) for each point x. One can also use a
+
+
+--- Page 145 ---
+6.4 Local Polynomials
+137
+diﬀerent bandwidth h(xi) for each data point. This makes the estimator more
+ﬂexible and allows it to adapt to regions of varying smoothness. But now we
+have the very diﬃcult task of choosing many bandwidths instead of just one.
+See Chapter 9 for more on adaptive methods.
+Constructing conﬁdence bands for kernel density estimators is more com-
+plicated than for regression. We discuss one possible approach in Section 6.6.
+6.4
+Local Polynomials
+In Chapter 5 we saw that kernel regression suﬀers from boundary bias and
+that this bias can be reduced by using local polynomials. The same is true for
+kernel density estimation. But what density estimation method corresponds
+to local polynomial regression? One possibility, developed by Loader (1999a)
+and Hjort and Jones (1996) is to use local likelihood density estimation.
+The usual deﬁnition of log-likelihood is L(f) = n
+i=1 log f(Xi). It is conve-
+nient to generalize this deﬁnition to
+L(f) =
+n
+
+i=1
+log f(Xi) −n
+
+f(u) du −1
+
+.
+The second term is zero when f integrates to one. Including this term allows
+us to maximize over all non-negative f with imposing the constraint that
+
+f(u)du = 1. The local version of this log-likelihood is as follows:
+6.39 Deﬁnition. Given a kernel K and bandwidth h, the local
+log-likelihood at a target value x is
+Lx(f) =
+n
+
+i=1
+K
+
+Xi −x
+h
+
+log f(Xi) −n
+
+K
+
+u −x
+h
+
+f(u) du.
+(6.40)
+The above deﬁnition is for an arbitrary density f. We are interested in the
+case where we approximate log f(u) by a polynomial in a neighborhood of x.
+Thus we write
+log f(u) ≈Px(a, u)
+(6.41)
+where
+Px(a, u) = a0 + a1(x −u) + · · · + ap
+(x −u)p
+p!
+.
+(6.42)
+
+
+--- Page 146 ---
+138
+6. Density Estimation
+Plugging (6.41) into (6.40) yields the local polynomial log-likelihood
+Lx(a) =
+n
+
+i=1
+K
+
+Xi −x
+h
+
+Px(a, Xi) −n
+
+K
+
+u −x
+h
+
+ePx(a,u)du.
+(6.43)
+6.44 Deﬁnition. Let a = (a0, . . . , ap)T maximize Lx(a). The local
+likelihood density estimate is
+fn(x) = ePx(a,x) = ea0.
+(6.45)
+6.46 Remark. When p = 0, fn reduces to kernel density estimation.
+6.5
+Multivariate Problems
+Suppose now that the data are d-dimensional so that Xi = (Xi1, . . . , Xid). As
+we discussed in the two previous chapters, we can generalize the methods to
+higher dimensions quite easily in principle, though the curse of dimensionality
+implies that the accuracy of the estimator deteriorates quickly as dimension
+increases.
+The kernel estimator can easily be generalized to d dimensions. Most often,
+we use the product kernel
+fn(x) =
+1
+nh1 · · · hd
+n
+
+i=1
+⎧
+⎨
+⎩
+d
+
+j=1
+K
+
+xj −Xij
+hj
+⎫
+⎬
+⎭.
+(6.47)
+The risk is given by
+R ≈1
+4σ4
+K
+⎡
+⎣
+d
+
+j=1
+h4
+j
+
+f 2
+jj(x)dx +
+
+j̸=k
+h2
+jh2
+k
+
+fjjfkkdx
+⎤
+⎦+
+ K2(x)dx
+d
+nh1 · · · hd
+(6.48)
+where fjj is the second partial derivative of f. The optimal bandwidth satisﬁes
+hi = O(n−1/(4+d)) leading to a risk of order R = O(n−4/(4+d)). Again, we
+see that the risk increases quickly with dimension. To get a sense of how
+serious this problem is, consider the following table from Silverman (1986)
+which shows the sample size required to ensure a relative mean squared error
+less than 0.1 at 0 when the density is multivariate normal and the optimal
+bandwidth is selected.
+
+
+--- Page 147 ---
+6.6 Converting Density Estimation Into Regression
+139
+Dimension
+Sample Size
+1
+4
+2
+19
+3
+67
+4
+223
+5
+768
+6
+2790
+7
+10,700
+8
+43,700
+9
+187,000
+10
+842,000
+This is bad news. If you do attempt to estimate a density in a high dimen-
+sional problem, you should not report the results without reporting conﬁdence
+bands. The conﬁdence band method described in Section 6.6 can be extended
+for the multivariate case, although we do not report the details here. These
+bands get very wide as d increases. The problem is not the method of estima-
+tion; rather, the wide bands correctly reﬂect the diﬃculty of the problem.
+6.6
+Converting Density Estimation Into Regression
+There is a useful trick for converting a density estimation problem into a
+regression problem. Then we can use all the regression methods from the
+previous chapter. This trick is an old idea but was recently made rigorous
+by Nussbaum (1996a) and Brown et al. (2005). By converting to regression,
+we can use all the tools we developed in the previous chapter, including the
+method for constructing conﬁdence bands.
+Suppose X1, . . . , Xn ∼F with density f = F ′. For simplicity, suppose the
+data are on [0, 1]. Divide the interval [0, 1] into k equal width bins where
+k ≈n/10. Deﬁne
+Yj =
+
+k
+n ×
+
+Nj + 1
+4
+(6.49)
+where Nj is the number of observations in bin j. Then,
+Yj ≈r(tj) + σϵj
+(6.50)
+where ϵj ∼N(0, 1), σ =
+
+k
+4n, r(x) =
+
+f(x) and tj is the midpoint of the
+jth bin. To see why, let Bj denote the jth bin and note that
+Nj ≈Poisson
+
+n
+
+Bj
+f(x)dx
+
+≈Poisson
+
+nf(tj)
+k
+
+
+
+--- Page 148 ---
+140
+6. Density Estimation
+so that E(Nj) = V (Nj) ≈nf(tj)/k. Applying the delta method, we see that
+E(Yj) ≈
+
+f(tj) and V(Yj) ≈k/(4n).
+We have thus converted the density estimation problem into a nonparamet-
+ric regression problem with equally spaced xis and constant variance. We can
+now apply any nonparametric regression method to get an estimate rn and
+take
+fn(x) =
+(r+(x))2
+ 1
+0 (r+(s))2 ds
+where r+(x) = max
+
+rn(x), 0
+
+. In particular, we can construct conﬁdence
+bands as in Chapter 5. It is important to note that binning is not a smoothing
+step; binning is being used to turn density estimation into regression.
+6.51 Example. Figure 6.6 shows the method applied to data from the Bart
+Simpson distribution. The top plot shows the cross-validation score. The bot-
+tom plot shows the estimated density and 95 percent conﬁdence bands. ■
+6.7
+Bibliographic Remarks
+Kernel smoothing was invented by Rosenblatt (1956) and Parzen (1962). The
+cross-validation method is due to Rudemo (1982). Two very good books on
+density estimation are Scott (1992) and Silverman (1986). For information
+on a diﬀerent approach called the scale-space approach see Chaudhuri and
+Marron (1999) and Chaudhuri and Marron (2000).
+6.8
+Appendix
+proof of Theorem 6.11. For any x, u ∈Bj,
+f(u) = f(x) + (u −x)f ′(x) + (u −x)2
+2
+f ′′(x)
+for some x between x and u.
+Hence,
+pj =
+
+Bj
+f(u)du
+=
+
+Bj
+
+f(x) + (u −x)f ′(x) + (u −x)2
+2
+f ′′(x)
+
+du
+=
+f(x)h + hf ′(x)
+
+h
+
+j −1
+2
+
+−x
+
++ O(h3).
+
+
+--- Page 149 ---
+6.8 Appendix
+141
+27
+34
+43
+−3
+0
+3
+0.0
+0.5
+FIGURE 6.6. Density estimation by regression. The data were binned and ker-
+nel regression was used on the square root of the counts. The top plot shows the
+cross-validation score by eﬀective degrees of freedom. The bottom plot shows the
+estimate and a 95 percent conﬁdence envelope. See Example 6.51.
+Therefore, the bias b(x) is
+b(x)
+=
+E( fn(x)) −f(x) = pj
+h −f(x)
+=
+f(x)h + hf ′(x)
+
+h
+
+j −1
+2
+
+−x
+
++ O(h3)
+h
+−f(x)
+=
+f ′(x)
+
+h
+
+j −1
+2
+
+−x
+
++ O(h2).
+By the mean value theorem we have, for some xj ∈Bj, that
+
+Bj
+b2(x) dx
+=
+
+Bj
+(f ′(x))2
+
+h
+
+j −1
+2
+
+−x
+2
+dx + O(h4)
+=
+(f ′(xj))2
+
+Bj
+
+h
+
+j −1
+2
+
+−x
+2
+dx + O(h4)
+
+
+--- Page 150 ---
+142
+6. Density Estimation
+=
+(f ′(xj))2 h3
+12 + O(h4).
+Therefore,
+ 1
+0
+b2(x)dx
+=
+m
+
+j=1
+
+Bj
+b2(x)dx + O(h3)
+=
+m
+
+j=1
+(f ′(xj))2 h3
+12 + O(h3)
+=
+h2
+12
+m
+
+j=1
+h (f ′(xj))2 + O(h3)
+=
+h2
+12
+ 1
+0
+(f ′(x))2dx + o(h2).
+Now consider the variance. By the mean value theorem, pj =
+
+Bj f(x)dx =
+hf(xj) for some xj ∈Bj. Hence, with v(x) = V( fn(x),
+ 1
+0
+v(x) dx
+=
+m
+
+j=1
+
+Bj
+v(x) dx =
+m
+
+j=1
+
+Bj
+pj(1 −pj)
+nh2
+=
+1
+nh2
+m
+
+j=1
+
+Bj
+pj −
+1
+nh2
+m
+
+j=1
+
+Bj
+p2
+j = 1
+nh −1
+nh
+m
+
+j=1
+p2
+j
+=
+1
+nh −1
+nh
+m
+
+j=1
+h2f 2(xj) = 1
+nh −1
+n
+m
+
+j=1
+hf 2(xj)
+=
+1
+nh −1
+n
+
+ 1
+0
+f 2(x)dx + o(1)
+
+= 1
+nh + o
+
+ 1
+n
+
+.
+■
+6.9
+Exercises
+1. Prove Theorem 6.27.
+2. Let X1, . . . , Xn ∼f and let fn be the kernel density estimator using the
+boxcar kernel:
+K(x) =
+
+1
+−1
+2 < x < 1
+2
+0
+otherwise.
+(a) Show that
+E( f(x)) = 1
+h
+ x+(h/2)
+x−(h/2)
+f(y)dy
+
+
+--- Page 151 ---
+6.9 Exercises
+143
+and
+V( f(x)) =
+1
+nh2
+⎡
+⎣
+ x+(h/2)
+x−(h/2)
+f(y)dy −
+ x+(h/2)
+x−(h/2)
+f(y)dy
+2⎤
+⎦.
+(b) Show that if h →0 and nh →∞as n →∞then fn(x)
+P
+−→f(x).
+3. Prove that J(h) is an unbiased estimate of J(h) for histograms and
+kernel density estimates.
+4. Prove equation 6.35.
+5. Data on the salaries of the chief executive oﬃcer of 60 companies is
+available at:
+http://lib.stat.cmu.edu/DASL/Datafiles/ceodat.html
+Investigate the distribution of salaries using a histogram and a ker-
+nel density estimator. Use least squares cross-validation to choose the
+amount of smoothing. Also consider the Normal reference rule for pick-
+ing a bandwidth for the kernel. There appear to be a few bumps in the
+density. Are they real? Use conﬁdence bands to address this question.
+Finally, try using various kernel shapes and comment on the resulting
+estimates.
+6. Get the data on fragments of glass collected in forensic work from the
+book website. Estimate the density of the ﬁrst variable (refractive index)
+using a histogram and a kernel density estimator. Use cross-validation to
+choose the amount of smoothing. Experiment with diﬀerent binwidths
+and bandwidths. Comment on the similarities and diﬀerences. Construct
+95 percent conﬁdence bands for your estimators. For the kernel, exper-
+iment with diﬀerent kernel shapes.
+7. Consider the data in Exercise 6. Examine the ﬁt as a function of the
+bandwidth h. Do this by plotting the ﬁt for many values of h. Add
+conﬁdence bands to all the ﬁts. If you are feeling very ambitious, read
+Chaudhuri and Marron (1999) and apply that method.
+8. Prove that local likelihood density estimation reduces to kernel density
+estimation when the degree of the polynomial p = 0.
+9. Apply local polynomial density estimation to the data in Exercise 6.
+
+
+--- Page 152 ---
+144
+6. Density Estimation
+10. Generate data from the Bart Simpson distribution (6.2). Compare ker-
+nel density estimation to the method in Section 6.6. Try the following
+sample sizes: n = 25, 50, 100, 1, 000.
+
+
+--- Page 153 ---
+7
+Normal Means and Minimax Theory
+In this chapter we will discuss the many Normal means problem which
+uniﬁes some nonparametric problems and will be the basis for the methods in
+the next two chapters. The material in this chapter is more theoretical than
+in the rest of the book. If you are not interested in the theoretical details, I
+recommend reading sections 7.1, 7.2, and 7.3 and then skipping to the next
+chapter, referring back as needed. If you want more details on this topic, I
+recommend Johnstone (2003).
+7.1
+The Normal Means Model
+Let Zn = (Z1, . . . , Zn) where
+Zi = θi + σn ϵi,
+i = 1, . . . , n,
+(7.1)
+ϵ1, . . ., ϵn are independent, Normal(0, 1) random variables,
+θn = (θ1, . . . , θn) ∈Rn
+is a vector of unknown parameters and σn is assumed known. Typically σn =
+σ/√n but we shall not assume this unless speciﬁcally noted. Sometimes we
+write Zn and θn as Z and θ. The model may appear to be parametric but
+the number of parameters is increasing at the same rate as the number of
+
+
+--- Page 154 ---
+146
+7. Normal Means and Minimax Theory
+θ1
+θ2
+. . .
+θi
+. . .
+θn
+X11
+X21
+. . .
+Xi1
+. . .
+Xn1
+...
+...
+...
+...
+...
+...
+X1j
+X2j
+. . .
+Xij
+. . .
+Xnj
+...
+...
+...
+...
+...
+...
+X1n
+X2n
+. . .
+Xin
+...
+Xnn
+Z1
+Z2
+. . .
+Zi
+. . .
+Zn
+FIGURE
+7.1.
+The
+Normal
+means
+model.
+Xij
+=
+θi + N(0, σ2)
+and
+Zi = n−1 n
+j=1 Xij = θi + σnϵi where σn = σ/√n. Estimating the parame-
+ters θ1, . . . , θn from the n column means Z1, . . . , Zn leads to the model (7.1) with
+σn = σ/√n.
+data points. This model carries with it all the complexities and subtleties of a
+nonparametric problem. We will also consider an inﬁnite-dimensional version
+of the model:
+Zi = θi + σn ϵi,
+i = 1, 2, . . . ,
+(7.2)
+where now the unknown parameter is θ = (θ1, θ2, . . .).
+Throughout this chapter we take σ2
+n as known. In practice, we would need to
+estimate the variance using one of the methods discussed in Chapter 5. In this
+case, the exact results that follow may no longer hold but, under appropriate
+smoothness conditions, asymptotic versions of the results will hold.
+7.3 Example. To provide some intuition for this model, suppose that we have
+data Xij = θi + σδij where 1 ≤i, j ≤n and the δij are independent N(0,1)
+random variables. This is simply a one-way analysis of variance model; see
+Figure 7.1. Let Zi = n−1 n
+j=1 Xij. Then the model (7.1) holds with σn =
+σ/√n. We get the inﬁnite version (7.2) by having inﬁnitely many columns in
+Figure 7.1 (but still n rows). ■
+Given an estimator θn = (θ1, . . . , θn) we will use the squared error loss
+L(θn, θn) =
+n
+
+i=1
+(θi −θi)2 = ||θn −θn||2
+with risk function
+R(θn, θn) = Eθ
+
+L(θn, θn)
+
+=
+n
+
+i=1
+Eθ(θi −θi)2.
+An obvious choice for an estimator of θn is θn = Zn. This estimator has
+impressive credentials: it is the maximum likelihood estimator, it is the min-
+
+
+--- Page 155 ---
+7.2 Function Spaces
+147
+imum variance unbiased estimator and it is the Bayes estimator under a ﬂat
+prior. Nonetheless, it is a poor estimator. Its risk is
+R(Zn, θn) =
+n
+
+i=1
+Eθ(Zi −θi)2 =
+n
+
+i=1
+σ2
+n = nσ2
+n.
+We shall see that there are estimators with substantially smaller risk.
+Before we explain how we can improve on the mle, let’s ﬁrst see how the
+normal means problem relates to nonparametric regression and density esti-
+mation. To do that, we need to review some theory about function spaces.
+7.2
+Function Spaces
+Let L2(a, b) denote the set of functions f : [a, b] →R such that
+ b
+a f 2(x) dx <
+∞. Unless otherwise indicated, assume that a = 0 and b = 1. The inner
+product between two functions f and g in L2(a, b) is
+ b
+a f(x)g(x)dx and the
+norm of f is ||f|| =
+ b
+a f 2(x) dx. A sequence of functions φ1, φ2, . . . is called
+orthonormal if ||φj|| = 1 for all j (normalized) and
+ b
+a φi(x)φj(x)dx = 0 for
+i ̸= j (orthogonal). The sequence is complete if the only function that is
+orthogonal to each φj is the zero function. A complete, orthonormal set of
+functions forms a basis, meaning that if f ∈L2(a, b) then f can be expanded
+in the basis:
+7.4 Theorem. If f ∈L2(a, b) then1
+f(x) =
+∞
+
+j=1
+θjφj(x)
+(7.5)
+where
+θj =
+ b
+a
+f(x)φj(x) dx.
+(7.6)
+Furthermore,
+ b
+a
+f 2(x)dx =
+∞
+
+j=1
+θ2
+j
+(7.7)
+which is known as Parseval’s identity.
+1The equality sign in (7.5) means that
+ b
+a (f(x) −fN(x))2dx →0 as N →∞, where
+fN = N
+j=1 θjφj(x).
+
+
+--- Page 156 ---
+148
+7. Normal Means and Minimax Theory
+An example of an orthonormal basis for L2(0, 1) is the cosine basis
+φ0(x) = 1,
+φj(x) =
+√
+2 cos(2πjx),
+j = 1, 2, . . ..
+Another example is the Legendre basis deﬁned on (−1, 1):
+P0(x) = 1,
+P1(x) = x,
+P2(x) = 1
+2(3x2 −1),
+P3(x) = 1
+2(5x3 −3x), . . .
+These polynomials are deﬁned by the relation
+Pn(x) =
+1
+2nn!
+dn
+dxn (x2 −1)n.
+The Legendre polynomials are orthogonal but not orthonormal since
+ 1
+−1
+P 2
+n(x)dx =
+2
+2n + 1.
+However, we can deﬁne modiﬁed Legendre polynomials Qn(x) =
+
+(2n + 1)/2
+Pn(x) which then form an orthonormal basis for L2(−1, 1).
+Next we introduce Sobolev spaces, which are sets of smooth functions. Let
+Djf denote the jth weak derivative2 of f.
+7.8 Deﬁnition. The Sobolev space of order m, is deﬁned by
+W(m) =
+
+f ∈L2(0, 1) : Dmf ∈L2(0, 1)
+
+.
+The Sobolev space of order m and radius c, is deﬁned by
+W(m, c) =
+
+f : f ∈W(m), ||Dmf||2 ≤c2
+.
+The periodic Sobolev class is
+C
+W(m, c) =
+
+f ∈W(m, c) : Djf(0) = Djf(1), j = 0, . . . , m −1
+
+.
+An ellipsoid is a set of the form
+Θ =
+
+θ :
+∞
+
+j=1
+a2
+jθ2
+j ≤c2
+*
+(7.9)
+where aj is a sequence of numbers such that aj →∞as j →∞.
+2The weak derivative is deﬁned in the appendix.
+
+
+--- Page 157 ---
+7.3 Connection to Regression and Density Estimation
+149
+7.10 Deﬁnition. If Θ is an ellipsoid and if a2
+j ∼(πj)2m as j →∞, we call
+Θ a Sobolev ellipsoid or a Sobolev body and we denote it by Θ(m, c).
+Now we relate Sobolev spaces to Sobolev ellipsoids.
+7.11 Theorem. Let {φj, j = 0, 1, . . .} be the Fourier basis:
+φ1(x) = 1,
+φ2j(x) =
+1
+√
+2
+cos(2jπx),
+φ2j+1(x) =
+1
+√
+2
+sin(2jπx),
+j = 1, 2, . . .
+Then,
+C
+W(m, c) =
+
+f : f =
+∞
+
+j=1
+θjφj,
+∞
+
+j=1
+a2
+jθ2
+j ≤c2
+*
+(7.12)
+where aj = (πj)m for j even and aj = (π(j −1))m for j odd.
+Thus, a Sobolev space corresponds to a Sobolev ellipsoid with aj ∼(πj)2m.
+It is also possible to relate the class W(m, c) to an ellipsoid although the
+details are more complicated; see Nussbaum (1985).
+In Sobolev spaces, smooth functions have small coeﬃcients θj when j is
+large, otherwise 
+j θ2
+j (πj)2m will blow up. Thus, to smooth a function, we
+shrink the θjs closer to zero. Hence:
+smoothing f corresponds to shrinking the θj’s towards zero for
+large j.
+A generalization of Sobolev spaces are Besov spaces. These include Sobolev
+spaces as a special case but they also include functions with less smoothness.
+We defer discussion of Besov spaces until Chapter 9.
+7.3
+Connection to Regression and Density
+Estimation
+Consider the nonparametric regression model
+Yi = f(i/n) + σϵi,
+i = 1, . . . , n
+(7.13)
+where ϵi ∼N(0, 1), σ is known and f ∈L2(0, 1). Let φ1, φ2, . . . be an or-
+thonormal basis and write f(x) = ∞
+i=1 θjφj(x) where θj =
+
+f(x)φj(x)dx.
+First, approximate f by the ﬁnite series f(x) ≈n
+i=1 θjφj(x). Now deﬁne
+Zj = 1
+n
+n
+
+i=1
+Yi φj(i/n)
+(7.14)
+
+
+--- Page 158 ---
+150
+7. Normal Means and Minimax Theory
+for j = 1, . . . , n. The random variable Zj has a Normal distribution since Zj
+is a linear combination of Normals. The mean of Zj is
+E(Zj)
+=
+1
+n
+n
+
+i=1
+E(Yi)φj(i/n) = 1
+n
+n
+
+i=1
+f(i/n)φj(i/n)
+≈
+
+f(x) φj(x) dx = θj.
+The variance is
+V(Zj)
+=
+1
+n2
+n
+
+i=1
+V(Yi) φ2
+j(i/n) = σ2
+n
+1
+n
+n
+
+i=1
+φ2
+j(i/n)
+≈
+σ2
+n
+
+φ2
+j(x)dx = σ2
+n ≡σ2
+n.
+A similar calculation shows that Cov(Zj, Zk) ≈0. We conclude that the Zj
+are approximately independent and
+Zj ∼N(θj, σ2
+n),
+σ2
+n = σ2
+n .
+(7.15)
+We have thus converted the problem of estimating f into the problem of
+estimating the means of n Normal random variables as in (7.1) with σ2
+n =
+σ2/n. Also, squared error loss for f corresponds to squared error loss for θ
+since, by Parseval’s identity, if fn(x) = ∞
+j=1 θjφj(x),
+|| fn −f||2 =
+ 
+fn(x) −f(x)
+2
+dx =
+∞
+
+j=1
+(θj −θj)2 = ||θ −θ||2
+(7.16)
+where ||θ|| =
+
+j θ2
+j.
+It turns out that other nonparametric problems, such as density estimation,
+can also be connected to the Normal means problem. In the case of density
+estimation, it is the square root of the density that appears in the white noise
+problem. In this sense, the many Normal means problem serves as a unifying
+framework for many nonparametric models. See Nussbaum (1996a), Claeskens
+and Hjort (2004) and the appendix for more details.
+7.4
+Stein’s Unbiased Risk Estimator (sure)
+Let θ be an estimate of θ. It will be useful to have an estimate of the risk of θ.
+In previous chapters we used cross-validation to estimate risk. In the present
+context there is a more elegant method for risk estimation due to Stein (1981)
+known as Stein’s unbiased risk estimator or sure.
+
+
+--- Page 159 ---
+7.4 Stein’s Unbiased Risk Estimator (sure)
+151
+7.17 Theorem (Stein). Let Z ∼Nn(θ, V ), let θ = θ(Z) be an estimate of θ
+and let g(Z1, . . . , Zn) = θ −Z. Note that g maps Rn to Rn. Deﬁne
+R(z) = tr(V ) + 2tr (V D) +
+
+i
+g2
+i (z)
+(7.18)
+where tr denotes the trace of a matrix, gi = θi −Zi and the (i, j) component
+of D is the partial derivative of the ith component of g(z1, . . . , zn) with respect
+to zj. If g is weakly diﬀerentiable3 then
+Eθ( R(Z)) = R(θ, θ).
+If we apply Theorem 7.17 to the model (7.1) we get the following.
+The sure Formula for the Normal Means Model
+Let θ be a weakly diﬀerentiable estimator of θ in model (7.1). An unbiased
+estimate of the risk of θ is
+R(z) = nσ2
+n + 2σ2
+n
+n
+
+i=1
+Di +
+n
+
+i=1
+g2
+i
+(7.19)
+where g(Z1, . . . , Zn) = θn −Zn and Di = ∂g(z1, . . . , zn)/∂zi.
+proof of Theorem 7.17. We will prove the case where V = σ2I. If
+X ∼N(µ, σ2) then E(g(X)(X −µ)) = σ2Eg′(X). (This is known as Stein’s
+Lemma and it can be proved using integration by parts. See Exercise 4.)
+Hence, σ2EθDi = Eθgi(Zi −θ) and
+Eθ( R(Z))
+=
+nσ2 + 2σ2
+n
+
+i=1
+EθDi +
+n
+
+i=1
+Eθ(θi −Zi)2
+=
+nσ2 + 2
+n
+
+i=1
+Eθ (gi(Zi −θi)) +
+n
+
+i=1
+Eθ(θi −Zi)2
+=
+n
+
+i=1
+Eθ(Zi −θi)2 + 2
+n
+
+i=1
+Eθ
+
+(θi −Zi)(Zi −θi)
+
++
+n
+
+i=1
+Eθ(θi −Zi)2
+=
+n
+
+i=1
+Eθ(θi −Zi + Zi −θi)2 =
+n
+
+i=1
+Eθ(θi −θi)2 = R(θ, θ).
+■
+3Weak diﬀerentiability is deﬁned in the appendix.
+
+
+--- Page 160 ---
+152
+7. Normal Means and Minimax Theory
+7.20 Example. Let V = σ2I. Consider θ = Z. Then g(z) = (0, . . . , 0) and
+R(Z) = nσ2. In this case, R is equal to the true risk. Now consider the linear
+estimator θ = bZ = (bZ1, . . . , bZn). Hence, g(Z) = bZ −Z = (b −1)Z and
+Di = b −1. Therefore, R(Z) = (2b −1)nσ2 + (1 −b)2 n
+i=1 Z2
+i . Next consider
+the soft threshold estimator deﬁned by
+θi =
+⎧
+⎨
+⎩
+Zi + λ
+Zi < −λ
+0
+−λ ≤Zi ≤λ
+Zi −λ
+Zi > λ
+(7.21)
+where λ > 0 is a constant. We can write this estimator more succinctly as
+θi = sign(Zi)(|Zi| −λ)+.
+In Exercise 5 you will show that the sure formula gives
+R(Z) =
+n
+
+i=1
+
+σ2 −2σ2I(|Zi| ≤λ) + min(Z2
+i , λ2)
+
+.
+(7.22)
+Finally, consider the hard threshold estimator deﬁned by
+θi =
+
+Zi
+|Zi| > λ
+0
+|Zi| ≤λ
+(7.23)
+where λ > 0 is a constant. It is tempting to use sure but this is inappropriate
+because this estimator is not weakly diﬀerentiable. ■
+7.24 Example (Model selection). For each S ⊂{1, . . ., n} deﬁne
+θS = ZiI(i ∈S).
+(7.25)
+We can think of S as a submodel which says that Zi ∼N(θi, σ2
+n) for i ∈S and
+Zi ∼N(0, σ2
+n) for i /∈S. Then θS is the estimator of θ assuming the model S.
+The true risk of θS is
+R(θS, θ) = σ2
+n|S| +
+
+i∈Sc
+θ2
+i
+where |S| denotes the number of points in S. Replacing θ2
+i in the risk with its
+unbiased estimator Z2
+i −σ2
+n yields the risk estimator
+RS = σ2
+n|S| +
+
+i∈Sc
+(Z2
+i −σ2
+n).
+(7.26)
+It is easy to check that this corresponds to the sure formula. Now let S be
+some class of sets where each S ∈S is a subset of {1, . . ., n}. Choosing S ∈S
+to minimize RS is an example of model selection. The special case where
+S =
+
+∅, {1}, {1, 2}, . . ., {1, 2, . . ., n}
+
+
+
+--- Page 161 ---
+7.5 Minimax Risk and Pinsker’s Theorem
+153
+is called nested subset selection. Taking S to be all subsets of {1, . . . , n}
+corresponds to all possible subsets. For any ﬁxed model S, we expect that
+RS will be close to R(θS, θ). However, this does not guarantee that RS is close
+to R(θS, θ) uniformly over S. See Exercise 10. ■
+7.5
+Minimax Risk and Pinsker’s Theorem
+If Θn is a subset of Rn, we deﬁne the minimax risk over Θn by
+Rn ≡R(Θn) ≡inf
+θ
+sup
+θ∈Θn
+R(θ, θ)
+(7.27)
+where the inﬁmum is over all estimators. Two questions we will address are:
+(i) what is the value of the minimax risk R(Θn)? and (ii) can we ﬁnd an
+estimator that achieves this risk?
+The following theorem4 gives the exact, limiting form of the minimax risk
+for the L2 ball
+Θn(c) =
+
+(θ1, . . . , θn) :
+n
+
+i=1
+θ2
+i ≤c2
+*
+.
+7.28 Theorem (Pinsker’s theorem). Assume the model (7.1) with σ2
+n = σ2/n.
+For any c > 0,
+lim inf
+n→∞inf
+θ
+sup
+θ∈Θn(c)
+R(θ, θ) =
+σ2c2
+σ2 + c2 .
+(7.29)
+The right-hand side of (7.29) gives an exact expression for the (asymptotic)
+minimax risk. This expression is strictly smaller than σ2 which is the risk for
+the maximum likelihood estimator. Later, we will introduce the James–Stein
+estimator which asymptotically achieves this risk. The proof of the theorem,
+which is in the appendix, is a bit technical and may be skipped without loss
+of continuity. Here is the basic idea behind the proof.
+First, we note that the estimator with coordinates θj = c2Zj/(σ2 + c2) has
+risk bounded above by σ2c2/(σ2 + c2). Hence,
+Rn ≤
+σ2c2
+σ2 + c2 .
+(7.30)
+If we could ﬁnd a prior π on Θn(c) whose posterior mean θ also has risk
+σ2c2/(σ2 + c2) then we could argue that, for any estimator θ, we have
+σ2c2
+σ2 + c2 =
+
+R(θ, θ)dπ(θ) ≤
+
+R(θ, θ)dπ(θ) ≤sup
+θ∈Θn
+R(θ, θ) = Rn.
+(7.31)
+4This is a ﬁnite-dimensional version of Pinsker’s theorem. Theorem 7.32 is the usual version.
+
+
+--- Page 162 ---
+154
+7. Normal Means and Minimax Theory
+Combining (7.30) and (7.31) would yield Rn = σ2c2/(σ2 + c2). The proof is
+essentially an approximate version of this argument. One ﬁnds a prior over
+all of Rn whose risk is arbitrarily close to σ2c2/(σ2 + c2) and one then shows
+that the prior asymptotically concentrates on Θn(c).
+Now let us see how minimax theory works for smooth functions.
+7.32 Theorem (Pinsker’s theorem for Sobolev ellipsoids). Let
+Zj = θj + σ
+√nϵj,
+j = 1, 2, . . .
+(7.33)
+where ϵ1, ϵ2, . . . ∼N(0, 1). Assume that θ ∈Θ(m, c), a Sobolev ellipsoid (recall
+Deﬁnition 7.10). Let Rn denote the minimax risk over Θ(m, c). Then,
+lim
+n→∞n2m/(2m+1)Rn =
+σ
+π
+2m/(2m+1)
+c2/(2m+1)Pm
+(7.34)
+where
+Pm =
+
+m
+m + 1
+2m/(2m+1)
+(2m + 1)1/(2m+1)
+(7.35)
+is the Pinsker constant. Hence, the minimax rate is n−2m/(2m+1), that is,
+0 < lim
+n→∞n2m/(2m+1)Rn < ∞.
+Here is a more general version of the theorem.
+7.36 Theorem (Pinsker’s theorem for ellipsoids). Let
+Θ =
+
+θ :
+∞
+
+j=1
+ajθ2
+j ≤c2
+*
+.
+The set Θ is called an ellipsoid. Assume that aj →∞as j →∞. Let
+Rn = inf
+θ
+sup
+θ∈Θ
+R(θ, θ)
+denote the minimax risk and let
+RL
+n = inf
+θ∈L
+sup
+θ∈Θ
+R(θ, θ)
+denote the minimax linear risk where L is the set of linear estimators of the
+form θ = (w1Z1, w2Z2, . . .). Then:
+(1) linear estimators are asymptotically minimax: Rn ∼RL
+n as n →∞;
+(2) the minimax linear risk satisﬁes
+RL
+n = σ2
+n
+
+i
+
+1 −ai
+µ
+
++
+
+
+--- Page 163 ---
+7.6 Linear Shrinkage and the James–Stein Estimator
+155
+where µ solves
+σ2
+n
+
+i
+ai(µ −ai)+ = c2.
+(3) The linear minimax estimator is θi = wiZi where wi = [1 −(ai/µ)]+.
+(4) The linear minimax estimator is Bayes5for the prior with independent
+components such that θi ∼N(0, τ 2
+i ), τ2
+i = (σ2/n)(µ/ai −1)+.
+7.6
+Linear Shrinkage and the James–Stein Estimator
+Let us now return to model (7.1) and see how we can improve on the mle using
+linear estimators. A linear estimator is an estimator of the form θ = bZ =
+(bZ1, . . . , bZn) where 0 ≤b ≤1. Linear estimators are shrinkage estimators
+since they shrink Z towards the origin. We denote the set of linear shrinkage
+estimators by L = {bZ : b ∈[0, 1]}.
+The risk of a linear estimator is easy to compute. From the basic bias–
+variance breakdown we have
+R(bZ, θ) = (1 −b)2||θ||2
+n + nb2σ2
+n
+(7.37)
+where ||θ||2
+n = n
+i=1 θ2
+i . The risk is minimized by taking
+b∗=
+||θ||2
+n
+nσ2n + ||θ||2n
+.
+We call b∗Z the ideal linear estimator. The risk of this ideal linear estimator
+is
+R(b∗Z, θ) =
+nσ2
+n||θ||2
+n
+nσ2n + ||θ||2n
+.
+(7.38)
+Thus we have proved:
+7.39 Theorem.
+inf
+θ∈L
+R(θ, θ) =
+nσ2
+n||θ||2
+n
+nσ2n + ||θ||2n
+.
+(7.40)
+We can’t use the estimator b∗Z because b∗depends on the unknown pa-
+rameter θ. For this reason we call R(b∗Z, θ) the linear oracular risk since
+the risk could only be obtained by an “oracle” that knows ||θ||2
+n. We shall now
+show that the James–Stein estimator nearly achieves the risk of the ideal
+oracle.
+5The Bayes estimator minimizes Bayes risk
+
+R(θ, θ)dπ(θ) for a given prior π.
+
+
+--- Page 164 ---
+156
+7. Normal Means and Minimax Theory
+The James–Stein estimator of θ is deﬁned by
+θJS =
+
+1 −(n −2)σ2
+n
+n
+i=1 Z2
+i
+
+Z.
+(7.41)
+We’ll see in Theorem 7.48 that this estimator is asymptotically optimal.
+7.42 Theorem. The risk of the James–Stein estimator satisﬁes the following
+bound:
+R(θJS, θ) ≤2σ2
+n +
+(n −2)σ2
+n||θ||2
+n
+(n −2)σ2n + ||θ||2n
+≤2σ2
+n +
+nσ2
+n||θ||2
+n
+nσ2n + ||θ||2n
+(7.43)
+where ||θ||2
+n = n
+i=1 θ2
+i .
+Proof. Write θJS = Z + g(Z) where g(z) = −(n −2)σ2
+nz/ 
+i z2
+i . Hence
+Di = ∂gi
+∂zi
+= −(n −2)σ2
+n
+
+1
+
+i z2
+i
+−
+2z2
+i
+(
+i z2
+i )2
+
+and
+n
+
+i=1
+Di = −(n −2)2σ2
+n
+n
+i=1 z2
+i
+.
+Plugging this into the sure formula (7.19) yields
+R(Z) = nσ2
+n −(n −2)2σ4
+n
+
+i Z2
+i
+.
+Hence, the risk is
+R(θJS, θ) = E( R(Z)) = nσ2
+n −(n −2)2σ4
+nE
+
+1
+
+i Z2
+i
+
+.
+(7.44)
+Now Z2
+i = σ2
+n((θi/σn) + ϵi)2 and so n
+i=1 Z2
+i ∼σ2
+nW where W is noncentral
+χ2 with n degrees of freedom and noncentrality parameter δ = n
+i=1(θ2
+i /σ2
+n).
+Using a well-known result about noncentral χ2 random variables, we can then
+write W ∼χ2
+n+2K where K ∼Poisson(δ/2). Recall that (for n > 2) E(1/χ2
+n) =
+1/(n −2). So,
+Eθ
+!
+1
+
+i Z2
+i
+"
+=
+
+ 1
+σ2n
+
+E
+!
+1
+χ2
+n+2K
+"
+=
+
+ 1
+σ2n
+
+E
+
+E
+3
+1
+χ2
+n+2K
+ K
+4
+=
+
+ 1
+σ2n
+
+E
+!
+1
+n −2 + 2K
+"
+≥
+
+ 1
+σ2n
+
+1
+(n −2) + σ−2
+n
+n
+i=1 θ2
+i
+from Jensen′s inequality
+=
+1
+(n −2)σ2n + n
+i=1 θ2
+i
+.
+
+
+--- Page 165 ---
+7.6 Linear Shrinkage and the James–Stein Estimator
+157
+Substituting into (7.44) we get the ﬁrst inequality. The second inequality
+follows from simple algebra. ■
+7.45 Remark. The modiﬁed James–Stein estimator is deﬁned by
+θ =
+
+1 −
+nσ2
+n
+
+i Z2
+i
+
++
+Z
+(7.46)
+where (a)+ = max{a, 0}. The change from n −2 to n leads to a simpler
+expression and for large n this has negligible eﬀect. Taking the positive part
+of the shrinkage factor cannot increase the risk. In practice, the modiﬁed
+James–Stein estimator is often preferred.
+The next result shows that the James–Stein estimator nearly achieves the
+risk of the linear oracle.
+7.47 Theorem (James–Stein oracle inequality). Let L = {bZ : b ∈R} denote
+the class of linear estimators. For all θ ∈Rn,
+inf
+θ∈L
+R(θ, θ) ≤R(θJS, θ) ≤2σ2
+n + inf
+θ∈L
+R(θ, θ).
+Proof. This follows from (7.38) and Theorem 7.42. ■
+Here is another perspective on the James–Stein estimator. Let θ = bZ.
+Stein’s unbiased risk estimator is R(Z) = nσ2
+n+2nσ2
+n(b−1)+(b−1)2 n
+i=1 Z2
+i
+which is minimized at
+b = 1 −
+nσ2
+n
+n
+i=1 Z2
+i
+yielding the estimator
+θ = bZ =
+
+1 −
+nσ2
+n
+n
+i=1 Z2
+i
+
+Z
+which is essentially the James–Stein estimator.
+We can now show that the James–Stein estimator achieves the Pinsker
+bound (7.29) and so is asymptotically minimax.
+7.48 Theorem. Let σ2
+n = σ2/n. The James–Stein estimator is asymptotically
+minimax, that is,
+lim
+n→∞
+sup
+θ∈Θn(c)
+R(θJS, θ) =
+σ2c2
+σ2 + c2 .
+Proof. Follows from Theorem 7.42 and 7.28. ■
+
+
+--- Page 166 ---
+158
+7. Normal Means and Minimax Theory
+7.49 Remark. The James–Stein estimator is adaptive in the sense that it
+achieves the minimax bound over Θn(c) without knowledge of the
+parameter c.
+To summarize: the James–Stein estimator is essentially optimal over all
+linear estimators. Moreover, it is asymptotically optimal over all estimators,
+not just linear estimators. This also shows that the minimax risk and the linear
+minimax risk are asymptotically equivalent. This turns out to (sometimes) be
+a more general phenomenon, as we shall see.
+7.7
+Adaptive Estimation Over Sobolev Spaces
+Theorem 7.32 gives an estimator that is minimax over Θ(m, c). However, the
+estimator is unsatisfactory because it requires that we know c and m.
+Efromovich and Pinsker (1984) proved the remarkable result that there
+exists an estimator that is minimax over Θ(m, c) without requiring knowledge
+of m or c. The estimator is said to be adaptively asymptotically minimax.
+The idea is to divide the observations into blocks B1 = {Z1, . . . , Zn1}, B2 =
+{Zn1+1, . . . , Zn2}, . . . and then apply a suitable estimation procedure within
+blocks.
+Here is particular block estimation scheme due to Cai et al. (2000). For any
+real number a let [a] denote the integer part of a. Let b = 1 + 1/ log n and let
+K0 be an integer such that [bK0] ≥3 and [bk] −[bk−1] ≥3 for k ≥K0 + 1.
+Let B0 = {Zi : 1 ≤i ≤[bK0]} and let Bk = {Zi :
+[bk−1] < i ≤[bk]} for
+k ≥K0 + 1. Let θ be the estimator obtained by applying the James–Stein
+estimator within each block Bk. The estimator is taken to be 0 for i > [bK1]
+where K1 = [logb(n)] −1.
+7.50 Theorem (Cai, Low and Zhao, 2000). Let θ be the estimator above. Let
+Θ(m, c) = {θ : ∞
+i=1 a2
+i θ2
+i ≤c2} where a1 = 1 and a2i = a2i+1 = 1+(2iπ)2m.
+Let Rn(m, c) denote the minimax risk over Θ(m, c). Then for all m > 0 and
+c > 0,
+lim
+n→∞
+supθ∈Θ(m,c) R(θ, θ)
+Rn(m, c)
+= 1.
+
+
+--- Page 167 ---
+7.8 Conﬁdence Sets
+159
+7.8
+Conﬁdence Sets
+In this section we discuss the construction of conﬁdence sets for θn. It will
+now be convenient to write θ and Z instead of θn and Zn.
+Recall that Bn ⊂Rn is a 1 −α conﬁdence set if
+inf
+θ∈Rn Pθ(θ ∈Bn) ≥1 −α.
+(7.51)
+We have written the probability distribution Pθ with the subscript θ to em-
+phasize that the distribution depends on θ. Here are some methods for con-
+structing conﬁdence sets.
+Method I: The χ2 Confidence Set. The simplest conﬁdence set for θ
+is based on the fact that ||Z −θ||2/σ2
+n has a χ2
+n distribution. Let
+Bn =
+
+θ ∈Rn : ||Z −θ||2 ≤σ2
+n χ2
+n,α
+
+(7.52)
+where χ2
+n,α is the upper α quantile of a χ2 random variable with n degrees of
+freedom. It follows immediately that
+Pθ(θ ∈Bn) = 1 −α,
+for all θ ∈Rn.
+Hence, (7.51) is satisﬁed. The expected radius of this ball is nσ2
+n. We will see
+that we can improve on this.
+Improving the χ2 Ball by Pre-testing. Before discussing more com-
+plicated methods, here is a simple idea—based on ideas in Lepski (1999)—
+for improving the χ2 ball. The methods that follow are generalizations of this
+method.
+Note that the χ2 ball Bn has a ﬁxed radius sn = σn
+√n. When applied to
+function estimation, σn = O(1/√n) so that sn = O(1) and hence the radius of
+the ball does not even converge to zero as n →∞. The following construction
+makes the radius smaller. The idea is to test the hypothesis that θ = θ0. If we
+accept the null hypothesis, we use a smaller ball centered at θ0. Here are the
+details.
+First, test the hypothesis that θ = (0, . . . , 0) using 
+i Z2
+i as a test statistic.
+Speciﬁcally, reject the null when
+Tn =
+
+i
+Z2
+i > c2
+n
+and cn is deﬁned by
+P
+
+χ2
+n > c2
+n
+σ2n
+
+= α
+2 .
+
+
+--- Page 168 ---
+160
+7. Normal Means and Minimax Theory
+By construction, the test has type one error rate α/2. If Z denotes a N(0,1)
+random variable then
+α
+2 = P
+
+χ2
+n > c2
+n
+σ2n
+
+= P
+⎛
+⎝χ2
+n −n
+√
+2n
+>
+c2
+n
+σ2n −n
+√
+2n
+⎞
+⎠≈P
+⎛
+⎝Z >
+c2
+n
+σ2n −n
+√
+2n
+⎞
+⎠
+implying that
+c2
+n ≈σ2
+n(n +
+√
+2nzα/2).
+Now we compute the power of this test when ||θ|| > ∆n where
+∆n =
+
+2
+√
+2zα/2 n1/4σn.
+Write Zi = θi + σnϵi where ϵi ∼N(0, 1). Then,
+Pθ(Tn > c2
+n)
+=
+Pθ
+
+
+i
+Z2
+i > c2
+n
+
+= Pθ
+
+
+i
+(θi + σnϵi)2 > c2
+n
+
+=
+Pθ
+
+||θ||2 + 2σn
+
+i
+θiϵi + σ2
+n
+
+i
+ϵ2
+i > c2
+n
+
+.
+Now, ||θ||2+2σn
+
+i θiϵi+σ2
+n
+
+i ϵ2
+i has mean ||θ||2+nσ2
+n and variance 4σ2
+n||θ||2+
+2nσ4
+n. Hence, with Z denoting a N(0,1) random variable,
+Pθ(Tn > c2
+n)
+≈
+P
+
+||θ||2 + nσ2
+n +
+
+4σ2n||θ||2 + 2nσ4nZ > c2
+n
+
+≈
+P
+
+||θ||2nσ2
+n +
+
+4σ2n||θ||2 + 2nσ4nZ > σ2
+n(n +
+√
+2nzα/2)
+
+=
+P
+⎛
+⎝Z >
+√
+2zα/2 −||θ||2
+√nσ2n
+
+2 + 4||θ||2
+nσ2n
+⎞
+⎠≥P
+⎛
+⎝Z >
+√
+2zα/2 −||θ||2
+√nσ2n
+
+2
+⎞
+⎠
+≥
+1 −α
+2
+since ||θ|| > ∆n implies that
+√
+2zα/2 −||θ||2
+√nσ2n
+
+2
+≥−zα/2.
+In summary, the test has type-one error α/2 and type-two error no more than
+α/2 for all ||θ|| > ∆n.
+Next we deﬁne the conﬁdence procedure as follows. Let φ = 0 if the test
+accepts and φ = 1 if the test rejects. Deﬁne
+Rn =
+⎧
+⎨
+⎩
+Bn
+if φ = 1
+
+θ : ||θ|| ≤∆n
+
+if φ = 0.
+
+
+--- Page 169 ---
+7.8 Conﬁdence Sets
+161
+Thus, Rn is a random radius conﬁdence ball. The radius is the same as the
+χ2 ball when φ = 1 but when φ = 0, the radius is ∆n which is much smaller.
+Let us now verify that the ball has the right coverage.
+The noncoverage of this ball when θ = (0, . . . , 0) is
+P0(θ /∈R)
+=
+P0(θ /∈R, φ = 0) + P0(θ /∈R, φ = 1)
+≤
+0 + P0(φ = 1) = α
+2 .
+The noncoverage of this ball when θ ̸= (0, . . . , 0) and ||θ|| ≤∆n is
+Pθ(θ /∈R)
+=
+Pθ(θ /∈R, φ = 0) + Pθ(θ /∈R, φ = 1)
+≤
+0 + Pθ(θ /∈B) = α
+2 .
+The noncoverage of this ball when θ ̸= (0, . . . , 0) and ||θ|| > ∆n is
+Pθ(θ /∈R)
+=
+Pθ(θ /∈R, φ = 0) + Pθ(θ /∈R, φ = 1)
+≤
+Pθ(φ = 0) + Pθ(θ /∈B) ≤α
+2 + α
+2 = α.
+In summary, by testing whether θ is close to (0, . . . , 0) and using a smaller
+ball centered at (0, . . . , 0) when the test accepts, we get a ball with proper
+coverage and whose radius is sometimes smaller than the χ2 ball. The message
+is that:
+a random radius conﬁdence ball can have an expected radius that is
+smaller than a ﬁxed conﬁdence ball at some points in the parameter
+space.
+The next section generalizes this idea.
+Method II: The Baraud Confidence Set.
+Here we discuss the
+method due to Baraud (2004) which builds on Lepski (1999), as discussed
+above. We begin with a class S of linear subspaces of Rn. Let ΠS denote the
+projector onto S. Thus, for any vector Z ∈Rn, ΠSZ is the vector in S closest
+to Z.
+For each subspace S, we construct a ball BS of radius ρS centered at an
+estimator in S, namely,
+BS =
+
+θ : ||θ −ΠSZ|| ≤ρS
+
+.
+(7.53)
+For each S ∈S, we test whether θ is close to S using ||Z −ΠSZ|| as a test
+statistic. We then take the smallest conﬁdence ball BS among all unrejected
+
+
+--- Page 170 ---
+162
+7. Normal Means and Minimax Theory
+subspaces S. The key to making this work is this: the radius ρS is chosen so
+that
+max
+θ
+Pθ(S is not rejected and θ /∈BS) ≤αS
+(7.54)
+where 
+S∈S αS ≤α. The resulting conﬁdence ball has coverage at least 1−α
+since
+max
+θ
+Pθ(θ /∈B)
+≤
+
+S
+max
+θ
+Pθ(S is not rejected and θ /∈BS)
+=
+
+S
+αS ≤α.
+We will see that the n-dimensional maximization over θ ∈Rn can be reduced
+to a one-dimensional maximization since the probabilities only depend on θ
+through the quantity z = ||θ −ΠSθ||.
+The conﬁdence set has coverage 1 −α even if θ is not close to one of the
+subspaces in S. However, if it is close to one of the subspaces in S, then the
+conﬁdence ball will be smaller than the χ2 ball.
+For example, suppose we expand a function f(x) = 
+j θjφj(x) in a basis, as
+in Section 7.3. Then, the θis correspond to the coeﬃcients of f in this basis. If
+the function is smooth, then we expect that θi will be small for large i. Hence,
+θ might be well approximated by a vector of the form (θ1, . . . , θm, 0, . . . , 0).
+This suggests that we could test whether θ is close to the subspace Sm of
+the vectors of the form (θ1, . . . , θm, 0, . . . , 0), for m = 0, . . . , n. In this case we
+would take the class of subspaces to be S = {S0, . . . , Sn}.
+Before we proceed with the details, we need some notation. If Xj ∼N(µj, 1),
+j = 1, . . . , k are iid, then T = k
+j=1 X2
+j has a noncentral χ2 distribution
+with noncentrality parameter d = 
+j µ2
+j and k degrees of freedom and we
+write T ∼χ2
+d,k. Let Gd,k denote the cdf of this random variable and let
+qd,k(α) = G−1
+d,k(1 −α) denote the upper α quantile. By convention, we deﬁne
+qd,k(α) = −∞for α ≥1.
+Let S be a ﬁnite collection of linear subspaces of Rn. We assume that
+Rn ∈S. Let d(S) be the dimension of S ∈S and let e(S) = n −d(S). Fix
+α ∈(0, 1) and γ ∈(0, 1) where γ < 1 −α. Let
+A =
+
+S : ||Z −ΠSZ||2
+σ2n
+≤c(S)
+*
+(7.55)
+where
+c(S) = q0,e(S)(γ).
+(7.56)

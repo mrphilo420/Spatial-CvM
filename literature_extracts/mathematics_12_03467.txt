@@ -1,0 +1,2217 @@
+======================================================================
+SOURCE: mathematics-12-03467.pdf
+======================================================================
+
+
+--- Page 1 ---
+Citation: Zhang, D.; Xu, M. A
+High-Dimensional Cramér–von Mises
+Test. Mathematics 2024, 12, 3467.
+https://doi.org/10.3390/math12223467
+Academic Editor: Elvira Di Nardo
+Received: 13 August 2024
+Revised: 31 October 2024
+Accepted: 2 November 2024
+Published: 6 November 2024
+Copyright: © 2024 by the authors.
+Licensee MDPI, Basel, Switzerland.
+This article is an open access article
+distributed
+under
+the
+terms
+and
+conditions of the Creative Commons
+Attribution (CC BY) license (https://
+creativecommons.org/licenses/by/
+4.0/).
+Article
+A High-Dimensional Cramér–von Mises Test
+Danna Zhang 1
+and Mengyu Xu 2,*
+1
+Department of Mathematics, University of California San Diego, San Diego, CA 92093, USA;
+daz076@ucsd.edu
+2
+Department of Statistics and Data Science, University of Central Florida, Orlando, FL 32816, USA
+*
+Correspondence: mengyu.xu@ucf.edu
+Abstract: The Cramér–von Mises test provides a useful criterion for assessing goodness of fit in
+various problems. In this paper, we introduce a novel Cramér–von Mises-type test for testing distri-
+butions of high-dimensional continuous data. We establish an asymptotic theory for the proposed
+test statistics based on quadratic functions in high-dimensional stochastic processes. To estimate the
+limiting distribution of the test statistic, we propose two practical approaches: a plug-in calibration
+method and a subsampling method. Theoretical justifications are provided for both techniques.
+Numerical simulation also confirms the convergence of the proposed methods.
+Keywords: Cramér–von Mises statistic; goodness-of-fit test; high-dimensional data; resampling;
+linear combination of chi-squared distributions
+MSC: 62E20, 62G09, 62H10
+1. Introduction
+Goodness-of-fit tests are crucial in statistical inference. They allow researchers to assess
+whether a proposed distribution accurately reflects the observed data. These fundamental
+goodness-of-fit problems have had a long history. The Cramér–von Mises test [1,2] provides a
+useful criterion for continuous distributions. For independent and identically distributed random
+variables (Y1,. . .,Yn) from a distribution with a cumulative distribution function (FY), to test
+H0 := FY(y) = F0,Y(y),
+(1)
+where F0,Y is pre-specified, the Cramér–von Mises test statistic uses a squared distance
+between the empirical distribution function ( ˆFY) and the given distribution (F0,Y):
+Θ = n
+Z ∞
+−∞[ ˆFY(y) −F0,Y(y)]2dF0,Y(y),
+which is distribution-free if F0,Y is continuous [3]. With the transformed random variables
+(Ui = F0,Y(Yi)) taking values in the range of [0, 1], one can equivalently test whether
+U1, . . . , Un follow the uniform [0, 1] distribution. For ˆF(u) = n−1 ∑n
+i=1 1Ui≤u, the Cramér–
+von Mises statistic can also be written as
+Θ1 = n
+Z 1
+0 [ ˆF(u) −u]2du = 1
+n
+n
+∑
+i,j=1
+Z 1
+0 (1Ui≤u −u)(1Uj≤u −u)du.
+(2)
+It has been well established that the empirical process of √n[ ˆF(u) −u] converges
+weakly to a Gaussian process with covariance function min{u, u′} −uu′ under the null
+hypothesis. As a consequence, it holds that
+Θ1 ⇒
+∞
+∑
+h=1
+chηh,
+(3)
+Mathematics 2024, 12, 3467. https://doi.org/10.3390/math12223467
+https://www.mdpi.com/journal/mathematics
+
+--- Page 2 ---
+Mathematics 2024, 12, 3467
+2 of 23
+where ch = (πh)−2 and ηh’s are independent χ2
+1 random variables (see Chapter 5 in [4]).
+Some variants of (2) with the incorporation of different weight functions have been further
+discussed (see, for example, [5,6], among others).
+The information era has witnessed an explosion in the collection of high-dimensional
+data across a wide range of areas, where the number of dimensions can be comparable
+to or even much larger than the sample size. Model fitting and distribution verifica-
+tion represent a basic step in statistical inference of high-dimensional data [7,8]. Some
+progress has been made in the testing of high-dimensional multinomials for discrete data
+(see, for example, [9,10]). For continuous distributions, the goodness-of-fit test of distribu-
+tions is much less understood in the high-dimensional case (see Zhang and Wu [11] for
+a Kolmogorov–Smirnov-type test and Liang et al. [12] for the special case of testing for
+high-dimensional normality).
+In multivariate cases with fixed dimensions, Cramér–von Mises tests have also been
+investigated in a considerable body of literature. Rosenblatt [13] considered the transforma-
+tion of writing the joint distribution into products of conditional distributions to facilitate
+Kolmogorov–Smirnov and Cramér–von Mises tests. The Cramér–von Mises test for inde-
+pendence has been studied by Blum et al. [14], Cotterill and Csörgö [15], Cotterill et al. [16],
+and Genest and Rémillard [17], Genest et al. [18], among others.
+However, technical challenges arise when the dimension (d) is large compared to
+the sample size (n). Specifically, Portnoy [19] showed that the multivariate central limit
+theorem is generally not valid when d is large such that √n = o(d). Heuristic argument
+and theory are inadequate in the high-dimensional case. Nevertheless, interestingly, we
+will show that a result similar to (3) can still be valid by using new technical tools to study
+the distribution of quadratic functions of high-dimensional stochastic processes.
+An important direction in fitting and testing multivariate distributions is based on
+copula modeling, which has gained remarkable popularity in the last decade. Inspired by
+Sklar’s representation [20], one can decompose inference of the multivariate distribution
+into the modeling of marginal distributions and the copula (see Genest and Nešlehová [21],
+Joe [22] for more on copulas). A variety of tests have been developed to test the dependence
+structures by given copulas (see [23] for a survey and implementation). The majority of
+these tests focus on cases with a small number of dimensions. Hering and Hofert [24]
+considered testing Archimedean copulas in a high-dimensional setting. While copula
+modeling has receiving increasing attention, a simultaneous goodness-of-fit test on the
+margins in the high-dimensional setting remains unsolved. In this paper, we shall provide
+another solution to the goodness-of-fit problem by introducing Cramér–von Mises-type
+criteria, which can be used to test for marginal distributions and copulas for multivariate
+continuous data, allowing the dimension (d) to grow with the sample size (n). Our focus is
+on the marginal tests.
+One primary goal of the paper is to rigorously establish an asymptotic theory of
+the Cramér–von Mises-type test statistics for marginal distributions and copulas when
+the dimension is large. We show that the limiting distribution of the Cramér–von Mises-
+type test statistics can be written as a sum of weighted χ2
+1 random variables, where the
+weights depend on the eigenvalues of the covariance function of the high-dimensional
+linear operators. In our asymptotic relation, we let n →∞, and we can allow for a bounded
+dimension (d) and an increasing dimension (d →∞).
+As another major contribution, two different procedures are proposed to estimate
+the limiting distribution of the proposed Cramér–von Mises test statistic: a plug-in cali-
+bration method and a subsampling method. The former estimates the eigenvalues of the
+covariance function to approximate the distribution of a linear combination of chi-squared
+distributions, the validity of which is guaranteed under normalized consistency, a new
+matrix convergence criterion. The latter can avoid estimating the eigenvalues by drawing
+inference from a large number of subsamples of the data.
+This paper is organized as follows. In Section 2, we introduce the modified Cramér–
+von Mises statistics to test marginal distributions and copulas and develop the distributional
+
+--- Page 3 ---
+Mathematics 2024, 12, 3467
+3 of 23
+approximation theory. In Section 3, we introduce two different procedures to implement a
+high-dimensional Cramér–von Mises test in practice and provide theoretical justification of
+the validity of both methods. In Section 4.1, we conduct a simulation study to evaluate the
+finite sample performance of the two approaches proposed in Section 3. All the proofs are
+provided in Appendix A.
+We introduce some notations.
+For any real-valued square matrix (A = (aij)),
+let tr(A) = ∑j ajj be the trace of A, ∥A∥=
+p
+λmax(ATA) be the spectral norm, and
+∥A∥F = (∑i,j a2
+ij)1/2 be the Frobenius norm. For a random variable (X) and some constant
+(q > 0), we define ∥X∥q = (E|X|q)1/q. If X1, X2, . . . is a sequence of random variables and
+a1, a2, . . . is a sequence of values such that Xn/an
+p→0 as n →∞, and we write Xn = op(an).
+If, for any ϵ > 0, there exist finite M > 0 and N > 0 such that P(|Xn/an| > M) < ϵ for any
+n > N, we write Xn = Op(an). For two sequences of positive numbers ({an} and {bn}), we
+write an ≍bn if there exist two positive constants (C1, C2) such that C1 ≤an/bn ≤C2 for
+all large n values.
+2. High-Dimensional Cramér–von Mises Test
+In this section, we address the Cramér–von Mises-type test for high-dimensional
+data from a jointly continuous distribution. We first consider the testing of marginal
+distributions with and without a loss-of-generality test (uniform [0, 1]) for each marginal
+distribution. Let Ui = (Ui1, . . . , Uid)T and i = 1, . . . , n be independent and identically
+distributed random vectors of dimension d ∈N. We aim to test
+H0 : Uil ∼uniform[0, 1], for all 1 ≤l ≤d.
+(4)
+Here, we can allow any dependence structure on d components of Ui. To account for
+the dimensionality, our Cramér–von Mises-type test statistic is defined by
+Ωd = 1
+n
+d
+∑
+l=1 ∑
+i̸=j≤n
+Z 1
+0 (1Uil≤u −u)(1Ujl≤u −u)du.
+(5)
+Note that for d = 1, Ωd is a modified version of (2) with the diagonal elements
+removed. The computation of Ωd can be significantly simplified in view of the fact that
+Z 1
+0 (1Uil≤u −u)(1Ujl≤u −u)du =
+U2
+il + U2
+jl
+2
+−max(Uil, Ujl) + 1
+3.
+Let A = {(u, l) : 0 ≤u ≤1; l = 1, . . . , d}. For a = (u, l), a′ = (u′, l′) ∈A, let
+Xia = 1Uil≤u −u and the covariance function be σaa′ = E(XiaXia′). We define the linear
+operator (L) as
+L f (a′) =
+d
+∑
+l=1
+Z 1
+0 σaa′ f (a)du =
+d
+∑
+l=1
+Z 1
+0 σ(u,l)a′ f (u, l)du.
+(6)
+According to Mercer’s theorem [25], there exist countably many eigenvalues (λh ≥0)
+and eigenfunctions (fh(·), h ∈N+) such that σaa′ = ∑∞
+h=1 λh fh(a) fh(a′). We define
+Ψ =
+d
+∑
+l=1
+Z 1
+0 (1U1l≤u −u)(1U2l≤u −u)du =
+d
+∑
+l=1
+hU2
+1l + U2
+2l
+2
+−max(U1l, U2l) + 1
+3
+i
+.
+Theorem 1. Assume that H0 in (4) is true. Let λh and h ∈Z+ be eigenvalues of the linear
+operator (L) in (6). We define Λ2 = ∑∞
+h=1 λ2
+h and
+W =
+∞
+∑
+h=1
+λh(ηh −1),
+
+--- Page 4 ---
+Mathematics 2024, 12, 3467
+4 of 23
+where ηh represents independent random variables (χ2
+1). Assume that for some 0 < δ ≤1,
+E(|Ψ/Λ|2+δ) = o(nδ/2).
+(7)
+Then, there exists some constant (C > 0) such that
+sup
+t
+|P(Ωd ≤t) −P(W ≤t)| ≤C
+ E|Ψ|2+δ
+nδ/2Λ2+δ
+
+1
+2δ+5 →0.
+(8)
+Remark 1. In the special case of d = 1, it holds that |Ψ| ≤1 when H0 is true; then, condi-
+tion (7) trivially holds. In this case, it holds that the covariance function (σuu′ = min{u, u′} −uu′,
+0 ≤u, u′ ≤1) and the linear operator (L f (u′) = R 1
+0 σuu′ f (u)du) have eigenvalues of
+λh = h−2π−2 and eigenfunctions offh(u) =
+√
+2 sin(hπu), h ∈Z+ (see Chapter 5 in [4]
+for arguments). In this case, our result (8) agrees with the classical Cramér–von Mises criterion.
+Remark 2. We now discuss the condition of the above theorem in multivariate scenarios and the
+convergence rate in the result (8). If components U11, . . . , U1d are independent and identically
+distributed, then we can obtain E(|Ψ|2+δ) = O(d1+δ/2) by applying Rosenthal’s inequality [26].
+In this case, elementary calculations imply Λ2 = E(Ψ2) = d/90; then, (7) holds for an arbitrary
+0 < δ ≤1 as long as n →∞, which is the minimal condition needed for n. The convergence
+rate in (8) is O(n−δ/(10+4δ)), which is sharper with a larger δ. More generally, if (U1l)l∈Z+ is a
+stable stationary process in that its functional dependence measures are summable [27], then we also
+have E(|Ψ|2+δ) = O(d1+δ/2), and (7) holds as n →∞, noting that Λ2 ≥d/90. If U11, . . . , U1d
+are strongly dependent such that Λ2 ≍d2, since |Ψ| ≤d, the minimal condition (n →∞) also
+suffices for (7). We can obtain the rate (O(E|Ψ/d|2+δn−δ/(10+4δ))). A larger value of δ is still
+favored to sharpen the rate in view of |Ψ| ≤d. More generally, allowing any dependence structure
+on U11, . . . , U1d, n−δ/2E(|Ψ/Λ|2+δ) = o(1) is the restriction we should impose on the orders of
+d and n for the validity of the theorem. As a special case, if we further assume that d and n can
+satisfy n−δ/2E(|Ψ/Λ|2+δ) ≍n−Cδ, where Cδ > 0 is a constant in terms of δ, then the rate is
+O(n−Cδ/(5+2δ)), an order depending on how Cδ/(5 + 2δ) changes with δ.
+Remark 3. Theorem 1 above establishes a distributional approximation result for the diagonal-
+removed statistic (Ωd). We now consider adding the diagonals back to investigate the full version,
+Θd = n
+d
+∑
+l=1
+Z 1
+0 [ ˆFl(u) −u]2du =: Ωd + Dd + d
+6,
+where ˆFl(u) = n−1 ∑n
+i=1 1Uil≤u for 1 ≤l ≤d, and
+Dd = 1
+n
+d
+∑
+l=1
+n
+∑
+i=1
+Z 1
+0 (1Uil≤u −u)2du −
+∞
+∑
+h=1
+λh =: 1
+n
+n
+∑
+i=1
+κi
+with κi = ∑d
+l=1[U2
+il −Uil + 1/6], in view of the fact that for L, as given in (6), ∑∞
+h=1 λh = ∑d
+l=1
+R 1
+0 σaadu = d/6.
+It can be determined that under ∥κ1/Λ∥2
+2 = o(n),
+Λ−1Dd = Op
+
+Λ−1n−1/2∥κ1∥2
+
+= op(1).
+As a consequence, the distributional approximation result, i.e.,
+sup
+t
+|P(Θd ≤t) −P(
+∞
+∑
+h=1
+λhηh ≤t)| →0,
+(9)
+
+--- Page 5 ---
+Mathematics 2024, 12, 3467
+5 of 23
+holds under (7). In this case, the limiting distribution of Θd is a sum of weighted χ2
+1 random
+variables. Therefore, in the low-dimensional scenario where d is fixed and ∥κ1/Λ∥2
+2 = o(n) is
+satisfied, it becomes asymptotically equivalent to use either the diagonal-removed statistic (Ωd)
+or the diagonal-included statistic (Θd). Both statistics have simple closed forms, allowing for
+straightforward computation based on Uil for 1 ≤i ≤n and 1 ≤l ≤d, and share a similar type of
+limiting distribution, namely a linear combination of chi-squared random variables.
+On the other hand, in the high-dimensional setting where d is allowed to grow with n,
+the quantity of ∥κ1/Λ∥2
+2 may be on the same order or much larger than n. In this case, according
+to the central limit theorem, √nDd/∥κ1∥2 ⇒N(0, 1) if the Lindeberg condition holds for κi.
+Elementary calculation implies E(Ω2
+d) = (2 −2/n)Λ2. If we assume n = o(∥κ1/Λ∥2
+2), then
+√nΩd/∥κ1∥2 = op(1). We can obtain the normal convergence as follows:
+√n(Θd −d/6)
+∥κ1∥2
+⇒N(0, 1).
+(10)
+Thus, (9) and (10) illustrate an interesting dichotomy in high-dimensional settings: the
+statistic Θd, with diagonals included, can exhibit two different asymptotic distributions depending
+on the magnitudes of n and ∥κ1/Λ∥2
+2. This divergence in asymptotic behavior across different
+regimes presents practical challenges in determining the appropriate relationship between n and
+∥κ1/Λ∥2
+2 and, consequently, which type of asymptotic distribution should be applied. Relying on a
+subjective choice of asymptotic distribution could lead to unreliable conclusions. In contrast, using
+the diagonal-removed statistic (Ωd) offers the advantage of avoiding this dichotomy.
+Testing for copulas can be addressed in a similar way. Assume that Ui = (Ui1,. . .,Uid)T has
+a jointly continuous copula (F(u1, . . . , ud)), with each marginal distribution being uniform [0, 1].
+We test
+H0 : F(u1, . . . , ud) = F0(u1, . . . , ud), for all ul ∈[0, 1], 1 ≤l ≤d,
+(11)
+where F0(u1, . . . , ud) is specified. The modified Cramér–von Mises test statistic then becomes
+Ω⋆
+d
+=
+1
+n ∑
+i̸=j≤n
+Z
+[0,1]d
+
+d
+∏
+l=1
+1Uil≤ul −F0(u1, . . . , ud)
+
+×
+
+d
+∏
+l=1
+1Ujl≤ul −F0(u1, . . . , ud)
+
+d
+∏
+l=1
+dul.
+Let B = {(u1, u2, . . . , ud) : 0 ≤ul ≤1; l = 1, . . . , d}. For β = (u1, u2, . . . , ud) and
+β′ = (u′
+1, u′
+2 . . . , u′
+d) ∈B, let Xiβ = ∏d
+l=1 1Uil≤ul −F0(u1, . . . , ud) and let the covariance
+function be σ⋆
+ββ′ = E(XiβXiβ′). The associated linear operator (L⋆) can be given by
+L⋆f ⋆(β′)
+=
+Z
+[0,1]d σ⋆
+ββ′ f ⋆(β)
+d
+∏
+l=1
+dul
+=
+Z
+[0,1]d σ⋆
+(u1,...,ud)β′ f ⋆(u1, . . . , ud)
+d
+∏
+l=1
+dul.
+We define
+Ψ⋆
+=
+Z
+[0,1]d
+
+d
+∏
+l=1
+1U1l≤ul −F0(u1, . . . , ud)
+
+×
+
+d
+∏
+l=1
+1U2l≤ul −F0(u1, . . . , ud)
+
+d
+∏
+l=1
+dul.
+Corollary 1 below provides the result for Ω⋆
+d analogously.
+
+--- Page 6 ---
+Mathematics 2024, 12, 3467
+6 of 23
+Corollary 1. Assume H0 in (11) is true. Let λ⋆
+h and h ∈Z+, be eigenvalues of the linear operator
+(L⋆). We define (Λ⋆)2 = ∑∞
+h=1(λ⋆
+h)2 and
+W⋆=
+∞
+∑
+h=1
+λ⋆
+h(ηh −1),
+where ηh represents independent χ2
+1 random variables. Assume that for some 0 < δ ≤1,
+E(|Ψ⋆/Λ⋆|2+δ) = o(nδ/2).
+(12)
+Then, we have
+sup
+t
+|P(Ω⋆
+d ≤t) −P(W⋆≤t)| →0.
+(13)
+As in the test of marginals, the asymptotic distribution of W⋆also depends on F0.
+As a specific application, in many cases, we are interested in testing for independence.
+If the distribution (F0(u1, . . . , ud); for example, a joint normal distribution with a known
+mean and covariance matrix) can suggest explicit conditional distributions given some
+components, we can first apply Rosenblatt transformation [13] to the data, then equivalently
+test whether the transformed sample is from a population uniformly distributed on the
+d-dimensional hypercube. Thus the problem can be equivalently transformed to test
+H0 : FU(u1, . . . , ud) = ∏
+l=1
+ul, for all ul ∈[0, 1], 1 ≤l ≤d.
+(14)
+A sequence of work has been devoted to the testing of independence (14) in classical
+settings with a fixed d. The Cramér–von Mises test has been investigated by Blum et al. [14],
+Cotterill and Csörgö [15], Cotterill et al. [16], and Genest and Rémillard [17], among others.
+Our result in Corollary 1 made a theoretical contribution in the high-dimensional case, in
+which d can increase with n.
+We acknowledge that known marginals and copulas in high-dimensional scenarios
+may not be readily accessible in many practical applications. Our primary objective is to
+provide a theoretical investigation, and the results presented in this paper serve as a crucial
+initial advancement toward investigating more realistic settings, for instance, distributions
+with estimated parameters.
+3. Estimating Distributions of Linear Combinations of Chi-Squares
+In Section 2, we presented the asymptotic results of Theorem 1 and Corollary 1. If
+the eigenvalues (λh, h ≥1) were known, then we could derive the distribution of W either
+analytically or numerically via Monte Carlo simulation. With a significance level (α) such as
+0.05, take the critical value as w1−α, the (1 −α)th quantile of W. We reject H0 if the value of Ωd
+exceeds w1−α. Similar steps apply for W⋆. Practically, the eigenvalues are unknown. We can
+use (8) or (13) for high-dimensional Cramér–von Mises testing by estimating the distribution
+of W (resp. W⋆), which is a linear combination of chi-squared distributions, and compute
+the threshold value, i.e., w1−α (resp. w⋆
+1−α). A natural calibration involves estimating the
+eigenvalues, and plugging them in to the distribution of W (resp. W⋆). For the special case
+when d = 1, we can work out the eigenvalues as λh = (πh)−2. In most cases, however, it is
+highly nontrivial to analytically compute the covariance function (σ) and the associated λh
+values. To this end, we propose procedures to implement the high-dimensional Cramér–von
+Mises test in practice. We introduce two different approaches. In Section 3.1, we propose
+a plug-in calibration approach, the validity of which is theoretically justified in Section 3.2.
+In Section 3.3, we introduce a subsampling approach with its theoretical guarantee. In this
+context, we estimate the distribution of W. The case of W⋆can be dealt with in a similar way.
+Table 1 provides a summary of the notations commonly used in this section.
+
+--- Page 7 ---
+Mathematics 2024, 12, 3467
+7 of 23
+Table 1. A summary of the notations commonly used in Section 3.
+Notation
+Meaning
+Ui
+Original data
+d
+Dimension of Ui
+N
+Discretization quantity
+p
+Dimension of the aggregated vector after discretization
+A0
+{(j/N, l) : j = 1, . . . , N; l = 1, . . . , d}]
+Xi
+(Xia)a∈A0 with Xia = 1Uil≤u −u for a = (u, l)
+ηh
+χ2
+1 random variable
+Σ
+Covariance matrix of Xi
+γp,1, . . . , γp,p
+Eigenvalues of Σ
+Γ
+∥Σ∥F or, equivalently, (∑
+p
+h=1 γ2
+p,h)1/2
+V
+Γ−1 ∑
+p
+h=1 γp,h(ηh −1)
+˜Σ
+Any valid estimator of Σ
+˜γp,1, . . . , ˜γp,p
+Eigenvalues of ˜Σ
+˜Γ
+∥˜Σ∥F or, equivalently, (∑
+p
+h=1 ˜γ2
+p,h)1/2
+ˆΣ
+Sample covariance matrix based on X1, . . . , Xn
+ˆγp,1, . . . , ˆγp,p
+Eigenvalues of ˆΣ
+ˆΓ
+∥ˆΣ∥F or equivalently (∑
+p
+h=1 ˆγ2
+p,h)1/2
+ˆV
+ˆΓ−1 ∑
+p
+h=1 ˆγp,h(ηh −1)
+S
+Subset of {1, 2, . . . , n}
+|S|
+Cardinality of S
+Sc
+{1, 2, . . . , n} −S
+m
+Subsample size
+H
+Subsample number
+3.1. A Plug-In Procedure
+Let N be a sufficiently large integer and p = Nd. We first apply the discretization tech-
+nique to the interval [0, 1] by taking evenly spaced points (uj = j/N) for j = 1, . . . , N.
+Let A0 = {(uj, l) : j = 1, . . . , N; l = 1, . . . , d}, and let the p-dimensional vector be
+Xi = (Xia)a∈A0, where we recall that Xia = 1Uil≤u −u, with a = (u, l). The covariance
+matrix is denoted as Σ := ΣN = E(XiXT
+i ), with eigenvalues of γp,1 ≥. . . ≥γp,p ≥0
+and Γ = (∑
+p
+h=1 γ2
+p,h)1/2. Note that N−1Σ is a discretized version of the linear operator (L)
+given in (6) and that the eigenvalues of N−1Σ converge to those of L as N →∞(cf. [25]).
+Recall that W = ∑∞
+h=1 λh(ηh −1) and Λ = (∑∞
+h=1 λ2
+h)1/2. The plug-in calibration approach
+consists of the three steps listed below.
+Step 1: Find a good estimate of Σ based on the data (Xn = (X1, . . . , Xn)) and denote it
+by ˜Σ, with eigenvalues of ˜γp,1 ≥. . . ≥˜γp,p ≥0. Let ˜Γ = (∑
+p
+h=1 ˜γ2
+p,h)1/2 and
+˜V = ˜Γ−1
+p
+∑
+h=1
+˜γp,h(ηh −1),
+(15)
+where ηh represents i.i.d. χ2
+1 random variables that are independent of Xn.
+Step 2: Given ˜γp,1, . . . , ˜γp,p, obtain the (1 −α)th quantile of ˜V, ˜v1−α, either analytically
+or by extensive simulation.
+Step 3: Based on ˜γp,1, . . . , ˜γp,p, compute ˜Λ = N−1 ˜Γ = N−1(∑
+p
+h=1 ˜γ2
+p,h)1/2, which
+serves as an estimate for Λ. Then, use ˜v1−α · ˜Λ as an estimate for the critical value of W at a
+significance level of α.
+To ensure the validity of the above procedure, we need to impose suitable conditions
+so that the following requirements are met:
+(i)
+The estimated quantile ( ˜v1−α) is close to the (1 −α)-th quantile of W/Λ;
+(ii)
+The ratio consistency is ˜Λ/Λ →1 in probability.
+
+--- Page 8 ---
+Mathematics 2024, 12, 3467
+8 of 23
+As discussed in Section 3.2, (i) requires that N be sufficiently large and that ˜Σ be a
+normalized consistent estimate of Σ, which asserts that
+∥˜Σ/˜Γ −Σ/Γ∥= op(1);
+(16)
+(see Definition 1). In Section 3.2 we also discuss its relation with the classical spectral norm
+convergence (∥˜Σ −Σ∥= op(1)). In this paper, we verify that the sample covariance matrix, i.e.,
+ˆΣ =
+1
+n −1
+n
+∑
+i=1
+(Xi −¯X)(Xi −¯X)T
+(17)
+can be a good choice of ˜Σ in Step 1 and illustrate the validity of the procedure using ˆΣ
+in Theorem 2. The eigenvalues of ˆΣ are denoted by ˆγp,1 ≥. . . ≥ˆγp,p ≥0. We can define
+ˆΓ = (∑
+p
+h=1 ˆγ2
+p,h)1/2, ˆΛ = N−1 ˆΓ, and ˆV = ˆΓ−1 ∑
+p
+h=1 ˆγp,h(ηh −1) accordingly.
+Theorem 2. Assume that d2 = o(nΛ2). Under H0 in (4) and as N →∞, it holds that ˆΛ/Λ →1
+in probability, and with probability converging to 1,
+sup
+t
+|P(W/Λ ≤t) −P∗( ˆV ≤t)| →0,
+(18)
+where P∗denotes the conditional probability given Xn.
+Remark 4. To deal with W∗, we discretize the hypercube of [0,1]d. Let N be a sufficiently large number
+and B0 = {1/N,2/N,. . ., N/N}d. For Xi = (Xiβ)β∈B0, N−dΣ = N−dE(XiXT
+i ) is a discretized
+version of the linear operator (L⋆). Using similar arguments as Theorem 2 and replacing the condition with
+n−1(Λ⋆)2 = o(1), we can verify the validity of the procedure when it applies to W⋆.
+Although Theorem 2 provides a theoretical guarantee for the plug-in method, practi-
+cal implementation remains challenging due to the ultra-high dimension of the discretized
+sample covariance matrix ( ˆΣ). In particular, ˆΣ is of size p × p, with p = Nd for the marginal
+testing problem. Directly estimating such a large number of eigenvalues involves a signif-
+icant computational workload. To address this, an equivalent approach—Gaussian multi-
+plier bootstrap—can be employed for computational efficiency. Recall that A0 = {(uj, l)
+: j = 1, . . . , N; l = 1, . . . , d} and Xi = (Xia)a∈A0, where Xia = 1Uil≤u −u, with a = (u, l). Also
+recall ˆΣ = (n −1)−1 ∑n
+i=1(Xi −¯X)(Xi −¯X)T. Let B be a sufficiently large number and let
+ϵbi, 1 ≤i ≤n, 1 ≤b ≤B be i.i.d. N(0, 1). Let ξb = (ξba, a ∈A0) with
+ξba = (n −1)−1/2
+n
+∑
+i=1
+(Xia −¯Xa)ϵbi.
+Then, it follows that ξb|Xn ∼N(0, ˆΣ). Thus, given the data (Xn), ˆW = ∑
+p
+h=1 ˆλp,h(ηh −1)
+is distributed identically to the bootstrapped statistic ( ˆWb = N−1(ξ⊤
+b ξb −tr( ˆΣ))). There-
+fore, we can approximate the distribution of W according to the empirical distribution of
+ˆWb = N−1(ξT
+b ξb −tr( ˆΣ)). ˆW−1(1 −α) denotes the empirical (1 −α)-th quantile. Then, H0
+is rejected if Ωd > ˆW−1(1 −α). Below in Algorithm 1,we provide the pseudo-code for the
+implementation of the plug-in calibration approach for the marginal testing problem. It can
+easily be adapted to test for joint distributions. In the implementation, we recommend taking
+the values of N and B as large integers, such as 1000.
+
+--- Page 9 ---
+Mathematics 2024, 12, 3467
+9 of 23
+Algorithm 1: Cut-off value approximation by plug-in calibration
+Input: Observations X1, . . . , Xn ∈Rp, significance level α ∈(0, 1), discretization
+quantity N, bootstrap number B.
+1 ˆΣ = (n −1)−1 ∑n
+i=1(Xi −¯X)(Xi −¯X)T
+2 for b = 1 to B do
+3
+Generate ϵbi ∼i.i.d. N(0, 1), 1 ≤i ≤n
+4
+ξb = (n −1)−1/2 ∑n
+i=1( ¯Xi −¯X)ϵbi
+5
+ˆWb = N−1(ξT
+b ξb −tr( ˆΣ))
+6 end
+Output: ˆW−1(1 −α), the (1 −α)-th empirical quantile of ˆWb, 1 ≤b ≤B
+3.2. Validity of the Plug-In Procedure
+The idea of plug-in calibration is to approximate the distribution of W/Γ according to
+that of ˜V defined in (15). To evaluate the validity of the distribution approximation, we
+first state a useful lemma concerning the closeness of two general linear combinations of
+chi-squared distributions.
+Lemma 1. For M ∈N+, let aM,1 ≥aM,2 ≥. . . ≥aM,M ≥0 and bM,1 ≥bM,2 ≥. . . ≥bM,M ≥
+0 be two sequences of real numbers satisfying ∑M
+h=1 a2
+M,h = 1 and ∑M
+h=1 b2
+M,h = 1. Assume
+ρM := maxh≤M
+aM,h −bM,h
+ →0 as M →∞. Let ηh be i.i.d. χ2
+1 random variables, and let
+Va = ∑M
+h=1 aM,h(ηh −1) and Vb = ∑M
+h=1 bM,h(ηh −1). Then, there exists some constant (C > 0)
+such that
+sup
+t
+|P(Va ≤t) −P(Vb ≤t)| ≤Cρ1/12
+M
+→0 as M →∞.
+(19)
+Similar to (15), we define
+V = Γ−1
+p
+∑
+h=1
+γp,h(ηh −1),
+where γp,h and 1 ≤h ≤p are eigenvalues of Σ and Γ = (∑
+p
+h=1 γ2
+p,h)1/2, as defined in Section 3.1.
+According to Lemma 1, with M →∞and plugging in (aM,h)1≤h≤M and (bM,h)1≤h≤M
+with (λh/Λ)h≥1 and (γp,h/Γ)h≥1, respectively, we have
+sup
+t
+|P(W/Λ ≤t) −P(V ≤t)| ≤C sup
+h≥1
+|λh/Λ −γp,h/Γ|1/12,
+where γp,h = 0 for h > p. Note that the selection of N is arbitrary and is independent of d. We
+have limN→∞suph≥1 |λh −γp,h/N| = 0 for any d (cf. [25]). Similarly, we also have N−1Γ/Λ →1
+as N →∞. By choosing a sufficiently large N, the two requirements ((i) and (ii)) described in
+Section 3.1 can be induced to the following:
+(i’)
+The estimated quantile ( ˜v1−α) is close to v1−α, the (1 −α)th quantile of V;
+(ii’) The ratio consistency is ˜Γ/Γ →1 in probability.
+For theoretical justification, we adopt the following more general setting in this subsec-
+tion. Let Xi and i ∈N be independent and identically distributed p-dimensional random
+vectors with a mean of E(Xi) = 0 and covariance matrix of cov(Xi) = Σ with eigenvalues
+of γp,1 ≥. . . γp,p ≥0 and Γ = ∥Σ∥F = (∑
+p
+h=1 γ2
+p,h)1/2. Let ˜Σ be an estimate of Σ with
+eigenvalues of ˜γp,1 ≥. . . ≥˜γp,p ≥0 and ˜Γ = ∥˜Σ∥F = (∑
+p
+h=1 ˜γ2
+p,h)1/2. We employ the
+
+--- Page 10 ---
+Mathematics 2024, 12, 3467
+10 of 23
+plug-in procedure described in Section 3.1 to approximate the distribution of V. According
+to Lemma 1, if
+max
+h≤p |γp,h/Γ −˜γp,h/˜Γ| →0 in probability,
+(20)
+then with the probability converging to 1, we have
+sup
+t
+|P(V ≤t) −P∗( ˜V ≤t)| →0,
+(21)
+where P∗denotes the conditional probability given Xn. With (21), requirement (i’) is met.
+Next, we verify the condition (20). Interestingly, there is a simple sufficient condition for (20).
+According to Weyl’s theorem (cf. Theorem 8.1.5 in Golub and Van Loan [28]), (20) follows from
+∥˜Σ/˜Γ −Σ/Γ∥= op(1).
+(22)
+We say an estimator of a matrix is normalized consistent if (22) holds, as stated in the
+definition below.
+Definition 1. Let ˜Σ be an estimator of Σ. We also define Γ = ∥Σ∥F and ˜Γ = ∥˜Σ∥F. We say ˜Σ is
+normalized consistently for Σ if (22) holds.
+Theorem 3 below indicates that under mild conditions, the sample covariance matrix,
+ˆΣ = (n −1)−1
+n
+∑
+i=1
+(Xi −¯X)(Xi −¯X)T,
+(23)
+satisfies normalized consistency (22), which is a sufficient condition for ˆΣ to meet re-
+quirement (i’). Moreover, Theorem 3 shows ˆΓ/Γ →1 in probability and, thus, ˆΣ meets
+requirement (ii’). Therefore, the theoretical justification of the validity of the plug-in
+procedure using ˆΣ is then complete.
+Theorem 3. We define ˆΓ = ∥ˆΣ∥F and recall that Γ = ∥Σ∥F. Assume
+E[(XT
+1 X1)2] = o
+
+nΓ2
+.
+(24)
+Then, ˆΓ/Γ →1 in probability and
+E∥ˆΣ/ˆΓ −Σ/Γ∥2
+F = o(1),
+(25)
+which further implies the normalized consistency (22) of ˆΣ.
+Remark 5. Inspection of the proof shows that Theorem 3 also holds for the sample covariance variant
+( ˆΣ = n−1 ∑n
+i=1(Xi −µ)(Xi −µ)T) when µ = E(Xi) is known. Theorem 3 requires the condition
+of E[(XT
+1 X1)2] = o(nΓ2). This condition trivially holds if the entries of X1 are strongly dependent
+in the sense that Γ2 = ∑j,k≤p σ2
+j,k ≍p2 and, for some constant (C < ∞), maxj≤p ∥X1j∥4 ≤C.
+In this case, E[(XT
+1 X1)2] ≤p2C4, and the condition of E[(XT
+1 X1)2] = o(nΓ2) reduces to the
+natural one (n →∞).
+Next, we examine the condition of E[(XT
+1 X1)2] = o(nΓ2) for the marginal testing problem.
+Recall that Xi = (Xia)a∈A0. It can be calculated that E[(X⊤
+1 X1)2] = E{[∑1≤j≤d(U1j −U2
+1j/2 +
+5/6)]2} ≍d2, and
+Γ2 =
+∑
+1≤j,k≤d
+Z
+u,u′[P(U1j ≤u, U1k ≤u′) −uu′]dudu′.
+
+--- Page 11 ---
+Mathematics 2024, 12, 3467
+11 of 23
+In the extreme case of complete dependency, where Uij = Ui1 for all 1 ≤j ≤d, Γ2 = d2/12.
+If the margins are mutually independent, then the quantity is Γ2 ≍d, and the condition fails if
+n = O(d).
+Below, we provide an example to illustrate the sharpness of this condition in general.
+Example 1. Let Zij, i, j ∈Z be i.i.d. N(0, 1), and let
+Xi = p−τ(Zi0, Zi0, . . . , Zi0) + (Zi1, Zi2, . . . , Zip)T, for some 0 < τ ≤1/4.
+Then, the covariance matrix of Xi is Σ = Idp + p−2τ(1, 1, . . . , 1)T(1, 1, . . . , 1) with eigenval-
+ues of γp,1
+=
+p1−2τ + 1 and γp,j
+=
+1 for 2 ≤
+j ≤
+p.
+It can be computed that
+Γ2 = (p1−2τ + 1)2 + p −1 and E[(XT
+1 X1)2] = 2Γ2 + (p1−2τ + p)2. Hence, E[(XT
+1 X1)2] =
+o(nΓ2) holds if and only if p4τ = o(n). Theorem 3 is then applicable.
+On the other hand, we can show that if n = o(p4τ), the sample covariance ( ˆΣ = n−1 ∑n
+i=1 XiXT
+i )
+does not satisfy (22), and thus, ˆΣ is not normalized consistently. In particular, we consider the
+eigendecomposition, Σ = QDQT, where D is a diagonal matrix, i.e., D = diag(γp,1, . . . , γp,p),
+with γp,1, . . . , γp,p being the eigenvalues of Σ and Q being the orthogonal matrix whose columns
+are the eigenvectors of Σ. Furthermore, Yi = QTXi. Then, it can be easily determined that
+Yi = (Yi1, . . . , Yip)T are i.i.d. N(0, D) and n ˆΣ = Q(∑n
+i=1 YiYT
+i )QT. For ˆΓ = ∥ˆΣ∥F, it follows that
+E(ˆΓ2)
+=
+1
+n2
+h
+∑
+1≤i̸=l≤n,1≤j,k≤p
+E(YijYikYljYlk) +
+∑
+1≤i≤n,1≤j,k≤p
+E(Y2
+ijY2
+ik)
+i
+=
+1
+n2
+h
+n(n −1)
+p
+∑
+j=1
+γ2
+p,j + 3n
+p
+∑
+j=1
+γ2
+p,j + n
+∑
+1≤j̸=k≤p
+γp,jγp,k
+i
+=
+n + 1
+n
+[(p1−2τ + 1)2 + p −1] + 1
+n(p1−2τ + p)2.
+In a similar way, elementary calculations imply
+E[tr( ˆΣ4)]= [p + p4−8τ + n−1(4p4−6τ + 6p2) + n−2(6p3 + 6p4−4τ) + n−3p4]
+×[1 + o(1)],
+E(ˆΓ4)= [p2 + 2p3−4τ + p4−8τ + n−1(2p3 + 2p4−4τ + 12p4−8τ) + n−2p4]
+×[1 + o(1)].
+In the case of n = o(p4τ), it holds that limn→∞E[tr( ˆΣ4)]/[E(ˆΓ2)]2 = 0 and ˆΓ2/E(ˆΓ2) →1
+in probability, which further implies tr( ˆΣ4)/ˆΓ4 = op(1). Then (22), fails under n = o(p4τ) in
+view of limp→∞∥Σ/Γ∥= 1 and ∥ˆΣ/ˆΓ∥4 ≤tr( ˆΣ4)/ˆΓ4 = op(1).
+The concept of normalized consistency in (22) is closely related to but different from
+the classical definition of spectral norm consistency in the sense of
+∥˜Σ −Σ∥= op(1).
+(26)
+Normalized consistency does not generally imply spectral norm consistency (26).
+For example, let n = p and Xi be i.i.d. standard N(0, Idp) random vectors. Accord-
+ing to the random matrix theory, (26) does not hold for the sample covariance matrix
+( ˆΣ = n−1 ∑n
+i=1 XiXT
+i ), which is not a consistent estimate of Σ = Idp (see Marˇcenko and
+Pastur [29], Wachter [30], Geman [31]). Indeed, the largest eigenvalue of ˆΣ converges
+to 4, while the smallest one converges to 0. However, the normalized consistency (22)
+holds, since both ∥Σ/Γ∥= p−1/2 →0 and ∥ˆΣ/ˆΓ∥= Op(p−1/2) →0, where ˆΓ = ∥ˆΣ∥F.
+Without further conditions, spectral norm consistency (26) does not imply normalized
+
+--- Page 12 ---
+Mathematics 2024, 12, 3467
+12 of 23
+consistency either. Proposition 1 relates these two types of convergence, which are of
+independent interest.
+Proposition 1. For an estimate (˜Γ) of Γ, assume that ˜Γ/Γ →1 in probability. Then, the normalized
+consistency (22) holds if and only if ∥˜Σ −Σ∥= op(Γ).
+3.3. A Subsampling Procedure
+Plug-in calibration requires a discretization step and imposes condition (24) in addition
+to those of Theorem 1. In this section, we provide a subsampling approach with a different
+idea from the plug-in approach, which avoids the discretization step and covariance matrix
+estimation. For a subset (S ⊂{1, 2, . . . , n}), let |S| be its cardinality. Each marginal empirical
+function for the subsample and the entire sample are denoted as follows:
+ˆFS,l(u) = 1
+|S| ∑
+i∈S
+1Uil≤u, ˆFn,l(u) = 1
+n
+n
+∑
+i=1
+1Uil≤u.
+(27)
+Associated with the subset (S), the Cramér–von Mises-type subsampling statistic for
+the testing of marginal distributions is written as
+Ω⋄
+d,S = |S|
+d
+∑
+l=1
+Z 1
+0 [ ˆFS,l(u) −ˆFn,l(u)]2du
+= |S|
+d
+∑
+l=1
+Z 1
+0
+h
+(|S|−1 −n−1) ∑
+i∈S
+1Uil≤u −n−1 ∑
+i∈Sc
+1Uil≤u
+i2
+du,
+(28)
+where Sc = {1, 2, . . . , n} −S. Note that R 1
+0 1Uil≤u · 1Ujl≤udu = 1 −max(Uil, Ujl) for i ̸= j.
+We consider a variant of (28) by excluding the diagonal elements.
+Ωd,S
+=
+|S|(|S|−1 −n−1)2 ·
+|S|
+|S| −1
+d
+∑
+l=1
+∑
+i,j∈S:i̸=j
+[1 −max(Uil, Ujl)]
++|S|n−2 ·
+n −|S|
+n −|S| −1
+d
+∑
+l=1
+∑
+i,j∈Sc:i̸=j
+[1 −max(Uil, Ujl)]
+−2|S|n−1(|S|−1 −n−1) ∑
+i∈S ∑
+j∈Sc
+[1 −max(Uil, Ujl)].
+(29)
+Note that the quantities |S|/(|S| −1) and (n −|S|)/(n −|S| −1) in Ωd,S are introduced
+to remove the bias. We introduce empirical cumulative distribution functions (30) and (31)
+and the following subsampling-based procedure for estimation of the distribution function
+(G(t) = P(Ωd ≤t)):
+1.
+Let m = mn ∈N be such that m →∞and m = o(n); let H be a large number and
+S1, . . . , SH
+be
+i.i.d.
+uniformly
+sampled
+from
+the
+class
+expressed
+as
+S := {S : S ⊂{1, . . . , n}, |S| = m}. Assume that the sampling process ((Sh)h≥1) is
+independent of (Ui)i≥1. We define
+ˇG(t) = 1
+H
+H
+∑
+h=1
+1{Ωd,Sh ≤t}.
+(30)
+The (1 −α)th empirical quantile ( ˇG−1(1 −α)) is obtained from (30).
+2.
+H0 : Uil ∼uniform[0, 1], is rejected for all 1 ≤l ≤d at the level of α if Ωd > ˇG−1(1 −α).
+
+--- Page 13 ---
+Mathematics 2024, 12, 3467
+13 of 23
+As a slightly different version, one can also employ the following procedure. Let the
+index be set to Tk = {l ∈Z : (k −1)m < l ≤km}, j = 1, . . . , K, where K = ⌊n/m⌋with
+⌊x⌋= max{i ∈Z : i ≤x}. The subsampling empirical distribution function is defined as
+ˆG(t) = 1
+K
+K
+∑
+k=1
+1{Ωd,Tk ≤t}.
+(31)
+Based on the result of (8), we can show that the subsampling approach is asymp-
+totically valid (see Theorem 4 below for details, which shows that the empirical dis-
+tribution functions defined in (30) and (31) both converge to the distribution function
+(G(t) = P(Ωd ≤t))). The subsample proportion (m/n) is a tuning parameter. Theoretically,
+we only require m →∞and m/n →0.
+Theorem 4. Let m →∞and m = o(n). Assume that (7) holds, with n therein replaced by m.
+Then, under H0 in (4), (i)
+sup
+t
+| ˆG(t) −P(Ωd ≤t)| →0 in probability;
+(32)
+(ii) If H →∞, then the convergence (32) also holds for ˇG(t).
+The subsampling method avoids the discretization step. In addition, Theorem 4 im-
+poses no additional condition beyond those of Theorem 1. It only requires condition (7),
+with n replaced by m, where the subsample size (m) can be any value as long as m →∞and
+m = o(n). Comparatively, plug-in calibration requires an additional sharp and sufficient
+condition (24) to guarantee its consistency, which may result in conflicts in high-dimensional
+settings(see Remark 5). On the other hand, a scrutinization of the proof also reveals that
+the convergence rate is upper-bounded by the rate in (8) m with n replaced by m, which
+hampers the convergence rate if n is small.
+For ease of implementation, we provide the pseudo-code for the subsampling ap-
+proach in Algorithm 2. A recommended value of the m parameter is ⌊√n⌋, and the sub-
+sampling number (H) is a large integer, such as 1000. A flowchart of the overall procedure
+for hypothesis testing is presented in Figure 1.
+Algorithm 2: Cut-off value approximation by subsampling
+Input: Observations U1, . . . , Un ∈Rd, significance level α ∈(0, 1), subsample size
+m, subsampling number H.
+1 Sample without replacement from the class S := {S : S ⊂{1, . . . , n}, |S| = m} to
+generate index sets S1, . . . , SH.
+2 for h = 1 to H do
+3
+Compute Ωd,Sh by (29)
+4 end
+5
+ˇG(t) = 1
+H ∑H
+h=1 1{Ωd,Sh ≤t}
+Output: the (1 −α)-th empirical quantile, ˇG−1(1 −α)
+Remark 6. The subsampling approach can also be applied to the testing of joint distributions based
+on Ω⋆
+d. The subsampling test statistic can be corrected as
+Ω⋆
+d,S
+=
+|S|(|S|−1 −n−1)2 ·
+|S|
+|S| −1
+∑
+i,j∈S:i̸=j
+d
+∏
+l=1
+[1 −max(Uil, Ujl)]
++|S|n−2 ·
+n −|S|
+n −|S| −1
+d
+∑
+l=1
+∑
+i,j∈Sc:i̸=j
+d
+∏
+l=1
+[1 −max(Uil, Ujl)]
+
+--- Page 14 ---
+Mathematics 2024, 12, 3467
+14 of 23
+−2|S|n−1(|S|−1 −n−1) ∑
+i∈S ∑
+j∈Sc
+d
+∏
+l=1
+[1 −max(Uil, Ujl)].
+Figure 1. A flowchart of the overall procedure for hypothesis testing.
+4. Numerical Analysis
+4.1. A Simulation Study
+In this section, a simulation study is conducted to evaluate the performance of the
+test with the plug-in method and subsampling calibration. For i = 1, 2, . . . , n, data are
+generated by
+Yil = (1 + a2)−1/2(aZi0 + Zil), 1 ≤l ≤d,
+(33)
+where Zij represents i.i.d. standard normal random variables. Yi ∈Rd, 1 ≤i ≤n are
+i.i.d N(0, Σ(a)) random vectors, where Σ(a) has diagonal entries (1) and off-diagonal
+entries (a2/(1 + a2)), i.e.,
+Σ(a) = (1 + a2)−1[a2(1, 1, . . . , 1)T(1, 1, . . . , 1) + Idd].
+(34)
+The value a controls the strength of the cross-sectional dependence among the compo-
+nents. We consider testing of the null hypothesis in the marginal test.
+HM
+0 : Yil ∼N(0, 1), for all 1 ≤l ≤d.
+Let Φ(·) be the c.d.f. of the standard normal random variable. To test HM
+0 , we first
+obtain Uil = Φ(Yil), 1 ≤i ≤n, 1 ≤l ≤d. Then, the test is equivalent to (4).
+The modified Cramér–von Mises statistics (5) are computed. Plug-in and subsampling
+calibration are performed following Algorithm 1 and Algorithm 2, respectively, where we
+take H = 1000, m = ⌊√n⌋, and B = 500.
+In the simulation study, we take n = 100, d = 3, 10, 50, and a = 0, 0.5, 1. respectively.
+The p values under the null hypotheses are reported from each of the 1000 repetitions.
+In Figures 2–4, we present the empirical distribution of the p values under HM
+0 , namely
+with µ0 = 0 and Σ0 = Σa. Under H0, the p values obtained according to the true sampling
+distribution of the test statistic have a uniform distribution between 0 and 1. Therefore, the
+p values estimated from an accurate approximation of the sampling distribution should
+have an empirical cumulative distribution function close to the 45-degree line. It is observed
+from Figures 2–4 that under H0, the p values of our Cramér–von Mises-type test obtained
+via subsampling calibration are uniformly distributed between 0 and 1 for all scenarios
+with a = 0, 0.5, 1 and d = 3, 10, 50, which verifies Theorem 4. The plug-in procedure,
+on the other hand, results in uniform p values in classical multivariate cases with d = 3
+
+--- Page 15 ---
+Mathematics 2024, 12, 3467
+15 of 23
+and a moderately low dimension of d = 10, while in high-dimensional scenarios with
+d = 50, p values are less dispersed in the cross-sectionally independent (a = 0) and weakly
+dependent (a = 0.5) cases, so the corresponding procedure tends to result a smaller true
+size than the nominal size with small values such as 0.05. This observation indicates that
+subsampling calibration outperforms plug-in calibration in high-dimensional settings with
+moderately large n values, which aligns with Remark 5. The computation loads of the
+plugin and subsampling procedures are similar, as the plug-in method is implemented with
+a Gaussian multiplier bootstrap, which avoids estimation of the ultra-high-dimensional
+covariance matrix and its eigenvalues (c.f. Algorithm 1).
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+p−values with plug−in calibration
+Empirical CDF
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+p−values with subsampling calibration
+Empirical CDF
+d=3
+d=10
+d=50
+Figure 2. The empirical cumulative distribution function of the p values under HM
+0
+with a = 0.
+Left: asymptotic distribution estimated from the plug-in procedure; right: asymptotic distribution
+estimated by subsampling.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+p−values with plug−in calibration
+Empirical CDF
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+p−values with subsampling calibration
+Empirical CDF
+d=3
+d=10
+d=50
+Figure 3. The empirical cumulative distribution function of the p values under HM
+0 with a = 0.5.
+Left: asymptotic distribution estimated from the plug-in procedure; right: asymptotic distribution
+estimated by subsampling.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+p−values with plug−in calibration
+Empirical CDF
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+p−values with subsampling calibration
+Empirical CDF
+d=3
+d=10
+d=50
+Figure 4. The empirical cumulative distribution function of the p values under HM
+0
+with a = 1.
+Left: asymptotic distribution estimated from the plug-in procedure; right: asymptotic distribution
+estimated by subsampling.
+
+--- Page 16 ---
+Mathematics 2024, 12, 3467
+16 of 23
+To assess the power, the vectors (Ui) are replaced by U′
+i = (U′
+il)1≤l≤d for 1 ≤i ≤n,
+where U′
+il = Uil for ⌊sd⌋< l ≤d and
+U′
+il = F−1
+Beta(2,2)(Uil) for 1 ≤l ≤⌊sd⌋,
+with the proportion (s) evaluated at s = 0, 0.3, 1 in the simulation. In the data, the cou-
+plaremains unchanged, and the marginal distributions in the first ⌊sd⌋margins follow a
+Beta(2, 2) distribution. Four methods, referred to as plug-in, subsampling, BH, and ZW,
+are compared. They are based on modified Cramér–von Mises statistics (5) with plug-in
+and subsampling calibration, the Komolgorov–Smirnov-type statistic presented in [11],
+and the Benjamini–Horchberg procedure (c.f., [32]), respectively. The corresponding nom-
+inal significance levels and false discovery rate are set to 0.05. In Table 2, we report the
+proportions of rejection, i.e., sizes and powers for s = 0 and s > 0, respectively, obtained
+from 500 repetitions.
+Table 2. Sizes (in columns s = 0) and powers of the test procedures (U′
+i, 1 ≤l ≤⌊sd⌋).
+s = 0
+s = 0.3
+s = 1
+d = 3
+d = 10
+d = 50
+d = 3
+d = 10
+d = 50
+d = 3
+d = 10
+d = 50
+a = 0
+Plug-in
+0.034
+0.036
+0.006
+0.442
+0.814
+1.000
+1.000
+1.000
+1.000
+Subsampling
+0.042
+0.052
+0.066
+0.492
+0.892
+1.000
+1.000
+1.000
+1.000
+BH
+0.038
+0.046
+0.050
+0.434
+0.358
+0.236
+0.842
+0.904
+0.976
+ZW
+0.038
+0.042
+0.048
+0.316
+0.284
+0.310
+0.640
+0.650
+0.692
+a = 0.5
+Plug-in
+0.032
+0.046
+0.040
+0.400
+0.750
+0.988
+0.996
+1.000
+1.000
+Subsampling
+0.038
+0.062
+0.064
+0.490
+0.846
+0.996
+1.000
+1.000
+1.000
+BH
+0.040
+0.038
+0.054
+0.414
+0.352
+0.258
+0.830
+0.904
+0.906
+ZW
+0.046
+0.042
+0.054
+0.324
+0.296
+0.316
+0.606
+0.662
+0.636
+a = 1
+Plug-in
+0.040
+0.056
+0.054
+0.308
+0.422
+0.482
+0.986
+1.000
+1.000
+Subsampling
+0.044
+0.060
+0.064
+0.370
+0.486
+0.548
+0.984
+1.000
+1.000
+BH
+0.038
+0.050
+0.042
+0.392
+0.376
+0.226
+0.778
+0.820
+0.724
+ZW
+0.032
+0.048
+0.048
+0.324
+0.302
+0.326
+0.600
+0.596
+0.566
+The scenarios with s = 0 are from the same simulation repetitions. The plug-in
+procedure exhibits lower sizes than nominal, especially when d = 50 and a = 0, which
+aligns with the empirical CDF plots. When the changes are moderately sparse and dense,
+with s = 0.3 and s = 1, respectively, both procedures of the modified Cramèr–von Mises
+methods outperform both the BH and ZW procedures in almost all the dimension and
+dependence combinations.
+4.2. An Illustrative Example
+Normality assumptions are usually imposed, for example, for forecast intervals using
+vector autoregressive (VAR) models. In the event of conflict, under certain conditions,
+central limit theorem-type results, can still support the asymptotic normality of the esti-
+mation error of the conditional expectation. However, depiction of the distribution of the
+white-noise component is required to construct the forecast intervals.
+In this section, we illustrate the application of our proposed test statistic (Ωd) on
+the test residuals from a high-dimensional VAR model studied in [33]. A VAR model
+was used to analyze a macroeconomic dataset compiled by Stock and Watson [34] and
+enlarged by Koop [35]. The full dataset contains 168 quarterly macroeconomic indicators
+between Quarter 2, 1959 and Quarter 4, 2007, which are available in The Journal of Applied
+Econometrics Data Archive.
+In this application, we test the residuals from the medium-size VAR model following [33],
+where the VAR model estimated with Lasso was considered. The time series of
+yt = (yt,k, k = 1, . . . , 20), t = 1, . . . , 195 includes 20 quarterly macroeconomic series, such as
+
+--- Page 17 ---
+Mathematics 2024, 12, 3467
+17 of 23
+real gross domestic product (GDP251), the Consumer Price Index (CPIAUSL), and the Fed-
+eral Funds Rate (FYFF). Here, yt is assumed to follow a VAR model, with the white noise pro-
+cess expressed as ϵt ∈R20. In [33], the 195 quarterly time series were partitioned such that
+the first 69 quarters’ data were used to train the Lasso algorithm and estimate A, the next 75
+were used for for cross-validation, and the last 61 time points were used for evaluation of
+the performance. To test the marginal distribution of the residuals, we input the residuals ex-
+tracted from the test set using the R functions proposed by Nicholson et al. [33], with n = 61
+and d = 20. The residuals are obtained with the BigVAR package and data described in [33],
+which are available at https://cran.r-project.org/web/packages/BigVAR/index.html (ac-
+cessed on 1 November 2024) and https://github.com/wbnicholson/BigVAR (accessed on
+1 November 2024), respectively.
+We remark that testing the normality of errors in high-dimensional VAR models is,
+itself, a challenging problem. Here, we only consider the marginal tests of normality, which
+is a necessary but insufficient condition of the joint Gaussian assumption. The mean vector
+of the prediction residuals is asymptotically 0 in the l2 norm under certain conditions
+(e.g., [36]). As an illustration of our test, here, we simply rescale each residual series
+({e·,l}, 1 ≤l ≤20) with its sample standard deviation (sl), i.e., Xil = eil/sl, 1 ≤i ≤61,
+and test if all the marginal distributions are standard normal:
+H0 : Xl ∼N(0, 1), 1 ≤l ≤20.
+A more careful approximation and rigorous analysis of Fn(ϵ·,j), as well as the test for
+joint normality, should be considered in future work.
+The value of Ωd = 2.291 and the p values estimated from the plug-in and subsampling
+methods are 0.027 and 0.008, respectively, both resulting in the rejection of the Gaussian
+marginal null hypothesis at a significance level of 0.05. Comparatively, classical multiple
+comparisons using individual Cramér–von Mises tests fails to reject the null hypothesis.
+Indeed, the minimum five p values are 0.00259, 0.0104, 0.0131, and 0.0223. Bonferroni’s
+calibration with a familywise error rate of 0.05 has a cut-off value of 0.05/20 = 0.0025,
+which suggests not rejecting any individual null hypothesis. Additionally, the Benjamini–
+Hochberg method [32] with a 0.05 false discovery rate also results in the rejection of none
+of the null hypotheses. Multiple comparisons are known to be conservative when cross-
+sectional dependence exists. A scrutinization of the QQ-normal plot (Figure 5) reveals that
+there are residual series that deviate remarkably from normal.
+The lowest univariate Cramér–von Mises p-value is from the residuals of the FMRRA
+series (Depository Institution Reserves: total, adjusted for reserve requirement changes,
+k = 6, p-value = 0.00259), which apparently has heavier tails than the Gaussian case.
+The p value is also close to the Bonferroni correction cutoff value of 0.0025. Now, we
+consider fitting a t-distribution. We utilize maximum likelihood estimation with R function
+fitdistr and fit the FMRRA residual has a t-marginal distribution with a location of 0.058,
+scale of 0.304 and degree of freedom of 1.729, denoted as FA,6.
+Now, we test the null hypothesis.
+H′
+0 : Xk ∼N(0, 1), k = 1, . . . , 5, 7, . . . , 20; and X6 ∼FA,6.
+Applying test (5), we find Ωd = 1.294, and the estimated p values from the plug-
+in and subsampling methods are 0.1 and 0.057, respectively. Thus, H′
+0 is not rejected at
+the significance level of 0.05. Our test suggests that it is more appropriate to use these
+distributions rather than all Gaussian margins in further inference.
+
+--- Page 18 ---
+Mathematics 2024, 12, 3467
+18 of 23
+−2
+0
+2
+−2
+0
+1
+2
+GDP251
+−2
+0
+2
+−2
+0
+1
+2
+3
+CPIAUCSL
+−2
+0
+2
+−2
+0
+1
+2
+3
+FYFF
+−2
+0
+2
+−2
+0
+1
+2
+PSCCOMR
+−2
+0
+2
+−4
+−2
+0
+2
+4
+FMRNBA
+−2
+0
+2
+−4
+0
+2
+4
+FMRRA
+−2
+0
+2
+−3
+−1
+1
+3
+FM2
+−2
+0
+2
+−2
+0
+1
+2
+GDP252
+−2
+0
+2
+−1
+0
+1
+2
+IPS10
+−2
+0
+2
+−1
+0
+1
+2
+3
+UTL11
+−2
+0
+2
+−2
+0
+1
+2
+LHUR
+−2
+0
+2
+−2
+0
+1
+2
+3
+HSFR
+−2
+0
+2
+−2
+0
+1
+2
+PWFSA
+−2
+0
+2
+−2
+0
+1
+2
+3
+GDP273
+−2
+0
+2
+−3
+−1
+1
+CES275R
+−2
+0
+2
+−3
+−1
+1
+3
+FM1
+−2
+0
+2
+−2
+0
+1
+2
+3
+FSPIN
+−2
+0
+2
+−2
+0
+1
+2
+FYGT10
+−2
+0
+2
+−2
+0
+1
+2
+EXRUS
+−2
+0
+2
+−1
+1
+2
+3
+CES002
+Figure 5. QQ-normal plots for the individual prediction residuals scaled to unit variance.
+5. Conclusions
+In this paper, we introduced a Cramér–von Mises-type test for assessing the goodness
+of fit in high-dimensional continuous data. By establishing an asymptotic theory for the
+proposed test statistic, which is based on quadratic functions of high-dimensional stochas-
+tic processes, we provide a robust framework for analyzing complex, high-dimensional
+distributions. To address the challenge of estimating the limiting distribution of the test
+statistic, we proposed two practical approaches: the plug-in calibration method and the
+subsampling method. Both techniques were supported by rigorous theoretical justifica-
+tions, ensuring their reliability in high-dimensional settings. Our results demonstrate the
+utility of the proposed test and its calibration methods, making it a valuable tool for high-
+dimensional statistical analysis. Future work may further explore the practical applications
+of these methods in various high-dimensional contexts, as well as potential improvements
+in computational efficiency.
+Supplementary Materials: The following supporting information can be downloaded at: https:
+//www.mdpi.com/article/10.3390/math12223467/s1.
+Author Contributions: Conceptualization, D.Z. and M.X.; methodology and proof, D.Z. and M.X.; nu-
+merical study, D.Z. and M.X.; writing—original draft preparation, D.Z. and M.X.; writing—review and
+editing, D.Z. and M.X. All authors have read and agreed to the published version of the manuscript.
+Funding: Danna Zhang was supported by NSF Grant DMS-1916290.
+
+--- Page 19 ---
+Mathematics 2024, 12, 3467
+19 of 23
+Data Availability Statement: Data is contained within the article or Supplementary Material. The
+original contributions presented in the study are included in the article, further inquiries can be
+directed to the corresponding author.
+Conflicts of Interest: The authors declare no conflicts of interest. The funders had no role in the design
+of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or
+in the decision to publish the results.
+Appendix A. Proofs
+In this appendix, we provide the technical proofs for the results presented
+in Section 2 and Section 3.
+Appendix A.1. Proof of Results in Section 2
+We first state a lemma (cf. Lemma 2 in [10]) that will be used to prove the main theorems.
+It provides a continuity result for a linear combination of chi-squared distributions. We
+remark that the result holds when p is either finite or infinite.
+Lemma A1. Let a1 ≥. . . ≥ap ≥0 be such that ∑
+p
+i=1 a2
+i = 1, and let ηi be i.i.d. χ2
+1 random
+variables. Then, for all h > 0,
+sup
+t
+P
+ t ≤a1η1 + . . . + apηp ≤t + h
+ ≤h1/2√
+4/π.
+(A1)
+Now, we provide the proof of Theorem 1. The proof of Corollary 1 is similar and,
+thus, omitted.
+Proof of Theorem 1. Recall that λh and fh(·) are eigenvalues and eigenfunctions of the
+linear operator (L) defined in (6). Let Zij represent independent and identically distributed
+(N(0, 1)) random variables. For a = (u, l) ∈A, we define
+Yia =
+∞
+∑
+h=1
+p
+λhZih fh(a).
+(A2)
+Then Yi· represents independent copies of a Gaussian process with a mean-value
+function of 0 and the same covariance function as Xi. We define
+⟨Xi, Xj⟩=
+d
+∑
+l=1
+Z 1
+0 XiaXjadu =
+d
+∑
+l=1
+Z 1
+0 (1Uil≤u −u)(1Ujl≤u −u)du.
+(A3)
+The quantity ⟨Yi, Yj⟩can be defined similarly. We write
+Ωd = 1
+n ∑
+i̸=j≤n
+⟨Xi, Xj⟩and ΩY = 1
+n ∑
+i̸=j≤n
+⟨Yi, Yj⟩.
+According to the definition of Yi in (A2), we have
+ΩY
+=
+1
+n ∑
+i̸=j≤n
+⟨Yi, Yj⟩= 1
+n ∑
+i̸=j≤n
+∞
+∑
+h=1
+λhZihZjh
+=
+∞
+∑
+h=1
+λh
+h
+(n −1)( ¯Z·h)2 −1
+n
+n
+∑
+i=1
+(Zih −¯Z·h)2i
+,
+where ¯Z·h = n−1 ∑n
+i=1 Zih. Then, we have the following distributional equality:
+ΩY =D
+∞
+∑
+h=1
+λh((1 −n−1)ηh −n−1ξh),
+
+--- Page 20 ---
+Mathematics 2024, 12, 3467
+20 of 23
+where ηh and h ∈N, are independent, χ2
+1 and ξh are independent, and χ2
+n−1 and are also
+independent of ηh. Furthermore, W = ∑∞
+h=1 λh(ηh −1) and
+∆= ΩY −W = −
+∞
+∑
+h=1
+λh(n−1ηh + n−1ξh −1).
+Note that Λ2 = ∑∞
+h=1 λ2
+h and E(∆2) = 2Λ2/n. We can apply similar proofs of
+Theorem 4 in [10] to obtain
+sup
+t
+|P(Ωd ≤t) −P(W ≤t)| ≤CqL1/(2δ+5)
+δ
+→0,
+under the condition of
+Lδ := EΘ1+δ/2
+nδ/2Λ2+δ + E|Ψ/Λ|2+δ
+nδ
+→0,
+(A4)
+for 0 < δ ≤1, where Θ = ∑d
+l,l′=1
+R 1
+0
+R 1
+0 X1aσaa′X1a′dudu′. Since
+Θ = E(⟨X1, X2⟩· ⟨X2, X1⟩|U1l, l = 1, . . . , d),
+according to Jensen’s inequality, we can have a neat upper bound
+EΘ1+δ/2 ≤E(⟨X1, X2⟩· ⟨X2, X1⟩)1+δ/2 = E|⟨X1, X2⟩|2+δ = E|Ψ|2+δ.
+(A5)
+According to (A5), (A4) satisfies when (7) is imposed.
+Appendix A.2. Proof of Results in Section 3
+In this section, we prove all the results presented in Section 3.
+Proof of Theorem 2. With the construction of Xi, as N →∞, the eigenvalues of N−1Σ
+converge to (λh)∞
+h=1 (cf. [25]).
+Clearly, as N →∞, N−2∥Σ∥2
+F = N−2Γ2 →Λ2 and
+maxh |γp,h/Γ −λh/Λ| →0. According to Lemma 1, as N →∞,
+sup
+t
+|P(W/Λ ≤t) −P(V ≤t)| →0.
+(A6)
+Since |Xij| ≤1 for any i = 1, . . . n and j = 1, . . . , p, it follows that XT
+1 X1 ≤Nd.
+According to Theorem 3, ˆΣ is normalized consistently for Σ for all sufficiently large N
+values, suggesting
+sup
+t
+|P(V ≤t) −P∗( ˆV ≤t)| →0.
+(A7)
+According to (A6) and (A7), (18) follows. According to Theorem 3, we also have
+ˆΓ/Γ →1 in probability, which further implies ˆΛ/Λ →1 in probability by noticing
+N−1Γ →Λ as N →∞and ˆΛ = N−1 ˆΓ.
+Proof of Lemma 1. An integer sequence (K = KM) is chosen such that KM →∞and
+KMρM →0. Let η′
+h = ηh −1, Q = ∑K−1
+h=1 aM,hη′
+h, Q◦= ∑M
+h=K aM,hη′
+h, S = ∑K−1
+h=1 bM,hη′
+h,
+S◦= ∑
+p
+h=K bM,hη′
+h, q = 2 ∑M
+h=K a2
+M,h, and s = 2 ∑M
+h=K b2
+M,h. Let uK = a1/3
+M,K. According
+to the Gaussian approximation result in [37], in a richer probability space, we can construct
+a random variable (Z ∼N(0, 1)) independent of (ηh)K−1
+h=1 such that with some absolute
+constant (c > 0),
+P(|Q◦−q1/2Z| ≥uK) ≤c
+u4
+K
+M
+∑
+h=K
+a4
+M,h ≤c
+u4
+K
+a2
+M,K = cu2
+K.
+(A8)
+
+--- Page 21 ---
+Mathematics 2024, 12, 3467
+21 of 23
+As uK →0, according to Lemma A1 and the triangle inequality, for some C > 0,
+sup
+t
+|P(|Q + Q◦| ≤t) −P(|Q + q1/2Z| ≤t)| ≤Cuk
+1/2 →0.
+(A9)
+Similarly, for vK = b1/4
+M,K, we can also construct a probability space with an r.v.
+Z∗∼N(0, 1) such that P(|S◦−w1/2Z∗| ≥vK) ≤cv2
+K and
+sup
+t
+|P(|S + S◦| ≤t) −P(|S + s1/2Z∗| ≤t)| ≤Cvk
+1/2 →0.
+(A10)
+Let T = (Q + q1/2Z) −(S + s1/2Z). Since q −s = 2 ∑K−1
+h=1 (b2
+M,h −a2
+M,h),
+E|T|
+≤
+2(K −1)ρM + |q1/2 −s1/2|
+≤
+2KρM + |q −s|1/2 ≤2KρM + (4KρM)1/2 →0.
+(A11)
+Hence, according to (A9)–(A11) and Lemma A1,
+sup
+t
+|P(|Q + Q◦| ≤t) −P(|S + S◦| ≤t)| ≤C′[u1/2
+k
++ vk
+1/2 + (KρM)1/6].
+By noting uK = a1/3
+M,K ≤K−1/3, and vK = b1/3
+M,K ≤K−1/3 and choosing K = ρ−1/2
+M
+, (19)
+follows.
+Proof of Theorem 3. Let Σ = (σjk)p
+j,k=1 and ˆΣ = (ˆσjk)p
+j,k=1. Without loss of generality, we
+assume E(Xi) = 0. Since Xi is independent and identically distributed, we have
+E∥ˆΣ −Σ∥2
+F = E
+p
+∑
+j,k=1
+(ˆσjk −σjk)2
+=
+p
+∑
+j,k=1
+h 1
+n E(X2
+1jX2
+ik) −
+(n −2)σ2
+jk
+n(n −1) +
+σjjσkk
+n(n −1)
+i
+= 1
+n
+h  p
+∑
+j=1
+X2
+1j
+2i
+−(n −2)Γ2
+n(n −1) + [E(XT
+1 X1)]2
+n(n −1)
+≤
+1
+n −1E[(XT
+1 X1)2] −(n −2)Γ2
+n(n −1) .
+which, according to the assumption of E[(XT
+1 X1)2] = o
+ nΓ2
+, implies E∥ˆΣ −Σ∥2
+F = o(Γ2).
+Then, E(Γ −ˆΓ)2 ≤E∥ˆΣ −Σ∥2
+F = o(Γ2), which further indicates ˆΓ/Γ →1 in probability.
+We can also have
+∥∥ˆΣ/ˆΓ −Σ/Γ∥F∥2 ≤∥∥ˆΣ −Σ)/Γ∥F∥2 + ∥∥ˆΣ/ˆΓ∥F∥2 · |1 −ˆΓ/Γ| = o(1).
+Proof of Proposition 1. Note that ∥Σ/Γ∥≤∥Σ/Γ∥F = 1. According to the assumption of
+˜Γ/Γ −1 = op(1), we have ∥Σ/Γ∥(Γ/˜Γ −1) = op(1). Hence, for the “if” part,
+∥˜Σ/˜Γ −Σ/Γ∥≤∥˜Σ −Σ∥/˜Γ + ∥Σ/Γ∥· |Γ/˜Γ −1| = op(1).
+The “only if” part can be similarly proven.
+
+--- Page 22 ---
+Mathematics 2024, 12, 3467
+22 of 23
+Proof of Theorem 4. (i) Following the definition of ⟨Xi,Xj⟩in (A3), for any subset (S ⊂{1,...,n})
+with |S| = m, we define Ω◦
+d,S =
+1
+m ∑i,j∈S:i̸=j⟨Xi,Xj⟩, Ω◦
+d,Sc =
+1
+n−m ∑i,j∈Sc:i̸=j⟨Xi,Xj⟩.
+Then,
+we can write
+Ωd,S
+=
+
+1 −m
+n
+2
+m
+m −1Ω◦
+d,S +
+m(n −m)2
+n2(n −m −1)Ω◦
+d,Sc
+−2
+n
+
+1 −m
+n
+
+∑
+i∈S ∑
+j∈Sc
+⟨Xi, Xj⟩.
+Let
+τ =
+
+1 −m
+n
+2
+m
+m −1
+and
+Q =
+m(n −m)2
+n2(n −m −1)Ω◦
+d,Sc −2
+n
+
+1 −m
+n
+
+∑
+i∈S ∑
+j∈Sc
+⟨Xi, Xj⟩.
+For any x > 0, according to the triangle inequality, we have
+P
+
+Ω◦
+d,S ≤t −x
+τ
+
+−P(|Q| ≥x)
+≤
+P(Ωd,S ≤t)
+≤
+P
+
+Ω◦
+d,S ≤t + x
+τ
+
++ P(|Q| ≥x).
+(A12)
+Note that E| ∑i∈S ∑j∈Sc⟨Xi, Xj⟩|2 = m(n −m)Λ2. Since m = o(n), according to
+Theorem 1, we have Q = op(1) and P(|Q| ≥x) →0. In view of Theorem 1, Lemma A1,
+and (A12), it follows that for any k ≤⌊n/m⌋,
+P(Ωd,Tk ≤t) −P(Ω◦
+d,Tk ≤t) →0.
+A similar argument implies that for k ̸= k′, it holds for the joint probability that
+P(Ωd,Tk ≤t, Ωd,Tk′ ≤t) −P(Ω◦
+d,Tk ≤t, Ω◦
+d,Tk′ ≤t) →0.
+Therefore, according to Theorem 1, we have E| ˆG(t) −P(W ≤t)|2 →0, which implies
+the uniform version (32) via the standard Glivenko–Cantelli argument, together with the
+continuity result of Lemma A1.
+We now prove (ii). Following the argument in (i), it suffices to show that for sets
+S, S′ ∈S,
+E|P(Ω◦
+d,S ≤t, Ω◦
+d,S′ ≤t) −P2(W ≤t)| →0.
+(A13)
+Let S ∩S′ = D1, S −D1 = D2, S′ −D1 = D3 and r = |D1|. Then, we can write
+Ω◦
+d,S
+=
+1
+m
+∑
+i,j∈S:i̸=j
+⟨Xi, Xj⟩
+=
+(1 −r/m)Ω◦
+d,D2 + (r/m)Ω◦
+d,D1 + (2/m) ∑
+i∈D1 ∑
+j∈D2
+⟨Xi, Xj⟩,
+A similar expression exists for Ωd,S′. A sequence (xn →0) with m/n = o(xn) is chosen.
+If r ≤mxn, as in part (i), we have |P(Ω◦
+d,S ≤t, Ω◦
+d,S′ ≤t) −P(Ω◦
+d,D2 ≤t, Ω◦
+d,D3 ≤t)| →0
+and |P(Ω◦
+d,D2 ≤t) −P(W ≤t)| →0. Note that E|S ∩S′| ≤m2/n. Then, P(|S ∩S′| ≥
+mxn) ≤m/(nxn) →0. Then, (A13) follows by conditioning on |S ∩S′| ≤mxn.
+References
+1.
+Cramér, H. On the composition of elementary errors. Scand. Actuar. J. 1928, 1928, 13–74. [CrossRef]
+2.
+von Mises, R. Wahrscheinlichkeitsrechnung; Fr. Deuticke: Vienna, Austria, 1931.
+3.
+Darling, D.A. The kolmogorov-smirnov, cramer-von mises tests. Ann. Math. Stat. 1957, 28, 823–838. [CrossRef]
+
+--- Page 23 ---
+Mathematics 2024, 12, 3467
+23 of 23
+4.
+Shorack, G.R.; Wellner, J.A. Empirical Processes with Applications to Statistics; Wiley Series in Probability and Mathematical Statistics:
+Probability and Mathematical Statistics; John Wiley & Sons, Inc.: New York, NY, USA, 1986.
+5.
+Smirnov, N. On the distribution of the ω2 criterion of von Mises. Rec. Math. (NS) 1937, 2, 973–993.
+6.
+Anderson, T.W.; Darling, D.A. Asymptotic theory of certain “goodness of fit” criteria based onstochastic processes. Ann. Math.
+Stat. 1952, 23, 193–212. [CrossRef]
+7.
+Bühlmann, P.; Van De Geer, S. Statistics for High-Dimensional Data: Methods, Theory Andapplications; Springer Science & Business
+Media: Berlin/Heidelberg, Germany, 2011.
+8.
+Wainwright, M.J. High-Dimensional Statistics: A Non-Asymptotic Viewpoint; Cambridge University Press: Cambridge, UK, 2019;
+Volume 48.
+9.
+Balakrishnan, S.; Wasserman, L. Hypothesis testing for high-dimensional multinomials: A selectivereview. Ann. Appl. Stat.
+2018, 12, 727–749. [CrossRef]
+10.
+Xu, M.; Zhang, D.; Wu, W.B. Pearson’s chi-squared statistics: Approximation theory and beyond. Biometrika 2019, 106, 716–723. [CrossRef]
+11.
+Zhang, D.; Wu, W.B. Gaussian approximation for high dimensional time series. Ann. Stat. 2017, 45, 1895–1919. [CrossRef]
+12.
+Liang, J.; Tang, M.L.; Zhao, X. Testing high-dimensional normality based on classical skewness and Kurtosis with a possible small
+sample size. Commun. Stat.-Theory Methods 2019, 48, 5719–5732. [CrossRef]
+13.
+Rosenblatt, M. Remarks on a multivariate transformation. Ann. Math. Stat. 1952, 23, 470–472. [CrossRef]
+14.
+Blum, J.R.; Kiefer, J.; Rosenblatt, M. Distribution Free Tests of Independence Based on the SampleDistribution Function.
+Ann. Math. Stat. 1961, 32, 485–498. [CrossRef]
+15.
+Cotterill, D.S.; Csörgö, M. On the limiting distribution of and critical values for the Hoeffding, Blum, Kiefer, Rosenblatt
+independence criterion. Stat. Risk Model. 1985, 3, 1–48. [CrossRef]
+16.
+Cotterill, D.S.; Csorgo, M. On the limiting distribution of and critical values for the multivariate Cramer-von Mises statistic.
+Ann. Stat. 1982, 10, 233–244. [CrossRef]
+17.
+Genest, C.; Rémillard, B. Test of independence and randomness based on the empirical copulaprocess. Test 2004, 13, 335–369. [CrossRef]
+18.
+Genest, C.; Quessy, J.F.; Rémillard, B. Asymptotic local efficiency of Cramér–von Mises tests formultivariate independence.
+Ann. Stat. 2007, 35, 166–191. [CrossRef]
+19.
+Portnoy, S. On the central limit theorem in Rp when p →∞. Probab. Theory Relat. Fields 1986, 73, 571–583. [CrossRef]
+20.
+Sklar, M. Fonctions de repartition an dimensions et leurs marges. Publ. Inst. Stat. Univ. Paris 1959, 8, 229–231.
+21.
+Genest, C.; Nešlehová, J. Copulas and copula models. In Encyclopedia of Environmetrics; Wiley: Chichester, UK, 2012; Volume 2, pp. 541–553.
+22.
+Joe, H. Dependence Modeling with Copulas; CRC Press: London, UK, 2014.
+23.
+Okhrin, O.; Trimborn, S.; Waltz, M. gofCopula: Goodness-of-Fit tests for copulae. R J. 2021, 13, 467–498. [CrossRef]
+24.
+Hering, C.; Hofert, M. Goodness-of-fit tests for Archimedean copulas in high dimensions. In Innovations in Quantitative Risk
+Management; Springer: Cham, Switzerland, 2015; pp. 357–373.
+25.
+Atkinson, K.E. The Numerical Solution of Integral Equations of the Second Kind; Cambridge Monographs on Applied and Computa-
+tional Mathematics; Cambridge University Press: Cambridge, UK, 1997; Volume 4.
+26.
+Rosenthal, H.P. On the subspaces of Lp (p > 2) spanned by sequences ofindependent random variables.
+Isr.
+J. Math.
+1970, 8, 273–303. [CrossRef]
+27.
+Wu, W.B. Nonlinear system theory: Another look at dependence. Proc. Natl. Acad. Sci. USA 2005, 102, 14150–14154. [CrossRef]
+28.
+Golub, G.H.; Van Loan, C.F. Matrix Computations, 4th ed.; Johns Hopkins Studies in the Mathematical Sciences; Johns Hopkins
+University Press: Baltimore, MD, USA, 2013.
+29.
+Marˇcenko, V.A.; Pastur, L.A. Distribution of eigenvalues for some sets of random matrices. Sb. Math. 1967, 1, 457–483. [CrossRef]
+30.
+Wachter, K.W. The strong limits of random matrix spectra for sample matrices ofindependent elements.
+Ann.
+Probab.
+1978, 6, 1–18. [CrossRef]
+31.
+Geman, S. A limit theorem for the norm of random matrices. Ann. Probab. 1980, 8, 252–261. [CrossRef]
+32.
+Benjamini, Y.; Hochberg, Y. Controlling the false discovery rate: A practical and powerfulapproach to multiple testing. J. R. Stat.
+Soc. Ser. B (Methodol.) 1995, 57, 289–300. [CrossRef]
+33.
+Nicholson, W.B.; Wilms, I.; Bien, J.; Matteson, D.S. High dimensional forecasting via interpretable vector autoregression. J. Mach.
+Learn. Res. 2020, 21, 6690–6741.
+34.
+Stock, J.H.; Watson, M.W. An Empirical Comparison of Methods for Forecasting Using Manypredictors; Manuscript; Princeton University:
+Princeton, NJ, USA, 2005; Volume 46.
+35.
+Koop, G.M. Forecasting with medium and large Bayesian VARs. J. Appl. Econom. 2013, 28, 177–203. [CrossRef]
+36.
+Basu, S.; Michailidis, G. Regularized estimation in sparse high-dimensional time seriesmodels. Ann. Stat. 2015, 43, 1535–1567. [CrossRef]
+37.
+Sakhanenko, A.I. Estimates in the invariance principle in terms of truncated powermoments. Sib. Mat. Zhurnal 2006, 47, 1355–1371.
+Disclaimer/Publisher’s Note: The statements, opinions and data contained in all publications are solely those of the individual
+author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to
+people or property resulting from any ideas, methods, instructions or products referred to in the content.

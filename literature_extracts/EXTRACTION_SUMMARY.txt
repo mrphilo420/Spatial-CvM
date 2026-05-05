@@ -1,0 +1,125 @@
+
+================================================================================
+                    LITERATURE EXTRACTION SUMMARY
+                    SpatialCvM Project - April 2025
+================================================================================
+
+COMPLETED EXTRACTIONS:
+----------------------
+
+1. WASSERMAN (2006) - All of Nonparametric Statistics
+   File: wasserman_2006_nonparametric.pdf (272 pages, 2.82 MB)
+   Extracts:
+   - wasserman_2006_chapter2.txt (53 KB): CDF and Statistical Functionals
+   - wasserman_2006_hypothesis_testing.txt (73 KB): Hypothesis testing
+   - wasserman_2006_nonparametric.txt (28 KB): Table of contents
+   - wasserman_2006_relevance_summary.txt (3 KB): Relevance analysis
+   - wasserman_2006_selected_content.txt (130 KB): Selected sections
+   
+   KEY FINDING: References Fernholz (1983) - crucial for Hadamard differentiability
+
+2. ARZELA-ASCOLI THEOREM - Stanford Statistics 300b Notes
+   File: arzela-ascoli-stanford.pdf (3 pages, 166 KB)
+   Extract: arzela_ascoli_stanford.txt (7 KB)
+   
+   KEY CONTENT: Uniform CLT, equicontinuity, tightness criteria
+   RELEVANCE: Theorem1/Tightness.lean - Arzelà-Ascoli criterion
+
+3. ARZELA-ASCOLI - Additional Notes (aa-pic.pdf)
+   File: aa-pic.pdf (11 pages, 112 KB)
+   Extract: aa_pic.txt (20 KB)
+   
+   KEY CONTENT: C(K) space, compactness in function spaces
+   RELEVANCE: Theorem1/Definitions.lean - empirical process spaces
+
+4. LECTURE 02 - Stanford Stats 300b (Winter 2017)
+   File: lecture-02.pdf (5 pages, 174 KB)
+   Extract: lecture_02.txt (6 KB)
+   
+   KEY CONTENT: Prohorov Theorem, Portmanteau Lemma, Delta Method
+   RELEVANCE: 
+   - Theorem1/Main.lean (prokhorov_theorem axiom)
+   - Theorem1/Main.lean (Portmanteau reference)
+   - Theorem3/DeltaMethod.lean (Delta method)
+
+5. ARZELA-ASCOLI THEOREM - Standard Text (10-1.pdf)
+   File: 10-1.pdf (6 pages, 85 KB)
+   Extract: ten_one.txt (8 KB)
+   
+   KEY CONTENT: Convergence of function sequences on compact metric spaces
+   RELEVANCE: Theorem1/Tightness.lean - equicontinuity proof structure
+
+6. STATISTICS 451 - Borel Sets (lecture_451_05.txt)
+   File: 451lecture05.pdf (3 pages, 133 KB)
+   
+   KEY CONTENT: σ-algebra construction, uniform probability on [0,1]
+   RELEVANCE: Definitions/RandomField.lean - measure theory foundations
+
+PREVIOUSLY EXTRACTED:
+---------------------
+
+7. DEHLING & TAQQ (1989) - Multivariate Second-Order Statistics
+   File: dehling_taqqu_1989.pdf
+   KEY CONTENT: Hermite rank, long-range dependence
+   RELEVANCE: Lemma1/Mixing.lean - covariance structures
+
+8. DE WET (1980) - Cramér-von Mises Eigenvalues
+   File: dewet1980.pdf
+   KEY CONTENT: Eigenvalue characterization of CvM statistics
+   RELEVANCE: Theorem2/Mercer.lean - spectral decomposition
+
+9. EMPIRICAL PROCESSES (1989)
+   File: empirical_process_1989.pdf
+   KEY CONTENT: Uniform convergence, Donsker classes
+   RELEVANCE: Theorem1/FiniteDimensional.lean - CLT for empirical processes
+
+10. GOODNESS OF FIT - Dependent Data
+    File: goodness_of_fit_dependent.pdf
+    KEY CONTENT: CvM tests under dependence
+    RELEVANCE: Theorem2/Main.lean - null distribution under mixing
+
+11. SPATIAL CORRECTION PLUGIN
+    File: spatial_correction_plugin.pdf
+    KEY CONTENT: Spatial statistics implementation
+    RELEVANCE: Calibration/ - practical implementation guidance
+
+12. MATHEMATICS (2024) - Spatial Point Patterns
+    File: mathematics-12-03467.pdf
+    KEY CONTENT: Modern spatial statistics
+    RELEVANCE: Definitions/ - spatial point pattern definitions
+
+INTEGRATION STATUS:
+-------------------
+
+EXTRACTED CONTENT → LEAN FORMALIZATION MAPPING:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ LITERATURE SOURCE                    │ SPATIALCVM MODULE       │ STATUS     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Wasserman (2006), Ch 2               │ Theorem1/*              │ ✓ REFERENCED│
+│ Wasserman (2006), Ch 8               │ Theorem2/*              │ ⚠️ TBD     │
+│ Arzelà-Ascoli (Duchi notes)            │ Theorem1/Tightness.lean│ ✓ CITED     │
+│ Lecture 02 (Prohorov/Portmanteau)      │ Theorem1/Main.lean     │ ✓ CITED     │
+│ Dehling-Taqqu (1989)                 │ Lemma1/Mixing.lean     │ ✓ INTEGRATED│
+│ De Wet (1980)                        │ Theorem2/Mercer.lean   │ ✓ REFERENCED│
+│ Empirical Processes (1989)            │ Theorem1/*              │ ⚠️ TBD     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+ACTION ITEMS:
+-------------
+
+1. Add Wasserman (2006) to README.md references
+2. Cross-reference Fernholz (1983) in Theorem3/Hadamard.lean (CRITICAL)
+3. Add Lecture-02 Prohorov/Portmanteau citations to axioms
+4. Create literature summary document linking all sources to Lean code
+
+NEXT STEPS:
+-----------
+- Continue extracting remaining PDFs (weak.pdf, Abel.pdf, etc.)
+- Create synthesis document linking all sources to code locations
+- Update all axiom documentation with proper citations
+- Verify all extracted content is properly referenced
+
+================================================================================
+                            END OF SUMMARY
+================================================================================

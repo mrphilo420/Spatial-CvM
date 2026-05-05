@@ -1,0 +1,566 @@
+======================================================================
+SOURCE: aa-pic.pdf
+PAGES: 11
+======================================================================
+
+--- Page 1 ---
+Notes about C(K), Arzel`a-Ascoli
+and applications to diﬀerential equations
+I. The space C(K)
+Let K be a compact metric space, with metric dK. Let B(K) be the space
+of real valued bounded functions on K with the sup-norm
+∥f∥∞= sup
+x∈K
+|f(x)|
+Proposition : B(K) is complete.
+Proof. Let fn be a Cauchy sequence. By the deﬁnition of ∥· ∥∞this implies
+that for every x ∈K the numerical sequence fn(x) is a Cauchy sequence in
+R, and thus convergent in R. Deﬁne f(x) = limn→∞fn(x).
+We show that f is bounded, and that ∥fn −f∥∞→0. Let ε > 0. Then
+there is N = N(ε) so that supx |fn(x) −fm(x)| < ε/2 for n, m ≥N. This
+shows that |fn(x)−f(x)| ≤ε/2 for n, m ≥N and for all x ∈K. In particular
+|f(x)| ≤sup |fN(x)| + ε so that f is bounded; moreover ∥fn −f∥∞≤ε/2
+for n ≥N.
+As ε > 0 was arbitrary this establishes that ∥fn−f∥∞→0 as n →∞.
+□
+Let C(K) be the vector space of real valued continuous functions on K.
+Proposition. Every f ∈C(K) is bounded and uniformly continuous.
+Proof. Let ε > 0. We have to show that there is δ > 0 so that |f(x)−f(x′)| <
+ε whenever dK(x, x′) < δ; moreover there is M so that supx∈K |f(x)| ≤M.
+As f is continuous, for every x there is a δx > 0 so that for all t with
+dK(t, x) < δx we have |f(x) −f(t)| < ε/2. As K is compact there is a ﬁnite
+number of points xi, i = 1, . . . , L so that the balls B(xi, δxi/2) cover K.
+Deﬁne δ = mini=1,...,L δxi/2. Suppose dK(x, x′) < δ. Then there is an xi
+so that dK(x, xi) < δxi/2. Then also
+dK(x′, xi) ≤dK(x′, x) + dK(x, xi) < δ + δxi/2 ≤δxi
+so that
+|f(x) −f(x′)| ≤|f(x) −f(xi)| + |f(xi) −f(x′)| < ε/2 + ε/2 = ε.
+This already shows that f is uniformly continuous.
+By the same argument we have |f(x)| ≤|f(x) −f(xi)| + |f(xi)| ≤ε +
+|f(xi)| for x ∈B(xi, δxi/2). Thus, for all x ∈K it follows that |f(x)| ≤
+maxi=1,...,L |f(xi)| + ε so that certainly f is bounded.
+□
+We have just seen that C(K) is a subspace of B(K). We consider C(K)
+as a normed space with the norm (and therefore with the metric) inherited
+from B(K). The following result shows that C(K) is complete.
+Proposition. C(K) is a closed subspace of B(K).
+1
+
+
+--- Page 2 ---
+2
+Proof. Let fn be a sequence of functions in C(K) which converges to f (i.e.
+∥fn −f∥∞→0). We will show that f is (uniformly) continuous, i.e. given
+ε > 0 there is δ > 0 so that |f(x) −f(x′)| < ε if dK(x, x′) < δ.
+Let ε > 0. Let N be so that ∥fn −f∥∞< ε/4 for all n ≥N, that means
+|fn(t)−f(t)| < ε/4 for all t ∈K and all n ≥N. Since fN is (uniformly) con-
+tinuous there is δ > 0 so that |fN(x)−fN(x′)| < ε/2 whenever dK(x, x′) < δ.
+For those x, x′ we also have
+|f(x) −f(x′)| ≤|f(x) −fN(x)| + |fN(x) −fN(x′)| + |fN(x′) −f(x′)|
+≤2∥f −fN∥∞+ |fN(x) −fN(x′)| < 2ε/4 + ε/2 = ε.
+□
+II. The Arzel`a-Ascoli theorem
+Deﬁnition. Let F be a collection of functions in C(K).
+(i) The collection F is said to be pointwise bounded if for every x ∈K
+there is an M(x) ≥0 so that |f(x)| ≤M(x) for every f ∈F.
+(ii) The collection F is said to be equicontinuous 1 if for every ε > 0 there
+exists δ > 0 so that for all f ∈F and x, x′ with dK(x, x′) < δ we have
+|f(x) −f(x′)| < ε.
+Remark: It is not diﬃcult to show that a collection F which is both equicon-
+tinuous and pointwise bounded on a compact set K is also uniformly bounded
+on K, meaning that there is an M ≥0 so that ∥f∥∞= supx∈K |f(x)| ≤M
+for all f ∈F. This implication is hidden in the proof of the theorem below
+where a stronger property is proved (namely that F is totally bounded).
+Theorem. A subset F of C(K) is totally bounded if and only if it is point-
+wise bounded and equicontinuous.
+Proof of necessity: If F is a totally bounded subset of C(K) then F is
+pointwise bounded and equicontinuous.
+By the deﬁnition of F totally bounded there are functions f1, . . . , fN in F
+so that for every f ∈F there is an index i ∈{1, . . . , N} with ∥fi−f∥∞< ε/4.
+Clearly ∥f∥≤∥fi∥∞+ ∥f −fi∥∞≤maxi=1,...,N ∥fi∥∞+ ε/4 so that F is
+bounded in norm (and clearly pointwise bounded).
+Now we show the equicontinuity of the family F. By a Lemma above each
+fi is uniformly continuous. Thus for each i there exists a δi > 0 such that
+|fi(x) −fi(x′)| < ε/2 whenever dK(x, x′) < δi. Let δ = min{δ1, . . . , δN}.
+Then δ > 0 and we have |fi(x) −fi(x′)| < ε/2 for every i whenever
+dK(x, x′) < δ.
+1Some authors also use the terminology “uniformly equicontinous”.
+
+
+--- Page 3 ---
+3
+Now pick any f ∈F, and let i be so that ∥fi −f∥∞< ε/4, and let x, x′
+be so that dK(x, x′) < δ. Then
+|f(x) −f(x′)| ≤|f(x) −fi(x)| + |fi(x) −fi(x′)| + |fi(x′) −f(x′)|
+≤2∥f −fi∥∞+ |fi(x) −fi(x′)| < 2ε/4 + ε/2 = ε .
+□
+Proof of suﬃciency: If F ⊂C(K) is equicontinuous and pointwise bounded
+then F is totally bounded.
+Fix ε > 0. We shall ﬁrst ﬁnd a ﬁnite collection G of functions in B(K) so
+that for every f ∈F there exists a g ∈G with ∥f −g∥∞< ε.
+Let δ > 0 so that for all f ∈F we have |f(x) −f(x′)| < ε/4 whenever
+|x −x′| < δ. Again we use the compactness of K and cover K with ﬁnitely
+many balls B(xi, δ), i = 1, . . . , L. There is Mi so that |f(xi)| ≤Mi for all
+f ∈F. Let M = 1 + maxi=1,...,L Mi.
+We now let A1 = B(x1, δ), and Ai = B(xi, δ)\∪i−1
+ν=1B(xν, δ), for 2 ≤i ≤L.
+(Some of the Ai could be empty but that does not matter).
+Let ZL(M, ε) be the set of L-tuples ⃗n of integers ⃗n = (n1, . . . , nL) with
+the property that |ni|ε/4 ≤M for i = 1, . . . , L. Note that ZL(M, ε) is a
+ﬁnite set (indeed its cardinality is ≤(8Mε−1 + 1)L).
+We now deﬁne a collection G of functions which are constant on the sets
+Ai (these are analogues of step functions). Namely given ⃗n in ZL(M, ε)
+we let g⃗n be the unique function that takes the value niε/4 on the set Ai
+(provided that that set is nonempty). Clearly the cardinality of G is not
+larger than the cardinality of ZL(M, ε).
+Let f ∈F. Consider an Ai which by construction is a subset of B(xi, δ).
+Then |f(x) −f(xi)| < ε/4 for all x ∈Ai (this condition is vacuous if Ai
+is empty). Now |f(xi)| ≤Mi ≤M and therefore there exists an integer ni
+with the property that −M ≤niε/4 ≤M and |f(xi) −niε/4| < ε/4. Then
+we also have that for i = 1, . . . , L and for every x ∈Ai,
+|f(x) −niε/4| ≤|f(x) −f(xi)| + |f(xi) −niε/4| < ε/4 + ε/4 = ε/2.
+This implies that for this choice of ⃗n = (n1, . . . , nL) we get ∥f −g⃗n∥∞< ε/2.
+Finally, we need to ﬁnd a ﬁnite cover of F with ε-balls centered at points
+in F. Consider the subcollection eG of functions in G for which the ball of
+radius ε/2 centered at g contains a function in F. Denote the functions in
+eG by g1, . . . , gN. The balls of radius ε/2 centered at g1, . . . gN cover F. For
+i = 1, . . . , N pick fi ∈F so that ∥gi−fi∥∞< ε/2. By the triangle inequality
+(for the norm in B(K) whose restriction to C(K) is also the norm in C(K))
+the ball of radius ε/2 centered at gi is contained in the ball of radius ε
+centered at fi. Thus the balls of radius ε centered at fi, i = 1, . . . , N cover
+the set F.
+□
+Corollary. A closed subset F of C(K) is compact if and only if it is point-
+wise bounded and equicontinuous.
+
+
+--- Page 4 ---
+4
+Proof. The space B(K) is complete and so is the closed subspace C(K).
+Since we now assume that F is closed in C(K) the metric space F is com-
+plete. Thus by the characterization of compactness (F compact
+⇐⇒F
+totally bounded and complete) the corollary follows from the theorem.
+□
+Corollary. An equicontinuous and bounded sequence {fn} of functions in
+C(K) has a uniformly convergent subsequence.
+Proof. The closure of F := {fn : n ∈N} is bounded, complete, and equicon-
+tinuous, thus compact. By a part of the theorem on the characterization of
+compactness it is also sequentially compact, therefore fn has a convergent
+subsequence.
+□
+III. The Peano Existence theorem for diﬀerential equations
+We are concerned with the initial value problem for a diﬀerential equation
+y′(t) = F(t, y(t)),
+y(t0) = y0 .
+Here (t, y) 7→F(t, y) is a continuous function of two variables deﬁned near
+a point (t0, y0) ∈R2 and we wish to ﬁnd a function t 7→y(t) for which the
+derivative y′(t) equals the value of F(t, y) for y = y(t), and which has the
+value y0 at the “initial” time t0.
+This problem has a solution, as stated in the following existence theorem.
+Theorem. Let Ωbe a nonempty open set in R × R, let (t0, y0) ∈Ωand let
+F : Ω→R be continuous. Let R be a compact rectangle of the form
+R = {(t, y) : |t −t0| ≤a,
+|y −y0| ≤b}
+contained in Ω.
+Suppose that |F(t, y)| ≤M for (t, y) ∈R and let ˜a =
+min{a, b/M}. Then there exists a function t 7→y(t) deﬁned on (t0−˜a, t0+˜a)
+which satisﬁes the initial value problem
+y′(t) = F(t, y(t)) for |t −t0| < ˜a
+y(t0) = y0.
+Proof. 2
+The strategy is to prove the existence of a continuous function y on [t0 −
+˜a, t0 + ˜a] which satisﬁes the integral equation
+y(t) = y0 +
+Z t
+t0
+F(s, y(s)) ds.
+2The proof becomes less technical if one makes the more restrictive assumption that
+|F(t, y)| ≤M for all (t, y0) with |t −t0| ≤a and y ∈R. We then have ˜a = a and much of
+the discussion in step 1 is then superﬂuous. We will ﬁrst discuss this special case in class.
+
+
+--- Page 5 ---
+5
+Once we have found this function we observe that the integrand F(s, y(s)) is
+also a continuous function. Thus the integral represents a diﬀerentiable func-
+tion (by the fundamental theorem of calculus) and its derivative is F(t, y(t)).
+Thus y is also diﬀerentiable and we have y′ = F(t, y(t)) for t ∈(t0−˜a, t0+˜a),
+i.e.
+y is a solution of the diﬀerential equation.
+Also by the last display
+y(t0) = y0 and a solution is found.
+We write up the proof of the existence of y only for the interval [t0, t0 +˜a]
+and leave the notational changes for the interval [t0 −˜a, t0] to the reader.
+We will split the proof into ﬁve steps.
+1. We shall construct functions with polygonal graphs which are candi-
+dates to approximate the solutions.
+F is uniformly continuous on the compact set R.
+Let ε > 0 a small
+number and let δ = δ(ε) be as in the deﬁnition of uniform continuity, i.e.
+we have
+|F(t, y) −F(t′, y′)| < ε
+whenever |(t, y) −(t′, y′)| ≤δ and (t, y) ∈R, (t′, y′) ∈R.
+Let
+t0 < t1 < · · · < tN = t0 + ˜a
+be a partition of [t0, t0 + ˜a] so that tk+1 −tk <
+1
+2 min{δ, δ/M} for k =
+0, . . . , N −1.
+We now construct a function Y ≡Yε on [t0, ˜a]; this deﬁnition depends on
+ε, δ and the partition chosen, however keeping this dependence in mind we
+will omit the subscript ǫ in steps 1-4 to avoid cluttered notation.
+To deﬁne Y ≡Yε we set Y (t0) = y0.
+On the ﬁrst partition interval
+[t0, t1] the graph of Y will be a line with initial point (t0, Y (t0)) and slope
+F(t, y0) = F(t, Y (t0)). The value of this function at t1 is Y (t1) = Y (t0) +
+F(t0, Y (t0))(t1−t0). On the interval (t1, t2] we wish to deﬁne Y as the graph
+of a line starting at (t1, Y (t1)) with readjusted slope F(t1, Y (t1)). In order
+for this construction to work we need to make sure that F(t1, Y (t1)) is still
+well deﬁned, meaning that the point (t, Y (t1)) belongs to the rectangle R.
+For this we have to check |Y (t1)−y0| ≤b. Indeed we have that |Y (t1)−y0| =
+|F(t0, Y (t0))(t1 −t0)| ≤M(t1 −t0) ≤M˜a ≤b by deﬁnition of ˜a. A similar
+calculation has to be made at every step.
+To be rigorous we formulate the following
+Claim. For k = 0, . . . , N there are numbers yk so that
+|yk −y0| ≤M(tk −t0) ≤b and
+yk = yk−1 + F(tk−1, yk−1)(tk −tk−1).
+For k = 0 the statement is clear. We argue by induction. Above we have
+just veriﬁed this claim for k = 1, and in a similar way we do the induction
+step.
+
+
+--- Page 6 ---
+6
+If k ∈{1, . . . , N −1} we prove the claim for k+1, i.e. the existence of yk+1
+with the required properties, under the induction hypothesis, that y1, . . . , yk
+have been found. Since by the induction hypothesis |yk −y0| ≤M(tk −t0)
+which is ≤b the expression F(tk, yk) is well deﬁned and thus yk+1 = yk +
+F(tk, yk)(tk+1 −tk) is well deﬁned. To check that |yk+1 −y0| ≤M(tk+1 −t0)
+we observe that
+|yk+1 −y0| = |yk+1 −yk + yk −y0| ≤|yk+1 −yk| + |yk −y0|
+= |F(tk, yk)|(tk+1 −tk) + |yk −y0| ≤M(tk+1 −tk) + |yk −y0|
+≤M(tk+1 −tk) + M(tk −t0) = M(tk+1 −t0)
+where we have in the second to last step used the induction hypothesis. Of
+course M(tk+1 −t0) ≤M˜a ≤b. The claim follows by induction.
+Now that the claim is veriﬁed we can deﬁne Y (t) on [t0, ˜a] by Y (tk) = yk
+and
+Y (t) = yk + F(tk, yk)(t −tk),
+tk < t < tk+1,
+k = 0, 1, . . . , N −1.
+Observe that this deﬁnition is also valid for tk ≤t ≤tk+1. The function
+Y is continuous, piecewise linear, and the absolute values of all slopes are
+bounded by M.
+2. The function Y ≡Yε constructed in part 1 satisﬁes the inequality
+|Y (t) −Y (t′)| ≤M|t −t′| whenever t, t′ are both in [t0, t0 + ˜a].
+Proof: W.l.o.g t′ < t. If t′, t lie in the same partition interval [tk, tk+1]
+then this is immediate since
+|Y (t) −Y (t′)| = |F(tk, yk)(t −t′)| ≤M|t −t′|.
+If t′, t lie in diﬀerent partition intervals, t′ ∈[tk, tk+1], t ∈[tl, tl+1] with
+k < l, then
+|Y (t) −Y (t′)| =
+Y (t) −Y (tl) +
+X
+k<ν<l
+Y (tν+1) −Y (tν) + Y (tk+1) −Y (t′)
+
+≤|Y (t) −Y (tl)| +
+X
+k<ν<l
+|Y (tν+1) −Y (tν)| + |Y (tk+1) −Y (t′)|
+= |F(tl, yl)|(t −tl) +
+X
+k<ν<l
+|F(tν, yν)|(tν+1 −tν) + |F(tk, yk)|(tk+1 −t′)
+≤M(t −tl) +
+X
+k<ν<l
+M(tν+1 −tν) + M(tk+1 −t′) = M(t −t′) ;
+here the middle terms with the sum P
+k<ν<l are only present when when
+k + 1 < l. The claim 2 is proved.
+3. Note that if we deﬁne g(t) = F(tk−1, Y (tk−1)) if tk−1 ≤t < t then g is
+a step function and Y is diﬀerentiable in the open intervals (tk−1, tk) with
+derivative Y ′(t) = g(t).
+
+
+--- Page 7 ---
+7
+Claim: For t0 ≤t ≤t0 + ea we have
+Y (t) = y0 +
+Z t
+t0
+g(s)ds
+and
+g(s) −F(s, Y (s))
+ ≤ε if tk−1 < s < tk .
+We ﬁrst verify the ﬁrst formula for t = tk. Then
+Y (tk) −y0 = Y (tk) −Y (t0) =
+k
+X
+ν=1
+[Y (tν) −Y (tν−1)]
+=
+k
+X
+ν=1
+F(tν−1, Y (tν−1))(tν −tν−1) =
+k
+X
+ν=1
+Z tν
+tν−1
+g(s)ds =
+Z tk
+t0
+g(s)ds
+Similarly for tk < t < tk+1,
+Y (t) −Y (tk) = F(tk, Y (tk))(t −tk) =
+Z t
+tk
+g(s)ds .
+We put the two formulas together and get
+Y (t) = Y (tk) +
+Z t
+tk
+g(s)ds = y0 +
+Z tk
+t0
+g(s)ds +
+Z t
+tk
+g(s)ds = y0 +
+Z t
+t0
+g(s)ds .
+For the second assertion let tk−1 < s < tk and observe
+|g(s) −F(s, Y (s))| = |F(tk−1, Y (tk−1)) −F(s, Y (s))|
+and |Y (tk−1) −Y (s)| ≤M|tk−1 −s| ≤M(tk −tk−1) ≤δ/2 (since the
+maximal width of the partition is < δ/2M). Thus the distance of the points
+(tk−1, Y (tk−1) and (s, Y (s)) is no more than δ. It follows that
+|F(tk−1, Y (tk−1)) −F(s, Y (s))| < ε.
+4. Claim: For t0 ≤s ≤t0 + ˜a,
+Y (t) −
+
+y0 +
+Z t
+t0
+F(s, Y (s))ds
+ ≤ε˜a .
+This follows from part 3, since the right hand side is
+y0 +
+Z t
+t0
+g(s)ds −
+
+y0 +
+Z t
+t0
+F(s, Y (s))ds
+
+=
+
+Z t
+t0
+[g(s) −F(s, Y (s))]ds
+
+and this is estimated by
+Z
+[t0,t]
+|g(s) −F(s, Y (s))|ds ≤ε(t −t0) ≤ε˜a .
+
+
+--- Page 8 ---
+8
+5. So far we have only considered a ﬁxed function Y ≡Yε. Now consider
+a sequence of such functions Yε(n) where ε(n) →0 (for example ε(n) = 2−n).
+These functions satisfy the properties in part 1-4 with the parameter ε =
+ε(n) and with δ = δ(ε(n)).
+By part 2 the family of functions Yε(n) is uniformly bounded and uniformly
+equicontinuous. Indeed for all n and all t ∈[t0, t0 + ˜a] we have shown
+|Yε(n)(t) −Yε(n)(t′)| ≤M|t −t′|
+(which implies the uniform equicontinuity) and it follows also that
+|Yε(n)(t)| ≤|Yε(n)(t0)| + |Yε(n)(t) −Yε(n)(t0)| ≤|y0| + M|t −t0| ≤|y0| + M˜a .
+Thus the Arzel`a-Ascoli theorem allows us to choose an increasing sequence
+of integers mn such that the subsequence Yε(mn)(t) converges uniformly on
+[t0, t0+˜a] to a limit y(t). As a uniform limit of continuous functions y is con-
+tinuous on [t0, t0 + ˜a]. Now by the uniform continuity of F and the uniform
+convergence of Yε(mn) we see3 that F(t, Yε(mn)(t)) converges to F(t, y(t)),
+uniformly on [t0, t0 + ˜a]. This implies that y0 +
+R t
+t0 F(s, Yε(mn)(s))ds con-
+verges to y0 +
+R t
+t0 F(s, y(s))ds. But by part (4) we also have
+Yε(mn)(t) −
+
+y0 +
+Z t
+t0
+F(s, Yε(mn)(s)) ds
+ ≤ε(mn)˜a →0 as n →∞.
+Thus we obtain for the limit (as m →∞)
+y(t) = y0 +
+Z t
+t0
+F(s, y(s)) ds
+which is the desired integral equation for y.
+□
+IV. Possible failure of uniqueness
+The Peano theorem does not guarantee uniqueness.
+We give an example. Here F(t, y) =
+p
+|y| which is continuous on R2.
+Consider the initial value problem
+y′(t) =
+p
+|y(t)| ,
+y(0) = 0 .
+Verify that the four functions
+Y1(t) = 0
+Y2(t) =
+(
+t2/4 if t > 0
+0 if t ≤0
+Y3(t) =
+(
+0 if t > 0
+−t2/4 if t ≤0
+Y4(t) =
+(
+t2/4 if t > 0
+−t2/4 if t ≤0
+are solutions of the initial value problem.
+3Provide the details of this argument.
+
+
+--- Page 9 ---
+9
+V. An existence and uniqueness theorem
+It turns out that if the function F has additional regularity properties
+then one can prove uniqueness (and an example below shows that some
+additional hypothesis is needed). This section can be read independently of
+sections II-III.
+The Picard-Lindel¨of Theorem. Let Ωbe a nonempty open set in R × R,
+let (t0, y0) ∈Ωand let F : Ω→R be continuous.
+Let R be a compact
+rectangle of the form
+R = {(t, y) : |t −t0| ≤a,
+|y −y0| ≤b}
+contained in Ω. Suppose that |F(t, y)| ≤M for (t, y) ∈R and let
+˜a = min{a, b/M}.
+In addition assume that there is a constant C so that
+|F(t, y) −F(t, u)| ≤C|y −u| whenever (t, y) ∈R, (t, u) ∈R.
+Then there exists a unique function t 7→y(t) deﬁned on (t0 −˜a, t0 +˜a) which
+satisﬁes the initial value problem
+y′(t) = F(t, y(t)) for |t −t0| < ˜a
+y(t0) = y0.
+Remark: The additional hypothesis says that on R the function F satisﬁes
+a Lipschitz-condition with respect to the variable y. In the case where F
+is diﬀerentiable with respect to y and the partial derivative ∂F
+∂y satisﬁes the
+bound |∂F
+∂y | ≤C on R, the hypothesis is satisﬁed. This is a consequence of
+the mean value theorem applied to y 7→F(t, y), for any ﬁxed t.
+Equivalence of the initial value problem and an integral equa-
+tion. Suppose that on an interval I there is a C1 function y with values in
+[y0 −b, y0 + b] so that y′(t) = F(t, y(t)). Then by integrating we also get
+that
+y(t) = y0 +
+Z x
+t0
+F(s, y(s))ds
+for t ∈I. Vice versa of there is a continuous function y satisfying the dis-
+played integral equation, then y(t0) = y0 and the integrand s 7→F(s, y(s))
+is continuous. By the fundamental theorem of calculus the right hand side
+deﬁnes a diﬀerentiable function. We diﬀerentiate and get y′(t) = F(t, y(t)).
+Proof of the Picard-Lindel¨of Theorem. Let I := [t0 −˜a, t0 + ˜a]. Deﬁne
+M be the subspace of all continuous functions g on I for which g(t) ∈
+
+
+--- Page 10 ---
+10
+[y0 −b, y0 + b] for all t ∈I. Then M is a closed subspace of C(I), with the
+usual maximum’s metric
+d(g1, g2) = sup
+t∈I
+|g1(t) −g2(t)|
+However we will prefer to work with 4
+dC(g1, g2) = sup
+x∈I
+e−2C|t−t0||g1(t) −g2(t)|
+which is an equivalent metric on C(I) in the sense that
+dC(g1, g2) ≤d(g1, g2) ≤e2C˜adC(g1, g2)
+for all g1, g2. It is immediate that M with the metric dC is also complete.
+Deﬁne an operator T acting on functions in M by
+T g(t) = y0 +
+Z t
+t0
+F(s, g(s))ds
+We show that T : M →M and that the contraction principle can be
+applied.
+Clearly T is a continuous function, and for t ∈I we also have the estimate
+|T g(t) −y0| ≤M|t0 −t| ≤M˜a
+and since we assume ˜a ≤b/M we see that M is mapped into M.
+We need to show the inequality dC(T g1, T g2) ≤αdC(g1, g2) for some
+α < 1.
+First observe that
+T g2(t) −T g1(t) =
+Z t
+t0
+
+F(s, g2(s)) −F(s, g1(s))] ds.
+By the Lipschitz condition,
+|T g2(t) −T g1(t)| ≤
+(
+C
+R t
+t0 |g2(s) −g1(s)| ds
+if t ≥t0
+C
+R t0
+t |g2(s) −g1(s)| ds
+if t ≤t0
+or, with shorter notation,
+|T g2(t) −T g1(t)| ≤C
+Z
+I(t0,t)
+|g2(s) −g1(s)| ds
+where I(t0, t) denotes the interval [t0, t] if t0 ≤t and the interval [t, t0] if
+t ≤t0.
+4One can prove a similar theorem without making this change, working with the usual
+max-metric; however in the conclusion of the theorem the number ˜a in the theorem would
+have to be replaced by a smaller number depending on C.
+
+
+--- Page 11 ---
+11
+Now for |t −t0| ≤˜a
+|T g2(t) −T g1(t)| ≤
+Z
+I(t0,t)
+C|g2(s) −g1(s)| ds
+= C
+Z
+I(t0,t)
+e2C|s−t0|e−2C|s−t0|g2(s) −g1(s)| ds
+≤C
+Z
+I(t0,t)
+e2C|s−t0|dC(g1, g2) ds = CdC(g1, g2)
+Z
+I(t0,t)
+e2C|s−t0| ds
+= CdC(g1, g2)e2C|t−t0| −1
+2C
+≤1
+2e2C|t−t0|dC(g1, g2) .
+This implies
+e−2C|t−t0||T g2(t) −T g1(t)| ≤1
+2dC(g1, g2) whenever |t −t0| ≤˜a
+and after taking the sup in t,
+dC(T g1, T g2) ≤1
+2dC(g1, g2).
+□
+
+

@@ -1,0 +1,157 @@
+======================================================================
+SOURCE: arzela-ascoli-stanford.pdf
+PAGES: 3
+======================================================================
+
+--- Page 1 ---
+The Arzel`a-Ascoli Theorem
+John Duchi: notes for Statistics 300b
+February 20, 2017
+1
+Introduction
+In asymptotic statistics, uniform central limit theorems provide some of the most powerful gener-
+alizations of the general limit theorem to inﬁnite dimensional problems. Any convergence results
+for inﬁnite dimensional processes necessarily rely on some type of limiting compactness argument,
+so that random vectors and processes are well-deﬁned. To that end, it is important to understand
+and quantify compactness of collections of functions.
+The Arzel`a-Ascoli theorem is a foundational result in analysis, and it gives necessary and
+suﬃcient conditions for a collection of continuous functions to be compact. Recall that a metric
+space (T, d) is compact if every open cover of T has a ﬁnite subcover, and that this is equivalent
+to sequential compactness, that is, that any sequence {tn} ⊂T has a convergent subsequence with
+limit in T. We also recall that a set is relatively compact if its closure is compact. So, for example,
+if every sequence {tn} ⊂T for a metric space (T, d) has a convergent subsequence tn(k) with limit
+t∞= limk→∞tn(k), but for which t∞does not necessarily lie in T, then T is relatively compact (as
+cl T will be compact).
+2
+Equicontinuity
+Let (T, d) be a compact metric space, where d is a metric on T, and let C(T, R) denote the collection
+of continuous functions f : T →R, where the metric is the usual supremum norm, that is,
+∥f −g∥∞= sup
+t∈T
+|f(t) −g(t)| for f, g ∈C(T, R).
+Let F ⊂C(T, R). Then the modulus of continuity of f is
+ωf(δ) := sup
+s,t∈T
+{|f(t) −f(s)| : d(s, t) < δ} .
+A function f is uniformly continuous if and only if limδ→0 ωf(δ) = 0. Making this uniform over a
+collection of functions yields the following deﬁnition.
+Deﬁnition 2.1. A collection of functions F is uniformly equicontinuous on T if
+lim
+δ→0 sup
+f∈F
+ωf(δ) = 0.
+Equivalently, for every ϵ > 0, there exists a δ > 0 such that
+sup
+d(s,t)<δ
+|f(s) −f(t)| ≤ϵ for all f ∈F.
+1
+
+
+--- Page 2 ---
+Noting that the supremum above extends over all pairs s, t ∈T that are close together, we see that
+the collection of functions F is uniformly continuous with the same “degree” of uniform continuity
+for each f ∈F. Of course, any continuous function on a compact set T is uniformly continuous, so
+Deﬁnition 2.1 extends this in a uniform way to collections of functions.
+One simple consequence of Deﬁnition 2.1 is that if a function class F is bounded at some t0 ∈T,
+then it is bounded for all t ∈T. Indeed, suppose that M ≥supf∈F |f(t0)|. Fix any ϵ > 0 and choose
+δ > 0 such that supd(s,t)<δ |f(s) −f(t)| < ϵ. The collection of open sets Ut := {s ∈T : d(s, t) < δ}
+covers T, and hence has a ﬁnite subcover {Uti}N
+i=1. Then for any f ∈F and t ∈T, there is some
+chain t →ti1 →ti2 →. . . →tik →t0 with k ≤N and d(t, t′) < δ for each pair on the chain. We
+thus have
+|f(t)| ≤|f(t) −f(t0)| + |f(t0)| ≤|f(t) −f(t1)| + |f(tk) −f(t0)| + |f(t0)| +
+k−1
+X
+j=1
+|f(tj) −f(tj+1)|
+≤ϵ + ϵ + |f(t0)| + kϵ ≤|f(t0)| + (N + 2)ϵ.
+(1)
+As f is arbitary, this shows the pointwise boundedness.
+3
+The theorem
+It turns out that Deﬁnition 2.1 is precisely what is needed to show that collections of continuous
+functions are compact.
+Theorem 1. Let (T, d) be a compact metric space. Then F ⊂C(T, R) is relatively compact if and
+only if it is uniformly equicontinuous and for some t0 ∈T we have supf∈F |f(t0)| < ∞.
+An equivalent statement to the theorem, which is what we in fact prove, is that the two statements
+(i) Any sequence {fk} ⊂F ⊂C(T, d) has a convergent subsequence in the supremum norm
+(ii) The collection F is uniformly equicontinous and pointwise bounded, i.e. supf∈F |f(t)| < ∞
+for all t ∈T
+are equivalent. (In statement (i), that supf∈F |f(t0)| < ∞is equivalent to supf∈F |f(t)| < ∞for
+all t ∈T is a consequence of our calculation (1).)
+Proof
+We begin by proving that (ii) implies (i). Let the collection F be uniformly equicontinuous
+and pointwise bounded. Our proof follows a diagonalization argument. Let {fk}∞
+k=1 ⊂F be a
+sequence of functions. As T is compact it is separable (take ﬁnite covers of radius 2−n for n ∈N,
+pick a point from each open set in the cover, and let n →∞). Let T 0 denote a countable dense
+subset of T and ﬁx an enumeration {t1, t2, . . .} of T 0. For each i deﬁne
+Fi := {fk(ti)}∞
+k=1,
+each of which is a bounded subset of R by the pointwise boundedness assumption.
+We may then deﬁne a nested subsequence of functions {fk} ⊃{f1
+k} ⊃{f2
+k} ⊃. . . as follows. Let
+{f1
+k} ⊂{fk} be any subsequence of fk for which fk(t1) converges as k →∞, which exists because
+F1 is bounded. Similarly, {f2
+k} ⊂{f1
+k} be any subsequence of {f1
+k} for which f1
+k(t2) converges;
+generally, we let {fn
+k } ⊂{fn−1
+k
+} be a further subsequence of {fn−1
+k
+} such that fn−1
+k
+(tn) converges.
+Now, deﬁne the diagonal subsequence fn(k) = fk
+k . We show that fn(k) is Cauchy for the ∥·∥∞-norm
+on T.
+Fix ϵ > 0, and let δ > 0 be such that supf∈F ωf(δ) < ϵ.
+The collection of open sets
+2
+
+
+--- Page 3 ---
+Ui := {t ∈T : d(s, ti) < δ} for ti ∈T 0 covers T, so that there is a ﬁnite subcover generated (w.l.o.g.
+by re-ordering the ti) by t1, . . . , tN ∈T 0. Let t ∈T be arbitrary and note that d(t, ti) < δ for some
+ti with i ≤N. Then for any k, k′ we have
+|fn(k)(t) −fn(k′)(t)| ≤|fn(k)(t) −fn(k)(ti)| + |fn(k)(ti) −fn(k′)(ti)| + |fn(k′)(ti) −fn(k′)(t)|
+≤ϵ + |fn(k)(ti) −fn(k′)(ti)| + ϵ
+by the uniform equicontinuity. But of course, there only ﬁnitely many ti, and so for large enough
+k, k′, we have
+max
+i∈{1,...,N}
+fn(k)(ti) −fn(k′)(ti)
+ ≤ϵ.
+These bounds may be taken independent of t, so that limk,k′→∞∥fn(k) −fn(k′)∥∞= 0. The sequence
+{fn(k)}k∈N ⊂C(T, R) is thus Cauchy for the supremum norm on T and must converge to some
+continuous function.
+We now show how the existence of convergent subsequences (i) implies equicontinuity and
+pointwise boundedness (ii). Note that the completion of F in the sup-norm is compact by the
+equivalence of sequential compactness and compactness. First, the pointwise boundedness of F
+is immediate: if F is compact, then Ft := {f(t)}f∈F must be bounded by the corresponding
+compactness results on R (certainly all sequences within Ft must have a convergent subsequence).
+We would like to show the unifrom equicontinuity result that limδ→0 supf∈F ωf(δ) = 0. First, note
+that f 7→ωf(δ) is Lipschitz in f: we have by the triangle inequality that
+ωf(δ)−ωg(δ) =
+sup
+d(s,t)<δ
+|f(t)−f(s)|−sup
+d(s,t)<δ
+|g(t)−g(s)| ≤
+sup
+d(s,t)<δ
+|f(t)−g(t)+f(s)−g(s)| ≤2 ∥f −g∥∞,
+so that f 7→ωf(δ) is 2-Lipschitz in ∥·∥∞-norm for any ﬁxed δ > 0. Moreover, as T is compact,
+we must have f ∈C(T, R) uniformly continuous, so that ωf(n−1) →0 as n →∞→0. That
+is, the pointwise limit of the sequence of functions hn(f) := ωf(n−1) as n →∞is the zero func-
+tion. But the collection {hn} is (uniformly) Lipschitz, and the standard result that the pointwise
+limit of uniformly Lipschitz functions on a compact set is the same as the uniform limit gives that
+supf∈F hn(f) = supf∈F ωf(n−1) →0.
+3
+
+

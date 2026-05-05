@@ -1,0 +1,19 @@
+{
+  "name": "Theorem Prover VS Code Integration",
+  "version": "1.0.0",
+  "description": "Configuration for AI-assisted theorem proving in VS Code",
+  "recommendations": [
+    "leanprover.lean4",
+    "mhutchie.git-graph",
+    "usernamehw.errorlens"
+  ],
+  "scripts": {
+    "start-lean-server": "lake serve",
+    "check-proof": "lake build",
+    "claude-help": "claude --ide"
+  },
+  "claudeSettings": {
+    "allowedTools": ["Read", "Edit", "Write", "Bash"],
+    "theoremProvers": ["lean4", "coq", "isabelle"]
+  }
+}

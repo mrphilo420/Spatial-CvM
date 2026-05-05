@@ -1,0 +1,175 @@
+-- ============================================================================
+-- DEFINITION 2.2: Spatial Kernel and Kernel Regularity
+-- Mathematical Content: Definition 2.2 (Kernel), Definition 2.5 (Scaled Kernel)
+-- Assumptions: (K1)-(K5) from paper
+-- ============================================================================
+
+import SpatialCvM.Definitions.Basic
+import Mathlib.MeasureTheory.Integral.Bochner.Basic
+import Mathlib.Analysis.NormedSpace.Basic
+
+namespace SpatialCvM.Definitions.Kernel
+
+open MeasureTheory Function Set Topology
+
+-- ============================================================================
+-- Kernel Properties (Assumptions K1-K5)
+-- ============================================================================
+
+/-- Admissible spatial kernel structure
+
+    Definition 2.2 (Kernel Regularity):
+    A function K : ℝ^d → ℝ is an admissible spatial kernel if there exist
+    constants L_K > 0 and R_K > 0 such that:
+
+    (K1) Symmetry: K(-u) = K(u) for all u ∈ ℝ^d
+    (K2) Boundedness: sup_u |K(u)| ≤ L_K
+    (K3) Compact Support: K(u) = 0 for ||u|| > R_K
+    (K4) Lipschitz: |K(u) - K(w)| ≤ L_K · ||u - w|| for all u, w ∈ ℝ^d
+    (K5) Integrates to One: ∫_{ℝ^d} K(u) du = 1
+
+    The class of admissible kernels is denoted 𝒦(L_K, R_K).
+    -/
+structure IsKernel {d : ℕ} (K : (Fin d → ℝ) → ℝ) (L_K R_K : ℝ) : Prop where
+  /-- (K1) Symmetry: K(-u) = K(u) -/
+  symmetry : ∀ u, K (fun i ↦ -u i) = K u
+  /-- (K2) Boundedness: |K(u)| ≤ L_K -/
+  bounded : ∀ u, |K u| ≤ L_K
+  /-- (K3) Compact Support: K(u) = 0 for ||u|| > R_K -/
+  compactSupport : ∀ u, ‖u‖ > R_K → K u = 0
+  /-- (K4) Lipschitz Continuity: |K(u) - K(w)| ≤ L_K · ||u - w|| -/
+  lipschitz : ∀ u w, |K u - K w| ≤ L_K * ‖u - w‖
+  /-- (K5) Integrates to One: ∫ K(u) du = 1 -/
+  integratesToOne : ∫ u, K u = 1
+
+/-- Kernel admissibility predicate -/
+def IsAdmissibleKernel {d : ℕ} (K : (Fin d → ℝ) → ℝ) : Prop :=
+  ∃ L_K R_K, L_K > 0 ∧ R_K > 0 ∧ IsKernel K L_K R_K
+
+/-- Kernel class 𝒦(L_K, R_K) notation -/
+def KernelClass (d : ℕ) (L_K R_K : ℝ) : Set ((Fin d → ℝ) → ℝ) :=
+  {K | IsKernel K L_K R_K}
+
+notation "𝒦(" L_K "," R_K ")" => KernelClass _ L_K R_K
+
+-- ============================================================================
+-- Scaled Kernel (Definition 2.5)
+-- ============================================================================
+
+/-- Scaled kernel K_h for bandwidth h > 0
+
+    Definition 2.5 (Scaled Kernel):
+    For bandwidth h > 0, the scaled kernel is:
+
+    K_h(u) = h^{-d} · K(u/h)
+
+    where K ∈ 𝒦(L_K, R_K) is the base kernel.
+
+    Key properties of the scaled kernel:
+    - Still integrates to 1 (change of variables)
+    - Support expands/contracts: supp(K_h) = h · supp(K)
+    - Boundedness constant becomes h^{-d} · L_K
+    -/
+def scaledKernel {d : ℕ} (K : (Fin d → ℝ) → ℝ) (h : ℝ) (hh : h > 0) :
+    (Fin d → ℝ) → ℝ :=
+  fun u ↦ (1 / h ^ d) * K (fun i ↦ u i / h)
+
+notation "K[" K "," h "]" => scaledKernel K h (by positivity!)
+
+/-- Scaled kernel preserves integrability -/
+lemma scaledKernel_integrable {d : ℕ} {K : (Fin d → ℝ) → ℝ} {h : ℝ} (hh : h > 0)
+    (hK : Integrable K) :
+    Integrable (scaledKernel K h hh) := by
+  unfold scaledKernel
+  -- Change of variables: u ↦ u/h, du ↦ h^d · du'
+  -- ∫ K_h(u) du = ∫ h^{-d} · K(u/h) du = ∫ K(v) dv = 1
+  sorry
+
+/-- Scaled kernel integrates to 1 -/
+lemma scaledKernel_integratesToOne {d : ℕ} {K : (Fin d → ℝ) → ℝ} {h : ℝ} (hh : h > 0)
+    (hK : IsAdmissibleKernel K) :
+    ∫ u, scaledKernel K h hh u = 1 := by
+  -- Uses change of variables formula
+  sorry
+
+/-- Bound on scaled kernel
+
+    |K_h(u)| ≤ h^{-d} · L_K
+    -/
+lemma scaledKernel_bound {d : ℕ} {K : (Fin d → ℝ) → ℝ} {L_K R_K h : ℝ} (hh : h > 0)
+    (hK : IsKernel K L_K R_K) (u : Fin d → ℝ) :
+    |scaledKernel K h hh u| ≤ (1 / h ^ d) * L_K := by
+  unfold scaledKernel
+  calc
+    |(1 / h ^ d) * K (fun i ↦ u i / h)|
+      = (1 / h ^ d) * |K (fun i ↦ u i / h)| := by
+        rw [abs_mul]
+        simp [abs_of_pos, hh]
+    _ ≤ (1 / h ^ d) * L_K := by
+      apply mul_le_mul_of_nonneg_left
+      · exact hK.bounded (fun i ↦ u i / h)
+      · simp [hh]
+
+-- ============================================================================
+-- Kernel Convolution ψ_h (Definition 2.6)
+-- ============================================================================
+
+/-- Kernel convolution function ψ_h
+
+    Definition 2.6 (Kernel Convolution):
+    The convolution of the scaled kernel with itself:
+
+    ψ_h(w) = ∫_{ℝ^d} K_h(u) · K_h(u - w) du
+
+           = h^{-d} · ψ_1(w/h)
+
+    where ψ_1(w) = ∫ K(u) · K(u - w) du is the unit bandwidth convolution.
+
+    This determines the asymptotic covariance structure.
+    -/
+def kernelConvolution {d : ℕ} (K : (Fin d → ℝ) → ℝ) (h : ℝ) (hh : h > 0) :
+    (Fin d → ℝ) → ℝ :=
+  fun w ↦ ∫ u, scaledKernel K h hh u * scaledKernel K h hh (fun i ↦ u i - w i)
+
+notation "ψ[" K "," h "]" => kernelConvolution K h (by positivity!)
+
+/-- Properties of ψ_h (Lemma 2.1 in paper) -/
+lemma psi_properties {d : ℕ} {K : (Fin d → ℝ) → ℝ} {L_K R_K h : ℝ} (hh : h > 0)
+    (hK : IsKernel K L_K R_K) :
+    let ψ := kernelConvolution K h hh
+    -- (i) Symmetry: ψ(-w) = ψ(w)
+    (∀ w, ψ (fun i ↦ -w i) = ψ w) ∧
+    -- (ii) Non-negative and integrates to ∫ K(u)² du
+    (∀ w, ψ w ≥ 0) ∧
+    (∫ w, ψ w = ∫ u, K u ^ 2) ∧
+    -- (iii) Lipschitz continuity
+    (∀ w₁ w₂, |ψ w₁ - ψ w₂| ≤ (L_K ^ 2 * (2 * R_K) ^ d / h ^ (d + 1)) * ‖w₁ - w₂‖) ∧
+    -- (iv) Compact support: ψ(w) = 0 for ||w|| > 2h·R_K
+    (∀ w, ‖w‖ > 2 * h * R_K → ψ w = 0) := by
+  sorry
+
+-- ============================================================================
+-- Assumption 2.3: Kernel Assumption
+-- ============================================================================
+
+/-- Complete kernel assumptions
+
+    Assumption 2.3 (Kernel):
+    The kernel K ∈ 𝒦(L_K, R_K) for some L_K, R_K > 0.
+
+    This ensures all regularity conditions needed for the asymptotic theory.
+    -/
+structure KernelAssumption (d : ℕ) where
+  K : (Fin d → ℝ) → ℝ
+  L_K : ℝ
+  R_K : ℝ
+  isKernel : IsKernel K L_K R_K
+
+/-- Key property: ψ_h is bounded -/
+lemma psi_bounded {d : ℕ} {K : (Fin d → ℝ) → ℝ} {L_K R_K h : ℝ} (hh : h > 0)
+    (hK : IsKernel K L_K R_K) :
+    ∃ B, ∀ w, |kernelConvolution K h hh w| ≤ B := by
+  -- Uses Cauchy-Schwarz: ψ_h(w) ≤ ∫ K_h(u)² du = h^{-d} ∫ K(u)² du
+  sorry
+
+end SpatialCvM.Definitions.Kernel

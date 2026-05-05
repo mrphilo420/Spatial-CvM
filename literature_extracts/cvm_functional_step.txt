@@ -1,0 +1,2223 @@
+======================================================================
+SOURCE: cvm_functional_step.pdf
+======================================================================
+
+
+--- Page 1 ---
+Weak convergences of marked empirical
+processes in a Hilbert space and their
+applications
+Koji Tsukuda1 and Yoichi Nishiyama2
+1Graduate School of Arts and Sciences, the University of Tokyo, 3-8-1 Komaba, Meguro-ku,
+Tokyo 153-8902, Japan. e-mail: ctsukuda@g.ecc.u-tokyo.ac.jp
+2Faculty of International Research and Education, Waseda University, 1-6-1 Nishi-Waseda,
+Shinjuku-ku, Tokyo 169-8050, Japan. e-mail: nishiyama@waseda.jp
+Abstract: In this paper, weak convergences of marked empirical processes
+in L2(R, ν) and their applications to statistical goodness-of-ﬁt tests are pro-
+vided, where L2(R, ν) is the set of equivalence classes of the square inte-
+grable functions on R with respect to a ﬁnite Borel measure ν. The results
+obtained in our framework of weak convergences are, in the topological
+sense, weaker than those in the Skorokhod topology on a space of c´adl´ag
+functions or the uniform topology on a space of bounded functions, which
+have been well studied in previous works. However, our results have the
+following merits: (1) avoiding conditions which do not suit for our pur-
+pose; (2) treating a weight function which makes us possible to propose an
+Anderson–Darling type test statistics for goodness-of-ﬁt tests. Indeed, the
+applications presented in this paper are novel.
+Keywords and phrases: weak convergence in Hilbert space, martingale,
+goodness-of-ﬁt test.
+1. Introduction and main results
+This paper deals with the weak convergence of a certain sequence of marked
+empirical processes in L2 space. Let us begin with preparing a minimal set of no-
+tations to describe our main theorems and the scientiﬁc background around our
+results. Let ν be a ﬁnite Borel measure on R, and L2(R, ν) the set of equivalence
+classes of the square integrable functions on R with respect to ν. As for L2(R, ν),
+a inner product ⟨·, ·⟩deﬁned by ⟨f, g⟩=
+R
+R f(x)g(x)ν(dx) for f, g ∈L2(R, ν)
+and a norm ∥· ∥deﬁned by ∥f∥= ⟨f, f⟩1/2 for f ∈L2(R, ν) are equipped. For
+an interval A, the function 1A(·) is deﬁned by 1A(x) = 1 (x ∈A), 0 (x ̸∈A).
+For every positive integer n, let us introduce a ﬁltered probability space
+(Ωn, Fn, Fn = {Fn
+i }i≥0, P n). Let {Xn
+i }i≥0 be a real-valued Fn-adapted se-
+quence and {mn
+i }i≥1 a real valued Fn-adapted martingale diﬀerence sequence
+(thus for every i, mn
+i is Fn
+i -measurable and En[mn
+i |Fn
+i−1] = 0 almost surely).
+In this paper, we show weak convergences in L2(R, ν) of an empirical process
+marked by the martingale diﬀerence sequence {mn
+i }i≥1
+x ⇝Zn(x) =
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)mn
+i
+1
+arXiv:1808.05925v2  [math.ST]  15 Jan 2019
+
+--- Page 2 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+2
+and its weighted process with weight function x 7→w(x)(> 0)
+x ⇝Zw
+n (x) = w(x)Zn(x) =
+n
+X
+i=1
+w(x)1(−∞,x](Xn
+i−1)mn
+i ,
+to Gaussian processes G and Gw, respectively. The limits are
+x ⇝G(x) = B(Ψ(x)),
+and
+x ⇝Gw(x) = w(x)B(Ψ(x)),
+where x ⇝B(x) is a standard Brownian motion and Ψ is the limit (for the
+exact sense of the limit, see Assumptions 1.1 and 1.2 below) of
+n
+X
+i=1
+1(−∞,x](Xi−1)En[(mn
+i )2|Fn
+i−1].
+First, we provide a suﬃcient condition to show the weak convergence of Zn.
+Assumption 1.1. (i) It holds that
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)En[(mn
+i )2|Fn
+i−1] →p Ψ(x)
+(∀x ∈R)
+(1.1)
+as n →∞, where x 7→Ψ(x) is a continuous nondecreasing function on R
+satisfying Ψ(x) ↓0 as x →−∞and Ψ(x) ↑Ψ(∞) < ∞as x →∞, and →p
+denotes the convergence in probability.
+(ii) There exists a constant δ > 0 such that
+n
+X
+i=1
+En[|mn
+i |2+δ|Fn
+i−1] →p 0
+as n →∞.
+(iii) There exists a measurable function φ on R such that for every n ∈N and
+i = 1, . . . , n there exist some nonnegative constants cn
+i such that supn
+Pn
+i=1 cn
+i <
+∞and that En[(mn
+i )2|Fn
+i−1] ≤cn
+i φ(Xn
+i−1) almost surely.
+(iv) All Xn
+i ’s have the same distribution as ζ such that E[φ(ζ)] < ∞.
+The ﬁrst goal of this paper is to show the following theorem which asserts
+the weak convergence of Zn under Assumption 1.1. Its proof will be presented
+in Section 2.
+Theorem 1.1. Under Assumption 1.1, Zn converges weakly to G in L2(R, ν)
+as n →∞.
+Remark 1.1. An important point of Theorem1.1 is that we avoid the assump-
+tion (B) in Lemma 3.1 of Koul and Stute (1999) which makes a restriction on
+the transition density of a discrete time Markovian process and does not suit
+
+--- Page 3 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+3
+for our diﬀusion process model considered in Section 4. Although Escanciano
+(2007) gave a result for a non-Markovian process, he assumed a condition on
+the smoothness (the condition (D) in his Theorem 1) of the model which also
+does not ﬁt in our purpose. However, notice that our result does not cover theirs
+because they considered the weak convergence under the uniform metric.
+Next, we provide a suﬃcient condition to show the weak convergence of Zw
+n .
+Obviously, if we set w(·) = 1, then Zw
+n becomes Zn. However, Theorem 1.1 was
+separately stated, because (1.2) is stronger than (1.1).
+Assumption 1.2. (i) It holds that
+En
+"
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)En[(mn
+i )2|Fn
+i−1] −Ψ(x)
+
+#
+→0
+(∀x ∈R)
+(1.2)
+as n →∞, where x 7→Ψ(x) is a continuous nondecreasing function on R
+satisfying Ψ(x) ↓0 as x →−∞, Ψ(x) ↑Ψ(∞) < ∞as x →∞. Moreover, there
+exists a nondecreasing function Φ such that
+In(x) ≤Φ(x)
+(∀x ∈R)
+(1.3)
+for all suﬃciently large n, where
+In(·) =
+n
+X
+i=1
+En 
+1(−∞,·](Xn
+i−1)(mn
+i )2
+.
+Furthermore, it holds that
+Z
+R
+(Ψ(x) + Φ(x))(w(x))2ν(dx) < ∞.
+(ii) There exists a constant δ > 0 such that
+n
+X
+i=1
+En[1(−∞,x](Xn
+i−1)|mn
+i |2+δ] →0
+(∀x ∈R)
+as n →∞, and there exists a function Λ such that
+n
+X
+i=1
+En[1(−∞,x](Xn
+i−1)|mn
+i |2+δ] ≤Λ(x)
+(∀x ∈R)
+(1.4)
+for all suﬃciently large n and that
+Z
+R
+Λ(x)(w(x))2+δν(dx) < ∞.
+The second goal of this paper is to show the following theorem which asserts
+the weak convergence of Zw
+n under Assumption 1.2. Its proof will be presented
+in Section 3. From the practical viewpoint, the case where w = (Ψ)−1/2 is
+important since it corresponds to the standardization.
+
+--- Page 4 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+4
+Theorem 1.2. Under Assumption 1.2, Zw
+n converges weakly to Gw in L2(R, ν)
+as n →∞.
+Remark 1.2. As for (1.2), it follows from a well-known fact on the uniform
+integrability that if
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)En[(mn
+i )2|Fn
+i−1] →Ψ(x)
+a.s.
+(∀x ∈R),
+then (1.2) is equivalent to the uniform integrability of
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)En[(mn
+i )2|Fn
+i−1]
+for every x ∈R, and also equivalent to In(x) →Ψ(x) for every x ∈R.
+Remark 1.3. As for (1.3), if we assume Assumption 1.1 (iii)(iv), then
+In(x)
+=
+En
+" n
+X
+i=1
+1(−∞,x](Xn
+i−1)En[(mn
+i )2|Fn
+i−1]
+#
+≤
+En
+" n
+X
+i=1
+1(−∞,x](Xn
+i−1)cn
+i φ(Xn
+i−1)
+#
+=
+E
+" n
+X
+i=1
+1(−∞,x](ζ)cn
+i φ(ζ)
+#
+≤
+ 
+sup
+n
+n
+X
+i=1
+cn
+i
+!
+E
+
+1(−∞,x](ζ)φ(ζ)
+
+,
+so we can take Φ(x) as the right-hand side of the above display (if the integra-
+bility condition holds).
+Based on Theorems 1.1 and 1.2, which are of interest in their own right,
+we discuss goodness-of-ﬁt tests for stationary ergodic processes. Speciﬁcally, we
+propose a Cram´er–von Mises type statistic based on discrete time observation to
+test a simple hypothesis for a diﬀusion process and an Anderson–Darling type
+statistic for a time series. Goodness-of-ﬁt tests have been extensively studied
+in the literature because they are useful to judge that a mathematical model is
+acceptable to describe sampled data. We refer to Gonz´alez-Manteiga and Cru-
+jeiras (2013) for a review on the goodness-of-ﬁt tests, whose Section 5 is devoted
+to tests when dependence is present. Among abundant works treating goodness-
+of-ﬁt tests for stochastic process models, we are interested in an approach based
+on empirical processes marked by residuals developed by Koul and Stute (1999)
+and Escanciano (2007). Our limit theorems (Theorems 1.1 and 1.2) do not in-
+clude Theorem 2.1 of Koul and Stute (1999) or Theorem 1 of Escanciano (2007),
+but our results contain the following merits which are important in our appli-
+cations. The assumptions of Theorem 2.1 of Koul and Stute (1999) or Theorem
+
+--- Page 5 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+5
+1 of Escanciano (2007) do not suit our diﬀusion process setting, on the other
+hand Theorem 1.1 can be applied. Moreover, although a weak convergence of an
+Anderson–Darling type test statistic cannot be directly derived from the weak
+convergence in the Skorokhod space or ℓ∞space which have been established
+in Koul and Stute (1999) and Escanciano (2007), Theorem 1.2 enables us to
+consider the Anderson–Darling type test statistic. As a result, the applications
+presented in this paper are novel.
+Remark 1.4. Based on smoothing, Nishiyama (2000, 2009) and Masuda et al.
+(2011) proposed the Kolmogorov–Smirnov type goodness-of-ﬁt tests for time
+series models and diﬀusion processes (based on discrete time observation), re-
+spectively. What they treated is not Zn(x) but its smoothed version using the
+Kernel density estimation.
+Remark 1.5. The goodness-of-ﬁt test for diﬀusion processes based on continuous
+time observation, which is not studied in this paper, is considered in several
+works. See for example Dachian and Kutoyants (2008), Kutoyants (2010), Negri
+and Nishiyama (2009) and referenecs therein.
+Remark 1.6. In this paper, we only consider simple hypotheses. Koul and Stute
+(1999) have considered not only simple hypothesis but also parametric composite
+hypothesis based on the idea of the martingale transformation (Khmaladze,
+1981). Considering parametric composite hypothesis is a possible direction in
+future researches.
+2. Proof of Theorem 1.1
+By Prohorov’s tightness criterion for Hilbert space valued random sequences
+(see, e.g., Theorem 1.8.4 of van der Vaart and Wellner (1996)), it suﬃces to
+show the following two lemmas.
+Lemma 2.1. Under Assumption 1.1 (i)(ii), ⟨Zn, h⟩converges in distribution
+to ⟨G, h⟩for any h ∈L2(R, ν) as n →∞.
+Lemma 2.2. Under Assumption 1.1 (iii)(iv), it holds that
+lim
+J→∞lim sup
+n→∞En
+
+
+∞
+X
+j=J
+⟨Zn, ej⟩2
+
+= 0.
+2.1. Proof of Lemma 2.1
+Since
+⟨Zw
+n , h⟩
+=
+Z
+R
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)mn
+i h(x)ν(dx)
+=
+n
+X
+i=1
+Z
+R
+1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+mn
+i ,
+
+--- Page 6 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+6
+we shall apply the martingale central limit theorem for the martingale diﬀerence
+sequence
+Z
+R
+1(−∞,·](Xn
+i−1)h(·)ν(dx)
+
+mn
+i
+n
+i=1
+.
+It is not diﬃcult to prove that Assumption 1.1 (i) leads
+sup
+x∈R
+|Rn(x)| →p 0,
+where
+Rn(·) =
+n
+X
+i=1
+1(−∞,·](Xn
+i−1)En[|mn
+i |2|Fn
+i−1] −Ψ(·).
+(2.1)
+Hence
+n
+X
+i=1
+Z
+R
+1(−∞,x](Xn
+i−1)h(x)ν(dx)
+2
+En[|mn
+i |2|Fn
+i−1]
+=
+n
+X
+i=1
+Z
+R
+Z
+R
+1(−∞,x∧y](Xn
+i−1)h(x)h(y)ν(dx)ν(dy)En[|mn
+i |2|Fn
+i−1]
+=
+Z
+R
+Z
+R
+Ψ(x ∧y)h(x)h(y)ν(dx)ν(dy)
++
+Z
+R
+Z
+R
+Rn(x ∧y)h(x)h(y)ν(dx)ν(dy)
+→p
+Z
+R
+Z
+R
+Ψ(x ∧y)h(x)h(y)ν(dx)ν(dy).
+On the other hand, it holds that
+E[⟨G, h⟩2] =
+Z
+R
+Z
+R
+Ψ(x ∧y)h(x)h(y)ν(dx)ν(dy).
+What is left is to show the Lyapunov-type condition
+n
+X
+i=1
+En
+"
+Z
+R
+1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+2+δ
+|mn
+i |2+δ|Fn
+i−1
+#
+→p 0.
+(2.2)
+From
+
+Z
+R
+1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+2+δ
+≤
+Z
+R
+1(−∞,x](Xn
+i−1)ν(dx)
+ 2+δ
+2
+∥h∥2+δ
+≤
+(ν(R))
+2+δ
+2 ∥h∥2+δ,
+the left-hand side of (2.2) is bounded above by
+(ν(R))
+2+δ
+2 ∥h∥2+δ
+n
+X
+i=1
+En 
+|mn
+i |2+δ|Fn
+i−1
+
+,
+which converges to 0 in probability by Assumption 1.1 (ii).
+This completes the proof.
+
+--- Page 7 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+7
+2.2. Proof of Lemma 2.2
+For simplicity, let us denote
+ξn
+i (x) = 1(−∞,x](Xn
+i−1)mn
+i
+(x ∈R).
+It follows from Assumption 1.1 (iii)(iv) that
+En[⟨ξn
+i , ej⟩2|Fn
+i−1]
+=
+⟨1(−∞,·](Xn
+i−1), ej⟩2En[|mn
+i |2|Fn
+i−1]
+≤
+⟨1(−∞,·](Xn
+i−1), ej⟩2cn
+i φ(Xn
+i−1)
+=
+cn
+i
+D
+1(−∞,·](Xn
+i−1)
+q
+φ(Xn
+i−1), ej
+E2
+,
+which yields that
+n
+X
+i=1
+En 
+⟨ξn
+i , ej⟩2
+≤
+n
+X
+i=1
+cn
+i E
+h
+⟨˜ξ, ej⟩2i
+≤E
+h
+⟨η, ej⟩2i
+,
+where x ⇝˜ξ(x) is a L2(R, ν)-valued random variable which follows the same
+distribution as 1(−∞,x](ζ)
+p
+φ(ζ), and
+η =
+ 
+sup
+n
+n
+X
+i=1
+cn
+i
+!1/2
+˜ξ.
+It follows that
+En
+
+
+∞
+X
+j=J
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+=
+∞
+X
+j=J
+En
+
+
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+=
+∞
+X
+j=J
+n
+X
+i=1
+En h
+⟨ξn
+i , ej⟩2i
+≤
+∞
+X
+j=J
+E
+h
+⟨η, ej⟩2i
+=
+E
+
+
+∞
+X
+j=J
+⟨η, ej⟩2
+
+.
+Since E[∥η∥2] < ∞, the dominated convergence theorem yields that
+lim
+J→∞E
+
+
+∞
+X
+j=J
+⟨η, ej⟩2
+
+= E
+
+lim
+J→∞
+∞
+X
+j=J
+⟨η, ej⟩2
+
+= 0.
+This completes the proof.
+
+--- Page 8 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+8
+3. Proof of Theorem 1.2
+By Prohorov’s criterion, it suﬃces to show the following two Lemmas.
+Lemma 3.1. Under Assumption 1.2, ⟨Zw
+n , h⟩converges in distribution to ⟨Gw, h⟩
+for any h ∈L2(R, ν) as n →∞.
+Lemma 3.2. Under Assumption 1.2 (i), it holds that
+lim
+J→∞lim sup
+n→∞En
+
+
+∞
+X
+j=J
+⟨Zw
+n , ej⟩2
+
+= 0.
+In the proofs of these lemmas, let n be suﬃciently large such that (1.2) and
+(1.4) hold.
+3.1. Proof of Lemma 3.1
+Since it holds that
+⟨Zw
+n , h⟩
+=
+Z
+R
+n
+X
+i=1
+w(x)1(−∞,x](Xn
+i−1)mn
+i h(x)ν(dx)
+=
+n
+X
+i=1
+Z
+R
+w(x)1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+mn
+i ,
+we shall apply the martingale central limit theorem for the martingale diﬀerence
+sequence
+Z
+R
+w(x)1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+mn
+i
+n
+i=1
+.
+First we show that
+n
+X
+i=1
+Z
+R
+w(x)1(−∞,x](Xn
+i−1)h(x)ν(dx)
+2
+En[(mn
+i )2|Fn
+i−1]
+(3.1)
+converges in ﬁrst mean to
+E[⟨Gw, h⟩2] =
+Z
+R
+Z
+R
+Ψ(x ∧y)w(x)w(y)h(x)h(y)ν(dx)ν(dy).
+Note that (3.1) equals
+n
+X
+i=1
+Z
+R
+Z
+R
+w(x)w(y)1(−∞,x∧y](Xn
+i−1)h(x)h(y)ν(dx)ν(dy)
+
+En[(mn
+i )2|Fn
+i−1]
+=
+Z
+R
+Z
+R
+n
+X
+i=1
+1(−∞,x∧y](Xn
+i−1)En[(mn
+i )2|Fn
+i−1]w(x)w(y)h(x)h(y)ν(dx)ν(dy).
+
+--- Page 9 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+9
+We use the dominated convergence theorem to see
+Z
+R
+Z
+R
+En [|Rn(x ∧y)|] w(x)w(y)|h(x)h(y)|ν(dx)ν(dy) →0,
+(3.2)
+where Rn(·) is deﬁned in (2.1), because
+En
+
+Z
+R
+Z
+R
+Rn(x ∧y)w(x)w(y)h(x)h(y)ν(dx)ν(dy)
+
+
+≤
+Z
+R
+Z
+R
+En [|Rn(x ∧y)|] w(x)w(y)|h(x)h(y)|ν(dx)ν(dy).
+(3.3)
+From (1.2), we have
+En [|Rn(x ∧y)|] w(x)w(y)|h(x)h(y)| →0
+for every x and y. Moreover, it holds that
+En [|Rn(x ∧y)|] w(x)w(y)|h(x)h(y)|
+≤
+(In(x ∧y) + Ψ(x ∧y)) w(x)w(y)|h(x)h(y)|
+≤
+(Ψ(x ∧y) + Φ(x ∧y)) w(x)w(y)|h(x)h(y)|
+≤
+p
+Ψ(x)Ψ(y) +
+p
+Φ(x)Φ(y)
+
+w(x)w(y)|h(x)h(y)|
+=
+p
+Ψ(x)Ψ(y)w(x)w(y)|h(x)h(y)| +
+p
+Φ(x)Φ(y)w(x)w(y)|h(x)h(y)|
+for every x and y, where we have used
+En[|Rn(x ∧y)|]
+≤
+En
+" n
+X
+i=1
+1(−∞,x∧y](Xn
+i−1)En[(mn
+i )2|Fn
+i−1]
+#
++ Ψ(x ∧y)
+=
+In(x ∧y) + Ψ(x ∧y)
+and Ψ(x ∧y) ≤
+p
+Ψ(x)Ψ(y) and Φ(x ∧y) ≤
+p
+Φ(x)Φ(y) which follow from the
+monotonicity of Ψ and Φ. Furthermore, it follows from the Schwartz inequality
+that
+Z
+R
+Z
+R
+p
+Ψ(x)Ψ(y)w(x)w(y)|h(x)h(y)|ν(dx)ν(dy)
+≤
+Z
+R
+Z
+R
+Ψ(x)Ψ(y)(w(x))2(w(y))2ν(dx)ν(dy)
+1/2
+Z
+R
+Z
+R
+|h(x)h(y)|2ν(dx)ν(dy)
+1/2
+=
+Z
+R
+Ψ(x)(w(x))2ν(dx)
+
+∥h∥2 < ∞
+and
+Z
+R
+Z
+R
+p
+Φ(x)Φ(y)w(x)w(y)|h(x)h(y)|ν(dx)ν(dy)
+≤
+Z
+R
+Φ(x)(w(x))2ν(dx)
+
+∥h∥2 < ∞.
+
+--- Page 10 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+10
+Therefore, the dominated convergence theorem implies (3.2).
+Next we see the Lyapunov-type condition, that is to say, the nonnegative
+valued random variable
+n
+X
+i=1
+En
+"
+Z
+R
+w(x)1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+2+δ
+|mn
+i |2+δ|Fn
+i−1
+#
+converges to 0 in probability. Since it follows from the Schwartz inequality that
+
+Z
+R
+w(x)1(−∞,x](Xn
+i−1)h(x)ν(dx)
+
+2+δ
+≤
+Z
+R
+(w(x))21(−∞,x](Xn
+i−1)ν(dx)
+ 2+δ
+2
+∥h∥2+δ,
+it suﬃces to see the convergence of
+n
+X
+i=1
+En
+"Z
+R
+(w(x))21(−∞,x](Xn
+i−1)ν(dx)
+ 2+δ
+2
+|mn
+i |2+δ
+#
+to 0. Moreover, this display can be evaluated by
+En
+" n
+X
+i=1
+Z
+R
+(w(x))21(−∞,x](Xn
+i−1)ν(dx)
+ 2+δ
+2
+|mn
+i |2+δ
+#
+≤
+(ν(R))
+δ
+2 En
+" n
+X
+i=1
+Z
+R
+1(−∞,x](Xn
+i−1)(w(x))2+δν(dx)|mn
+i |2+δ
+#
+=
+(ν(R))
+δ
+2
+Z
+R
+n
+X
+i=1
+En 
+1(−∞,x](Xn
+i−1)|mn
+i |2+δ
+(w(x))2+δν(dx),
+so the dominated convergence theorem yields that the right-hand side converges
+to 0. Indeed, as for the integrand, it holds for every x that
+n
+X
+i=1
+En 
+1(−∞,x](Xn
+i−1)|mn
+i |2+δ
+(w(x))2+δ →0
+and
+n
+X
+i=1
+En 
+1(−∞,x](Xn
+i−1)|mn
+i |2+δ
+(w(x))2+δ ≤Λ(x)(w(x))2+δ
+whose right-hand side is ν-integrable.
+This completes the proof.
+3.2. Proof of Lemma 3.2
+In this subsection, let us denote
+ξn
+i (x) = w(x)1(−∞,x](Xn
+i−1)mn
+i
+(x ∈R)
+
+--- Page 11 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+11
+for simplicity. It holds that
+En
+
+
+∞
+X
+j=J
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+=
+En
+
+
+
+n
+X
+i=1
+ξn
+i
+
+2
+−
+J
+X
+j=1
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+=
+En
+
+
+
+n
+X
+i=1
+ξn
+i
+
+2
+−
+J
+X
+j=1
+En
+
+
+* n
+X
+i=1
+ξn
+i , ej
++2
+.
+(3.4)
+As for the ﬁrst term in the right-hand side of (3.4), since
+En[⟨ξn
+i , ξn
+j ⟩] = En[En[⟨ξn
+i , ξn
+j ⟩|Fn
+j−1]] = 0
+for i < j, it holds that
+En
+
+
+
+n
+X
+i=1
+ξn
+i
+
+2
+
+=
+En
+" n
+X
+i=1
+∥ξn
+i ∥2
+#
++ 2
+n−1
+X
+i=1
+n
+X
+j=i+1
+En 
+⟨ξn
+i , ξn
+j ⟩
+
+=
+En
+" n
+X
+i=1
+∥ξn
+i ∥2
+#
+.
+The dominated convergence theorem yields that
+lim
+n→∞En
+" n
+X
+i=1
+∥ξn
+i ∥2
+#
+=
+lim
+n→∞
+Z
+R
+n
+X
+i=1
+En[1(−∞,x](Xn
+i−1)|mn
+i |2](w(x))2ν(dx)
+=
+lim
+n→∞
+Z
+R
+In(x)(w(x))2ν(dx)
+=
+Z
+R
+Ψ(x)(w(x))2ν(dx)
+=
+Z
+R
+E
+
+(B(Ψ(x)))2
+(w(x))2ν(dx)
+=
+E[∥wB ◦Ψ∥2],
+where wB ◦Ψ means w(·)B(Ψ(·)). That is because for every x ∈R we have
+In(x)(w(x))2 →Ψ(x)(w(x))2 and In(x)(w(x))2 ≤Φ(x)(w(x))2 whose right-
+hand side is ν-integrable.
+As for the second term in the right-hand side of (3.4), since {⟨ξn
+i , ej⟩}n
+i=1 is
+
+--- Page 12 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+12
+a martingale diﬀerence sequence, we have
+En
+
+
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+=
+En
+
+
+ n
+X
+i=1
+⟨ξn
+i , ej⟩
+!2
+
+=
+n
+X
+i=1
+En h
+⟨ξn
+i , ej⟩2i
+=
+n
+X
+i=1
+En
+Z
+R
+Z
+R
+w(x)w(y)1(−∞,x∧y](Xn
+i−1)ej(x)ej(y)ν(dx)ν(dy)(mn
+i )2
+
+=
+Z
+R
+Z
+R
+In(x ∧y)w(x)w(y)ej(x)ej(y)ν(dx)ν(dy).
+Hence
+J
+X
+j=1
+En
+
+
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+=
+Z
+R
+Z
+R
+
+In(x ∧y)w(x)w(y)
+J
+X
+j=1
+ej(x)ej(y)
+
+ν(dx)ν(dy).
+The dominated convergence theorem yields that
+lim
+n→∞
+Z
+R
+Z
+R
+
+In(x ∧y)w(x)w(y)
+J
+X
+j=1
+ej(x)ej(y)
+
+ν(dx)ν(dy)
+=
+Z
+R
+Z
+R
+lim
+n→∞
+
+In(x ∧y)w(x)w(y)
+J
+X
+j=1
+ej(x)ej(y)
+
+ν(dx)ν(dy). (3.5)
+That is because, as for the integrand, it holds that
+
+In(x ∧y)w(x)w(y)
+J
+X
+j=1
+ej(x)ej(y)
+
+≤
+Φ(x ∧y)w(x)w(y)
+J
+X
+j=1
+|ej(x)ej(y)|
+≤
+p
+Φ(x)Φ(y)w(x)w(y)
+J
+X
+j=1
+|ej(x)ej(y)|
+
+--- Page 13 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+13
+for every x and y, and
+Z
+R
+Z
+R
+p
+Φ(x)Φ(y)w(x)w(y)
+J
+X
+j=1
+|ej(x)ej(y)|ν(dx)ν(dy)
+=
+J
+X
+j=1
+Z
+R
+Z
+R
+p
+Φ(x)Φ(y)w(x)w(y)|ej(x)ej(y)|ν(dx)ν(dy)
+≤
+J
+X
+j=1
+Z
+R
+Z
+R
+|ej(x)ej(y)|2ν(dx)ν(dy)
+1/2
+Z
+R
+Z
+R
+Φ(x)Φ(y)(w(x))2(w(y))2ν(dx)ν(dy)
+1/2
+=
+J
+Z
+R
+Φ(x)(w(x))2ν(dx) < ∞.
+Moreover, (3.5) equals
+Z
+R
+Z
+R
+Ψ(x ∧y)w(x)w(y)
+J
+X
+j=1
+ej(x)ej(y)ν(dx)ν(dy)
+=
+J
+X
+j=1
+Z
+R
+Z
+R
+(Ψ(x) ∧Ψ(y))w(x)w(y)ej(x)ej(y)ν(dx)ν(dy).
+On the other hand, it holds that
+J
+X
+j=1
+E
+h
+⟨wB ◦Ψ, ej⟩2i
+=
+J
+X
+j=1
+E
+"Z
+R
+B(Ψ(x))w(x)ej(x)ν(dx)
+2#
+=
+J
+X
+j=1
+Z
+R
+Z
+R
+E[B(Ψ(x))B(Ψ(y))]w(x)w(y)ej(x)ej(y)ν(dx)ν(dy)
+=
+J
+X
+j=1
+Z
+R
+Z
+R
+(Ψ(x) ∧Ψ(y))w(x)w(y)ej(x)ej(y)ν(dx)ν(dy).
+From what have been already proven,
+lim
+J→∞lim sup
+n→∞En
+
+
+∞
+X
+j=J
+* n
+X
+i=1
+ξn
+i , ej
++2
+
+equals
+E
+h
+∥wB ◦Ψ∥2i
+−lim
+J→∞E
+
+
+J
+X
+j=1
+⟨wB ◦Ψ, ej⟩2
+
+.
+(3.6)
+
+--- Page 14 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+14
+Finally, the dominated convergence theorem yields that (3.6) equals
+E
+h
+∥wB ◦Ψ∥2i
+−E
+
+
+∞
+X
+j=1
+⟨wB ◦Ψ, ej⟩2
+
+= 0.
+This completes the proof.
+4. Application 1: Cram´er–von Mises type goodness-of-ﬁt test for
+drift parameters in diﬀusion processes
+In this section, we show the application of Theorem 1.1 to the goodness-of-ﬁt
+test for a diﬀusion process model.
+4.1. Problem setting and test procedure
+We consider a strictly stationary ergodic stochastic process {Xt}t≥0 which is a
+solution to a one-dimensional stochastic diﬀerential equation (SDE)
+Xt = X0 +
+Z t
+0
+S(Xs)ds +
+Z t
+0
+σ(Xs)dWs
+(t ≥0),
+(4.1)
+where the random variable X0 is an almost surely ﬁnite initial value, S(·) is a
+measurable function in interest, σ(·) is a known measurable function and t ⇝Wt
+is a standard Wiener process deﬁned on a stochastic basis (Ω, F, (Ft)t∈[0,∞), P).
+Let us list up some assumptions on the functions S(·) and σ(·).
+(A1) There exists a constant C > 0 such that
+|S(x) −S(y)| ≤C|x −y|,
+|σ(x) −σ(y)| ≤C|x −y|
+(∀x, y ∈R).
+(A2) The process (Xt)t∈[0,∞) is a solution to the SDE (4.1) for (S, σ) and
+it is stationary and ergodic with the absolutely continuous invariant law µS,σ
+(that is, t−1 R t
+0 g(Xs)ds →p R
+R g(x)µS,σ(dx) as t →∞for every µS,σ-integrable
+function g). We also assume that
+Z
+R
+|x|3µS,σ(dx) < ∞.
+Remark 4.1. The assumption (A1) implies that there exists a constant C′ > 0
+such that |S(x)| ≤C′(1 + |x|) and |σ(x)| ≤C′(1 + |x|).
+In our problem, from the continuous stochastic process (4.1), {Xtn
+i }n
+i=1 is
+observed at discrete time points 0 = tn
+0 < tn
+1 < · · · < tn
+n satisfying
+tn
+n →∞,
+n∆2
+n →0
+(4.2)
+as n →∞, where
+∆n = max
+1≤i≤n |tn
+i −tn
+i−1|.
+
+--- Page 15 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+15
+Remark 4.2. We propose an asymptotically distribution free tests based on the
+sampling scheme (4.2), namely, high frequency data. We should mention that
+there is a huge literature on discrete time approximations of statistical esti-
+mators for diﬀusion processes; see, for example, the Introduction of Gobet et
+al. (2004) for a review including not only high frequency cases but also low fre-
+quency cases. In our context of goodness-of-ﬁt test, however, it seems diﬃcult to
+obtain asymptotically distribution free results based on low frequency data. Our
+result for this problem is related to the preceding work, Masuda et al. (2011),
+who considered some Kolmogorov–Smirnov type tests based on smoothing. The
+ideal assertion for the Kolmogorov–Smirnov type tests is still an open problem
+because it needs a weak convergence theorem in ℓ∞(R).
+Under the setting above, the problem is to conduct a goodness-of-ﬁt test of
+(4.1), that is to say, we wish to test the null hypothesis H0 : S = S0 versus
+H1 : S ̸= S0 for a given S0 with σ being a known function. Let us deﬁne the
+test statistic
+Dn =
+Z
+R
+|Un(x; S0)|2
+ΨS0,σ(∞)
+ΨS0,σ(dx)
+ΨS0,σ(∞) ,
+(4.3)
+where
+x ⇝Un(x; S) =
+1
+√tnn
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)
+n
+Xtn
+i −Xtn
+i−1 −S(Xtn
+i−1)(tn
+i −tn
+i−1)
+o
+,
+and
+ΨS,σ(·) =
+Z ·
+−∞
+σ(z)2µS,σ(dz).
+As it is shown in the next subsection, the asymptotic null distribution of Dn is
+Z 1
+0
+|B(u)|2du.
+(4.4)
+4.2. Justiﬁcation of proposed procedure
+Let us asymptotically justify our test procedure. Let us denote
+mn
+i =
+σ(Xtn
+i−1)(Wtn
+i −Wtn
+i−1)
+√tnn
+(i = 1, . . . , n),
+(4.5)
+˜mn
+i =
+Xtn
+i −Xtn
+i−1 −S(Xtn
+i−1)(tn
+i −tn
+i−1)
+√tnn
+(i = 1, . . . , n).
+Suppose that H0 is true. Then, as it will be seen in the proof of Proposition
+4.1, the sequence { ˜mn
+i }n
+i=1 is close to {mn
+i }n
+i=1 which is a martingale diﬀerence
+sequence with respect to the ﬁltration {Fi−1}∞
+i=1, and Theorem 1.1 yields the
+weak convergence in L2(R, ΨS0,σ) of
+x ⇝
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)mn
+i ,
+
+--- Page 16 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+16
+which will be denoted by M b
+n(·).
+Proposition 4.1. Let ν be any ﬁnite Borel measure on R. Assume (A1) and
+(A2). Then, Un(·; S) converges weakly in L2(R, ν) to B ◦ΨS,σ(·) as n →∞
+with (4.2), where B(·) is a standard Brownian motion and
+ΨS,σ(·) =
+Z ·
+−∞
+σ(z)2µS,σ(dz).
+Proof. Deﬁne
+x ⇝M a
+n(x) =
+1
+√tnn
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)
+Z tn
+i
+tn
+i−1
+σ(Xs)dWs,
+and
+x ⇝M b
+n(x) =
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)mn
+i ,
+where {mn
+i }n
+i=1 is deﬁned in (4.5).
+From (4.2), it is easy to see that |Un(·; S) −M a
+n(·)| converges in probability
+under the uniform metric, and thus also under the L2(R, ν)-metric.
+Let us show that M a
+n(·) −M b
+n(·) converges weakly in L2(R, ν) to zero (the
+degenerate random ﬁeld) and that M b
+n(·) converges to B ◦ΨS,σ(·); then the
+assertion of the lemma follows from Slutsky’s lemma. To show these two weak
+convergence claims, we shall apply Theorem 1.1 for
+x ⇝
+n
+X
+i=1
+ξn
+i (x)
+with
+ξn
+i (x) =
+1
+√tnn
+1(−∞,x](Xtn
+i−1)
+Z tn
+i
+tn
+i−1
+(σ(Xs) −σ(Xtn
+i−1))dWs
+(i = 1, . . . , n) (4.6)
+and
+ξn
+i (x) = 1(−∞,x](Xtn
+i−1)mn
+i ,
+(i = 1, . . . , n)
+(4.7)
+respectively. The condition (i) in Assumption 1.1 for (4.6) where the limit is
+zero is clear, while that for (4.7) can be proven by using Lemma 4.1 (iii). The
+condition (ii) in Assumption 1.1 is indeed satisﬁed. The conditions (iii) and (iv)
+in Assumption 1.1 is immediate from the stationarity (as for (4.6), use also the
+latter inequality of Lemma 4.1 (i)). This completes the proof.
+The limit random variable satisﬁes that
+Z
+R
+|B(ΨS,σ(x))|2
+ΨS,σ(∞)
+ΨS,σ(dx)
+ΨS,σ(∞) =d
+Z 1
+0
+|B(u)|2du,
+where the notation =d means the distributions are the same. So, by using the
+continuous mapping theorem, we obtain the following corollary.
+
+--- Page 17 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+17
+Corollary 4.1. Suppose that (A1) and (A2) are satisﬁed for a given, speciﬁc
+S0 and a known σ. If H0 is true, then Dn converges in distribution to (4.4) as
+n →∞with (4.2).
+To close this subsection, let us mention the consistency of the test. Let us
+write the alternative hypothesis in interest as
+Z
+R
+
+Z x
+−∞
+{S0(z) −S(z)}µS,σ(dz)
+
+2
+ΨS0,σ(dx) > 0.
+(4.8)
+Hereafter, (4.8) is assumed to be true. Observe that
+ΨS0,σ(∞)D1/2
+n
+=
+Z
+R
+|Un(x; S0)|2ΨS0,σ(dx)
+1/2
+≥
+p
+tnn
+Z
+R
+|Hn(x)|2 ΨS0,σ(dx)
+1/2
+−
+Z
+R
+|Un(x; S)|2ΨS0,σ(dx)
+1/2
+,
+where
+Hn(·) = 1
+tnn
+n
+X
+i=1
+1(−∞,·](Xtn
+i−1){S0(Xtn
+i−1) −S(Xtn
+i−1)}|tn
+i −tn
+i−1|.
+By using Proposition 4.1 and the continuous mapping theorem, the second term
+of the right-hand side is OP (1). To prove that the probability that the ﬁrst term
+is bounded by M tends to zero as n →∞for any M > 0, let us ﬁrst see that
+Hn(x) →p
+Z x
+−∞
+{S0(z) −S(z)}µS,σ(dz)
+for every x ∈R which follows from Lemma 4.1 (iii) presented in the next
+subsection. It is easy to show that this convergence holds uniformly in x. Hence
+Z
+R
+|Hn(x)|2 ΨS0,σ(dx) →p
+Z
+R
+
+Z x
+−∞
+{S0(z) −S(z)}µS,σ(dz)
+
+2
+ΨS0,σ(dx) > 0.
+Therefore, it holds that P(Dn > M) = P(ΨS0,σ(∞)D1/2
+n
+> ΨS0,σ(∞)M 1/2) →
+1 for any constant M > 0.
+4.3. A technical lemma
+In this subsection, we show the following lemma which has already been used.
+Lemma 4.1. Let X be a solution of the SDE (4.1) with (S, σ) satisfying (A1).
+Let p be a positive integer, and assume supt∈[0,∞) E|Xt|p < ∞.
+
+--- Page 18 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+18
+(i) There exists a constant Cp,S,σ > 0 depending only on p, (S, σ) such that
+if |ti −ti−1| ≤1 then
+E
+"
+sup
+s∈[tn
+i−1,tn
+i ]
+|Xs −Xtn
+i−1|p
+ Ftn
+i−1
+#
+≤Cp,S,σ|tn
+i −tn
+i−1|p/2(1 + |Xtn
+i−1|)p,
+E
+"
+sup
+s∈[tn
+i−1,tn
+i ]
+|Xs|p
+ Ftn
+i−1
+#
+≤Cp,S,σ(1 + |Xtn
+i−1|)p.
+(ii) For given p Lipschitz continuous functions g = (g1, ..., gp), there exists a
+constant Cp,g,S,σ > 0 depending also on (S, σ) such that if |tn
+i −tn
+i−1| ≤1 then
+E
+
+
+sup
+s∈[tn
+i−1,tn
+i ]
+
+p
+Y
+j=1
+gj(Xs) −
+p
+Y
+j=1
+gj(Xtn
+i−1)
+
+Ftn
+i−1
+
+
+≤
+Cp,g,S,σ|tn
+i −tn
+i−1|1/2(1 + |Xtn
+i−1|)p.
+(iii) Assume that X is ergodic with the absolutely continuous invariant distri-
+bution µ. Let x ∈R and p −1 Lipschitz continuous functions g = (g1, ..., gp−1)
+such that that Qp−1
+j=1 gj is µ-integrable be given. If ∆n →0 then it holds that
+1
+tnn
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)
+p−1
+Y
+j=1
+gj(Xtn
+i−1)|tn
+i −tn
+i−1| →p
+Z x
+−∞
+p−1
+Y
+j=1
+gj(z)µ(dz).
+(This assertion is true also for p = 1 if we read Q1−1
+j=1 gj ≡1.)
+Proof. The assertion (i) is well-known; see, for example, Kessler (1997). The
+assertion (ii) can be proven by using (i). Let us show (iii). We write g(z) =
+Qp−1
+j=1 gj(z). We may assume that all gj’s are nonnegative without loss of gener-
+ality. (For the general case, notice that g is represented as the sum of some terms
+of the form a Qp−1
+j=1 egj where egj = gj ∨0 or (−gj) ∨0 and a = 1 or −1.) For any
+ε > 0, choose two Lipschitz continuous functions l, u such that l ≤1(−∞,x] ≤u
+and that
+R
+R |u(z) −l(z)|g(z)µ(dz) < ε. Then it holds that
+1
+tnn
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)g(Xtn
+i−1)|tn
+i −tn
+i−1|
+≤
+1
+tnn
+n
+X
+i=1
+u(Xtn
+i−1)g(Xtn
+i−1)|tn
+i −tn
+i−1|
+=
+1
+tnn
+Z tn
+n
+0
+u(Xs)g(Xs)ds + OP (∆1/2
+n )
+→p
+Z
+R
+u(z)g(z)µ(dz)
+≤
+Z x
+−∞
+g(z)µ(dz) + ε.
+
+--- Page 19 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+19
+By doing the same argument replacing u by l we ﬁnally get
+
+1
+tnn
+n
+X
+i=1
+1(−∞,x](Xtn
+i−1)g(Xtn
+i−1)|tn
+i −tn
+i−1| −
+Z x
+−∞
+g(z)µ(dz)
+ ≤ε + oP (1).
+Since the choice of ε is arbitrary, we have proven the assertion of (iii). This
+completes the proof.
+5. Application 2: Anderson–Darling type goodness-of-ﬁt test for
+nonlinear time series
+In this section, we show the application of Theorem 1.2 to the goodness-of-ﬁt
+test for a Markovian nonlinear time series model.
+5.1. Problem setting and test procedure
+We consider a strictly stationary ergodic stochastic process {Xi}∞
+i=−∞given by
+Xi = S(Xi−1) + σ(Xi−1)εi
+(i ∈Z),
+(5.1)
+where S(·) is a measurable function, σ(·) is a known measurable function satis-
+fying infx∈R σ(x) > 0, and {εi}∞
+i=−∞is an unobserved iid sequence of absolutely
+continuous random variables satisfying P(ε1 ≤0) = 1/2 and εi is independent
+of Xi−1 for all i ∈Z. In this section, no moment condition on ε1 is assumed.
+Let us introduce the following assumption on S(·) and σ(·).
+(B) The process {Xi}∞
+i=−∞is stationary and ergodic with the absolutely
+continuous invariant law µS,σ, where the ergodicity is in the sense of the almost
+sure convergence, that is to say,
+1
+n
+n
+X
+i=1
+g(Xi) →
+Z
+R
+g(x)µS,σ(dx)
+a.s.
+for every µS,σ-integrable function g(·). Moreover, the distribution function ΨS,σ
+of µS,σ satisﬁes
+Z
+R
+µS,σ(dx)
+p
+ΨS,σ(x)
+< ∞.
+In our problem, from the stochastic process (5.1), a time series {Xi}n
+i=0 is
+observed.
+Under the setting above, the problem is to conduct a goodness-of-ﬁt test of
+(5.1), that is to say, we wish to test the null hypothesis H0 : S = S0 versus
+H1 : S ̸= S0 for a given S0 with σ being a known function. Let us deﬁne the
+test statistic
+Tn =
+Z
+R
+1
+nΨS0,σ(x)
+ n
+X
+i=1
+sign(Xi −S0(Xi−1))1(−∞,x](Xi−1)
+!2
+µS0,σ(dx),
+(5.2)
+
+--- Page 20 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+20
+where sign(·) = −1(−∞,0)(·) + 1(0,∞)(·). As it is shown in the next subsection,
+the asymptotic null distribution of Tn is
+Z 1
+0
+|B(u)|2
+u
+du.
+(5.3)
+Remark 5.1. Our statistic contains sign(·) along the lines of Erlenmaier (1997)
+and Section 7.3 of Nishiyama (2000). Of course, if the corresponding required
+condition on {εi}∞
+i=1 is satisﬁed, other functions mentioned in Koul and Stute
+(1999) can be used. Some examples are f(·) = ·, f(·) = 1(0,∞)(·) −(1 −α), and
+other bounded functions. A merit of f(·) = sign(·) is robustness against outliers.
+Remark 5.2. Our procedure can be regarded as an Anderson–Darling type
+statistic in the sense of
+E
+Z 1
+0
+|B(u)|2
+u
+du
+
+= 1.
+5.2. Justiﬁcation of proposed procedure
+Let us asymptotically justify our test procedure by using Theorem 1.2. Let
+x ⇝ξn
+i (x) =
+1
+p
+ΨS0,σ(x)
+1(−∞,x](Xi−1)mn
+i
+(i = 1, . . . , n),
+where
+mn
+i = sign(Xi −S0(Xi−1))
+√n
+(i = 1, . . . , n).
+Suppose that H0 is true. Then {mn
+i }n
+i=1 is a martingale diﬀerence sequence with
+respect to the ﬁltration {Fi}n
+i=0 where Fi = σ{Xj : 0 ≤j ≤i} for i = 1, . . . , n,
+and it holds that
+(mn
+i )2 = 1
+n
+a.s.
+(i = 1, . . . , n).
+We will use Theorem 1.2 with w = (ΨS0,σ)−1/2. From the stationarity and
+ergodicity, Assumption 1.2 can be checked. Indeed, it holds that
+En
+"
+1
+n
+n
+X
+i=1
+1(−∞,x](Xn
+i−1)
+#
+= E
+"
+1
+n
+n
+X
+i=1
+1(−∞,x](ζ)
+#
+= ΨS0,σ(x)
+where ζ is a random variable following µS0,σ, so if (B) is satisﬁed then we are
+able to check Assumption 1.2 by taking Ψ = Φ = Λ = ΨS0,σ and δ = 1. We
+thus have
+n
+X
+i=1
+ξn
+i ⇒B ◦ΨS0,σ
+p
+ΨS0,σ
+in
+L2(R, ν)
+as n →∞for any ﬁnite Borel measure ν. Therefore, the continuous mapping
+theorem and
+Z
+R
+|B(ΨS0,σ(x))|2
+ΨS0,σ(x)
+µS0,σ(dx) =
+Z
+R
+|B(ΨS0,σ(x))|2
+ΨS0,σ(x)
+µS0,σ(dx)
+ΨS0,σ(∞) =d
+Z 1
+0
+|B(u)|2
+u
+du
+yield the following assertion.
+
+--- Page 21 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+21
+Proposition 5.1. Suppose that (B) is satisﬁed for a given, speciﬁc S0 and a
+known σ. If H0 is true, then Tn deﬁned in (5.2) converges in distribution to
+(5.3) as n →∞.
+Remark 5.3. The weak convergence of
+n
+X
+i=1
+1
+q
+ˆΨn(·)
+1(−∞,·](Xi−1)mn
+i
+in L2(R, ν) is not demonstrated in this paper, where
+ˆΨn(·) = 1
+n
+n
+X
+i=1
+1(−∞,·](Xn
+i−1).
+Finally, we brieﬂy discuss the consistency of the test. Let us write the hy-
+pothesis in interest as
+P(Xi −S0(Xi−1) ≤0|Fi−1) = 1
+2 −δ
+a.s.
+(i = 1, . . . , n).
+(5.4)
+Then the null hypothesis is δ = 0 and the alternative hypothesis is 0 < |δ| < 1/2.
+Hereafter, 0 < |δ| < 1/2 is assumed. From ΨS0,σ(x) ≤ΨS0,σ(∞) = 1, it follows
+that
+T 1/2
+n
+≥
+
+
+
+Z
+R
+1
+n
+ n
+X
+i=1
+sign(Xi −S0(Xi−1))1(−∞,x](Xi−1)
+!2
+µS0,σ(dx)
+
+
+
+1/2
+.
+The right-hand side of the above display is bounded below by
+√n ×
+
+
+4δ2
+Z
+R
+ 
+1
+n
+n
+X
+i=1
+1(−∞,x](Xi−1)
+!2
+µS0,σ(dx)
+
+
+
+1/2
+−
+
+
+
+Z
+R
+ n
+X
+i=1
+1(−∞,x](Xi−1) ˇmn
+i
+!2
+µS0,σ(dx)
+
+
+
+1/2
+,
+where
+ˇmn
+i =
+1
+√n (sign(Xi −S0(Xi−1)) −2δ)
+(i = 1, . . . , n).
+The ﬁrst term tends to positive inﬁnity in probability since
+Z
+R
+ 
+1
+n
+n
+X
+i=1
+1(−∞,x](Xi−1)
+!2
+µS0,σ(dx) →p
+Z
+R
+(ΨS,σ(x))2µS0,σ(dx)
+which follows from the ergodicity, whereas the second term is OP (1) which is a
+consequence of Theorem 1.2 since { ˇmn
+i }∞
+i=1 is a martingale diﬀerence sequence
+with respect to the ﬁltration {Fi}∞
+i=0. Therefore, it holds that P(Tn > M) =
+P(T 1/2
+n
+> M 1/2) →1 for any constant M > 0.
+
+--- Page 22 ---
+K. Tsukuda and Y. Nishiyama/Marked empirical processes
+22
+Acknowledgements
+This work was partly supported by Japan Society for the Promotion of Science
+KAKENHI Grant Number 16H02791(KT), 18K13454(KT), 15K00062(YN) and
+18K11203(YN).
+References
+Dachian, S, Kutoyants, YA. 2008. On the goodness-of-ﬁt tests for some con-
+tinuous time processes. Statistical Models and Methods for Biomedical and
+Technical Systems, 385–403, Stat. Ind. Technol., Birkh¨auser Boston, Boston,
+MA.
+Erlenmaier, U. 1997. A new criterion for tightness of stochastic processes and
+an application to Markov processes. Preprint.
+Escanciano, JC. 2007. Weak convergence of non-stationary multivariate marked
+processes with applications to martingale testing. J. Multivariate Anal. 98(7):
+1321–1336.
+Gobet, E, Hoﬀmann, M, Reiß, M. 2004. Nonparametric estimation of scalar
+diﬀusions based on low frequency data. Ann. Statist. 32(5): 2223–2253.
+Gonz´alez-Manteiga, W, Crujeiras, RM. 2013. An updated review of goodness-
+of-ﬁt tests for regression models. TEST 22(3): 361–411.
+Kessler, M. 1997. Estimation of an ergodic diﬀusion from discrete observations.
+Scand. J. Statist. 24(2): 211–229.
+Khmaladze, EV. 1981. A martingale approach in the theory of goodness-of-ﬁt
+tests. Theory Probab. Appl. 26: 240–257.
+Koul, HL, Stute, W. 1999. Nonparametric model checks for time series. Ann.
+Statist. 27(1): 204–236.
+Kutoyants, YA. 2010. On the goodness-of-ﬁt testing for ergodic diﬀusion pro-
+cesses. J. Nonparametr. Stat. 22(3-4): 529–543.
+Masuda, H, Negri, I, Nishiyama, Y. 2011. Goodness-of-ﬁt test for ergodic dif-
+fusions by discrete-time observations: an innovation martingale approach. J.
+Nonparametr. Stat. 23(2): 237–254.
+Negri, I, Nishiyama, Y. 2009. Goodness of ﬁt test for ergodic diﬀusion processes.
+Ann. Inst. Statist. Math. 61(4): 919–928.
+Nishiyama, Y. 2000. Entropy Methods for Martingales. CWI Tract, 128. Sticht-
+ing Mathematisch Centrum, Centrum voor Wiskunde en Informatica, Ams-
+terdam.
+Nishiyama, Y. 2009. Goodness-of-ﬁt test for a nonlinear time series. J. Time
+Series Anal. 30(6): 674–681.
+van der Vaart, AW, Wellner, JA. 1996. Weak Convergence and Empirical Pro-
+cesses. With Applications to Statistics. Springer Series in Statistics. Springer-
+Verlag, New York.

@@ -1,0 +1,736 @@
+======================================================================
+SOURCE: discrete approximation.pdf
+======================================================================
+
+
+--- Page 1 ---
+Cram´er-von Mises statistics for discrete
+distributions
+by V. Choulakian, R. A. Lockhart and M. A. Stephens∗
+Summary
+Cram´er-von Mises statistics are developed for use in testing for discrete
+distributions, and tables are given for tests for the discrete uniform distri-
+bution.
+Some key words: EDF statistics; goodness-of-ﬁt; components.
+1
+Introduction
+The Cram´er-von Mises family of goodness-of-ﬁt statistics is a well-known
+group of statistics used to test ﬁt to a continuous distribution. In this ar-
+ticle we extend the family to provide tests for discrete distributions. The
+statistics examined are the analogues of those associated with the names
+of Cram´er-von Mises, Watson and Anderson-Darling, called W 2, U2 and
+A2 respectively, and their components. We provide formulas for the test
+statistics, and asymptotic percentage points for the test for a uniform dis-
+tribution with k cells.
+The tests are based on the empirical distribution
+function (EDF) of the sample. They are closely related to Pearson’s X2
+test, and to Neyman-Barton smooth tests; in particular, all the tests can be
+broken down into components, as has been observed by many authors. It
+is suggested that A2 be used to test the overall null hypothesis in general,
+and U2 for the particular case where observations are counts around a circle.
+Their components can be used to test for particular types of departure from
+the null.
+In section 2, we deﬁne the test statistics and give the general distribution
+theory. In section 3 the solution of the uniform case is given, together with
+∗A shortened version of this paper was presented at the Wilks Conference, Princeton,
+February 1992, in honour of the work of Professor G. S. Watson.
+1
+
+--- Page 2 ---
+two examples; in section 4 modiﬁed versions of the statistics are discussed.
+In section 5 power studies are given which show that A2 is a good omnibus
+test statistic.
+Finally, in section 6 we discuss the use of components as
+individual test statistics and demonstrate the use of a graphical procedure
+called the Z-plot to determine, when a statistic is found to be signiﬁcant,
+the type of departure from the null.
+2
+EDF tests for discrete data
+The Kolmogorov-Smirnov statistic appears to be the only EDF statistic
+which has been studied extensively for testing goodness-of-ﬁt with discrete
+data; see, for example, Schmid (1958), Conover (1972), Horn (1977), Pet-
+titt and Stephens (1977), Wood and Altavela (1978) and Stephens (1986).
+Schmid (1958) derived the asymptotic null distribution of the Kolmogorov-
+Smirnov statistic when the hypothesized cumulative distribution function
+possessed a ﬁnite number of discontinuities and was increasing between the
+discontinuities.
+Wood and Altavela (1978) extended Schmid’s results to
+cumulative distribution functions having a countable number of discontinu-
+ities, and found that the Kolmogorov-Smirnov statistic can be calculated
+using the multivariate normal distribution. Hirotsu (1986) and Nair (1987)
+have discussed problems involving two samples with results closely related to
+those given below. Freedman (1981) has discussed U2 for testing uniformity
+of counts around a circle.
+The W 2, U2 and A2 statistics for discrete data are deﬁned as follows.
+Consider a discrete distribution with k cells labelled 1, 2, . . . , k, and with
+probability pi of falling into cell i. Suppose N independent observations are
+given; let oi be the observed number of outcomes in cell i, and let Npi = ei
+be the expected number in cell i. Let Sj = Pj
+i=1 oi and Tj = Pj
+i=1 ei. Then
+Sj/N and Hj = Tj/N correspond to the empirical distribution function
+FN(x) and the cdf F(x) in the continuous case. Suppose Zj = Sj −Tj, j =
+1, 2, . . . , k. The Cram´er-von Mises statistics W 2, U2 and A2 for a discrete
+distribution are then deﬁned by
+W 2
+=
+N −1
+k
+X
+j=1
+Z2
+j pj;
+(1)
+U2
+=
+N −1
+k
+X
+j=1
+(Zj −¯Z)2pj;
+(2)
+2
+
+--- Page 3 ---
+A2
+=
+N −1
+k
+X
+j=1
+Z2
+j pj/{Hj(1 −Hj)}
+(3)
+where ¯Z = Pk
+j=1 Zjpj. Note that Zk = 0 in these summations, so that the
+last term in W 2 is zero. The last term in A2 is of the form 0/0, and is set
+equal to zero.
+It is convenient to put these expressions into matrix notation.
+Let a
+prime, e. g. Z′, denote the transpose of a vector or matrix. Let I be the k×k
+identity matrix, and let p′ be the 1× k vector (p1, p2, . . . , pk). Suppose D is
+the k×k diagonal matrix whose j-th diagonal entry is pj, j = 1, . . . , k and let
+G be the diagonal matrix whose (j, j)-th element is Hj(1−Hj), j = 1, . . . , k.
+The Sj and Tj may be deﬁned in terms of the oi and ei. Arrange these
+quantities into column vectors S, T, o, e (so that, for example, the j-th
+component of S is Sj, j = 1, . . . , k). Then Z = Ad, where d = o −e and A
+is the k × k partial-sum matrix
+A =
+
+
+
+
+
+
+
+
+1
+0
+0
+. . .
+0
+1
+1
+0
+. . .
+0
+1
+1
+1
+. . .
+0
+...
+...
+...
+...
+...
+1
+1
+1
+. . .
+1
+
+
+
+
+
+
+
+
+.
+The deﬁnitions become
+W 2
+=
+Z′DZ/N;
+(4)
+U2
+=
+Z′(I −D11′)D(I −11′D)Z/N;
+(5)
+A2
+=
+Z′DG−1Z/N.
+(6)
+The well-known Pearson X2 statistic, deﬁned by X2 = Pk
+i=1(oi −ei)2/ei, is
+X2 = (d′D−1d)/N = Z′A−1
+′
+D−1A−1Z/N.
+Distribution theory. The covariance matrix of o is Σ0 = N(D−pp′) and
+that of Z is Σ = AΣ0A′, with entries Σij = N(min(Hi, Hj) −HiHj). All
+four statistics above are of the general form Z′MZ, where M is symmetric.
+We may write a typical statistic S as
+S = Z′MZ =
+k−1
+X
+i=1
+λi(wi′Z)2,
+(7)
+3
+
+--- Page 4 ---
+where λi are the k −1 non-zero eigenvalues of MΣ and wi are the corre-
+sponding eigenvectors, normalized so that wi′Σwj = δij. In (7), the term
+s2
+i = (wi′Z)2 is called the i-th component of the statistic. As N →∞, the
+distribution of Z/
+√
+N tends to the multivariate normal with mean 0 and
+variance Σ/N. The distribution of a typical si tends to univariate normal,
+mean 0, variance 1 and asymptotically the si are independent. A typical
+statistic, S, has an asymptotic distribution
+S ∼
+k−1
+X
+i=1
+λis2
+i
+(8)
+which is a sum of independent weighted χ2
+1 variables. To calculate percent-
+age points for this distribution it is necessary only to ﬁnd the weights λi
+for the appropriate statistic and then use the method of Imhof (1961). This
+method has been used to ﬁnd the asymptotic distribution of W 2, U2, and A2
+when the tested distribution is discrete uniform with k cells, and percentage
+points for these statistics are given in Table 1.
+Calculation of λi and components. To ﬁnd the λi and wi in (7), it is
+convenient to work with X = M1/2Z; the covariance of X is then ΣX =
+M1/2ΣM1/2. The statistic is S = X′X and can be written in a form similar
+to (7) using the eigenvalues and eigenvectors of ΣX. It may be shown that
+the eigenvalues λi of ΣX are the same as those of MΣ, and corresponding
+eigenvectors vi are related to wi above by wi = M1/2vi.
+The required
+normalization is now vi′ΣXvj = δij which follows from the normalization
+of wi given above. Since ΣXvj = λjvj, it follows that the vi are jointly
+orthogonal, and of length vi′vi = 1/λi. The statistic S = Z′MZ may be
+written
+S = X′X =
+X
+λi(vi′X)2 =
+X
+(ui′X)2,
+(9)
+where ui = √λivi is an eigenvector of ΣX with length 1.
+Finally, the
+component (wi′Z)2 is found from (ui′X)2 by dividing by λi.
+An advantage to the above form (9) is that ΣX is symmetric and MΣ
+is not. It is often easier to ﬁnd the λi and vi algebraically for a symmet-
+ric matrix; this is the case for the discrete uniform distribution considered
+below. Also, when eigenvalues and eigenvectors must be found numerically,
+computer packages are more readily available if the matrix is symmetric,
+and the packages usually give eigenvectors of unit length.
+The components s2
+i take diﬀerent values for diﬀerent statistics, since they
+depend on M through the eigenvectors wi; however, P s2
+i is the same for
+all the statistics and equals the well-known Pearson X2. This is illustrated
+4
+
+--- Page 5 ---
+in section 6.
+For diﬀerent statistics, the diﬀerent components s2
+i , when
+compared with the χ2
+1 distribution, may be used to test for diﬀerent kinds
+of departure from the tested distribution. We return to these applications
+later.
+3
+The discrete uniform distribution
+3.1
+Statistic W 2
+We now consider tests for the discrete uniform distribution with k cells
+and with pj = 1/k for all j.
+For W 2, we have M = D/N; thus X = D1/2Z/
+√
+N = Z/
+√
+kN, and ΣX
+has entries
+(ΣX)ij = {k min(i, j) −ij}/k3.
+(10)
+The last row and last column of ΣX are all zeros (this occurs because
+the ﬁnal term is included in the sum (1)), so one eigenvalue, say λk, is zero.
+For the others, suppose Q is the matrix ΣX with the last row and column
+omitted. The inverse of Q is k2 times P∗, where P∗is the (k −1) × (k −1)
+tridiagonal matrix with 2 along the main diagonal and −1 on the subdiagonal
+and superdiagonal. The eigenvalues and eigenvectors of this matrix are well
+known. The eigenvalues of Q can then be found. They are
+λi =
+1
+2k2{1 −cos(iπ/k)},
+i = 1, 2, . . . , k −1.
+The orthonormal eigenvector ui corresponding to λi has j-th component
+uij = (2/k)1/2 sin(πij/k), j = 1, 2, . . . , k. The i-th component s2
+i is then
+(ui′X)2/λi.
+Asymptotic percentage points of W 2, given by (8), are in Table 1. Monte
+Carlo studies show that the points for k cells and N observations converge
+quickly, as N →∞, to the asymptotic points for k cells. This rapid con-
+vergence is similar to the continuous case. Note also that, as k →∞, the
+values λi →1/(i2π2), the λ-values for the continuous uniform test, and the
+percentage points converge, as expected, to the asymptotic points for W 2
+for this test.
+3.2
+Statistic U2
+It is convenient to write U2 in the form U2 =
+1
+kN
+Pk
+i=1(Zi −¯Z)2, where
+¯Z = Pk
+i=1 Zi/k. Let Y be the vector with components Yi = (Zi−¯Z)/(kN)1/2,
+5
+
+--- Page 6 ---
+so that U2 = Y′Y.
+We now need the eigenvalues and eigenvectors of
+the covariance matrix ΣY of Y.
+Write B = I −11′/k; then it may be
+shown that ΣY = BΣXB. Since B is idempotent, the eigenvalues of ΣY
+are the same as those of BΣX. From W 2, we have ΣXwi = λiwi; then
+BΣXwi = λiBwi = λi(wi −¯wi1), where ¯wi = Pk
+j=1 wij/k. Thus the eigen-
+values of BΣX are the same as those of ΣX, provided the eigenvector wi
+has mean ¯wi = 0. For k odd, this occurs when i is even, and the eigenvalues
+of ΣY then occur in pairs; the values, each occurring twice, are
+λi =
+1
+2k2{1 −cos(iπ/k)},
+i = 2, 4, . . . , k −1.
+(11)
+The corresponding orthonormal eigenvectors are the ui of W 2 above, now
+called ri, and another set r∗
+i whose j-th components are (2/k)1/2 cos(πij/k).
+For k even, λi is again given by (11), for i = 2, 4, . . . , k −2, and each occurs
+twice; the eigenvectors are again ri and r∗
+i , i = 2, 4, . . . , k −2. There is
+a further eigenvalue λk−1 = 1/4k2 with corresponding eigenvector rk−1 =
+(1/k)1/2(−1, 1, −1, 1, . . . , 1).
+Let λ∗
+i denote the i-th eigenvalue when the
+complete set of k −1 eigenvalues has been arranged in descending order,
+and let ui∗denote the corresponding eigenvector. The i-th component s2
+i of
+U2 is then (ui∗′X)2/λ∗
+i .
+For k odd, the asymptotic distribution (8) may, for U2, be written as a
+sum of weighted exponentials. The distribution function of such a sum may
+be put in closed form. For k even there is a similar but more complicated ex-
+pression. However, it is easy to obtain percentage points by Imhof’s method,
+and these are given in Table 1. U2 has already been discussed by Freedman
+(1981), who gave λ’s for certain values of k, and suggested ﬁtting Pearson
+curves to obtain asymptotic points, but did not give a general formula for
+the λ-values or their eigenvectors.
+3.3
+Statistic A2
+The analysis for A2, given by (3), can follow the same lines as for W 2,
+with matrix M = DG−1/N (note that D and G are both diagonal). The
+algebra to ﬁnd λi and vi is now more complicated, and we omit the details.
+The interesting result is that, for k cells, the eigenvalues are λi = 1/{i(i +
+1)}, i = 1, 2, . . . , k−1, and λk = 0. The non-zero values are exactly the same
+as for the continuous case, up to k −1, whereas for W 2 and U2, the λi only
+tend to the continuous lambdas as k →∞.
+To obtain components s2
+i of A2, deﬁne vector wi, with components
+6
+
+--- Page 7 ---
+wij, j = 1, 2, . . . , k, given by
+wij = {ti(j) −ti(j −1)}/ci,
+(12)
+where c2
+i = (k + i)!/{(2i + 1)(k −i −1)!}, and ti(j) is the i-th Chebyshev
+polynomial for discrete values (Erdelyi, 1953, page 223, with N = k). The
+normalising constant ensures that wi′Σwj = δij. Then component s2
+i =
+k(wi′Z)2/N . The ti(j) can be found from the recurrence relation
+(i + 1)ti+1(j) = (2i + 1)(2j −k + 1)ti(j) −k2(k2 −i2)ti−1(j),
+(13)
+together with t0(j) = 1 and t1(j) = 2j −k + 1. Eigenvalues λi and eigen-
+vectors wi have already been given by Hirotsu (1986) and by Nair (1987)
+in connection with similar problems, arising from the analysis of ordered
+contingency tables, and involving the matrix here called ΣX.
+3.4
+Test for the discrete uniform distribution
+The test of H0 : observations xr, r = 1, 2, . . . , N are from a discrete
+uniform distribution with k cells is as follows:
+1. Calculate the statistics from formulas (1)-(3) above, with pj = 1/k.
+2. Refer the statistic to the appropriate part of Table 1, for a distribution
+with k cells, and reject H0 at level α if the statistic exceeds the given
+point for level α. Although the points given are asymptotic, Monte
+Carlo studies show that they provide good accuracy for N as low as
+10.
+Statistic U2 should be used for cells which occur around a circle be-
+cause its value does not depend on which cell is chosen to be the ﬁrst. All
+three statistics may be used for cells along a line. We give power studies
+below which suggest that overall A2 is the recommended statistic for such
+cells, particularly as it is eﬀective in detecting changes in the tail of the
+distribution.
+3.5
+Example 1
+Pettitt and Stephens (1977) give an example, from Siegel (1956), of
+data with k = 5 cells. N = 10 subjects were asked to rank photographs
+according to preference; the same photograph was presented in ﬁve tones,
+so that there was a natural ordering of the cells. The observed preferences
+7
+
+--- Page 8 ---
+for tone, or cell, i were, for i = 1, 2, . . . , 5, the values oi =0, 1, 0, 5, 4. It was
+desired to test for no preference in tone, that is for equal probabilities for
+the cells, so that ei = 2 for i = 1, . . . , 5. Then Z′ = (−2, −3, −5, −2, 0) and
+(Z −¯Z)′ = 1
+5(2, −3, −13, 2, 12). These give values W 2 = 0.84, U2 = 0.264
+and A2 = 3.83, with p-values 0.007, 0.019 and 0.009 respectively. The p-
+values, taken from Table 1, must be treated with caution since the sample
+size is small, but, nevertheless, those for W 2 and A2 are clearly signiﬁcant,
+near the 0.008 level.
+Pettitt and Stephens found that the Kolmogorov-
+Smirnov statistic was also signiﬁcant at this level, while the Pearson X2
+statistic (whose value is 11) had exact p-value 0.04 and an approximate
+p-value, from the asymptotic χ2 distribution, of 0.024.
+3.6
+Example 2
+In this example we illustrate the use of U2. The data are taken from Ed-
+wards (1961), and consist of counts of births of children with anencephalitis,
+for the years 1940–1947, in Birmingham, England. The counts for January
+to December are 10, 19, 18, 15, 11, 13, 7, 10, 13, 23, 15, 22. It is desired to
+test Ho: the counts are uniform over the months, against the possibility of a
+seasonal eﬀect. The total is 176, so ei = 142
+3 ignoring the slight variability
+in the lengths of the months. Such data is often displayed as counts around
+a circle divided into 12 monthly sectors. For these data a goodness-of-ﬁt
+statistic for testing Ho should not depend on which month of the year is
+regarded as the ﬁrst, so U2 is the statistic of choice.
+The value of U2 is 0.214 and, from table 1, with k = 12 cells, the p-
+value is 0.031. The Pearson X2 statistic is 18.727, with p = 0.066 when
+compared with χ2
+11. Rayner and Best (1989) have also tested these data for
+uniformity, but used the Kolmogorov statistic with tables given by Pettitt
+and Stephens (1977), and also V2, the second component of X2, partitioned
+using Chebyshev polynomials. Both these statistics depend on the month
+that is regarded as origin.
+4
+Modiﬁed versions of W 2 and A2
+The deﬁnitions of W 2, U2 and A2 given in Section 2 have been chosen to
+be analogous to the corresponding statistics for testing speciﬁed continuous
+distributions. However, they can be modiﬁed in various ways (as can the
+continuous statistics; see, for example, de Wet and Venter, 1973), to give
+greater prominence to certain parts of the tested distribution. One such
+modiﬁcation is to omit the pj in deﬁnitions (1)–(3); then, for long-tailed
+8
+
+--- Page 9 ---
+distributions such as the Poisson, the modiﬁed statistic will give more weight
+to accuracy in the long tail. We denote the statistics modiﬁed in this way
+by W 2
+m and A2
+m. For the discrete uniform test, of course, all pj = 1/k; the
+new statistics, as well as the percentage points, are k times their old values,
+and therefore the test is unchanged.
+We illustrate the modiﬁed statistics by ﬁnding A2 and A2
+m for the fol-
+lowing example.
+4.1
+Example 3
+Best and Rayner (1987, Section 4) give an example of data with k = 5
+and N = 20 observations.
+The pi, i = 1, 2, . . . , 5 are 0.05, 0.3, 0.3, 0.3,
+0.05, and the observed values in the cells are 1, 4, 11, 4, 0. These lead to
+values Zi = 0, −2, 3, 1, 0. Best and Rayner use their statistics V 2
+1 and V 2
+2 ,
+which, asymptotically, have χ2
+1 distributions and are independent, and also
+the statistic V 2
+1 + V 2
+2 , with asymptotic χ2
+2 distribution. They obtain values
+V 2
+1 = 0.2, V 2
+2 = 2.666, V 2
+1 + V 2
+2 = 2.866, and give p-values 0.605, 0.103,
+0.077. The ﬁrst and last of these are incorrect; they should be 0.655 and
+0.239. They also calculate Pearson’s X2 statistic = 6.5 (correct) and give the
+incorrect p-value 0.0034 and reject H0, inviting us to “better” their results.
+We start by giving the correct p-value for X2 = 6.5 on 4 d. f., which is 0.165
+— then H0 cannot be rejected even at the 10% level. If A2 is used as the
+test statistic, the eigenvalues of ΣX are λi = 0.515, 0.258, 0.133 and 0.044,
+and the value of A2 is 1.173; this has p-value 0.280 when compared with
+distribution (8). If A2
+m is used, the λi are 1.834, 0.987, 0.757, 0.422, and
+A2
+m = 3.910, with p-value 0.396.
+Clearly the null hypothesis cannot be
+rejected.
+5
+Power studies
+We now consider the power of the Cram´er-von Mises statistics for test-
+ing uniform pi, especially against trend alternatives. The natural statistic
+for comparison is Pearson’s X2, which is usually used for discrete distribu-
+tions, but we include also the Kolmogorov-Smirnov statistics S+, S−, and
+S, which were studied by Pettitt and Stephens (1977). These are deﬁned by
+S+ = maxj Zj; S−= maxj(−Zj); S = max(S+, S−). Pettitt and Stephens
+compared S with X2, using certain families indexed by a constant δ, called
+A1(δ) and A2(δ), as alternatives to equal values of the pj. For family A1(δ),
+pi = {iδ −(i −1)δ}/δ, i = 1, . . . , k. If δ = 2, pi = (2i −1)/n2, and the
+pi increase linearly. For family A2(δ), pi = 1/n −δ, for 1 ≤i ≤n/2, and
+9
+
+--- Page 10 ---
+pi = 1/n + δ for n/2 < i ≤n.
+For family A1, there is a steady trend,
+and for family A2 there are two blocks of equal values of the pi. Two other
+alternatives have been added, called A3 and A4; these have cell probabilities
+which are U-shaped — symmetric around the centre cells, and with higher
+probabilities at the ends.
+Table 2 gives power results for Monte Carlo samples of size 20, for the test
+of H0: all pi equal (to 1/n), against the alternatives shown. It is clear that
+EDF statistics are much better than the familiar X2 when the alternative is
+a trend in the values of the pi. For the U-shaped pi, U2 is the best statistic,
+a result corresponding to continuous data, where U2 detects a change in
+variance rather than mean, but A2 still holds its own against X2. Since
+trend alternatives are often likely to be the case, A2 is recommended as an
+omnibus test statistic. Of course, if the direction of trend is known, either
+S+ or S−can do better, as is seen from the Table.
+6
+Use of components
+We have seen that each statistic may be decomposed into components,
+such that the entire statistic, for example A2, is a weighted sum of the com-
+ponents. The individual components can be expected to describe certain fea-
+tures of the data, and the importance of each component is assessed by the
+weight it is given. Several authors have discussed components — for exam-
+ple, for W 2, Durbin and Knott (1972) and Durbin, Knott and Taylor (1975);
+for W 2, U2 and A2, Stephens (1974); for X2, and for Neyman–Barton tests,
+Lancaster(1969), Rayner and Best (1989). It has been suggested that the
+components be examined in order, and used as test statistics by comparing
+them to their (asymptotic) χ2
+1 distributions. In addition, diﬀerences of the
+type A2 −λ1s2
+1, A2 −λ1s2
+1 −λ2s2
+2, etc., can be compared to their asymptotic
+distributions.
+We shall concentrate our discussion on the use of components with tests
+for discrete distributions and, in particular, for the discrete uniform dis-
+tribution. The statistic X2 is an interesting special case; because the λi
+are all equal to 1 it may be decomposed in many diﬀerent ways. For the
+uniform discrete test, Rayner and Best (1989) use Chebyshev polynomials
+to decompose X2. These are successively constant, linear, quadratic, etc.,
+and are equivalent to using the mean, variance, third moment, etc. of the
+cell numbers. Thus a signiﬁcant low-order component can be interpreted in
+terms of fairly simple departures from the tested distribution. In section 3
+we have shown that the components of A2 and A2
+m are also based on Cheby-
+10
+
+--- Page 11 ---
+shev polynomials and lead to similar components. Neyman-Barton tests for
+discrete distributions again use the same polynomials. The diﬀerence in the
+various statistics is that the X2 and Neyman-Barton tests give the successive
+components equal weights while A2 and A2
+m give them decreasing weights.
+When distributions are tested where the cells have unequal probabilities,
+as in Example 3 above, it is still possible to deﬁne polynomials in cell num-
+bers of increasing order for use in decomposing X2. Rayner and Best (1989,
+Appendix 3) give formulas for the ﬁrst two such components; (but note two
+errors: their Vr should be divided by n1/2, and in the constant C the coef-
+ﬁcient of S3 should be −2A2Y .) However, the components of A2 or A2
+m are
+no longer simple polynomials which are interpretable in terms of successive
+moments of cell numbers. We illustrate with Example 3. The four compo-
+nents of A2 are 0.369, 1.506, 4.397 and 0.229; the third of these is signiﬁcant
+at the 5% level, with p = 0.036. The components of A2
+m are 0.239, 1.313,
+0.261, and 4.687, and here it is the fourth component which is signiﬁcant at
+the 5% level, with p = 0.030. Notice that both sets of components add to
+6.5 which is the value of X2.
+Even if components are directly interpretable in terms of sample mo-
+ments of cell numbers, one may question the use of a goodness of ﬁt statis-
+tic to test, say, that the mean is correct. For a parametric alternative, for
+example, there might be a better test available from likelihood ratio test
+theory.
+An important objection to testing components in order, even though
+components of the Chebyshev type are attractive for the reasons given above,
+is that in general, it is diﬃcult to decide where to stop — and, of course, if
+the data is used to make the decision, it is impossible to assess the correct
+α-level of the overall procedure. It is also diﬃcult to establish a stopping
+rule independent of the data, because the “best” number of components to
+use depends on the tested distribution and also the type of alternative it
+is desired to detect. The question is especially acute for X2 and Neyman-
+Barton tests, both of which give components equal weights. Authors who
+have discussed how many components of these test statistics to use include
+Miller and Quesenberry (1979), Solomon and Stephens (1983), and Rayner
+and Best (1989). There is general agreement that low order components give
+most power and after a certain order, the addition of further components
+may dilute the power. Nevertheless, for some alternatives, the departure
+from the null may be detected only by a quite high component.
+In the
+case of the EDF statistics, W 2, U2 and A2 we recommend use of the entire
+statistic for testing and components, when the statistic is signiﬁcant, to
+examine where the departure lies when this can be easily interpreted. This
+11
+
+--- Page 12 ---
+recommendation is based on three properties of these statistics. They are
+easily calculated directly from the deﬁnitions, they are based on natural
+measures of diﬀerence between the tested and observed distributions, and
+the components are given decreasing weights – thus dilution is taken care of
+in a natural way without totally omitting higher components. The power
+studies in section 6 bear out the overall eﬀectiveness of the statistics used
+in this way.
+The statistic U2 is an interesting special case. This statistic can be used
+for cells along a line but as we have shown it is the natural statistic for
+observations around a circle because it does not depend on which cell is
+considered the ﬁrst. An important alternative to uniformity, for example
+with monthly data, would be a periodic distribution of cell counts.
+The
+individual components of U2 depend on the origin; however, the sum of the
+two components for the same eigenvalue will be independent of the origin.
+Such “double” components are asymptotically distributed χ2
+2. There is one
+extra component which is itself cyclically invariant and is asymptotically χ2
+1.
+The ﬁrst components have a natural interpretation in terms of frequencies
+of a cyclic departure from the null. For example the ﬁrst of these “dou-
+ble” components, if signiﬁcant, shows a departure from uniformity with 1
+peak and 1 trough 6 months apart; the second double component shows a
+departure with 2 peaks and 2 troughs separated by 3 months, etc. This
+continues until the ﬁnal component represents peaks and troughs occurring
+every other month. In example 2, the ﬁrst 5 double components are 6.636,
+3.489, 1.136, 1.375, 1.637 while the last single component is 4.455. The ﬁrst
+and last are signiﬁcant with P-values 0.036 and 0.035. The signiﬁcant ﬁrst
+double component indicates a cyclic eﬀect with period 1 year, but the last
+is more diﬃcult to interpret.
+6.1
+The Z-plot
+One method of examining the data is to plot the values of Zj against j.
+It is useful also to plot the values of wij (or −wij) against j, when the w
+pattern can be interpreted usefully in relation to the tested distribution. For
+example, consider the components of A2 for the discrete uniform test; the
+components wij of wi, as i increases are successively constant, linear in j,
+quadratic in j, etc. If s2
+1 is large the Zj take roughly the same pattern as the
+w1j. This indicates a shift in mean. This is so because s1 is proportional
+to Pk
+0 Zj = −P j(oj −ej) which is the sample mean minus its expected
+value. Similarly if s2
+2 is large the Zj are approximately linear, indicating a
+shift in variance, and so on. A plot, carefully interpreted, can give more
+12
+
+--- Page 13 ---
+information than a test based on a single component much as a plot of
+residuals after ﬁtting a regression is more informative than a simple test for
+homoscedasticity.
+We illustrate this procedure by plotting the Z-plot and the plots of
+−w1 and −w2 for Example 1 in Figure 1. The Z values are all negative
+indicating clearly that the observed distribution is stochastically larger that
+the hypothesized. If the values were closer than they are to −w1 this would
+indicate a direct shift in mean; the merit of the plot lies in showing the more
+subtle eﬀect of stochastic ordering.
+If the cells do not have equal probabilities the wi arising form either
+A2 or A2
+m are more diﬃcult to interpret. This is demonstrated by Figure 2
+in which we plot w3 for A2 and w4 for A2
+m for Example 3. These are the
+eigenvectors which yield the largest components in the respective statistics.
+Consider the statistic A2. The Z-plot is reasonably close to w3, which
+is roughly cubic. This can be interpreted as a diﬀerence in the length of
+the tails. For statistic A2
+m the Z-plot is close to the plot of w4. This is
+even closer to a cubic polynomial and is much easier to interpret. (The fact
+that the tested distribution is symmetric makes the interpretation of the
+w’s easier. In general, corresponding eigenvectors become increasingly more
+diﬃcult to interpret as the cell probabilities depart from uniformity.) With
+reference to the example we can make no strong conclusions since neither
+the overall statistic A2 nor A2
+m was close to being signiﬁcant. We give the Z-
+plots to demonstrate the possibilities but also the diﬃculties of interpreting
+a single signiﬁcant component when the tested distribution is not uniform.
+Similarly if the Z-plot crosses the axis once a diﬀerence in variability is
+indicated.
+References
+Best, D. J. and Rayner, J. C. W. (1987) Goodness-of-ﬁt for grouped data
+using components of Pearson’s X2. Computational Statistics and Data
+Analysis, 5, 53-57.
+Conover, W. J. (1972) A Kolmogorov goodness-of-ﬁt test of continuous
+distributions.
+Journal of the American Statistical Association, 67,
+591-596.
+de Wet, T. and Venter, J. H. (1973) Asymptotic distributions for quadratic
+forms with applications to tests of ﬁt. Annals of Statistics 2, 380-387.
+13
+
+--- Page 14 ---
+Durbin, J. and Knott, M. (1972) Components of Cram´er-von Mises statis-
+tics, I. Journal of the Royal Statist. Soc. B, 34, 290-306.
+Durbin, J., Knott, M. and Taylor, C. C. (1975) Components of Cram´er-von
+Mises statistics, II. Journal of the Royal Statist. Soc. B, 37, 290-307.
+Edwards, J. H. (1961) The recognition and estimation of cyclic trends.
+Ann. Hum. Gen. 25, 83-86.
+Erdelyi, A. (1953) Higher transcendental functions. Bateman Project, 2.
+New York: McGraw Hill.
+Freedman, L. S. (1981) Watson’s U2
+N statistic for a discrete distribution.
+Biometrika, 68, 708-711.
+Hirotsu, C. (1986) Cumulative chi-squared statistic as a tool for testing
+goodness of ﬁt. Biometrika, 73, 165-174.
+Horn, S. D. (1977) Goodness-of-ﬁt tests for discrete data: a review and an
+application to a health impairment scale. Biometrics, 33, 237–248.
+Imhof, J. P. (1961).
+Computing the distribution of quadratic forms in
+normal variables. Biometrika, 48, 419–426.
+Lancaster, H. O. (1969) The Chi-Squared Distribution. New York: Wiley.
+Miller, R. L. and Quesenberry, C. P. (1979) Power studies of tests for
+uniformity, II. Commun. Statist. B - Simulation and Computation, 8,
+271-290.
+Nair, V. N. (1987) Chi-squared-type tests for ordered alternatives in con-
+tingency tables. Journal of the American Statistical Association, 87,
+283-291.
+Pettitt, A. N. and Stephens, M. A. (1977) The Kolmogorov-Smirnov goodness-
+of-ﬁt statistic with discrete and grouped data.
+Technometrics, 19,
+205-210.
+Rayner, J. C. W. and Best, D. J. (1989) Smooth Tests of Goodness of Fit.
+New York: Oxford University Press.
+Schmid, P. (1958) On the Kolmogorov and Smirnov limit theorems for
+discontinuous distribution functions Ann. Math. Statist. 29, 1011-
+1027.
+14
+
+--- Page 15 ---
+Siegel, S. (1956) Non-parametric statistics for the behavioural Sciences.
+New York: McGraw Hill.
+Solomon, H. and Stephens, M. A. (1983) On Neyman’s statistic for testing
+uniformity. Commun. Statist. B - Simulation and Computation, 12,
+127-134.
+Stephens, M. A. (1974) Components of goodness-of-ﬁt statistics. Annals
+Inst. Henri Poincare, B, 10, 37-54.
+Stephens, M. A. (1986) Tests based on EDF statistics.
+Chapter 4 in
+Goodness-of-Fit Techniques (R. B. d’Agostino and M. A. Stephens,
+eds.) New York: Marcel Dekker.
+Wood, C. L. and Altavela, M. M. (1978) Large-sample results for Kolmogorov-
+Smirnov statistics for discrete distributions. Biometrika 65, 235–239.
+15

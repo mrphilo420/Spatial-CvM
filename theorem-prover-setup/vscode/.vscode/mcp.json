@@ -1,0 +1,15 @@
+{
+  "name": "AI Theorem Prover",
+  "description": "AI-Assisted Mathematical Theorem Proving in VS Code",
+  "version": "1.0.0",
+  "mcpServers": {
+    "theorem-prover": {
+      "command": "python3",
+      "args": ["~/theorem-prover-setup/vscode/hermes-mcp-server.py"]
+    }
+  },
+  "recommended_extensions": [
+    "leanprover.lean4",
+    "anthropic.claude-code"
+  ]
+}

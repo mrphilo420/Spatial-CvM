@@ -1,0 +1,139 @@
+-- ============================================================================
+-- DEFINITION 2.4: Copula and Copula Density
+-- DEFINITION 2.7: Smoothed Empirical CDF
+-- DEFINITION 2.8: Empirical Process and CvM Statistic
+-- ============================================================================
+
+import SpatialCvM.Definitions.Basic
+import SpatialCvM.Definitions.Kernel
+import Mathlib.MeasureTheory.Measure.ProbabilityMeasure
+import Mathlib.Probability.CDF
+
+namespace SpatialCvM.Definitions.Copula
+
+open MeasureTheory ProbabilityTheory
+
+-- ============================================================================
+-- 2.4 Copula Framework
+-- ============================================================================
+
+/-- Spatial copula at locations s, t ∈ D
+
+    Definition 2.4 (Copula):
+    The spatial copula at locations s, t is the function
+    C_{s,t} : [0,1]² → [0,1] defined by:
+
+    C_{s,t}(u, v) = P(F(X(s)) ≤ u, F(X(t)) ≤ v)
+
+    where F is the marginal CDF. This captures the dependence structure
+    between X(s) and X(t) on the uniform scale.
+    -/
+def spatialCopula {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (s t : Fin d → ℝ) (u v : ℝ) : ℝ :=
+  ℙ {ω | marginalDistribution X (X s ω) ≤ u ∧ marginalDistribution X (X t ω) ≤ v}
+
+/-- Copula density (when joint distribution is absolutely continuous)
+
+    c_{s,t}(u, v) = ∂²/(∂u∂v) C_{s,t}(u, v)
+
+    Under strict stationarity, c_{s,t} depends only on the displacement s - t.
+    -/
+def copulaDensity {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (s t : Fin d → ℝ) (u v : ℝ) : ℝ :=
+  -- Placeholder: requires Radon-Nikodym derivative
+  0
+
+-- ============================================================================
+-- Probability Integral Transform
+-- ============================================================================
+
+/-- Probability integral transform T_i = F_0(X(s_i))
+
+    Under the null hypothesis, F_0 is the hypothesized CDF.
+    The transform maps observations to [0,1] uniformly if the null is true.
+    -/
+def probabilityIntegralTransform {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (F0 : ℝ → ℝ) (s : Fin d → ℝ) (ω : Ω) : ℝ :=
+  F0 (X s ω)
+
+-- ============================================================================
+-- 2.7 Smoothed Empirical CDF (Definition 2.7)
+-- ============================================================================
+
+/-- Smoothed empirical CDF Ĥ_{n,h}(t)
+
+    Definition 2.7 (Smoothed Empirical CDF):
+    The fixed-bandwidth smoothed empirical CDF is:
+
+    Ĥ_{n,h}(t) = (1/n) Σᵢ ∫_{-∞}^t K_h(r - F_0(X(s_i))) dr
+
+    where:
+    - F_0 is the null distribution
+    - s₁, ..., sₙ are sampling locations
+    - K_h is the scaled kernel
+
+    This smooths the indicator function via kernel convolution.
+    -/
+def smoothedEmpiricalCDF {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (sampling : Fin n → Fin d → ℝ) (F0 : ℝ → ℝ)
+    (K : (Fin d → ℝ) → ℝ) (h : ℝ) (hh : h > 0) (t : ℝ) : ℝ :=
+  let n' := n
+  (1 / n') * ∑ i : Fin n,
+    ∫ r in Set.Iic t, Kernel.scaledKernel K h hh (fun _ ↦ r - F0 (X (sampling i) sorry))
+
+-- ============================================================================
+-- 2.8 Empirical Process and CvM Statistic (Definition 2.8)
+-- ============================================================================
+
+/-- Fixed-bandwidth empirical process Ẑ_n(t)
+
+    Definition 2.8 (Empirical Process):
+    The centered and scaled empirical process is:
+
+    Ẑ_n(t) = √n · (Ĥ_{n,h}(t) - H_0(t))
+
+    where H_0(t) = t under the null hypothesis of uniformity.
+
+    This is the fundamental object for asymptotic analysis.
+    -/
+def empiricalProcess {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (sampling : Fin n → Fin d → ℝ) (F0 : ℝ → ℝ)
+    (K : (Fin d → ℝ) → ℝ) (h : ℝ) (hh : h > 0) (t : ℝ) : ℝ :=
+  let H0 : ℝ → ℝ := fun t ↦ t  -- Under null: uniform on [0,1]
+  let Hnh := smoothedEmpiricalCDF X sampling F0 K h hh t
+  Real.sqrt n * (Hnh - H0 t)
+
+notation "Ẑ[" X "," sampling "," F0 "," K "," h "]" =>
+  empiricalProcess X sampling F0 K h (by positivity!) (fun t ↦ t)
+
+/-- Cramér-von Mises test statistic T_n
+
+    Definition 2.8 (CvM Statistic):
+    The fixed-bandwidth CvM statistic is:
+
+    T_n = ∫_0^1 Ẑ_n(t)² dt = n · ∫_0^1 (Ĥ_{n,h}(t) - t)² dt
+
+    This measures the discrepancy between the smoothed empirical
+    distribution and the null distribution.
+    -/
+def cramerVonMisesStatistic {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (sampling : Fin n → Fin d → ℝ) (F0 : ℝ → ℝ)
+    (K : (Fin d → ℝ) → ℝ) (h : ℝ) (hh : h > 0) : ℝ :=
+  ∫ t in Set.Icc 0 1, (empiricalProcess X sampling F0 K h hh t) ^ 2
+
+notation "T[" X "," sampling "," F0 "," K "," h "]" =>
+  cramerVonMisesStatistic X sampling F0 K h (by positivity!)
+
+-- ============================================================================
+-- Null Hypothesis
+-- ============================================================================
+
+/-- Null hypothesis H_0: F = F_0
+
+    The marginal distribution equals the hypothesized distribution.
+    -/
+def nullHypothesis {d : ℕ} {Ω : Type*} [MeasurableSpace Ω] [IsProbabilityMeasure (ℙ : Measure Ω)]
+    (X : (Fin d → ℝ) → Ω → ℝ) (F0 : ℝ → ℝ) : Prop :=
+  ∀ s x, marginalDistribution X x = F0 x
+
+end SpatialCvM.Definitions.Copula
